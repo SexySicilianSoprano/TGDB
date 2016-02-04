@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Show canvas. Like the name says, show the specific canvas, and if it's open already, close it.
+/// </summary>
+
 public class ShowCanvas : MonoBehaviour {
 
 	public void ToggleCanvas() {

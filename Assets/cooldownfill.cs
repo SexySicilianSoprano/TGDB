@@ -2,6 +2,11 @@
 using System.Collections;
 using UnityEngine.UI; // Required when Using UI elements.
 
+/// <summary>
+/// Cooldownfill. This code is activating the cooldown panel, and determines the speed. 
+/// TODO: Needs to be edited to fit different times.
+/// </summary>
+
 public class cooldownfill : MonoBehaviour {
 
 	public Image cooldown;
