@@ -18,16 +18,17 @@ public class UIManager : MonoBehaviour, IUIManager {
 
     //Mode Variables
     private Mode m_Mode = Mode.Normal;
+    private HoverOver hoverOver = HoverOver.Land;
 
     //Player identifier variables
     public Player primaryPlayer()
     {
-        return GetComponent<GameManager>().primaryPlayer();
+        return GetComponent<Manager>().primaryPlayer;
     }
 
     public Player enemyPlayer()
     {
-        return GetComponent<GameManager>().enemyPlayer();
+        return GetComponent<Manager>().enemyPlayer;
     }
 
     private string m_primaryPlayer
@@ -49,9 +50,9 @@ public class UIManager : MonoBehaviour, IUIManager {
     //Interface variables the UI needs to deal with
     private ISelectedManager m_SelectedManager;
     private ICamera m_Camera;
-    private IGUIManager m_GuiManager;
-    private IMiniMapController m_MiniMapController;
-    private IEventsManager m_EventsManager;
+    //private IGUIManager m_GuiManager;
+    //private IMiniMapController m_MiniMapController;
+    //private IEventsManager m_EventsManager;
 
     //Building Placement variables
     private Action m_CallBackFunction;
@@ -93,11 +94,11 @@ public class UIManager : MonoBehaviour, IUIManager {
         //Resolve interface variables
         m_SelectedManager = ManagerResolver.Resolve<ISelectedManager>();
         m_Camera = ManagerResolver.Resolve<ICamera>();
-        m_GuiManager = ManagerResolver.Resolve<IGUIManager>();
-        m_MiniMapController = ManagerResolver.Resolve<IMiniMapController>();
+        //m_GuiManager = ManagerResolver.Resolve<IGUIManager>();
+        //m_MiniMapController = ManagerResolver.Resolve<IMiniMapController>();
 
         //Attach Event Handlers
-        m_EventsManager = ManagerResolver.Resolve<IEventsManager>();
+        //m_EventsManager = ManagerResolver.Resolve<IEventsManager>();
     }
 
     // Update is called once per frame
@@ -205,7 +206,7 @@ public class UIManager : MonoBehaviour, IUIManager {
             case HoverOver.FriendlyBuilding:
                 //Select interaction
                 interactionState = InteractionState.Select;
-
+/*
                 //Unless a support item is selected
                 if (m_GuiManager.GetSupportSelected == Const.MAINTENANCE_Sell)
                 {
@@ -234,7 +235,7 @@ public class UIManager : MonoBehaviour, IUIManager {
                 else if (m_GuiManager.GetSupportSelected == Const.MAINTENANCE_Disable)
                 {
                     //Disable
-                }
+                }*/
                 break;
 
             case HoverOver.FriendlyUnit:
@@ -441,7 +442,7 @@ public class UIManager : MonoBehaviour, IUIManager {
                     m_Placed = false;
                     return;
                 }
-
+                /*
                 //We've left clicked, have we left clicked on a unit?
                 int currentObjLayer = currentObject.layer;
                 if (!m_GuiManager.Dragging && (currentObjLayer == primaryPlayer().controlledLayer || currentObjLayer == enemyPlayer().controlledLayer || currentObjLayer == 12 || currentObjLayer == 13))
@@ -456,7 +457,7 @@ public class UIManager : MonoBehaviour, IUIManager {
                 else if (!m_GuiManager.Dragging)
                 {
                     m_SelectedManager.ClearSelected();
-                }
+                }*/
                 break;
 
             case Mode.PlaceBuilding:
@@ -535,14 +536,14 @@ public class UIManager : MonoBehaviour, IUIManager {
     {
         //Zoom In/Out
         m_Camera.Zoom(sender);
-        m_MiniMapController.ReCalculateViewRect();
+        //m_MiniMapController.ReCalculateViewRect();
     }
 
     private void MouseAtScreenEdgeHandler(object sender)
     {
         //Pan
         m_Camera.Pan(sender);
-        m_MiniMapController.ReCalculateViewRect();
+        //m_MiniMapController.ReCalculateViewRect();
     }
 
     //-----------------------------------KeyBoard Handler---------------------------------

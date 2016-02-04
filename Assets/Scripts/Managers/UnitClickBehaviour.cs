@@ -14,7 +14,9 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
 {
 
     // Enumerator variables
-    private HoverOver hoverOver = HoverOver.Land;  // What is the pointer pointing at?
+    private HoverOver hoverOver = HoverOver.Land;
+    
+    // What is the pointer pointing at?
     private Mode m_Mode = Mode.Normal; // Determines mouse action when it is clicked, if normal then it's used to command units
     private InteractionState m_State = InteractionState.Nothing; // What does the selected unit do when you click
 
@@ -38,7 +40,9 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
     
     void Update()
     {
-        /*
+        //ReadStates();
+        Debug.Log(hoverOver);
+        
         switch (hoverOver)
         {
             case HoverOver.Land:
@@ -51,7 +55,7 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
                 break;
             case HoverOver.Menu:
                 break;
-        }*/
+        }
     }
 
     // This function reads the current states from UIManager
@@ -59,28 +63,27 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
     {
         m_Mode = m_UIManager.CurrentMode;
     }
-
+    
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Clickade");
         // Is it a left mouse click?
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left || eventData.button == PointerEventData.InputButton.Left && eventData.dragging)
         {
-            // Single clicked, what happens next?
+            // Single clicked or drag selected, what happens next?
             Debug.Log("Clickan");
 
-            switch (hoverOver)
+            switch (m_Mode)
             {
-                case HoverOver.FriendlyUnit:
+                case Mode.Normal:
                     // This unit is selected
-                    SetSelected();
+                    switch (m_State)
+                    {
+                        case InteractionState.Select:
+                            SetSelected();
+                            break;
+                    }
                     break;
-
-                case HoverOver.EnemyUnit:
-                    // This unit is definitely evil, can't be selected
-                    // ShowUnitInfo();
-                    break;
-
             }
         }
 
@@ -113,7 +116,8 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
                         break;
 
                     case HoverOver.EnemyUnit:
-                        // Unit is oh so evil, nothing happens
+                        // Unit is oh so evil, let's fuck him up!
+                        m_SelectedManager.GiveOrder(Orders.CreateAttackOrder(currentUnit));
                         break;
                 }
             }
@@ -123,14 +127,25 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
     // Used to determine hoverover state
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (unitTag == primaryPlayer.controlledTag)
+        switch (unitTag)
         {
-            hoverOver = HoverOver.FriendlyUnit;
+            case "Player1":
+                hoverOver = HoverOver.FriendlyUnit;
+                break;
+
+            case "Player2":
+                hoverOver = HoverOver.EnemyUnit;
+                break;
+
+            case "GUI":
+                hoverOver = HoverOver.GUI;
+                break;
+
+            case null:
+                hoverOver = HoverOver.Land;
+                break;
         }
-        else if (unitTag != primaryPlayer.controlledTag)
-        {
-            hoverOver = HoverOver.EnemyUnit;
-        }
+        
     }
 
     // Checks click events for double clicks
@@ -152,7 +167,7 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
 
     private void SetSelected()
     {
-        currentUnit.SetSelected();
+        m_SelectedManager.AddToSelected(currentUnit);
     }
 
     private void GetAllSimilarUnits()
