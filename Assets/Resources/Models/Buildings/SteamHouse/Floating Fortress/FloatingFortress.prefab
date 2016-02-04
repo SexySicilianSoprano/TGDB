@@ -13,9 +13,7 @@ GameObject:
   - 23: {fileID: 2316580}
   - 33: {fileID: 3391340}
   - 54: {fileID: 5463076}
-  - 114: {fileID: 11417252}
   - 114: {fileID: 11457512}
-  - 114: {fileID: 11412478}
   m_Layer: 8
   m_Name: FloatingFortress
   m_TagString: Player1
@@ -376,7 +374,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109602}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1400, y: -2.1, z: 1481}
+  m_LocalPosition: {x: 324.58212, y: 0.16087838, z: 162.21089}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 418746}
@@ -994,35 +992,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11412478
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 109602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f2a270259bb0450d9361f8db5364076, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvasRectT: {fileID: 0}
-  healthBar: {fileID: 0}
-  healthBarSlider: {fileID: 0}
-  objectToFollow: {fileID: 0}
-  sliderPrefab: {fileID: 0}
-  currentHealth: 0
-  maxHealth: 0
---- !u!114 &11417252
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 109602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9835c5a8637c00e44bc51b52ac79a555, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11457512
 MonoBehaviour:
   m_ObjectHideFlags: 1
