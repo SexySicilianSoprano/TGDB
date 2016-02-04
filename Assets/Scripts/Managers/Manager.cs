@@ -8,10 +8,22 @@ public class Manager : MonoBehaviour, IManager {
     public static Manager main;
 
     // Player variables
-    public Player player1;
-    public Player player2;
-    public string p1_Tag;
-    public string p2_Tag;
+    public Player primaryPlayer
+    {
+        get 
+        {
+            return GetComponent<GameManager>().primaryPlayer();
+        }
+    }
+    public Player enemyPlayer
+    {
+        get
+        {
+            return GetComponent<GameManager>().enemyPlayer();
+        }
+    }
+    public string m_primaryPlayer;
+    public string m_enemyPlayer;
 
     public int Money
     {
@@ -41,11 +53,8 @@ public class Manager : MonoBehaviour, IManager {
 
     private void AssignPlayerInfo()
     {
-        player1 = GetComponent<GameManager>().primaryPlayer();
-        player2 = GetComponent<GameManager>().enemyPlayer();
-
-        p1_Tag = player1.controlledTag;
-        p2_Tag = player2.controlledTag;
+        m_primaryPlayer = primaryPlayer.controlledTag;
+        m_enemyPlayer = enemyPlayer.controlledTag;
     }
 
     public void BuildingAdded(Building building)
