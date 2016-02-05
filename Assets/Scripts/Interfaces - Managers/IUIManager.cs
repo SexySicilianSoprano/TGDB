@@ -23,6 +23,16 @@ public interface IUIManager
 	{
 		get;
 	}       
+
+    HoverOver HoverOverState
+    {
+        get;
+    }
+
+    InteractionState CurrentState
+    {
+        get;
+    }
 	
 	bool IsCurrentUnit(RTSEntity obj);	
 	

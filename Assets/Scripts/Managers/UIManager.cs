@@ -3,6 +3,11 @@ using UnityEngine.EventSystems;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+/*
+    This component is attached to the Manager gameobject. Its purpose is to tie in
+    UI-related components and determine, what input does at which point
+
+*/
 
 public class UIManager : MonoBehaviour, IUIManager {
 
@@ -19,7 +24,8 @@ public class UIManager : MonoBehaviour, IUIManager {
     //Mode Variables
     private Mode m_Mode = Mode.Normal;
     private HoverOver hoverOver = HoverOver.Land;
-
+    private InteractionState m_State = InteractionState.Nothing;
+    
     //Player identifier variables
     public Player primaryPlayer()
     {
@@ -72,13 +78,30 @@ public class UIManager : MonoBehaviour, IUIManager {
         get;
         set;
     }
-
+    
     public Mode CurrentMode
     {
         get
         {
             return m_Mode;
         }
+    }
+
+    public HoverOver HoverOverState
+    {
+        get
+        {
+            return hoverOver;
+        }
+    }
+
+    public InteractionState CurrentState
+    {
+        get
+        {
+            return m_State;
+        }
+
     }
 
     void Awake()
@@ -104,6 +127,7 @@ public class UIManager : MonoBehaviour, IUIManager {
     // Update is called once per frame
     void Update()
     {
+        CheckHoverOver();
         switch (m_Mode)
         {
             case Mode.Normal:
@@ -120,6 +144,47 @@ public class UIManager : MonoBehaviour, IUIManager {
         }
     }
 
+
+    private void CheckHoverOver()
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(5 | 8 << 14)))
+        {
+            currentObject = hit.collider.gameObject;
+            switch (currentObject.layer)
+            {
+                case 8:
+                    Debug.Log("8");
+                    hoverOver = HoverOver.Land;
+                    break;
+                case 9:
+                    Debug.Log("9");
+
+                    hoverOver = HoverOver.;
+                    break;
+                case 10:
+                    Debug.Log("10");
+                    break;
+                case 11:
+                    Debug.Log("11");
+                    break;
+                case 12:
+                    Debug.Log("12");
+                    break;
+                case 13:
+                    Debug.Log("13");
+                    break;
+                case 14:
+                    Debug.Log("14");
+                    break;
+            }
+
+        }
+
+    }
+    
     private void ModeNormalBehaviour()
     {/*
         //Handle all non event, and non gui UI elements here
@@ -605,15 +670,23 @@ public class UIManager : MonoBehaviour, IUIManager {
     
 }
 
+public enum Identifier
+{
+    Neutral,
+    Friend,
+    Enemy,
+}
+
 public enum HoverOver
 {
     Menu,
     Land,
     GUI,
-    FriendlyUnit,
-    EnemyUnit,
-    FriendlyBuilding,
-    EnemyBuilding,
+    Ship,
+    Submarine,
+    AirUnit,
+    Building,
+    FogOfWar,
 }
 
 public enum InteractionState
