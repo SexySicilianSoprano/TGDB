@@ -83,7 +83,7 @@ public class Unit : RTSEntity{
     // Trigger reactions for unit creation
     public void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == playerLayer)
+        if (other.gameObject.layer == playerLayer && other == GetComponent<BoxCollider>())
         {
             Physics.IgnoreCollision(GetComponent<BoxCollider>(), other.GetComponent<BoxCollider>());
         }

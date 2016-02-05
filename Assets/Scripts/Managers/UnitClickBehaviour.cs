@@ -12,13 +12,32 @@ using System;
 */
 public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 {
-
-    // Enumerator variables
-    private HoverOver hoverOver = HoverOver.Land;
-    
     // What is the pointer pointing at?
-    private Mode m_Mode = Mode.Normal; // Determines mouse action when it is clicked, if normal then it's used to command units
-    private InteractionState m_State = InteractionState.Nothing; // What does the selected unit do when you click
+    private HoverOver hoverOver 
+    {
+        get
+        {
+            return m_UIManager.HoverOverState;
+        }
+    }
+
+    // Accesses the UIManager and determines mouse action when it is clicked, if normal then it's used to command units
+    private Mode m_Mode 
+    {
+        get
+        {
+            return m_UIManager.CurrentMode;
+        }
+    }   
+
+    // What does the selected unit do when you click
+    private InteractionState m_State
+    {
+        get
+        {
+            return m_UIManager.CurrentState;
+        }
+    }
 
     // Other variables that the class needs to deal with
     private IUIManager m_UIManager; // This is used to communicate with the UIManager
@@ -57,13 +76,7 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
                 break;
         }
     }
-
-    // This function reads the current states from UIManager
-    private void ReadStates()
-    {
-        m_Mode = m_UIManager.CurrentMode;
-    }
-    
+       
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Clickade");
@@ -130,19 +143,16 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
         switch (unitTag)
         {
             case "Player1":
-                hoverOver = HoverOver.FriendlyUnit;
+                
                 break;
 
             case "Player2":
-                hoverOver = HoverOver.EnemyUnit;
                 break;
 
             case "GUI":
-                hoverOver = HoverOver.GUI;
                 break;
 
             case null:
-                hoverOver = HoverOver.Land;
                 break;
         }
         
