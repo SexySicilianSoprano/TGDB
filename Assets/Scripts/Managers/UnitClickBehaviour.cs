@@ -39,6 +39,14 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
         }
     }
 
+    private Identifier m_Identifier
+    {
+        get
+        {
+            return m_UIManager.CurrentIdentifier;
+        }
+    }
+
     // Other variables that the class needs to deal with
     private IUIManager m_UIManager; // This is used to communicate with the UIManager
     private ISelectedManager m_SelectedManager; // This is used to communicate with the SelectedManager
@@ -66,9 +74,11 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
         {
             case HoverOver.Land:
                 break;
-            case HoverOver.FriendlyUnit:
+            case HoverOver.Ship:
                 break;
-            case HoverOver.EnemyUnit:
+            case HoverOver.Submarine:
+                break;
+            case HoverOver.AirUnit:
                 break;
             case HoverOver.GUI:
                 break;
@@ -101,17 +111,20 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
         }
 
         // Is it a double click?
-        if (eventData.button == PointerEventData.InputButton.Left && DoubleClickCheck(eventData) == true)
+        if (eventData.button == PointerEventData.InputButton.Left && DoubleClickCheck(eventData))
         {
+            Debug.Log("Doubury Clickan");
             // We've double clicked, what happens next?
             switch (hoverOver)
             {
-                case HoverOver.FriendlyUnit:
+                case HoverOver.Ship:
+                case HoverOver.AirUnit:
+                case HoverOver.Submarine:
                     // Select all similar units
                     // GetAllSimilarUnits();
                     break;
 
-                case HoverOver.EnemyUnit:
+                case HoverOver.Building:
                     // Unit is oh so evil, nothing happens
                     break;
 
@@ -120,17 +133,18 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
 
         if (eventData.button == PointerEventData.InputButton.Right)
         {
+            Debug.Log("Righto Clickan");
             if (m_SelectedManager.ActiveEntityCount() > 0)
             {
-                switch (hoverOver)
+                GetCommand();
+
+                switch (m_Identifier)
                 {
-                    case HoverOver.FriendlyUnit:
-                        // 
+                    case Identifier.Friend:
+                        GetCommand();
                         break;
 
-                    case HoverOver.EnemyUnit:
-                        // Unit is oh so evil, let's fuck him up!
-                        m_SelectedManager.GiveOrder(Orders.CreateAttackOrder(currentUnit));
+                    case Identifier.Enemy:
                         break;
                 }
             }
@@ -140,21 +154,7 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
     // Used to determine hoverover state
     public void OnPointerEnter(PointerEventData eventData)
     {
-        switch (unitTag)
-        {
-            case "Player1":
-                
-                break;
-
-            case "Player2":
-                break;
-
-            case "GUI":
-                break;
-
-            case null:
-                break;
-        }
+        
         
     }
 
@@ -163,7 +163,7 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
     {
         int DoubleClickTH = 1; // Double click threshold in seconds
 
-        if (eventData.clickCount == 2 && eventData.clickTime <= DoubleClickTH)
+        if (eventData.clickCount >= 2 && eventData.clickTime <= DoubleClickTH * Time.deltaTime)
         {
             // Second click happens within threshold, double click is a go
             return true;
@@ -172,6 +172,29 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
         {
             // You were either too slow or didn't click twice
             return false;
+        }
+    }
+
+    private void GetCommand()
+    {
+        switch (m_State)
+        {
+            case InteractionState.Select:
+                Debug.Log("Select " + currentUnit);
+                //SetSelected();
+                break;
+            case InteractionState.Move:
+                Debug.Log("Move");
+                //m_SelectedManager.GiveOrder(Orders.CreateMoveOrder(Input.mousePosition));
+                break;
+            case InteractionState.Attack:
+                Debug.Log("Attack " + currentUnit);
+                //m_SelectedManager.GiveOrder(Orders.CreateAttackOrder(currentUnit));
+                break;
+            case InteractionState.Deploy:
+                Debug.Log("Deploy " + currentUnit);
+                //m_SelectedManager.GiveOrder(Orders.CreateDeployOrder());
+                break;
         }
     }
 

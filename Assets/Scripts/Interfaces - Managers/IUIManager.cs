@@ -22,6 +22,7 @@ public interface IUIManager
 	Mode CurrentMode
 	{
 		get;
+        set;
 	}       
 
     HoverOver HoverOverState
@@ -30,6 +31,12 @@ public interface IUIManager
     }
 
     InteractionState CurrentState
+    {
+        get;
+        set;
+    }
+
+    Identifier CurrentIdentifier
     {
         get;
     }
