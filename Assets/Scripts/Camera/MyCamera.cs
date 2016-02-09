@@ -172,7 +172,7 @@ public class MyCamera : MonoBehaviour
 			Debug.Log (status);
 		}
 
-		//bonus rule supposed to apply MANUAL status if moving mouse cursor over screen edge
+		/*//bonus rule supposed to apply MANUAL status if moving mouse cursor over screen edge
 		//TODO: make it work lol. It works, but it doesn't center focus back to FF. Figure out how to fix it
 		else if (status == MyCameraStatusEnum.AT_PLAYER 
 		    && (Input.mousePosition.x >= Screen.width*0.98f
@@ -188,7 +188,7 @@ public class MyCamera : MonoBehaviour
 		{
 			status = MyCameraStatusEnum.MANUAL;
 			Debug.Log (status);
-		}
+		}*/
 
 		// rule 2: MANUAL to AT_PLAYER
 		else if (status == MyCameraStatusEnum.MANUAL && InputManager.instance.GetJumpBackToPlayer())
