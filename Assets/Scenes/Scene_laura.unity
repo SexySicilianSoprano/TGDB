@@ -4063,6 +4063,7 @@ GameObject:
   - 23: {fileID: 749042504}
   - 114: {fileID: 749042503}
   - 114: {fileID: 749042508}
+  - 54: {fileID: 749042509}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Player1
@@ -4156,6 +4157,21 @@ MonoBehaviour:
   stickyness: 0.1
   unit: 3
   dragCoefficient: 0.3
+--- !u!54 &749042509
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 749042502}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &783832433
 GameObject:
   m_ObjectHideFlags: 0
@@ -4412,106 +4428,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 787364259}
---- !u!1 &799533882
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 799533885}
-  - 114: {fileID: 799533884}
-  - 114: {fileID: 799533883}
-  m_Layer: 0
-  m_Name: Ocean
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &799533883
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 799533882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fddec90bb175f4468d1a1fb59a0e845, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fourierSize: 2
-  disableReadBack: 1
-  disableDisplacements: 0
-  disableSlopes: 1
-  disableFoam: 1
-  choppyness: 0
-  foamAmount: 1
-  foamCoverage: 0.1
-  windSpeed: 8
-  waveAge: 0.64
-  waveSpeed: 1
-  gridScale: 0.1
-  waveSmoothing: 2
-  slopeSmoothing: 1
-  foamSmoothing: 2
-  initSlopeSdr: {fileID: 4800000, guid: cf937d5dcb108d244908f01f11d670b1, type: 3}
-  initDisplacementSdr: {fileID: 4800000, guid: 619a4a17807fe654cac30df008eeb65c, type: 3}
-  initJacobianSdr: {fileID: 4800000, guid: 6d67df12791768640a7a90ec8f26000c, type: 3}
-  fourierSdr: {fileID: 4800000, guid: d127f3581bef1f8429da3181dc5c9a79, type: 3}
-  slopeCopySdr: {fileID: 4800000, guid: 36887ef2d1075064fb08b38b5b4c68d1, type: 3}
-  displacementCopySdr: {fileID: 4800000, guid: db9c7c0f60a12434e98dc17aedbffe3c, type: 3}
-  foamCopySdr: {fileID: 4800000, guid: 457d39e82154fa64887177abb2bcbf1e, type: 3}
-  readSdr: {fileID: 7200000, guid: 041fee007b220974b82541546097db52, type: 3}
---- !u!114 &799533884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 799533882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f96ed9e3a7527e343a24a8b9d33a4e9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  disableWarnings: 0
-  doublePrecisionProjection: 1
-  m_sun: {fileID: 0}
-  level: 0
-  heightOverlaySize: 3
-  normalOverlaySize: 2
-  foamOverlaySize: 2
-  clipOverlaySize: 3
-  defaultSkyColor: {r: 0.3764706, g: 0.5764706, b: 0.8235294, a: 1}
-  defaultOceanColor: {r: 0, g: 0.07450981, b: 0.11764706, a: 1}
-  windDir: 0
-  specularRoughness: 0.2
-  specularIntensity: 0.2
-  fresnelPower: 5
-  minFresnel: 0.02
-  foamTint: {r: 1, g: 1, b: 1, a: 1}
-  foamIntensity: 1
-  foamTexture0:
-    tex: {fileID: 0}
-    scale: {x: 1, y: 1}
-    scrollSpeed: 1
-  foamTexture1:
-    tex: {fileID: 0}
-    scale: {x: 1, y: 1}
-    scrollSpeed: 1
-  waveOverlaySdr: {fileID: 4800000, guid: 70a2b4c8bf2cf9a4f8c804238a143781, type: 3}
---- !u!4 &799533885
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 799533882}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 649.7351, y: 0, z: 133.68182}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
 --- !u!1 &808592350
 GameObject:
   m_ObjectHideFlags: 0
@@ -7303,7 +7219,7 @@ Transform:
   m_Children:
   - {fileID: 1068098743}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
 --- !u!1 &1253859202
 GameObject:
   m_ObjectHideFlags: 0
@@ -10946,7 +10862,7 @@ Prefab:
       objectReference: {fileID: 1781149345}
     - target: {fileID: 11487688, guid: a0cc482d2da03784692568b56c77c234, type: 2}
       propertyPath: underwaterMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11487688, guid: a0cc482d2da03784692568b56c77c234, type: 2}
       propertyPath: depthMode
@@ -10991,6 +10907,10 @@ Prefab:
     - target: {fileID: 11400362, guid: a0cc482d2da03784692568b56c77c234, type: 2}
       propertyPath: gridScale
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11475164, guid: a0cc482d2da03784692568b56c77c234, type: 2}
+      propertyPath: reflectionMask.m_Bits
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a0cc482d2da03784692568b56c77c234, type: 2}
