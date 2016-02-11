@@ -1,8 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+/*
+    This component is attached to the Manager gameobject. Its purpose is to tie in
+    UI-related components and determine, what input does at which point.
+    It controls different states to do this.
+    This component borrows its base from an old RTS Engine made by Brett Hewitt,
+    but is heavily modified and altered to suit TGDB's needs.
+
+    - Karl Sartorisio
+    The Great Deep Blue
+*/
 
 public class UIManager : MonoBehaviour, IUIManager {
 
@@ -12,14 +23,18 @@ public class UIManager : MonoBehaviour, IUIManager {
     //Managers
     public static CursorManager m_CursorManager;
 
-    //Action Variables
-    
+    // Mouse Event
+    public Event MouseEvent = Event.current;
+
+    // Action variables
     private GameObject currentObject;
 
     //Mode Variables
     private Mode m_Mode = Mode.Normal;
     private HoverOver hoverOver = HoverOver.Land;
-
+    private InteractionState m_State = InteractionState.Nothing;
+    private Identifier m_Identifier = Identifier.Neutral;
+    
     //Player identifier variables
     public Player primaryPlayer()
     {
@@ -72,38 +87,49 @@ public class UIManager : MonoBehaviour, IUIManager {
         get;
         set;
     }
-
+    
+    // State numerator accessors for outside scripts
     public Mode CurrentMode
     {
-        get
-        {
-            return m_Mode;
-        }
+        get { return m_Mode; }
+        set { m_Mode = CurrentMode; }
     }
 
+    public InteractionState CurrentState
+    {
+        get { return m_State; }
+        set { m_State = CurrentState; }
+    }
+
+    public HoverOver HoverOverState
+    {
+        get { return hoverOver; }
+    }
+
+    public Identifier CurrentIdentifier
+    {
+        get { return m_Identifier; }
+    }
+
+    // Instantiator for ManagerResolver
     void Awake()
     {
         main = this;
     }
 
-
     // Use this for initialization
     void Start()
     {
-        Debug.Log(primaryPlayer().controlledLayer + " swag");
         //Resolve interface variables
         m_SelectedManager = ManagerResolver.Resolve<ISelectedManager>();
         m_Camera = ManagerResolver.Resolve<ICamera>();
-        //m_GuiManager = ManagerResolver.Resolve<IGUIManager>();
-        //m_MiniMapController = ManagerResolver.Resolve<IMiniMapController>();
-
-        //Attach Event Handlers
-        //m_EventsManager = ManagerResolver.Resolve<IEventsManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        CheckHoverOver();
+        
         switch (m_Mode)
         {
             case Mode.Normal:
@@ -111,7 +137,6 @@ public class UIManager : MonoBehaviour, IUIManager {
                 break;
 
             case Mode.Menu:
-
                 break;
 
             case Mode.PlaceBuilding:
@@ -120,60 +145,87 @@ public class UIManager : MonoBehaviour, IUIManager {
         }
     }
 
-    private void ModeNormalBehaviour()
-    {/*
-        //Handle all non event, and non gui UI elements here
-        hoverOver = HoverOver.Land;
-        InteractionState interactionState = InteractionState.Nothing;
-
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    // Checks what is the mouse pointing at. Called by Update.
+    private void CheckHoverOver()
+    {
         RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        //Are we hovering over the GUI or the main screen?
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(1 << 4 | 6 << 16)))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(8 << 14)))
         {
-            //Mouse on main screen, let's do some shit
             currentObject = hit.collider.gameObject;
+
+            // What sort of an object are we pointing at?
             switch (currentObject.layer)
             {
                 case 8:
-                case 9:
-                    if (currentObject.layer == primaryPlayer.controlledLayer)
-                    {
-                        hoverOver = HoverOver.FriendlyUnit;
-                    }
-                    else
-                    {
-                        hoverOver = HoverOver.EnemyUnit;
-                    }
-
-                    break;
-
-                case 11:
-                case 17:
-                    //Terrain or shroud
                     hoverOver = HoverOver.Land;
                     break;
-
-                case 12:
-                    //Friendly Building
-                    hoverOver = HoverOver.FriendlyBuilding;
+                case 9:
+                    hoverOver = HoverOver.Ship;
                     break;
-
+                case 10:
+                    hoverOver = HoverOver.Submarine;
+                    break;
+                case 11:
+                    hoverOver = HoverOver.AirUnit;
+                    break;
+                case 12:
+                    hoverOver = HoverOver.Building;
+                    break;
                 case 13:
-                    //Enemy building
-                    hoverOver = HoverOver.EnemyBuilding;
+                    hoverOver = HoverOver.FogOfWar;
+                    break;
+                case 14:
+                    hoverOver = HoverOver.Shroud;
                     break;
             }
-            
+
+            // Let's identify the unit's owner
+            switch (currentObject.tag)
+            {
+                case "Player1":
+                    m_Identifier = Identifier.Friend;
+                    break;
+                case "Player2":
+                    m_Identifier = Identifier.Enemy;
+                    break;
+                case "Untagged":
+                    m_Identifier = Identifier.Neutral;
+                    break;
+            }        
         }
         else
         {
-            //Mouse is over GUI
-            hoverOver = HoverOver.Menu;
+            // Raycast doesn't match with any of the known elements, thus we're on GUI
+            Debug.Log("On GUI");
+            hoverOver = HoverOver.GUI;
+            m_Identifier = Identifier.Neutral;
+        }
+    }
+
+    private void GetMouseAction()
+    {
+        if (Input.GetMouseButtonDown(1) && hoverOver == HoverOver.Land && m_SelectedManager.ActiveEntityCount() > 0)
+        {
+            m_SelectedManager.GiveOrder(Orders.CreateMoveOrder(Input.mousePosition));
+            Debug.Log("Let's move, bitches!");
         }
 
-        if (hoverOver == HoverOver.Menu || m_SelectedManager.ActiveEntityCount() == 0 || m_GuiManager.GetSupportSelected != 0)
+        if (Input.GetMouseButtonDown(0) && hoverOver == HoverOver.Land && m_SelectedManager.ActiveEntityCount() > 0)
+        {
+            Debug.Log("Mouse 0 deselection");
+            m_SelectedManager.ClearSelected();
+        }
+    }
+    
+    private void ModeNormalBehaviour()
+    {
+        GetMouseAction();
+        InteractionState interactionState = InteractionState.Nothing;        
+       
+
+        if (hoverOver == HoverOver.Menu || m_SelectedManager.ActiveEntityCount() == 0 )
         {
             //Nothing orderable Selected or mouse is over menu or support is selected
             CalculateInteraction(hoverOver, ref interactionState);
@@ -181,16 +233,16 @@ public class UIManager : MonoBehaviour, IUIManager {
         else if (m_SelectedManager.ActiveEntityCount() == 1)
         {
             //One object selected
-            CalculateInteraction(m_SelectedManager.FirstActiveEntity(), hoverOver, ref interactionState);
+            CalculateInteraction(m_SelectedManager.FirstActiveEntity(), hoverOver, m_Identifier, ref interactionState);
         }
         else
         {
             //Multiple objects selected, need to find which order takes precedence									
-            CalculateInteraction(m_SelectedManager.ActiveEntityList(), hoverOver, ref interactionState);
+            CalculateInteraction(m_SelectedManager.ActiveEntityList(), hoverOver, m_Identifier, ref interactionState);
         }
 
         //Tell the cursor manager to update itself based on the interactionstate
-        m_CursorManager.UpdateCursor(interactionState);*/
+        //Cursor changing script here
     }
 
     private void CalculateInteraction(HoverOver hoveringOver, ref InteractionState interactionState)
@@ -203,56 +255,25 @@ public class UIManager : MonoBehaviour, IUIManager {
                 interactionState = InteractionState.Nothing;
                 break;
 
-            case HoverOver.FriendlyBuilding:
+            case HoverOver.Building:
                 //Select interaction
                 interactionState = InteractionState.Select;
-/*
-                //Unless a support item is selected
-                if (m_GuiManager.GetSupportSelected == Const.MAINTENANCE_Sell)
-                {
-                    //Sell
-                    if (currentObject.GetComponent<Building>().CanSell())
-                    {
-                        interactionState = InteractionState.Sell;
-                    }
-                    else
-                    {
-                        interactionState = InteractionState.CantSell;
-                    }
-                }
-                else if (m_GuiManager.GetSupportSelected == Const.MAINTENANCE_Fix)
-                {
-                    //Fix
-                    if (currentObject.GetComponent<Building>().GetHealthRatio() < 1)
-                    {
-                        interactionState = InteractionState.Fix;
-                    }
-                    else
-                    {
-                        interactionState = InteractionState.CantFix;
-                    }
-                }
-                else if (m_GuiManager.GetSupportSelected == Const.MAINTENANCE_Disable)
-                {
-                    //Disable
-                }*/
                 break;
 
-            case HoverOver.FriendlyUnit:
-            case HoverOver.EnemyUnit:
-            case HoverOver.EnemyBuilding:
+            case HoverOver.Ship:
+            case HoverOver.Submarine:
+            case HoverOver.AirUnit:
                 interactionState = InteractionState.Select;
-
                 break;
         }
     }
 
     
-    private void CalculateInteraction(IOrderable obj, HoverOver hoveringOver, ref InteractionState interactionState)
-    {/*
+    private void CalculateInteraction(IOrderable obj, HoverOver hoveringOver, Identifier identifier, ref InteractionState interactionState)
+    {
         if (obj.IsAttackable())
         {
-            if (hoverOver == HoverOver.EnemyUnit || hoverOver == HoverOver.EnemyBuilding)
+            if (identifier == Identifier.Enemy)
             {
                 //Attack Interaction
                 interactionState = InteractionState.Attack;
@@ -272,7 +293,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 
         if (obj.IsInteractable())
         {
-            if (hoverOver == HoverOver.FriendlyUnit)
+            if (identifier == Identifier.Friend)
             {
                 //Check if object can interact with unit (carry all for example)
                 if (((IInteractable)obj).InteractWith(currentObject))
@@ -294,7 +315,7 @@ public class UIManager : MonoBehaviour, IUIManager {
             }
         }
 
-        if (hoverOver == HoverOver.FriendlyBuilding)
+        if (hoverOver == HoverOver.Building && identifier == Identifier.Friend)
         {
             //Check if building can interact with object (repair building for example)
             if (currentObject.GetComponent<Building>().InteractWith(obj))
@@ -305,7 +326,7 @@ public class UIManager : MonoBehaviour, IUIManager {
             }
         }
 
-        if (hoverOver == HoverOver.FriendlyUnit || hoverOver == HoverOver.FriendlyBuilding || hoverOver == HoverOver.EnemyUnit || hoverOver == HoverOver.EnemyBuilding)
+        if (identifier == Identifier.Friend || hoverOver == HoverOver.Building || hoverOver == HoverOver.Ship || hoverOver == HoverOver.AirUnit || hoverOver == HoverOver.Submarine)
         {
             //Select Interaction
             interactionState = InteractionState.Select;
@@ -313,13 +334,11 @@ public class UIManager : MonoBehaviour, IUIManager {
         }
 
         //Invalid interaction
-        interactionState = InteractionState.Invalid; */
+        interactionState = InteractionState.Invalid;
     }
     
-
-    // TODO: 
-    // Break the loop and return the desired interaction
-    private void CalculateInteraction(List<IOrderable> list, HoverOver hoveringOver, ref InteractionState interactionState)
+    // UP FOR REVISIONING
+    private void CalculateInteraction(List<IOrderable> list, HoverOver hoveringOver, Identifier identifier, ref InteractionState interactionState)
     {
         foreach (IOrderable obj in list)
         {
@@ -327,9 +346,9 @@ public class UIManager : MonoBehaviour, IUIManager {
 
             if (ShouldInterractB)
             {
-                if (hoveringOver == HoverOver.EnemyUnit)
+                if (hoveringOver == HoverOver.Ship || hoverOver == HoverOver.Submarine || hoverOver == HoverOver.AirUnit)
                 {
-                    CalculateInteraction(obj, hoveringOver, ref interactionState);
+                    CalculateInteraction(obj, hoveringOver, identifier, ref interactionState);
                     return;
                 }
             }
@@ -337,6 +356,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         CalculateInteraction(hoveringOver, ref interactionState);
     }
 
+    // UP FOR REVISIONING
     private void ModePlaceBuildingBehaviour()
     {
         //Get current location and place building on that location
@@ -368,6 +388,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 
     }
 
+    // UP FOR DELETION
     //----------------------Mouse Button Handler------------------------------------
     private void ButtonClickedHandler()
     {
@@ -377,6 +398,8 @@ public class UIManager : MonoBehaviour, IUIManager {
     //-----------------------------------------------------------------------------
 
     //------------------------Mouse Button Commands--------------------------------------------
+
+    // UP FOR DELETION
     public void LeftButton_SingleClickDown()
     {
         switch (m_Mode)
@@ -422,6 +445,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         }
     }
 
+    // UP FOR DELETION
     public void LeftButton_DoubleClickDown()
     {
         if (currentObject.layer == primaryPlayer().controlledLayer)
@@ -431,6 +455,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         }
     }
 
+    // UP FOR DELETION
     public void LeftButton_SingleClickUp()
     {
         switch (m_Mode)
@@ -469,6 +494,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         }
     }
 
+    // UP FOR DELETION
     public void RightButton_SingleClick()
     {
         switch (m_Mode)
@@ -511,27 +537,9 @@ public class UIManager : MonoBehaviour, IUIManager {
                 SwitchToModeNormal();
                 break;
         }
-
     }
 
-    public void RightButton_DoubleClick()
-    {
-
-    }
-
-    public void MiddleButton_SingleClick()
-    {
-
-    }
-
-    public void MiddleButton_DoubleClick()
-    {
-
-    }
-    //------------------------------------------------------------------------------------------
-
-    
-
+    // UP FOR DELETION ????
     private void ScrollWheelHandler(object sender)
     {
         //Zoom In/Out
@@ -539,6 +547,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         //m_MiniMapController.ReCalculateViewRect();
     }
 
+    // UP FOR DELETION ????
     private void MouseAtScreenEdgeHandler(object sender)
     {
         //Pan
@@ -546,6 +555,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         //m_MiniMapController.ReCalculateViewRect();
     }
 
+    // UP FOR DELETION
     //-----------------------------------KeyBoard Handler---------------------------------
     private void KeyBoardPressedHandler()
     {
@@ -563,6 +573,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         SwitchToModePlacingBuilding(item, callbackFunction);
     }
 
+    // Switches the Mode to your choosing
     public void SwitchMode(Mode mode)
     {
         switch (mode)
@@ -582,6 +593,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         }
     }
 
+    // Determine what to do with this
     private void SwitchToModeNormal()
     {
         if (m_ObjectBeingPlaced)
@@ -593,6 +605,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         m_Mode = Mode.Normal;
     }
 
+    // REVISION
     private void SwitchToModePlacingBuilding(Item item, Action callBackFunction)
     {
         m_Mode = Mode.PlaceBuilding;
@@ -605,15 +618,24 @@ public class UIManager : MonoBehaviour, IUIManager {
     
 }
 
+public enum Identifier
+{
+    Neutral,
+    Friend,
+    Enemy,
+}
+
 public enum HoverOver
 {
     Menu,
     Land,
     GUI,
-    FriendlyUnit,
-    EnemyUnit,
-    FriendlyBuilding,
-    EnemyBuilding,
+    Ship,
+    Submarine,
+    AirUnit,
+    Building,
+    FogOfWar,
+    Shroud,
 }
 
 public enum InteractionState

@@ -22,7 +22,24 @@ public interface IUIManager
 	Mode CurrentMode
 	{
 		get;
+        set;
 	}       
+
+    HoverOver HoverOverState
+    {
+        get;
+    }
+
+    InteractionState CurrentState
+    {
+        get;
+        set;
+    }
+
+    Identifier CurrentIdentifier
+    {
+        get;
+    }
 	
 	bool IsCurrentUnit(RTSEntity obj);	
 	
