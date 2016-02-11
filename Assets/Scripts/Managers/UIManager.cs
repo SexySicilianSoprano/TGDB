@@ -6,8 +6,13 @@ using System.Collections;
 using System.Collections.Generic;
 /*
     This component is attached to the Manager gameobject. Its purpose is to tie in
-    UI-related components and determine, what input does at which point
+    UI-related components and determine, what input does at which point.
+    It controls different states to do this.
+    This component borrows its base from an old RTS Engine made by Brett Hewitt,
+    but is heavily modified and altered to suit TGDB's needs.
 
+    - Karl Sartorisio
+    The Great Deep Blue
 */
 
 public class UIManager : MonoBehaviour, IUIManager {
@@ -124,7 +129,7 @@ public class UIManager : MonoBehaviour, IUIManager {
     void Update()
     {
         CheckHoverOver();
-
+        
         switch (m_Mode)
         {
             case Mode.Normal:
@@ -201,14 +206,22 @@ public class UIManager : MonoBehaviour, IUIManager {
 
     private void GetMouseAction()
     {
-        if (MouseEvent.button == 1 && MouseEvent.isMouse)
+        if (Input.GetMouseButtonDown(1) && hoverOver == HoverOver.Land && m_SelectedManager.ActiveEntityCount() > 0)
         {
             m_SelectedManager.GiveOrder(Orders.CreateMoveOrder(Input.mousePosition));
+            Debug.Log("Let's move, bitches!");
+        }
+
+        if (Input.GetMouseButtonDown(0) && hoverOver == HoverOver.Land && m_SelectedManager.ActiveEntityCount() > 0)
+        {
+            Debug.Log("Mouse 0 deselection");
+            m_SelectedManager.ClearSelected();
         }
     }
     
     private void ModeNormalBehaviour()
     {
+        GetMouseAction();
         InteractionState interactionState = InteractionState.Nothing;        
        
 

@@ -7,7 +7,7 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
     // Singleton
     public static SelectedManager main;
 
-    private List<RTSEntity> m_Selected = new List<RTSEntity>();
+    private List<RTSEntity> l_Selected = new List<RTSEntity>();
     private List<IOrderable> SelectedActiveEntities = new List<IOrderable>();
     private List<int> ListOfGroups = new List<int>();
 
@@ -16,24 +16,37 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
         main = this;
     }
 
+    void Update()
+    {
+        Debug.Log(ActiveEntityCount());
+    }
+
     // ### Selection functions ###
 
     //Adds the unit to selected
     public void AddToSelected(RTSEntity unit)
     {
-        m_Selected.Add(unit);
+        if (!l_Selected.Contains(unit))
+        {
+            if (unit is IOrderable)
+            {
+                SelectedActiveEntities.Add((IOrderable)unit);
+            }
+            l_Selected.Add(unit);
+            unit.SetSelected();
+        }
     }
 
     //Removes the unit from selected
     public void RemoveFromSelected(RTSEntity unit)
     {
-        m_Selected.Remove(unit);
+        l_Selected.Remove(unit);
     }
 
     //Removes everything from selected
     public void ClearSelected()
     {
-        m_Selected.Clear();
+        l_Selected.Clear();
     }
 
     // ### Grouping functions ###
@@ -50,6 +63,7 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
     {
 
     }
+
     //Give orders to selected units
     public void GiveOrder(Order order)
     {
@@ -76,7 +90,7 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
 
     public bool IsEntitySelected(GameObject obj)
     {
-        return m_Selected.Contains(obj.GetComponent<RTSEntity>());
+        return l_Selected.Contains(obj.GetComponent<RTSEntity>());
     }
 
 }

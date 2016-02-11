@@ -6,7 +6,8 @@ using System;
 
 /*
     This component class determines what the unit does when it gets clicked.
-    It is supposed to interract with UIManager.
+    It interracts with UIManager's different states.
+
     - Karl Sartorisio
     The Great Deep Blue
 */
@@ -21,7 +22,7 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
         }
     }
 
-    // Accesses the UIManager and determines mouse action when it is clicked, if normal then it's used to command units
+    // Accesses the UIManager and determines mouse action mode when it is clicked, if normal then it's used to command units
     private Mode m_Mode 
     {
         get
@@ -69,48 +70,42 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
     {
         //ReadStates();
         Debug.Log(hoverOver);
-        
-        switch (hoverOver)
-        {
-            case HoverOver.Land:
-                break;
-            case HoverOver.Ship:
-                break;
-            case HoverOver.Submarine:
-                break;
-            case HoverOver.AirUnit:
-                break;
-            case HoverOver.GUI:
-                break;
-            case HoverOver.Menu:
-                break;
-        }
     }
        
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Clickade");
         // Is it a left mouse click?
-        if (eventData.button == PointerEventData.InputButton.Left || eventData.button == PointerEventData.InputButton.Left && eventData.dragging)
+        if (eventData.button == PointerEventData.InputButton.Left && !DoubleClickCheck(eventData))
         {
             // Single clicked or drag selected, what happens next?
             Debug.Log("Clickan");
+            
 
             switch (m_Mode)
             {
                 case Mode.Normal:
-                    // This unit is selected
-                    switch (m_State)
+
+                    if (m_State != InteractionState.Invalid)
                     {
-                        case InteractionState.Select:
+                        // Clear the active selected group
+                        if (m_SelectedManager.ActiveEntityList() != null)
+                        {
+                            EmptySelected();
+                        }
+                        // Is the unit friendly?
+                        if (currentUnit.tag == primaryPlayer.controlledTag)
+                        {
+                            Debug.Log("Selected" + currentUnit);          
                             SetSelected();
-                            break;
-                    }
+                        }
+                    }                    
                     break;
             }
         }
 
         // Is it a double click?
+        // TODO: FIX THIS
         if (eventData.button == PointerEventData.InputButton.Left && DoubleClickCheck(eventData))
         {
             Debug.Log("Doubury Clickan");
@@ -201,6 +196,11 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
     private void SetSelected()
     {
         m_SelectedManager.AddToSelected(currentUnit);
+    }
+
+    private void EmptySelected()
+    {
+        m_SelectedManager.ClearSelected();
     }
 
     private void GetAllSimilarUnits()
