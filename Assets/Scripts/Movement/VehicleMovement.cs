@@ -31,7 +31,7 @@ public class VehicleMovement : LandMovement {
 	{
 		get 
 		{
-			if (Path == null || Path.Count == 0)
+			if (path == null/*|| path.Count == 0*/)
 			{
 				return Vector3.zero;
 			}
@@ -70,8 +70,10 @@ public class VehicleMovement : LandMovement {
             }
         }
 
-        if (Path != null && Path.Count > 0)
+        if (path != null /*&& Path.Count > 0*/)
         {
+            FindPath(TargetLocation);
+
             //We have a path, lets move!
             m_PlayMovingSound = true;
             AffectedByCurrent = false;
@@ -88,8 +90,8 @@ public class VehicleMovement : LandMovement {
             if (HasReachedDestination())
             {
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
-                
-                Path.Clear();
+
+                path = null;
             }
         }
         else
@@ -143,8 +145,8 @@ public class VehicleMovement : LandMovement {
 
     // Gives the moving command
     public override void MoveTo(Vector3 location)
-    {        
-        
+    {
+        FindPath(location);
     }
 
     public override void Stop()

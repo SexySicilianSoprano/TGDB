@@ -32,15 +32,19 @@ public class Manager : MonoBehaviour, IManager {
             throw new NotImplementedException();
         }
     }
+    void Awake()
+    {
+        main = this;
+    }
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         Initialise();     
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void Update()
     {
 	
 	}

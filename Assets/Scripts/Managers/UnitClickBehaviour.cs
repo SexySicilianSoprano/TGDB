@@ -8,10 +8,15 @@ using System;
     This component class determines what the unit does when it gets clicked.
     It interracts with UIManager's different states.
 
+    Some info on on clicks:
+    - Left Single Click selects the unit when it's clicked and deselects it when clicked on the ground (Deselection handled in UIManager)
+    - Left Double Click selects all the same type of units on the screen while deselecting previously selected units
+    - Right Single Click 
+
     - Karl Sartorisio
     The Great Deep Blue
 */
-public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
+public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
 {
     // What is the pointer pointing at?
     private HoverOver hoverOver 
@@ -68,10 +73,10 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
     
     void Update()
     {
-        //ReadStates();
-        Debug.Log(hoverOver);
+
     }
        
+    // This is called when unit has been clicked
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Clickade");
@@ -125,14 +130,15 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
 
             }
         }
-
+        // Is it a right click?
         if (eventData.button == PointerEventData.InputButton.Right)
         {
+            // Why, yes it is!
             Debug.Log("Righto Clickan");
             if (m_SelectedManager.ActiveEntityCount() > 0)
             {
-                GetCommand();
-
+                GetCommand(); // Get a command that will be sent to selected units
+                /*
                 switch (m_Identifier)
                 {
                     case Identifier.Friend:
@@ -141,18 +147,11 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
 
                     case Identifier.Enemy:
                         break;
-                }
+                }*/
             }
         }
     }
-
-    // Used to determine hoverover state
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        
-        
-    }
-
+    
     // Checks click events for double clicks
     private bool DoubleClickCheck(PointerEventData eventData)
     {
@@ -180,17 +179,32 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
                 break;
             case InteractionState.Move:
                 Debug.Log("Move");
-                //m_SelectedManager.GiveOrder(Orders.CreateMoveOrder(Input.mousePosition));
+                m_SelectedManager.GiveOrder(Orders.CreateMoveOrder(Input.mousePosition));
                 break;
             case InteractionState.Attack:
                 Debug.Log("Attack " + currentUnit);
-                //m_SelectedManager.GiveOrder(Orders.CreateAttackOrder(currentUnit));
+                m_SelectedManager.GiveOrder(Orders.CreateAttackOrder(currentUnit));
                 break;
             case InteractionState.Deploy:
                 Debug.Log("Deploy " + currentUnit);
-                //m_SelectedManager.GiveOrder(Orders.CreateDeployOrder());
+                m_SelectedManager.GiveOrder(Orders.CreateDeployOrder());
                 break;
         }
+    }
+
+    private void ListenToDragged()
+    {/*
+        if (GetComponent<Renderer>().isVisible && m_guiManager.Dragging)
+        {
+            if (m_guiManager.IsWithin(transform.position))
+            {
+                m_selectedManager.AddToSelected(this);
+            }
+            else
+            {
+                m_selectedManager.RemoveFromSelected(this);
+            }
+        }*/
     }
 
     private void SetSelected()
@@ -205,6 +219,6 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
 
     private void GetAllSimilarUnits()
     {
-
+        //TODO
     }
 }

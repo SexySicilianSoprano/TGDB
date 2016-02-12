@@ -97,11 +97,16 @@ public abstract class RTSEntity : MonoBehaviour {
 
    	public void TakeDamage(float damage)
 	{
-        
+        m_Health -= damage;
+        if (m_Health <= 0)
+        {
+            Destroy(this.gameObject);
+        }
         
 	}
      
-    protected void OnDestroy() {
+    protected void OnDestroy()
+    {
         
     }
     
