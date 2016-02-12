@@ -2906,7 +2906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -6835,7 +6835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -7428,7 +7428,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1181787798
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7441,10 +7441,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1008340170}
   m_RootOrder: 4
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 27, y: -49}
+  m_SizeDelta: {x: 389, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1181787799
 MonoBehaviour:
@@ -12015,7 +12015,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11475164, guid: a0cc482d2da03784692568b56c77c234, type: 2}
       propertyPath: skyboxInReflection
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11475164, guid: a0cc482d2da03784692568b56c77c234, type: 2}
       propertyPath: blurMode
@@ -12048,6 +12048,10 @@ Prefab:
     - target: {fileID: 170234, guid: a0cc482d2da03784692568b56c77c234, type: 2}
       propertyPath: m_TagString
       value: Water
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400362, guid: a0cc482d2da03784692568b56c77c234, type: 2}
+      propertyPath: foamSmoothing
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a0cc482d2da03784692568b56c77c234, type: 2}
@@ -13492,7 +13496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
