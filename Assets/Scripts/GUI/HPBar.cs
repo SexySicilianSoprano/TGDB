@@ -2,6 +2,10 @@
 using System.Collections;
 using UnityEngine.UI;
 
+/// <summary>
+/// HPBar. This code determines how the HP Bar above game objects behave. Still need some logic work, although the basics are there!
+/// </summary>
+
 public class HPBar : MonoBehaviour {
 
     public RectTransform canvasRectT;
@@ -23,7 +27,6 @@ public class HPBar : MonoBehaviour {
         healthBar.anchoredPosition = screenPoint - canvasRectT.sizeDelta / 2f;
     }
 
-	// Update is called once per frame
 	void decreaseHealth () {
         cur_health -= 5f;
         float calc_health = cur_health / max_health;
