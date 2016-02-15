@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(RTSEntity))]
-public class HealthBarArmi : MonoBehaviour
+public class Healthbar : MonoBehaviour
 {
 
     public RectTransform canvasRectT;
@@ -31,7 +31,7 @@ public class HealthBarArmi : MonoBehaviour
         Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, objectToFollow.position);
         healthBar.anchoredPosition = screenPoint - canvasRectT.sizeDelta / 2f;
         healthBarSlider.fillAmount = GetComponent<RTSEntity>().m_Health;
-        healthBarSlider.maxValue = GetComponent<RTSEntity>().m_MaxHealth;
+       // healthBarSlider.maxValue = GetComponent<RTSEntity>().m_MaxHealth;
 
         if (gameObject.layer == 9)
         {
