@@ -163,7 +163,7 @@ public class MyCamera : MonoBehaviour
 	/// This method is called at the end of Update.
 	/// This method have rules to change between camera states.
 	/// </summary>
-	private void UpdateStatus()
+	public void UpdateStatus()
 	{
 		// rule 1: AT_PLAYER to MANUAL
 		if (status == MyCameraStatusEnum.AT_PLAYER && InputManager.instance.GetPanAxis() != Vector2.zero)
