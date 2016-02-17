@@ -134,10 +134,11 @@ GameObject:
   - 65: {fileID: 6525850}
   - 114: {fileID: 11458008}
   - 114: {fileID: 11490794}
-  - 114: {fileID: 11434710}
   - 114: {fileID: 11481636}
-  - 114: {fileID: 11424038}
-  m_Layer: 8
+  - 114: {fileID: 11402352}
+  - 114: {fileID: 11498468}
+  - 119: {fileID: 11901976}
+  m_Layer: 9
   m_Name: Destroyer
   m_TagString: Player1
   m_Icon: {fileID: 0}
@@ -337,7 +338,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 129830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 624.5311, y: 0.07381587, z: 1101.5906}
+  m_LocalPosition: {x: 326.99182, y: 0.07381587, z: 112.79278}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 479760}
@@ -704,7 +705,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: b8a29c71ece5f6d458e3e17095f775a7, type: 2}
+  - {fileID: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -805,7 +806,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 129830}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.2333515, y: 5.883217, z: 12.540939}
@@ -827,7 +828,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11424038
+--- !u!114 &11402352
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -835,28 +836,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 129830}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f2a270259bb0450d9361f8db5364076, type: 3}
+  m_Script: {fileID: 11500000, guid: aed3001cfe8ccb042899e8372dec2858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasRectT: {fileID: 0}
-  healthBar: {fileID: 0}
-  healthBarSlider: {fileID: 0}
-  objectToFollow: {fileID: 0}
-  sliderPrefab: {fileID: 0}
-  currentHealth: 0
-  maxHealth: 0
---- !u!114 &11434710
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 129830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf39df8eac03eb34ab64ed6e4b77234e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 0}
 --- !u!114 &11458008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -902,6 +884,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AffectedByCurrent: 1
   rb: {fileID: 0}
+--- !u!114 &11498468
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 129830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03aa3fb3089dcc141b2e9cbd40bb8769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  projector: {fileID: 0}
+--- !u!119 &11901976
+Projector:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 129830}
+  m_Enabled: 0
+  serializedVersion: 2
+  m_NearClipPlane: 0.1
+  m_FarClipPlane: 1
+  m_FieldOfView: 6
+  m_AspectRatio: 1
+  m_Orthographic: 0
+  m_OrthographicSize: 1
+  m_Material: {fileID: 2100000, guid: db55ebdb9473a4a80a0037f64aafccce, type: 2}
+  m_IgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!198 &19800758
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -9746,7 +9759,7 @@ ParticleSystemRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 0
   m_Materials:
-  - {fileID: 2100000, guid: 225843b6084e75440a6ea970a17c93aa, type: 2}
+  - {fileID: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -9869,7 +9882,7 @@ ParticleSystemRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 0
   m_Materials:
-  - {fileID: 2100000, guid: c50d77affeb31e14c9c062c282f13fc8, type: 2}
+  - {fileID: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -9910,7 +9923,7 @@ ParticleSystemRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 0
   m_Materials:
-  - {fileID: 2100000, guid: 225843b6084e75440a6ea970a17c93aa, type: 2}
+  - {fileID: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -9951,7 +9964,7 @@ ParticleSystemRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 0
   m_Materials:
-  - {fileID: 2100000, guid: c50d77affeb31e14c9c062c282f13fc8, type: 2}
+  - {fileID: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1

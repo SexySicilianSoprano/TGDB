@@ -106,7 +106,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         get { return m_Identifier; }
     }
 
-    // Instantiator for ManagerResolver
+    // Singleton for ManagerResolver
     void Awake()
     {
         main = this;
@@ -124,9 +124,10 @@ public class UIManager : MonoBehaviour, IUIManager {
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(isSelecting);
         CheckHoverOver();
-        
+        SelectionListener();
+        Debug.Log(hoverOver + " " + interactionState);
+
         switch (m_Mode)
         {
             case Mode.Normal:
@@ -202,7 +203,7 @@ public class UIManager : MonoBehaviour, IUIManager {
     }
 
     // Listens to mouse input actions and does shit whenever we click the mouse buttons
-    private void GetMouseAction()
+    private void GetInputAction()
     {
         // Right Mouse Button up, what happens next?
         if (Input.GetMouseButtonUp(1) && hoverOver == HoverOver.Land && m_SelectedManager.ActiveEntityCount() > 0)
@@ -226,8 +227,130 @@ public class UIManager : MonoBehaviour, IUIManager {
             // Selecting endes
             isSelecting = false;
         }
+
+        // Keypad 1 pressed
+        if (Input.GetKeyDown("1"))
+        {
+            // Are we holding down left control?
+            if (Input.GetKey(KeyCode.V))
+            {
+                // Create group 1
+                m_SelectedManager.CreateGroup(1);
+            }
+            else
+            {
+                // Select group 1
+                m_SelectedManager.SelectGroup(1);
+            }
+        }
+
+        // Keypad 2 pressed
+        if (Input.GetKeyDown("2"))
+        {
+            // Are we holding down left control? (Placeholder button is V because of retarded Unity Editor)
+            if (Input.GetKey(KeyCode.V))
+            {
+                // Create group 2
+                m_SelectedManager.CreateGroup(2);
+            }
+            else
+            {
+                // Select group 2
+                m_SelectedManager.SelectGroup(2);
+            }
+        }
+
+        // Keypad 2 pressed
+        if (Input.GetKeyDown("3"))
+        {
+            // Are we holding down left control? (Placeholder button is V because of retarded Unity Editor)
+            if (Input.GetKey(KeyCode.V))
+            {
+                // Create group 3
+                m_SelectedManager.CreateGroup(3);
+            }
+            else
+            {
+                // Select group 3
+                m_SelectedManager.SelectGroup(3);
+            }
+        }
+
+        // Keypad 4 pressed
+        if (Input.GetKeyDown("4"))
+        {
+            // Are we holding down left control? (Placeholder button is V because of retarded Unity Editor)
+            if (Input.GetKey(KeyCode.V))
+            {
+                // Create group 4
+                m_SelectedManager.CreateGroup(4);
+            }
+            else
+            {
+                // Select group 4
+                m_SelectedManager.SelectGroup(4);
+            }
+        }
+
+        // Keypad 5 pressed
+        if (Input.GetKeyDown("5"))
+        {
+            // Are we holding down left control? (Placeholder button is V because of retarded Unity Editor)
+            if (Input.GetKey(KeyCode.V))
+            {
+                // Create group 5
+                m_SelectedManager.CreateGroup(5);
+            }
+            else
+            {
+                // Select group 5
+                m_SelectedManager.SelectGroup(5);
+            }
+        }
+
+        // Keypad 6 pressed
+        if (Input.GetKeyDown("6"))
+        {
+            // Are we holding down left control? (Placeholder button is V because of retarded Unity Editor)
+            if (Input.GetKey(KeyCode.V))
+            {
+                // Create group 6
+                m_SelectedManager.CreateGroup(6);
+            }
+            else
+            {
+                // Select group 6
+                m_SelectedManager.SelectGroup(6);
+            }
+        }
+
     }
 
+    // Listens if we're selecting and provides some action for it
+    private void SelectionListener()
+    {
+        // Are we selecting?
+        if (isSelecting) 
+        {
+            // Get every item with a component called RTSEntity
+            foreach (var selectable in FindObjectsOfType<RTSEntity>()) 
+            {
+                // Is the item within selection box boundaries?
+                if (IsWithinSelectionBounds(selectable.gameObject))
+                {
+                    // The unit has to be unselected and has to be friendly
+                    if (!m_SelectedManager.ActiveEntityList().Contains((IOrderable)selectable) && selectable.tag == m_primaryPlayer) //
+                    {
+                        // Unit is not previously selected and is friendly, so let's select it and turn on the projector
+                        m_SelectedManager.AddToSelected(selectable);
+                        // TODO: projector for selected unit indication graphics
+                    }
+                }
+            }
+        }
+    }
+
+    // When selecting, is there a unit within bounds?
     public bool IsWithinSelectionBounds(GameObject gameObject)
     {
         if (!isSelecting)
@@ -236,50 +359,48 @@ public class UIManager : MonoBehaviour, IUIManager {
         }           
 
         var camera = Camera.main;
-        var viewportBounds =
-            SelectionBox.GetViewportBounds(camera, v_mousePosition, Input.mousePosition);
+        var viewportBounds = SelectionBox.GetViewportBounds(camera, v_mousePosition, Input.mousePosition);
 
-        return viewportBounds.Contains(
-            camera.WorldToViewportPoint(gameObject.transform.position));
+        return viewportBounds.Contains(camera.WorldToViewportPoint(gameObject.transform.position));
     }
 
+    // Normal input behaviour mode
     private void ModeNormalBehaviour()
     {        
-        interactionState = InteractionState.Nothing;
-        GetMouseAction();
+        // interactionState = InteractionState.Nothing;
+        GetInputAction();
 
         if (hoverOver == HoverOver.Menu || m_SelectedManager.ActiveEntityCount() == 0 )
         {
-            //Nothing orderable Selected or mouse is over menu or support is selected
+            // Nothing orderable Selected or mouse is over menu or support is selected
             CalculateInteraction(hoverOver, ref interactionState);
         }
         else if (m_SelectedManager.ActiveEntityCount() == 1)
         {
-            //One object selected
+            // One object selected
             CalculateInteraction(m_SelectedManager.FirstActiveEntity(), hoverOver, m_Identifier, ref interactionState);
         }
         else
         {
-            //Multiple objects selected, need to find which order takes precedence									
+            // Multiple objects selected, need to find which order takes precedence									
             CalculateInteraction(m_SelectedManager.ActiveEntityList(), hoverOver, m_Identifier, ref interactionState);
         }
 
-        //Tell the cursor manager to update itself based on the interactionstate
+        // Tell the cursor manager to update itself based on the interactionstate
         m_CursorManager.UpdateCursorIcon(interactionState);
     }
 
+    // Calculates interaction state by hoverover, used when nothing is selected
     private void CalculateInteraction(HoverOver hoveringOver, ref InteractionState interactionState)
     {
         switch (hoveringOver)
         {
             case HoverOver.Menu:
             case HoverOver.Land:
-                //Normal Interaction
                 interactionState = InteractionState.Nothing;
                 break;
 
             case HoverOver.Building:
-                //Select interaction
                 interactionState = InteractionState.Select;
                 break;
 
@@ -290,8 +411,8 @@ public class UIManager : MonoBehaviour, IUIManager {
                 break;
         }
     }
-
     
+    // Calculates interaction state by hoverover and identifier, used when units are selected
     private void CalculateInteraction(IOrderable obj, HoverOver hoveringOver, Identifier identifier, ref InteractionState interactionState)
     {
         if (obj.IsAttackable())
@@ -360,7 +481,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         interactionState = InteractionState.Invalid;
     }
     
-    // UP FOR REVISIONING
+    // Calculates what is the interaction with whatever we're pointing at
     private void CalculateInteraction(List<IOrderable> list, HoverOver hoveringOver, Identifier identifier, ref InteractionState interactionState)
     {
         foreach (IOrderable obj in list)
@@ -379,6 +500,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         CalculateInteraction(hoveringOver, ref interactionState);
     }
 
+    // Draws the selection box on UI
     void OnGUI()
     {
         if (isSelecting)

@@ -7,9 +7,18 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
     // Singleton
     public static SelectedManager main;
 
+    // Active selected list variables
     private List<RTSEntity> l_Selected = new List<RTSEntity>();
     private List<IOrderable> SelectedActiveEntities = new List<IOrderable>();
+
+    // Grouping variables
     private List<int> ListOfGroups = new List<int>();
+    private List<RTSEntity> l_Group1 = new List<RTSEntity>();
+    private List<RTSEntity> l_Group2 = new List<RTSEntity>();
+    private List<RTSEntity> l_Group3 = new List<RTSEntity>();
+    private List<RTSEntity> l_Group4 = new List<RTSEntity>();
+    private List<RTSEntity> l_Group5 = new List<RTSEntity>();
+    private List<RTSEntity> l_Group6 = new List<RTSEntity>();
 
     void Awake()
     {
@@ -41,6 +50,42 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
     public void RemoveFromSelected(RTSEntity unit)
     {
         l_Selected.Remove(unit);
+        unit.SetDeselected();
+    }
+
+    // Checks if the unit is within a group and deletes the unit from it
+    public void RemoveFromGroup(RTSEntity unit)
+    {
+        if (l_Group1.Contains(unit))
+        {
+            l_Group1.Remove(unit);
+        }
+        else if (l_Group2.Contains(unit))
+        {
+            l_Group2.Remove(unit);
+        }
+        else if (l_Group3.Contains(unit))
+        {
+            l_Group3.Remove(unit);
+        }
+        else if (l_Group4.Contains(unit))
+        {
+            l_Group4.Remove(unit);
+        }
+        else if (l_Group5.Contains(unit))
+        {
+            l_Group5.Remove(unit);
+        }
+        else if (l_Group6.Contains(unit))
+        {
+            l_Group6.Remove(unit);
+        }
+        else
+        {
+            //Do nothing
+            //...
+            //AHUHUHUHUHU~
+        }
     }
 
     // Removes everything from selected
@@ -52,17 +97,105 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
 
     // ### Grouping functions ###
 
-    // Create Group with selected units and give it a hotkey
+    // Add selected units to a group
     public void CreateGroup(int number)
     {
-        //TODO: Create Group-class
+        switch (number)
+        {
+            case 1:
+                foreach (RTSEntity unit in l_Selected)
+                {
+                    l_Group1.Add(unit);
+                }
+                break;
+
+            case 2:
+                foreach (RTSEntity unit in l_Selected)
+                {
+                    l_Group2.Add(unit);
+                }
+                break;
+
+            case 3:
+                foreach (RTSEntity unit in l_Selected)
+                {
+                    l_Group3.Add(unit);
+                }
+                break;
+
+            case 4:
+                foreach (RTSEntity unit in l_Selected)
+                {
+                    l_Group4.Add(unit);
+                }
+                break;
+
+            case 5:
+                foreach (RTSEntity unit in l_Selected)
+                {
+                    l_Group5.Add(unit);
+                }
+                break;
+
+            case 6:
+                foreach (RTSEntity unit in l_Selected)
+                {
+                    l_Group6.Add(unit);
+                }
+                break;
+        }
 
     }
 
     // Adds the group to selected
     public void SelectGroup(int number)
     {
+        ClearSelected();
 
+        switch (number)
+        {
+            case 1:
+                foreach (RTSEntity unit in l_Group1)
+                {
+                    AddToSelected(unit);
+                }
+            break;
+
+            case 2:
+                foreach (RTSEntity unit in l_Group2)
+                {
+                    AddToSelected(unit);
+                }
+                break;
+
+            case 3:
+                foreach (RTSEntity unit in l_Group3)
+                {
+                    AddToSelected(unit);
+                }
+                break;
+
+            case 4:
+                foreach (RTSEntity unit in l_Group4)
+                {
+                    AddToSelected(unit);
+                }
+                break;
+
+            case 5:
+                foreach (RTSEntity unit in l_Group5)
+                {
+                    AddToSelected(unit);
+                }
+                break;
+
+            case 6:
+                foreach (RTSEntity unit in l_Group6)
+                {
+                    AddToSelected(unit);
+                }
+                break;
+        }
     }
 
     // Give orders to selected units

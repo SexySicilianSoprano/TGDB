@@ -213,5 +213,6 @@ public class Unit : RTSEntity, IOrderable {
 
         //Remove object from selected manager
        m_selectedManager.RemoveFromSelected(this);
+       m_selectedManager.RemoveFromGroup(this);
     }
 }

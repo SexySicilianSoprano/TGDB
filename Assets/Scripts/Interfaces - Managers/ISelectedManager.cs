@@ -4,8 +4,9 @@ using System.Collections.Generic;
 
 public interface ISelectedManager {
 
-	void AddToSelected(RTSEntity obj);
-	void RemoveFromSelected(RTSEntity obj);
+	void AddToSelected(RTSEntity unit);
+	void RemoveFromSelected(RTSEntity unit);
+    void RemoveFromGroup(RTSEntity unit);
 	void ClearSelected();
 	void CreateGroup(int number);
 	void SelectGroup(int number);

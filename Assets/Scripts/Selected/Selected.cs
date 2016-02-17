@@ -4,6 +4,7 @@ using System.Collections;
 public class Selected : MonoBehaviour {
 
 	public Rigidbody rb;
+    public Projector projector;
 	public bool IsSelected
 	{
 		get;
@@ -20,17 +21,18 @@ public class Selected : MonoBehaviour {
 	private Vector3 m_WorldExtents;
 
     //Player identifier variables
-    private int primaryPlayer
+    private string primaryPlayer
     {
         get
         {
-            return GameObject.Find("Manager").GetComponent<GameManager>().primaryPlayer().controlledLayer;
+            return GameObject.Find("Manager").GetComponent<GameManager>().primaryPlayer().controlledTag;
         }
     }
 
     // Use this for initialization
     void Start () 
-	{		
+	{
+        projector = GetComponent<Projector>();
 		IsSelected = false;
 		FindMaxWorldSize();
 		
@@ -77,12 +79,12 @@ public class Selected : MonoBehaviour {
 	
 	public void SetSelected()
 	{
-		if (gameObject.layer == primaryPlayer)
+		if (gameObject.tag == primaryPlayer)
         {                        
             IsSelected = true;
 			m_JustBeenSelected = true;
 			m_JustBeenSelectedTimer = 0;
-			
+            projector.enabled = true;
             GetComponent<VehicleMovement>().AffectedByCurrent = false;
         }
 
@@ -91,8 +93,8 @@ public class Selected : MonoBehaviour {
 	public void SetDeselected()
 	{
 		IsSelected = false;
-		m_JustBeenSelected = false;		
-
+		m_JustBeenSelected = false;
+        projector.enabled = false;
         GetComponent<VehicleMovement>().AffectedByCurrent = true;
 	}
 	

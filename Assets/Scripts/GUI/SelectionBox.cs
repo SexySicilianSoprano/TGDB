@@ -5,7 +5,6 @@ public static class SelectionBox
 {
     static Texture2D _whiteTexture;
     public static Texture2D WhiteTexture
-
     {
         get
         {
