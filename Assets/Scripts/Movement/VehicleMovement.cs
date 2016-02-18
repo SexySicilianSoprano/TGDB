@@ -1,16 +1,16 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 [RequireComponent(typeof(RTSEntity))]
 public class VehicleMovement : LandMovement {
     
-    private NavMeshPath path;
-
     private Quaternion m_LookRotation;
     private Vector3 m_Direction;
     private bool m_PlayMovingSound = false;
     private bool m_SoundIsPlaying = false;
+    private Seeker seeker;
 
     public bool AffectedByCurrent = true;
 	public Rigidbody rb;    
@@ -26,30 +26,24 @@ public class VehicleMovement : LandMovement {
 		get;
 		private set;
 	}
-	
-	public override Vector3 TargetLocation 
-	{
-		get 
-		{
-			if (path == null/*|| path.Count == 0*/)
-			{
-				return Vector3.zero;
-			}
-			else
-			{
-				return Path[Path.Count-1];
-			}
-		}
-	}
-	
-	// Use this for initialization
-	void Start () 
-	{
-		m_Parent = GetComponent<RTSEntity>();
-		//m_CurrentTile.SetOccupied(m_Parent, false);
 
-		rb = GetComponent<Rigidbody>();
-	}
+    public override Vector3 TargetLocation
+    {
+        get
+        {
+            throw new NotImplementedException();
+        }
+    }
+    
+    // Use this for initialization
+    void Start () 
+	{
+        seeker = GetComponent<Seeker>(); // Seeker is a pathfinding component attached to each gameobject that needs to move
+		m_Parent = GetComponent<RTSEntity>(); // This unit
+        rb = GetComponent<Rigidbody>(); // This unit's rigidbody
+        //m_CurrentTile.SetOccupied(m_Parent, false);
+
+    }
 
     private new void Update()
     {
@@ -70,10 +64,9 @@ public class VehicleMovement : LandMovement {
             }
         }
 
-        if (path != null /*&& Path.Count > 0*/)
+        if (Path != null /*&& Path.Count > 0*/)
         {
-            FindPath(TargetLocation);
-
+            
             //We have a path, lets move!
             m_PlayMovingSound = true;
             AffectedByCurrent = false;
@@ -91,7 +84,7 @@ public class VehicleMovement : LandMovement {
             {
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
 
-                path = null;
+                Path = null;
             }
         }
         else
@@ -113,13 +106,7 @@ public class VehicleMovement : LandMovement {
             m_SoundIsPlaying = false;
         }
     }
-
-    private void FindPath(Vector3 location)
-    {
-        path = new NavMeshPath();
-        NavMesh.CalculatePath(m_Parent.transform.position, location, NavMesh.AllAreas, path);
-
-    }
+    
     // Turning towards the destination
     private void RotateTowards(Vector3 location)
     {
@@ -146,7 +133,7 @@ public class VehicleMovement : LandMovement {
     // Gives the moving command
     public override void MoveTo(Vector3 location)
     {
-        FindPath(location);
+        seeker.StartPath(transform.position, location, null);
     }
 
     public override void Stop()

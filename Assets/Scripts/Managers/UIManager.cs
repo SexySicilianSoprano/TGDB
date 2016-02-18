@@ -205,27 +205,33 @@ public class UIManager : MonoBehaviour, IUIManager {
     // Listens to mouse input actions and does shit whenever we click the mouse buttons
     private void GetInputAction()
     {
-        // Right Mouse Button up, what happens next?
-        if (Input.GetMouseButtonUp(1) && hoverOver == HoverOver.Land && m_SelectedManager.ActiveEntityCount() > 0)
-        {
-            // Create move order
-            m_SelectedManager.GiveOrder(Orders.CreateMoveOrder(Input.mousePosition));
-        }
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        // Left Mouse Button down, what happens?
-        if (Input.GetMouseButtonDown(0) && hoverOver == HoverOver.Land)
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(8 << 14)))
         {
-            // Deselect selected units and start selecting new units
-            m_SelectedManager.ClearSelected();
-            isSelecting = true;
-            v_mousePosition = Input.mousePosition;
-        }
+            // Right Mouse Button up, what happens next?
+            if (Input.GetMouseButtonUp(1) && hoverOver == HoverOver.Land && m_SelectedManager.ActiveEntityCount() > 0)
+            {
+                // Create move order
+                m_SelectedManager.GiveOrder(Orders.CreateMoveOrder(hit.point));
+            }
 
-        // Left Mouse Button up, what happens?
-        if (Input.GetMouseButtonUp(0))
-        {
-            // Selecting endes
-            isSelecting = false;
+            // Left Mouse Button down, what happens?
+            if (Input.GetMouseButtonDown(0) && hoverOver == HoverOver.Land)
+            {
+                // Deselect selected units and start selecting new units
+                m_SelectedManager.ClearSelected();
+                isSelecting = true;
+                v_mousePosition = Input.mousePosition;
+            }
+
+            // Left Mouse Button up, what happens?
+            if (Input.GetMouseButtonUp(0))
+            {
+                // Selecting endes
+                isSelecting = false;
+            }
         }
 
         // Keypad 1 pressed
