@@ -15,6 +15,7 @@ public class CurrentGravity : MonoBehaviour {
         if (other.gameObject.GetComponent<Building>())
         {
             other.GetComponent<Rigidbody>().AddForce(xAxis * (velocity / 100), yAxis * (velocity / 100), zAxis * (velocity / 100));
+            Debug.Log("testi");
         }
         else if (other.gameObject.GetComponent<Unit>() && other.gameObject.GetComponent<VehicleMovement>().AffectedByCurrent)
         {
