@@ -37,10 +37,10 @@ public class Selected : MonoBehaviour {
 		FindMaxWorldSize();
 		
 		//If this unit is land based subscribe to the path changed event
-		LandMovement landMovement = GetComponent<LandMovement>();
-		if (landMovement != null)
+		SeaMovement seaMovement = GetComponent<SeaMovement>();
+		if (seaMovement != null)
 		{
-			landMovement.PathChangedEvent += PathChanged;
+			seaMovement.PathChangedEvent += PathChanged;
 		}
         
 	}
@@ -85,7 +85,7 @@ public class Selected : MonoBehaviour {
 			m_JustBeenSelected = true;
 			m_JustBeenSelectedTimer = 0;
             projector.enabled = true;
-            GetComponent<VehicleMovement>().AffectedByCurrent = false;
+            GetComponent<BoatMovement>().AffectedByCurrent = false;
         }
 
 	}
@@ -95,7 +95,7 @@ public class Selected : MonoBehaviour {
 		IsSelected = false;
 		m_JustBeenSelected = false;
         projector.enabled = false;
-        GetComponent<VehicleMovement>().AffectedByCurrent = true;
+        GetComponent<BoatMovement>().AffectedByCurrent = true;
 	}
 	
 	public void AssignGroupNumber(int number)

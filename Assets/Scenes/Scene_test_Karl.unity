@@ -867,26 +867,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 11901976, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_Orthographic
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11901976, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_OrthographicSize
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 11901976, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11901976, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_FieldOfView
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 11901976, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_IgnoreLayers.m_Bits
-      value: 65056
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
   m_IsPrefabParent: 0
@@ -954,38 +934,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 866166913}
   m_Mesh: {fileID: 4300010, guid: eda7c0f6e3fe1024fb3bef6680c8df7c, type: 3}
---- !u!1 &917346880 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 129830, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-  m_PrefabInternal: {fileID: 826150708}
---- !u!114 &917346881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 917346880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  drawGizmos: 1
-  detailedGizmos: 0
-  startEndModifier:
-    priority: 1
-    addPoints: 0
-    exactStartPoint: 3
-    exactEndPoint: 3
-    useRaycasting: 0
-    mask:
-      serializedVersion: 2
-      m_Bits: 4294967295
-    useGraphRaycasting: 0
-  traversableTags: -1
-  traversableTagsCompatibility:
-    tagsChange: -1
-    tagsSet: -1
-  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 --- !u!1001 &945051149
 Prefab:
   m_ObjectHideFlags: 0
@@ -1660,7 +1608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   astarData:
-    dataString: UEsDBBQAAAgIAAAQIey5s7uRLwIAAEYEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFdUttu2kAQ/ZVqn53IFy4tbykktFWaoNCqD1UeBnuMV6x3rb0USMS/d3ZtDI4s2fJczsw5Z97Z1vGCzd7ZPxAO2YxNy02RxeloAp/zGJP0JhulSYZlNi0m2Xg62rBTxMA0mNsXsFyxWRIxblSNVvP8Tm4FocQRc5KXStf3xRbnyljDZiUIgxHTyvo+6YceQukxvN/oTdA5Sou6S2Zpm76Jb5NQQYGTx84F1A0Wa/6GXel03JbSlyqkKrBNjglSCcFNN9IeG0/zBY4sYgUH2tuPI/gK+baybJZedTyXpUEb9tNwXHBNtAMQ+6psRQg1mN2VfH52i/NzmEjHE0qVWtXfujFJTKC24vmOdsnB2F6h6+DiekMn9yB2sBH4p0L5pJZaOUnuWe2ozRlMFz1IT2FeYb4717S7DUKuGTiRdE6cPLfDXPB6Q7+3o8vv3YGbUEeBtVBezi/Ui5o0/06rBndNwKOYX+G3wV+wvZxAF37g2lhKBDBwVj1yuVtqXlwqz9EFN/aR1zzoRvZ6GhvlNFWy+6AnMXZ2rrREH2ypNShB2OOKptmhmR8y/bwP8QfIrWq17zLdgQ/LQ7CvjeNhYqX2Z/8M/nB1s1Jc2jWCzquL53iwTuMCLHg7qJ1cLvq0Ia45zZVOCDqjMIpo/o0jel6JewVSovAh9qQkkhzXn1dyk0uiBGLVbhZUIO/kWStJd0Zievk/LTU0/rgLDfslf6tVryiXpVrnGlE+h96w3uk/UEsDBBQAAAgAAAAQIewef112MgAAADIAAAASACQAZ3JhcGgwX2VkaXRvci5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BeyJsb2NrZWQiOnRydWUsInNob3dFeHRyYSI6ZmFsc2UsInBpdm90IjoiQ2VudGVyIn1QSwMEFAAACAgAABAh7K+zwOZ1AAAAgwAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQEdjLEOwiAUAP/lzZUAD4vp6tCtcTcdqO/RMggNpSbG+O8Wtxvu7gMvzltIETpAYYWBBubs1mWDTh24BzroDtZPhFKb1l0ekpU+odEK2aOlFs/WTDA2UN4rD+7J/+LmyuJDpBBn0edAfb1WKybia9pjqZocvz9QSwECLQAUAAAICAAAECHsubO7kS8CAABGBAAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAIAAAAECHsHn9ddjIAAAAyAAAAEgAkAAAAAAAAAAAAAAB8AgAAZ3JhcGgwX2VkaXRvci5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAABAh7K+zwOZ1AAAAgwAAAAkAJAAAAAAAAAAAAAAAAgMAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAwADABwBAADCAwAAAAA=
+    dataString: UEsDBBQAAAgIAAAQIewBCSkeMQIAAE4EAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFdUttu2kAQ/ZVqn53IFy4tbykktFWaoNCqD1UeBnuMV6x3rb0USMS/d3ZtDI6QbDxz5nLOmXe2dbxgs3f2D4RDNmPTclNkcTqawOc8xiS9yUZpkmGZTYtJNp6ONuwUMTAN5vYFLFdslkSMG1Wj1Ty/k1tBXeKIOclLpev7YotzZaxhsxKEwYhpZX2d9EMPAXoMzzd6UuscpUXdJbO0Td/Et0lAUODke+cC6gaLNX/DDjodt1B6E0KqAtvkmFoqIbjpRtpj42nOoTGOVo1YwYF29yNpRIV8W1n6G1+VPZelQRuW1HBccE3cQzf2VdmKWtRgdlcaJuNscjr3+jnMpWOfKrWqv/WjqK+teL57gWMOxvZKXQcX11s6uQexg43APxXKJ7XUykly0WpHZc5guuib9CzmFea7M6bdbRByzcCRpHPk5Okd5oLXG/q8HV0+7w7cBBwF1kJ5Wb9QLWrS/jutGlw2oR/F/Aq/Df6C7eUUuvAD18ZSIjQDZ9Ujl7ul5sUFeY4uuLGPvOadRdLT2CinCcnug57E2Nm50hJ9sKXWoARhjyuaZod+fsj08z7EHyC3qtW+y3SHPoSHYI+N42FipfZn/wz+cHWzUlzaNYLOq4vneLBO4wIseDuonFwu+rQhrjnNlU4IOqMwimj+jSP6vRL3CqRE4UPsSUl/39evV3KTS6IEYtVuFlQg7+RZK0l3RmJ6+T8tNTT+vgsN+yV/q1WvKJelWucaUT6H2rDe6T9QSwMEFAAACAAAABAh7B5/XXYyAAAAMgAAABIAJABncmFwaDBfZWRpdG9yLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF7ImxvY2tlZCI6dHJ1ZSwic2hvd0V4dHJhIjpmYWxzZSwicGl2b3QiOiJDZW50ZXIifVBLAwQUAAAICAAAECHsr7PA5nUAAACDAAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAR2MsQ7CIBQA/+XNlQAPi+nq0K1xNx2o79EyCA2lJsb47xa3G+7uAy/OW0gROkBhhYEG5uzWZYNOHbgHOugO1k+EUpvWXR6SlT6h0QrZo6UWz9ZMMDZQ3isP7sn/4ubK4kOkEGfR50B9vVYrJuJr2mOpmhy/P1BLAQItABQAAAgIAAAQIewBCSkeMQIAAE4EAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgAAAAQIewef112MgAAADIAAAASACQAAAAAAAAAAAAAAH4CAABncmFwaDBfZWRpdG9yLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAECHsr7PA5nUAAACDAAAACQAkAAAAAAAAAAAAAAAEAwAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAADAAMAHAEAAMQDAAAAAA==
     upgradeData: 
     data_backup: 
     file_cachedStartup: {fileID: 4900000, guid: 7a9caf1ae89185d44b0ed1abfe06586a,

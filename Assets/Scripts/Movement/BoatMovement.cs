@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System;
 
 [RequireComponent(typeof(RTSEntity))]
-public class VehicleMovement : LandMovement {
+public class BoatMovement : SeaMovement {
     
     private Quaternion m_LookRotation;
     private Vector3 m_Direction;
@@ -49,24 +49,22 @@ public class VehicleMovement : LandMovement {
     {
         base.Update();
 
-        if (Application.isEditor)
+       
+        if (Path == null)
         {
-            if (Path != null)
+        return;
+            /*for (int i = 1; i < Path.Count; i++)
             {
-                /*for (int i = 1; i < Path.Count; i++)
-                {
-                    Debug.DrawLine(Path[i - 1], Path[i]);
-                } */
-            }
-            else
-            {
-                Debug.DrawLine(transform.position, transform.position + Vector3.forward * 10);
-            }
-        }
+                Debug.DrawLine(Path[i - 1], Path[i]);
+            } */
+        }        
 
         if (Path != null /*&& Path.Count > 0*/)
         {
-            
+            if (Vector3.Distance(targetPosition, m_Parent.transform.position) < 10)
+            {
+                // Speed change
+            }
             //We have a path, lets move!
             m_PlayMovingSound = true;
             AffectedByCurrent = false;
@@ -75,16 +73,17 @@ public class VehicleMovement : LandMovement {
             //Make sure we're pointing at the target            
             if (!PointingAtTarget())
             {
-                RotateTowards(TargetLocation);
+                RotateTowards(targetPosition);
             }           
             
             UpdateCurrentTile();
 
-            if (HasReachedDestination())
+            if (currentWaypoint >= Path.vectorPath.Count || Vector3.Distance(m_Parent.transform.position, targetPosition) < 10)
             {
-                GetComponent<Rigidbody>().velocity = Vector3.zero;
-
+                rb.velocity = Vector3.zero;
                 Path = null;
+                currentWaypoint = 0;
+                return;
             }
         }
         else
@@ -120,12 +119,13 @@ public class VehicleMovement : LandMovement {
     // Onward!
     private void MoveForward()
     {
-        GetComponent<Rigidbody>().AddForce(m_Parent.transform.forward * Speed);
+        rb.AddForce(m_Parent.transform.forward * Speed);
     }
 
     // Has the unit reached its destination?
     private bool HasReachedDestination()
     {
+
         return false;
     }
 
@@ -133,17 +133,15 @@ public class VehicleMovement : LandMovement {
     // Gives the moving command
     public override void MoveTo(Vector3 location)
     {
-        seeker.StartPath(transform.position, location, null);
+        seeker.StartPath(transform.position, location, OnPathComplete);
+        targetPosition = location;
     }
 
     public override void Stop()
     {
-        if (Path != null && Path.Count > 0)
-        {
-            Vector3 nextPos = Path[0];
-            Path.Clear();
-            Path.Add(nextPos);
-        }
+        rb.velocity = Vector3.zero;
+        Path = null;
+        currentWaypoint = 0;
     }
 
     public override void Follow(Transform target)
@@ -169,7 +167,7 @@ public class VehicleMovement : LandMovement {
     private bool PointingAtTarget()
     {
         Vector3 forwardVector = transform.forward;
-        Vector3 targetVector = Path[0] - transform.position;
+        Vector3 targetVector = (Path.vectorPath[currentWaypoint]- transform.position).normalized;
 
         forwardVector.y = 0;
         targetVector.y = 0;

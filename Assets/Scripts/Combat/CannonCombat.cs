@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 
 [RequireComponent(typeof(RTSEntity))]
-public class VehicleCombat : Combat {
+public class CannonCombat : Combat {
 
     // ##### Private variables #####
     private bool TargetSet = false;
@@ -15,15 +15,18 @@ public class VehicleCombat : Combat {
 
     private Vector3 CurrentPos;
     private Vector3 TargetPos;
-    
+        
     private Transform Spawner;
     private Vector3 SpawnerPos;
+
+    private Movement m_Movement;
         
     // Use this for initialization
     void Start()
     {
         SwitchMode(CombatMode.Defensive);
         m_Parent = GetComponent<RTSEntity>();
+        m_Movement = GetComponent<Movement>();
         Spawner = m_Parent.transform.GetChild(0);        
     }
 
@@ -152,6 +155,7 @@ public class VehicleCombat : Combat {
         TargetSet = false;
         m_Target = null;
         m_Parent.AttackingEnemy = null;
+        GetComponent<Movement>().Stop();
     }
 
     public void Follow() {
