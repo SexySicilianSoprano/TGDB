@@ -38,10 +38,10 @@ public class Unit : RTSEntity, IOrderable {
 
     protected void Start()
     {
-        m_guiManager = ManagerResolver.Resolve<IGUIManager>();
+        // m_guiManager = ManagerResolver.Resolve<IGUIManager>();
         m_selectedManager = ManagerResolver.Resolve<ISelectedManager>();
         m_UIManager = ManagerResolver.Resolve<IUIManager>();
-        ManagerResolver.Resolve<IManager>().UnitAdded(this);
+        // ManagerResolver.Resolve<IManager>().UnitAdded(this);
   
         /*
 		m_IsDeployable = this is IDeployable;
@@ -52,17 +52,7 @@ public class Unit : RTSEntity, IOrderable {
 
     protected void Update()
     {
-        if (GetComponent<Renderer>().isVisible && m_guiManager.Dragging)
-        {
-            if (m_guiManager.IsWithin(transform.position))
-            {
-                m_selectedManager.AddToSelected(this);
-            }
-            else
-            {
-                m_selectedManager.RemoveFromSelected(this);
-            }
-        }
+        
     }
 
     public override void SetSelected()
@@ -223,5 +213,6 @@ public class Unit : RTSEntity, IOrderable {
 
         //Remove object from selected manager
        m_selectedManager.RemoveFromSelected(this);
+       m_selectedManager.RemoveFromGroup(this);
     }
 }

@@ -10,6 +10,7 @@ using System.Collections.Generic;
     It controls different states to do this.
     This component borrows its base from an old RTS Engine made by Brett Hewitt,
     but is heavily modified and altered to suit TGDB's needs.
+    Also to get rid of the old style script-drawn GUI bullshit.
 
     - Karl Sartorisio
     The Great Deep Blue
@@ -19,56 +20,50 @@ public class UIManager : MonoBehaviour, IUIManager {
 
     //Singleton
     public static UIManager main;
+    
+    //Input related variables
+    private bool isSelecting = false;
+    private Vector3 v_mousePosition;
 
-    //Managers
-    public static CursorManager m_CursorManager;
-
-    // Mouse Event
-    public Event MouseEvent = Event.current;
-
-    // Action variables
+    //Action variables
     private GameObject currentObject;
 
     //Mode Variables
-    private Mode m_Mode = Mode.Normal;
-    private HoverOver hoverOver = HoverOver.Land;
-    private InteractionState m_State = InteractionState.Nothing;
-    private Identifier m_Identifier = Identifier.Neutral;
+    private Mode m_Mode = Mode.Normal; // A state which determines whether we can command units normally or if the mouse functions are reserved for other purposes
+    private HoverOver hoverOver = HoverOver.Land;// A state which tells us what layer we're pointing at
+    private InteractionState interactionState = InteractionState.Nothing;// A state which determines what input actions do, only available in Mode.Normal
+    private Identifier m_Identifier = Identifier.Neutral;// Is used to determine whether the item we're pointing at is an ally, enemy or neutral
     
     //Player identifier variables
     public Player primaryPlayer()
     {
-        return GetComponent<Manager>().primaryPlayer;
+        return GetComponent<Manager>().primaryPlayer; // Returns controlling player's info
     }
 
     public Player enemyPlayer()
     {
-        return GetComponent<Manager>().enemyPlayer;
+        return GetComponent<Manager>().enemyPlayer; // Returns enemy player's info
     }
 
     private string m_primaryPlayer
     {
-        get
-        {
-            return primaryPlayer().controlledTag;
-        }
+        get { return primaryPlayer().controlledTag; }// Returns controlling player's tag
     }
 
     private string m_enemyPlayer
     {
-        get
-        {
-            return enemyPlayer().controlledTag;
-        }
+        get { return enemyPlayer().controlledTag; } // Returns enemy player's tag       
     }
 
     //Interface variables the UI needs to deal with
     private ISelectedManager m_SelectedManager;
     private ICamera m_Camera;
+    private ICursorManager m_CursorManager;
     //private IGUIManager m_GuiManager;
     //private IMiniMapController m_MiniMapController;
     //private IEventsManager m_EventsManager;
 
+    // UNDER DELETION / REVISION THREAT
     //Building Placement variables
     private Action m_CallBackFunction;
     private Item m_ItemBeingPlaced;
@@ -97,8 +92,8 @@ public class UIManager : MonoBehaviour, IUIManager {
 
     public InteractionState CurrentState
     {
-        get { return m_State; }
-        set { m_State = CurrentState; }
+        get { return interactionState; }
+        set { interactionState = CurrentState; }
     }
 
     public HoverOver HoverOverState
@@ -111,7 +106,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         get { return m_Identifier; }
     }
 
-    // Instantiator for ManagerResolver
+    // Singleton for ManagerResolver
     void Awake()
     {
         main = this;
@@ -123,13 +118,16 @@ public class UIManager : MonoBehaviour, IUIManager {
         //Resolve interface variables
         m_SelectedManager = ManagerResolver.Resolve<ISelectedManager>();
         m_Camera = ManagerResolver.Resolve<ICamera>();
+        m_CursorManager = ManagerResolver.Resolve<ICursorManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
         CheckHoverOver();
-        
+        SelectionListener();
+        Debug.Log(hoverOver + " " + interactionState);
+
         switch (m_Mode)
         {
             case Mode.Normal:
@@ -142,7 +140,7 @@ public class UIManager : MonoBehaviour, IUIManager {
             case Mode.PlaceBuilding:
                 ModePlaceBuildingBehaviour();
                 break;
-        }
+        }        
     }
 
     // Checks what is the mouse pointing at. Called by Update.
@@ -204,59 +202,211 @@ public class UIManager : MonoBehaviour, IUIManager {
         }
     }
 
-    private void GetMouseAction()
+    // Listens to mouse input actions and does shit whenever we click the mouse buttons
+    private void GetInputAction()
     {
-        if (Input.GetMouseButtonDown(1) && hoverOver == HoverOver.Land && m_SelectedManager.ActiveEntityCount() > 0)
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(8 << 14)))
         {
-            m_SelectedManager.GiveOrder(Orders.CreateMoveOrder(Input.mousePosition));
-            Debug.Log("Let's move, bitches!");
+            // Right Mouse Button up, what happens next?
+            if (Input.GetMouseButtonUp(1) && hoverOver == HoverOver.Land && m_SelectedManager.ActiveEntityCount() > 0)
+            {
+                // Create move order
+                m_SelectedManager.GiveOrder(Orders.CreateMoveOrder(hit.point));
+            }
+
+            // Left Mouse Button down, what happens?
+            if (Input.GetMouseButtonDown(0) && hoverOver == HoverOver.Land)
+            {
+                // Deselect selected units and start selecting new units
+                m_SelectedManager.ClearSelected();
+                isSelecting = true;
+                v_mousePosition = Input.mousePosition;
+            }
+
+            // Left Mouse Button up, what happens?
+            if (Input.GetMouseButtonUp(0))
+            {
+                // Selecting endes
+                isSelecting = false;
+            }
         }
 
-        if (Input.GetMouseButtonDown(0) && hoverOver == HoverOver.Land && m_SelectedManager.ActiveEntityCount() > 0)
+        // Keypad 1 pressed
+        if (Input.GetKeyDown("1"))
         {
-            Debug.Log("Mouse 0 deselection");
-            m_SelectedManager.ClearSelected();
+            // Are we holding down left control?
+            if (Input.GetKey(KeyCode.V))
+            {
+                // Create group 1
+                m_SelectedManager.CreateGroup(1);
+            }
+            else
+            {
+                // Select group 1
+                m_SelectedManager.SelectGroup(1);
+            }
+        }
+
+        // Keypad 2 pressed
+        if (Input.GetKeyDown("2"))
+        {
+            // Are we holding down left control? (Placeholder button is V because of retarded Unity Editor)
+            if (Input.GetKey(KeyCode.V))
+            {
+                // Create group 2
+                m_SelectedManager.CreateGroup(2);
+            }
+            else
+            {
+                // Select group 2
+                m_SelectedManager.SelectGroup(2);
+            }
+        }
+
+        // Keypad 2 pressed
+        if (Input.GetKeyDown("3"))
+        {
+            // Are we holding down left control? (Placeholder button is V because of retarded Unity Editor)
+            if (Input.GetKey(KeyCode.V))
+            {
+                // Create group 3
+                m_SelectedManager.CreateGroup(3);
+            }
+            else
+            {
+                // Select group 3
+                m_SelectedManager.SelectGroup(3);
+            }
+        }
+
+        // Keypad 4 pressed
+        if (Input.GetKeyDown("4"))
+        {
+            // Are we holding down left control? (Placeholder button is V because of retarded Unity Editor)
+            if (Input.GetKey(KeyCode.V))
+            {
+                // Create group 4
+                m_SelectedManager.CreateGroup(4);
+            }
+            else
+            {
+                // Select group 4
+                m_SelectedManager.SelectGroup(4);
+            }
+        }
+
+        // Keypad 5 pressed
+        if (Input.GetKeyDown("5"))
+        {
+            // Are we holding down left control? (Placeholder button is V because of retarded Unity Editor)
+            if (Input.GetKey(KeyCode.V))
+            {
+                // Create group 5
+                m_SelectedManager.CreateGroup(5);
+            }
+            else
+            {
+                // Select group 5
+                m_SelectedManager.SelectGroup(5);
+            }
+        }
+
+        // Keypad 6 pressed
+        if (Input.GetKeyDown("6"))
+        {
+            // Are we holding down left control? (Placeholder button is V because of retarded Unity Editor)
+            if (Input.GetKey(KeyCode.V))
+            {
+                // Create group 6
+                m_SelectedManager.CreateGroup(6);
+            }
+            else
+            {
+                // Select group 6
+                m_SelectedManager.SelectGroup(6);
+            }
+        }
+
+    }
+
+    // Listens if we're selecting and provides some action for it
+    private void SelectionListener()
+    {
+        // Are we selecting?
+        if (isSelecting) 
+        {
+            // Get every item with a component called RTSEntity
+            foreach (var selectable in FindObjectsOfType<RTSEntity>()) 
+            {
+                // Is the item within selection box boundaries?
+                if (IsWithinSelectionBounds(selectable.gameObject))
+                {
+                    // The unit has to be unselected and has to be friendly
+                    if (!m_SelectedManager.ActiveEntityList().Contains((IOrderable)selectable) && selectable.tag == m_primaryPlayer) //
+                    {
+                        // Unit is not previously selected and is friendly, so let's select it and turn on the projector
+                        m_SelectedManager.AddToSelected(selectable);
+                        // TODO: projector for selected unit indication graphics
+                    }
+                }
+            }
         }
     }
-    
-    private void ModeNormalBehaviour()
+
+    // When selecting, is there a unit within bounds?
+    public bool IsWithinSelectionBounds(GameObject gameObject)
     {
-        GetMouseAction();
-        InteractionState interactionState = InteractionState.Nothing;        
-       
+        if (!isSelecting)
+        {
+            return false;
+        }           
+
+        var camera = Camera.main;
+        var viewportBounds = SelectionBox.GetViewportBounds(camera, v_mousePosition, Input.mousePosition);
+
+        return viewportBounds.Contains(camera.WorldToViewportPoint(gameObject.transform.position));
+    }
+
+    // Normal input behaviour mode
+    private void ModeNormalBehaviour()
+    {        
+        // interactionState = InteractionState.Nothing;
+        GetInputAction();
 
         if (hoverOver == HoverOver.Menu || m_SelectedManager.ActiveEntityCount() == 0 )
         {
-            //Nothing orderable Selected or mouse is over menu or support is selected
+            // Nothing orderable Selected or mouse is over menu or support is selected
             CalculateInteraction(hoverOver, ref interactionState);
         }
         else if (m_SelectedManager.ActiveEntityCount() == 1)
         {
-            //One object selected
+            // One object selected
             CalculateInteraction(m_SelectedManager.FirstActiveEntity(), hoverOver, m_Identifier, ref interactionState);
         }
         else
         {
-            //Multiple objects selected, need to find which order takes precedence									
+            // Multiple objects selected, need to find which order takes precedence									
             CalculateInteraction(m_SelectedManager.ActiveEntityList(), hoverOver, m_Identifier, ref interactionState);
         }
 
-        //Tell the cursor manager to update itself based on the interactionstate
-        //Cursor changing script here
+        // Tell the cursor manager to update itself based on the interactionstate
+        m_CursorManager.UpdateCursorIcon(interactionState);
     }
 
+    // Calculates interaction state by hoverover, used when nothing is selected
     private void CalculateInteraction(HoverOver hoveringOver, ref InteractionState interactionState)
     {
         switch (hoveringOver)
         {
             case HoverOver.Menu:
             case HoverOver.Land:
-                //Normal Interaction
                 interactionState = InteractionState.Nothing;
                 break;
 
             case HoverOver.Building:
-                //Select interaction
                 interactionState = InteractionState.Select;
                 break;
 
@@ -267,8 +417,8 @@ public class UIManager : MonoBehaviour, IUIManager {
                 break;
         }
     }
-
     
+    // Calculates interaction state by hoverover and identifier, used when units are selected
     private void CalculateInteraction(IOrderable obj, HoverOver hoveringOver, Identifier identifier, ref InteractionState interactionState)
     {
         if (obj.IsAttackable())
@@ -337,7 +487,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         interactionState = InteractionState.Invalid;
     }
     
-    // UP FOR REVISIONING
+    // Calculates what is the interaction with whatever we're pointing at
     private void CalculateInteraction(List<IOrderable> list, HoverOver hoveringOver, Identifier identifier, ref InteractionState interactionState)
     {
         foreach (IOrderable obj in list)
@@ -355,6 +505,21 @@ public class UIManager : MonoBehaviour, IUIManager {
         }
         CalculateInteraction(hoveringOver, ref interactionState);
     }
+
+    // Draws the selection box on UI
+    void OnGUI()
+    {
+        if (isSelecting)
+        {
+            var rect = SelectionBox.GetScreenRect(v_mousePosition, Input.mousePosition);
+            SelectionBox.DrawScreenRect(rect, new Color(0.8f, 0.8f, 0.95f, 0.25f));
+            SelectionBox.DrawScreenRectBorder(rect, 2, new Color(0.8f, 0.8f, 0.95f));
+        }
+    }
+
+
+    
+    //-----------------------------------UP FOR DELETION / REVISION---------------------------------
 
     // UP FOR REVISIONING
     private void ModePlaceBuildingBehaviour()
@@ -388,158 +553,12 @@ public class UIManager : MonoBehaviour, IUIManager {
 
     }
 
-    // UP FOR DELETION
-    //----------------------Mouse Button Handler------------------------------------
-    private void ButtonClickedHandler()
+    private void KeyBoardPressedHandler()
     {
-        //If mouse is over GUI then we don't want to process the button clicks
-        
-    }
-    //-----------------------------------------------------------------------------
-
-    //------------------------Mouse Button Commands--------------------------------------------
-
-    // UP FOR DELETION
-    public void LeftButton_SingleClickDown()
-    {
-        switch (m_Mode)
-        {
-            case Mode.Normal:
-                //We've left clicked, what have we left clicked on?
-                int currentObjLayer = currentObject.layer;
-
-                if (currentObjLayer == primaryPlayer().controlledLayer)
-                {
-                    //Friendly Unit, is the unit selected?
-                    if (m_SelectedManager.IsEntitySelected(currentObject))
-                    {
-                        //Is the unit deployable?
-                        if (currentObject.GetComponent<Unit>())
-                        {
-                            if (currentObject.GetComponent<Unit>().IsDeployable())
-                            {
-                                
-                            }
-                        }
-                    }
-                }
-                break;
-
-            case Mode.PlaceBuilding:
-                //We've left clicked, if we're valid place the building
-                if (m_PositionValid)
-                {/*
-                    GameObject newObject = (GameObject)Instantiate(m_ItemBeingPlaced.Prefab, m_ObjectBeingPlaced.transform.position, m_ObjectBeingPlaced.transform.rotation);
-                    
-
-                    newObject.layer = primaryPlayer.controlledLayer;
-                    newObject.tag = primaryPlayer.controlledTag;
-
-                    
-                    m_CallBackFunction.Invoke();
-                    m_Placed = true;
-                    newObject.GetComponent<BoxCollider>().isTrigger = false;
-                    SwitchToModeNormal();*/
-                }
-                break;
-        }
+        //e.Command();
     }
 
-    // UP FOR DELETION
-    public void LeftButton_DoubleClickDown()
-    {
-        if (currentObject.layer == primaryPlayer().controlledLayer)
-        {
-            //Select all units of that type on screen
-
-        }
-    }
-
-    // UP FOR DELETION
-    public void LeftButton_SingleClickUp()
-    {
-        switch (m_Mode)
-        {
-            case Mode.Normal:
-                //If we've just switched from another mode, don't execute
-                if (m_Placed)
-                {
-                    m_Placed = false;
-                    return;
-                }
-                /*
-                //We've left clicked, have we left clicked on a unit?
-                int currentObjLayer = currentObject.layer;
-                if (!m_GuiManager.Dragging && (currentObjLayer == primaryPlayer().controlledLayer || currentObjLayer == enemyPlayer().controlledLayer || currentObjLayer == 12 || currentObjLayer == 13))
-                {
-                    if (!IsShiftDown)
-                    {
-                        m_SelectedManager.ClearSelected();
-                    }
-
-                    m_SelectedManager.AddToSelected(currentObject.GetComponent<RTSEntity>());
-                }
-                else if (!m_GuiManager.Dragging)
-                {
-                    m_SelectedManager.ClearSelected();
-                }*/
-                break;
-
-            case Mode.PlaceBuilding:
-                if (m_Placed)
-                {
-                    m_Placed = false;
-                }
-                break;
-        }
-    }
-
-    // UP FOR DELETION
-    public void RightButton_SingleClick()
-    {
-        switch (m_Mode)
-        {
-            case Mode.Normal:
-                //We've right clicked, have we right clicked on ground, interactable object or enemy?
-                int currentObjLayer = currentObject.layer;
-
-                if (currentObjLayer == 11 || currentObjLayer == 17 || currentObjLayer == 20)
-                {
-                    //Terrain -> Move Command
-                    //m_SelectedManager.GiveOrder(Orders.CreateMoveOrder(WorldPosClick));
-                }
-                else if (currentObjLayer == primaryPlayer().controlledLayer || currentObjLayer == 14)
-                {
-                    //Friendly Unit -> Interact (if applicable)
-                }
-                else if (currentObjLayer == enemyPlayer().controlledLayer || currentObjLayer == 15)
-                {
-                    //Enemy Unit -> Attack                    
-                    //m_SelectedManager.GiveOrder(Orders.CreateAttackOrder(e.target));
-                }
-                else if (currentObjLayer == 12)
-                {
-                    //Friendly Building -> Interact (if applicable)
-                }
-                else if (currentObjLayer == 13)
-                {
-                    //Enemy Building -> Attack                    
-                    //m_SelectedManager.GiveOrder(Orders.CreateAttackOrder(e.target));
-
-                }
-                break;
-
-            case Mode.PlaceBuilding:
-
-                //Cancel building placement
-
-
-                SwitchToModeNormal();
-                break;
-        }
-    }
-
-    // UP FOR DELETION ????
+        // UP FOR DELETION ????
     private void ScrollWheelHandler(object sender)
     {
         //Zoom In/Out
@@ -555,42 +574,10 @@ public class UIManager : MonoBehaviour, IUIManager {
         //m_MiniMapController.ReCalculateViewRect();
     }
 
-    // UP FOR DELETION
-    //-----------------------------------KeyBoard Handler---------------------------------
-    private void KeyBoardPressedHandler()
-    {
-       //e.Command();
-    }
-    //-------------------------------------------------------------------------------------
 
-    public bool IsCurrentUnit(RTSEntity obj)
-    {
-        return currentObject == obj.gameObject;
-    }
-    
     public void UserPlacingBuilding(Item item, Action callbackFunction)
     {
         SwitchToModePlacingBuilding(item, callbackFunction);
-    }
-
-    // Switches the Mode to your choosing
-    public void SwitchMode(Mode mode)
-    {
-        switch (mode)
-        {
-
-            case Mode.Normal:
-                SwitchToModeNormal();
-                break;
-
-            case Mode.Menu:
-
-                break;
-
-            case Mode.Disabled:
-
-                break;
-        }
     }
 
     // Determine what to do with this
@@ -614,6 +601,35 @@ public class UIManager : MonoBehaviour, IUIManager {
         m_ObjectBeingPlaced = (GameObject)Instantiate(m_ItemBeingPlaced.Prefab);
         m_ObjectBeingPlaced.AddComponent<BuildingBeingPlaced>();
     }
+
+    //-------------------------------------------------------------------------------------
+
+    public bool IsCurrentUnit(RTSEntity obj)
+    {
+        return currentObject == obj.gameObject;
+    }    
+
+    // Switches the Mode to your choosing
+    public void SwitchMode(Mode mode)
+    {
+        switch (mode)
+        {
+
+            case Mode.Normal:
+                SwitchToModeNormal();
+                break;
+
+            case Mode.Menu:
+
+                break;
+
+            case Mode.Disabled:
+
+                break;
+        }
+    }
+
+    
 
     
 }
