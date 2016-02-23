@@ -126,7 +126,7 @@ public class UIManager : MonoBehaviour, IUIManager {
     {
         CheckHoverOver();
         SelectionListener();
-        Debug.Log(hoverOver + " " + interactionState);
+        //Debug.log(hoverOver + " " + interactionState);
 
         switch (m_Mode)
         {
@@ -149,7 +149,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(8 << 14)))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(8 << 16)))
         {
             currentObject = hit.collider.gameObject;
 
@@ -157,6 +157,8 @@ public class UIManager : MonoBehaviour, IUIManager {
             switch (currentObject.layer)
             {
                 case 8:
+                case 16:
+                case 15:
                     hoverOver = HoverOver.Land;
                     break;
                 case 9:
@@ -196,7 +198,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         else
         {
             // Raycast doesn't match with any of the known elements, thus we're on GUI
-            Debug.Log("On GUI");
+            //Debug.log("On GUI");
             hoverOver = HoverOver.GUI;
             m_Identifier = Identifier.Neutral;
         }
@@ -465,14 +467,23 @@ public class UIManager : MonoBehaviour, IUIManager {
             }
         }
 
-        if (hoverOver == HoverOver.Building && identifier == Identifier.Friend)
+        if (hoverOver == HoverOver.Building)
         {
-            //Check if building can interact with object (repair building for example)
-            if (currentObject.GetComponent<Building>().InteractWith(obj))
+            if (identifier == Identifier.Friend)
             {
-                //Interact Interaction
-                interactionState = InteractionState.Interact;
-                return;
+                //Check if building can interact with object (repair building for example)
+                if (currentObject.GetComponent<Building>().InteractWith(obj))
+                {
+                    //Interact Interaction
+                    interactionState = InteractionState.Interact;
+                    return;
+                }
+                else
+                {
+                    //Select Interaction
+                    interactionState = InteractionState.Select;
+                    return;
+                }
             }
         }
 

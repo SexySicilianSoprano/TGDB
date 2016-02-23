@@ -2,7 +2,14 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+/*
+    This is the <BoatMovement> script. This component is added to boats to give them
+    the ability to move and navigate around. This scripts inherits from <SeaMovement>, which in turn
+    inherits from an abstract class called <Movement>.
 
+    The component interracts with <Seeker> component of A* Pathfinding Project. It also determines whether
+    the unit is affected by ocean currents or not.
+*/
 [RequireComponent(typeof(RTSEntity))]
 public class BoatMovement : SeaMovement {
     
@@ -78,11 +85,12 @@ public class BoatMovement : SeaMovement {
             
             UpdateCurrentTile();
 
-            if (currentWaypoint >= Path.vectorPath.Count || Vector3.Distance(m_Parent.transform.position, targetPosition) < 10)
+            if (currentWaypoint >= Path.vectorPath.Count || Vector3.Distance(m_Parent.transform.position, targetPosition) < 7)
             {
                 rb.velocity = Vector3.zero;
                 Path = null;
                 currentWaypoint = 0;
+                AffectedByCurrent = true;
                 return;
             }
         }

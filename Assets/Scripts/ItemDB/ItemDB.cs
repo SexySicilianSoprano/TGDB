@@ -167,10 +167,27 @@ public static class ItemDB {
         ObjectType = typeof(Laboratory),
     };
 
-    // Functions
+    // TEST TURRET
+    public static Item Turret = new Item
+    {
+        ID = 100,
+        TypeIdentifier = Const.TYPE_Building,
+        TeamIdentifier = Const.TEAM_STEAMHOUSE,
+        BuildingIdentifier = Const.BUILDING_TURRET,
+        Name = "Defense Turret",
+        Health = 200f,
+        Armour = 3.0f,
+        Explosion = Resources.Load("Effects/Prefabs/Explosion_4") as GameObject,
+        Prefab = Resources.Load("Models/Buildings/SteamHouse/Turret/Turret", typeof(GameObject)) as GameObject,
+        ObjectType = typeof(Turret),
+    };
 
+    // ### Functions ###
+
+    // Initialise items
     public static void Initialise()
 	{
+        // House of Gears items
         InitialiseItem (Scout);
         InitialiseItem (Destroyer);
 		InitialiseItem (FishingBoat);
@@ -179,8 +196,10 @@ public static class ItemDB {
 		InitialiseItem (NavalYard);
         InitialiseItem (Refinery);
         InitialiseItem (Laboratory);
+        InitialiseItem (Turret);
 	}
 	
+    // Initialises item and adds it to AllItems
 	private static void InitialiseItem(Item item)
 	{
 		item.Initialise ();

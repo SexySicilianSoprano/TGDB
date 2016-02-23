@@ -137,17 +137,8 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
             Debug.Log("Righto Clickan");
             if (m_SelectedManager.ActiveEntityCount() > 0)
             {
-                GetCommand(); // Get a command that will be sent to selected units
-                /*
-                switch (m_Identifier)
-                {
-                    case Identifier.Friend:
-                        GetCommand();
-                        break;
-
-                    case Identifier.Enemy:
-                        break;
-                }*/
+                // Get a command that will be sent to selected units
+                GetCommand();
             }
         }
     }
