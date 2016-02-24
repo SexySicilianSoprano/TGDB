@@ -126,7 +126,7 @@ public class MyCamera : MonoBehaviour
 
 		movement.x += InputManager.instance.GetPanAxis().x;
 		movement.z += InputManager.instance.GetPanAxis().y;
-		transform.Translate(movement * Time.deltaTime * panSpeed, Space.World); // move based to world space.
+		transform.Translate(movement * Time.deltaTime * panSpeed, Space.Self); // move based to world space.
 	}
 	
 	/// <summary>
