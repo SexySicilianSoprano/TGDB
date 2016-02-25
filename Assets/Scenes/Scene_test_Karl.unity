@@ -124,7 +124,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 11475912, guid: 0bd708bb5d324324b8104d367c79e7ce, type: 2}
+      propertyPath: move
+      value: 
+      objectReference: {fileID: 2800000, guid: f3d97ec79d7eeaf419039f2971ff98a2, type: 3}
+    - target: {fileID: 11475912, guid: 0bd708bb5d324324b8104d367c79e7ce, type: 2}
+      propertyPath: normal
+      value: 
+      objectReference: {fileID: 2800000, guid: f3d97ec79d7eeaf419039f2971ff98a2, type: 3}
+    m_RemovedComponents:
+    - {fileID: 11421030, guid: 0bd708bb5d324324b8104d367c79e7ce, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 0bd708bb5d324324b8104d367c79e7ce, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &124073079
@@ -870,7 +879,8 @@ Prefab:
       propertyPath: m_RootOrder
       value: 12
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11407212, guid: d5335b8cb7021e14793bf9f48fafdb8a, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: d5335b8cb7021e14793bf9f48fafdb8a, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &630537914
@@ -986,6 +996,21 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &693104684 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 144522, guid: 0bd708bb5d324324b8104d367c79e7ce, type: 2}
+  m_PrefabInternal: {fileID: 42366634}
+--- !u!114 &693104688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 693104684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73b76d8eabc9b0b4881c807d65287191, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &704367804
 GameObject:
   m_ObjectHideFlags: 0
@@ -1905,6 +1930,66 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1598667723}
   m_Mesh: {fileID: 4300006, guid: eda7c0f6e3fe1024fb3bef6680c8df7c, type: 3}
+--- !u!1 &1670902659 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 109972, guid: d5335b8cb7021e14793bf9f48fafdb8a, type: 2}
+  m_PrefabInternal: {fileID: 534740913}
+--- !u!114 &1670902660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1670902659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78396926cbbfc4ac3b48fc5fc34a87d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  astarData:
+    dataString: UEsDBBQAAAgIAAAQIeySf3N3MgIAAEoEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFdUstu20AM/JViz0ogya/Et9RO3BZpYsQteihyoCXKWni1K+yjfgT+93JXsmwFAiRoSA7JGX6wjeM5m36wfyAcsim7yxHuBnk8TifD4eg+vVnnyXA4SGIYFGkxLlJ2ihiYGjP7BpYrNk0ixo2q0GqePciNIJY4Yk7yQunqMd/gTBlr2LQAYTBiWllfJ33TfUg9hPeR3kSdobSo2+Bg0oRv4tskZBBw8tyZgKrGfMWP2KZORk0qfSlDqhyb4IgolRDctC3tofZrzqA2jkaNWM6BZvctqUWJfFNaNk2vql6LwqANM2o4zLmm1QMZ+6psSQwVmO2VhL5/w/OzH0hHYwoVWlXf2jZJTKS25Nn2DQ4ZGNupdA3Oryd0cgdiC2uBf0qUL2qhlZPkoNWOypzBdN6RdCvMSsy255xmth7k6p4bSevGye+2nwleren3dnj5fdhzE/IIWAnlJb2nWtSk+3caNThsAh9hfoTfBn/B5nIGLfzEtbEUCGTgrHrmcrvQPL9kntE5N/aZVzzoRhb7NdbKacpkj0FP2tjZmdISPdisVqMEYQ9L6mb7Zn6KdP0+4U+QWdVo30baI++nB7DLjeN+YKl2Z/8M/nBVvVRc2hWCzsqL57i3TuMcLHg7qJxczruwoV0z6iudEHRGoRWt+TeO6Hmn3UuQEoWH2IuS/ravP+/kJpe0EohlM1lQgbyTZ60k3RmJ6eX/stBQ++PONewW/FipTlEuC7XKNKJ8DbVhvNN/UEsDBBQAAAgAAAAQIewef112MgAAADIAAAASACQAZ3JhcGgwX2VkaXRvci5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BeyJsb2NrZWQiOnRydWUsInNob3dFeHRyYSI6ZmFsc2UsInBpdm90IjoiQ2VudGVyIn1QSwMEFAAACAgAABAh7NBgFfd2AAAAgwAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQEdjD0PgjAUAP/Lm7HpxxOQlYHNuBuGmvcKHWxJKSaG8N+lbjfc3Q4fTquPATowohEIFUzJLvMKnTpx83TSE1pi2xqStW4Qrzd9eZFCNEpa47SrnYaxgvxd+G7f/C8eNs/OB/JhEkPyNJRrsUIk7uMWctHkePwAUEsBAi0AFAAACAgAABAh7JJ/c3cyAgAASgQAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAAAABAh7B5/XXYyAAAAMgAAABIAJAAAAAAAAAAAAAAAfwIAAGdyYXBoMF9lZGl0b3IuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAAAQIezQYBX3dgAAAIMAAAAJACQAAAAAAAAAAAAAAAUDAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAMAAwAcAQAAxgMAAAAA
+    upgradeData: 
+    data_backup: 
+    file_cachedStartup: {fileID: 0}
+    data_cachedStartup: 
+    cacheStartup: 0
+  showNavGraphs: 1
+  showUnwalkableNodes: 1
+  debugMode: 0
+  debugFloor: 0
+  debugRoof: 1
+  manualDebugFloorRoof: 0
+  showSearchTree: 0
+  unwalkableNodeDebugSize: 0.3
+  logPathResults: 1
+  maxNearestNodeDistance: 100
+  scanOnStartup: 1
+  fullGetNearestSearch: 0
+  prioritizeGraphs: 0
+  prioritizeGraphsLimit: 1
+  colorSettings:
+    _NodeConnection: {r: 1, g: 1, b: 1, a: 0.9}
+    _UnwalkableNode: {r: 1, g: 0, b: 0, a: 0.5}
+    _BoundsHandles: {r: 0.29, g: 0.454, b: 0.741, a: 0.9}
+    _ConnectionLowLerp: {r: 0, g: 1, b: 0, a: 0.5}
+    _ConnectionHighLerp: {r: 1, g: 0, b: 0, a: 0.5}
+    _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
+    _MeshColor: {r: 0.125, g: 0.686, b: 0, a: 0.19}
+    _AreaColors: []
+  tagNames: []
+  heuristic: 2
+  heuristicScale: 1
+  threadCount: 0
+  maxFrameTime: 1
+  minAreaSize: 0
+  limitGraphUpdates: 1
+  maxGraphUpdateFreq: 0.2
+  euclideanEmbedding:
+    mode: 0
+    seed: 0
+    pivotPointRoot: {fileID: 0}
+    spreadOutCount: 1
+  showGraphs: 1
+  lastUniqueAreaIndex: 1
 --- !u!1001 &1703895171
 Prefab:
   m_ObjectHideFlags: 0
@@ -2047,7 +2132,7 @@ Terrain:
   m_Enabled: 1
   serializedVersion: 3
   m_TerrainData: {fileID: 15600000, guid: 4f67efef173605643815aecca0478bb8, type: 2}
-  m_TreeDistance: 5000
+  m_TreeDistance: 2000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 50

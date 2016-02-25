@@ -4,17 +4,18 @@ using UnityEngine.Events;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-/*
-    This component is attached to the Manager gameobject. Its purpose is to tie in
-    UI-related components and determine, what input does at which point.
-    It controls different states to do this.
-    This component borrows its base from an old RTS Engine made by Brett Hewitt,
-    but is heavily modified and altered to suit TGDB's needs.
-    Also to get rid of the old style script-drawn GUI bullshit.
-
-    - Karl Sartorisio
-    The Great Deep Blue
-*/
+/// <summary>
+/// 
+/// This component is attached to the Manager gameobject. Its purpose is to tie in
+/// UI-related components and determine, what input does at which point.
+/// It controls different states to do this.
+/// This component borrows its base from an old RTS Engine made by Brett Hewitt,
+/// but is heavily modified and altered to suit TGDB's needs.
+/// 
+/// Also to get rid of the old style script-drawn GUI bullshit.
+/// The Great Deep Blue
+/// 
+/// </summary>
 
 public class UIManager : MonoBehaviour, IUIManager {
 
