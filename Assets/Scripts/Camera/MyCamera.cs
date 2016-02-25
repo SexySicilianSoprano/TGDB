@@ -51,7 +51,7 @@ public class MyCamera : MonoBehaviour
 		status = MyCameraStatusEnum.AT_PLAYER; // the camera must start at AT_PLAYER status
 	}
 	
-	private void Update()
+	public void Update()
 	{
 		switch (status)
 		{
@@ -85,7 +85,7 @@ public class MyCamera : MonoBehaviour
 	/// Refresh the focus point position, doing a raycast to put it on the center of the camera view. 
 	/// TODO: Optimize this, we dont need to do a raycast each frame.
 	/// </summary>
-	private void RefreshFocusPoint()
+	public void RefreshFocusPoint()
 	{
 		RaycastHit hitInfo;
 		if (Physics.Raycast(transform.position, cameraObject.transform.forward, out hitInfo, 100))
@@ -97,7 +97,7 @@ public class MyCamera : MonoBehaviour
 	/// <summary>
 	/// Does the follow behavior.
 	/// </summary>
-	private void FollowControll()
+	public void FollowControll()
 	{
 		// calculate the goal
 		Vector3 goal = thePlayer.transform.position; // get the player position

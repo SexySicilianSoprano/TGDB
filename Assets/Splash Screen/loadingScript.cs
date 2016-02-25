@@ -21,7 +21,8 @@ public class loadingScript : MonoBehaviour {
         }
         if (loadingBar.fillAmount == 1.0f)
         {
-            SceneManager.LoadScene("MainMenu");
+            Destroy(gameObject);
+            //SceneManager.LoadScene("MainMenu");
         }
         percentage.text = (loadingBar.fillAmount * 100).ToString ("f0");
 	}
