@@ -37,7 +37,6 @@ public class CurrentGravity : MonoBehaviour {
             Debug.Log("testi");
         } 
         // Is the colliding object an unit that's affected by currents?
-
         else if (other.gameObject.GetComponent<Unit>() && other.gameObject.GetComponent<BoatMovement>().AffectedByCurrent)
         {            
             // Just move with the current, baby! Add force into colliding object
