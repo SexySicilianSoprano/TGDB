@@ -134,9 +134,11 @@ GameObject:
   - 65: {fileID: 6538362}
   - 54: {fileID: 5464656}
   - 114: {fileID: 11481016}
-  m_Layer: 0
+  - 114: {fileID: 11425212}
+  - 114: {fileID: 11484454}
+  m_Layer: 12
   m_Name: NavalYard
-  m_TagString: Untagged
+  m_TagString: Player1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -247,8 +249,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170034}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 40, y: 40, z: 40}
+  m_LocalPosition: {x: 740.6, y: 6.614445, z: 1442.271}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 434910}
   - {fileID: 457346}
@@ -789,7 +791,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170034}
-  m_Mesh: {fileID: 4300000, guid: 560730b71850d9b49a58e346fce4ce4f, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 2471280a99f5c744185c8bf3997612e0, type: 3}
 --- !u!33 &3371986
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -838,7 +840,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!65 &6528636
 BoxCollider:
@@ -862,8 +864,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.12781954, y: 0.089957036, z: 0.099442594}
-  m_Center: {x: -0.0037586007, y: 0.016475966, z: 0.017562099}
+  m_Size: {x: 17.307896, y: 8.283451, z: -11.988338}
+  m_Center: {x: 0.2919922, y: 4.1132255, z: 4.331665}
 --- !u!95 &9530014
 Animator:
   serializedVersion: 3
@@ -881,6 +883,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11425212
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc5c7ebf477b3dd45b15217f67d797d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11438010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -911,6 +924,17 @@ MonoBehaviour:
   stickyness: 0.1
   unit: 3
   dragCoefficient: 0.3
+--- !u!114 &11484454
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aed3001cfe8ccb042899e8372dec2858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -956,16 +980,20 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.x
-      value: 40
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.y
-      value: 40
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.z
-      value: 40
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 2471280a99f5c744185c8bf3997612e0, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 170034}

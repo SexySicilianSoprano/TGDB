@@ -29,7 +29,7 @@ public class UnitBuildingScript : MonoBehaviour {
 	}
 
 	public bool CheckNavalYard(){
-		navalYard = GameObject.Find("NavalYard(Clone)");
+		navalYard = GameObject.Find("NavalYard");
 		if (navalYard){
 			return true;
 		} else {

@@ -107,6 +107,7 @@ public class CannonCombat : Combat {
                     // Is the target within maximum range?
                     if (TargetInRange())
                     {
+                        m_Movement.Stop();
                         Fire();
 
                         if (m_Target == null)
@@ -155,7 +156,7 @@ public class CannonCombat : Combat {
         TargetSet = false;
         m_Target = null;
         m_Parent.AttackingEnemy = null;
-        GetComponent<Movement>().Stop();
+        //GetComponent<Movement>().Stop();
     }
 
     public void Follow() {

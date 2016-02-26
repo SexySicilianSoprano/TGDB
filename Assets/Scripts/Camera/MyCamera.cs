@@ -125,8 +125,9 @@ public class MyCamera : MonoBehaviour
 		Vector3 movement = Vector3.zero;
 
 		movement.x += InputManager.instance.GetPanAxis().x;
-		movement.z += InputManager.instance.GetPanAxis().y;
-		transform.Translate(movement * Time.deltaTime * panSpeed, Space.Self); // move based to world space.
+		movement.z += InputManager.instance.GetPanAxis().z;
+
+		transform.Translate(movement * Time.deltaTime * panSpeed, Space.World); // move based to world space.
 	}
 	
 	/// <summary>
@@ -166,7 +167,7 @@ public class MyCamera : MonoBehaviour
 	public void UpdateStatus()
 	{
 		// rule 1: AT_PLAYER to MANUAL
-		if (status == MyCameraStatusEnum.AT_PLAYER && InputManager.instance.GetPanAxis() != Vector2.zero)
+		if (status == MyCameraStatusEnum.AT_PLAYER && InputManager.instance.GetPanAxis() != Vector3.zero)
 		{
 			status = MyCameraStatusEnum.MANUAL;
 			Debug.Log (status);

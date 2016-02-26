@@ -7,21 +7,26 @@ public class Manager : MonoBehaviour, IManager {
     // Singleton
     public static Manager main;
 
+    // Components Manager needs to deal with
+    public GameManager m_GameManager;
+
     // Player variables
     public Player primaryPlayer
     {
         get 
         {
-            return GetComponent<GameManager>().primaryPlayer();
+            return m_GameManager.primaryPlayer();
         }
     }
+
     public Player enemyPlayer
     {
         get
         {
-            return GetComponent<GameManager>().enemyPlayer();
+            return m_GameManager.enemyPlayer();
         }
     }
+
     public string m_primaryPlayer;
     public string m_enemyPlayer;
 

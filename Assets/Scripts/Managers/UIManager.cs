@@ -57,9 +57,10 @@ public class UIManager : MonoBehaviour, IUIManager {
     }
 
     //Interface variables the UI needs to deal with
-    private ISelectedManager m_SelectedManager;
-    private ICamera m_Camera;
-    private ICursorManager m_CursorManager;
+    public SelectedManager m_SelectedManager;
+    public ICamera m_Camera;
+    public CursorManager m_CursorManager;
+    public GameManager m_GameManager;
     //private IGUIManager m_GuiManager;
     //private IMiniMapController m_MiniMapController;
     //private IEventsManager m_EventsManager;
@@ -117,9 +118,9 @@ public class UIManager : MonoBehaviour, IUIManager {
     void Start()
     {
         //Resolve interface variables
-        m_SelectedManager = ManagerResolver.Resolve<ISelectedManager>();
-        m_Camera = ManagerResolver.Resolve<ICamera>();
-        m_CursorManager = ManagerResolver.Resolve<ICursorManager>();
+        //m_SelectedManager = ManagerResolver.Resolve<ISelectedManager>();
+        //m_Camera = ManagerResolver.Resolve<ICamera>();
+        //m_CursorManager = ManagerResolver.Resolve<ICursorManager>();
     }
 
     // Update is called once per frame
@@ -234,6 +235,14 @@ public class UIManager : MonoBehaviour, IUIManager {
             {
                 // Selecting endes
                 isSelecting = false;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            if (m_SelectedManager.ActiveEntityCount() > 0)
+            {
+                m_SelectedManager.GiveOrder(Orders.CreateStopOrder());
             }
         }
 

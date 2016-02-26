@@ -14,8 +14,8 @@ using System.Collections;
 /// towards the direction you want force be added to.
 ///
 /// - Karl Sartorisio
-///
 /// The Great Deep Blue
+/// 
 /// </summary>
 
 public class CurrentGravity : MonoBehaviour {
@@ -31,16 +31,17 @@ public class CurrentGravity : MonoBehaviour {
     {
         // Is the colliding object a building?      
         if (other.gameObject.GetComponent<Building>())
-        {            
+        {
             // Just move with the current, baby! Add force into colliding object
             other.GetComponent<Rigidbody>().AddForce(this.gameObject.transform.forward * (velocity / divider));
-            Debug.Log("testi");
+            //other.transform.Translate(this.gameObject.transform.forward * (velocity / divider * Time.deltaTime));
         } 
         // Is the colliding object an unit that's affected by currents?
         else if (other.gameObject.GetComponent<Unit>() && other.gameObject.GetComponent<BoatMovement>().AffectedByCurrent)
-        {            
+        {
             // Just move with the current, baby! Add force into colliding object
             other.GetComponent<Rigidbody>().AddForce(this.gameObject.transform.forward * (velocity / divider));
-        }       
+            //other.transform.Translate(this.gameObject.transform.forward * (velocity / divider * Time.deltaTime));
+        }
     }
 }

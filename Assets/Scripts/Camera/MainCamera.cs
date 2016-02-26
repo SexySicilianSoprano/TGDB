@@ -169,25 +169,25 @@ public class MainCamera : MonoBehaviour, ICamera {
     {
         atScreenEdge = false;
 
-        if (i_MousePos.x == 0)
+        if (Input.mousePosition.x == 0)
         {
 
             atScreenEdge = true;
         }
 
-        if (i_MousePos.x >= Screen.width * 0.98f)
+        if (Input.mousePosition.x >= Screen.width * 0.98f)
         {
 
             atScreenEdge = true;
         }
 
-        if (i_MousePos.y == 0)
+        if (Input.mousePosition.y == 0)
         {
 
             atScreenEdge = true;
         }
 
-        if (i_MousePos.y >= Screen.height * 0.98f)
+        if (Input.mousePosition.y >= Screen.height * 0.98f)
         {
 
         }
@@ -195,7 +195,7 @@ public class MainCamera : MonoBehaviour, ICamera {
         if (atScreenEdge)
         {
             atScreenEdgeCounter += Time.deltaTime;
-
+            Debug.Log("At Edge lol");
         }
         else
         {

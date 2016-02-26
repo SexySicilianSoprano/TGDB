@@ -31,7 +31,7 @@ public class InputManager : MonoBehaviour
 	public KeyCode jumpBackToPlayer;
 	
 	public static InputManager instance; // instance reference
-	private Vector2 panAxis = Vector2.zero;
+	private Vector3 panAxis = Vector3.zero;
 	
 	void Awake()
 	{
@@ -45,17 +45,16 @@ public class InputManager : MonoBehaviour
 	
 	private void UpdatePanAxis()
 	{
-		panAxis = Vector2.zero;
+		panAxis = Vector3.zero;
 		
 		if (Input.GetKey(upArrow) || Input.GetKey (upArrowALT))
 		{
-			panAxis.y = 1;
+			panAxis.z = 1;
 		}
 		else if (Input.GetKey(downArrow) || Input.GetKey (downArrowALT))
 		{
-			panAxis.y = -1;
-		}
-		
+			panAxis.z = -1;
+		}		
 		if (Input.GetKey(rightArrow) || Input.GetKey (rightArrowALT))
 		{
 			panAxis.x = 1;
@@ -66,7 +65,7 @@ public class InputManager : MonoBehaviour
 		}
 	}
 	
-	public Vector2 GetPanAxis()
+	public Vector3 GetPanAxis()
 	{
 		return panAxis;
 	}
@@ -96,11 +95,11 @@ public class InputManager : MonoBehaviour
 		
 		if (Input.GetAxis("Mouse ScrollWheel") < 0)
 		{
-			value = -1;
+            value = -1;
 		}
 		else if (Input.GetAxis("Mouse ScrollWheel") > 0)
 		{
-			value = 1;
+            value = 1;
 		}
 		
 		return value;

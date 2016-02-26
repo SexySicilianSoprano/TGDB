@@ -51,7 +51,7 @@ public class TurretCombat : Combat {
 
         // Initialise DangerZone and set its size
         DangerZone = transform.GetComponent<SphereCollider>();
-        DangerZone.radius += 100;
+        DangerZone.radius += 200;
     }
 
     void Update()
@@ -101,8 +101,8 @@ public class TurretCombat : Combat {
     // Assign weapon details
     public override void AssignDetails(Weapon weapon)
     {
-        Damage = weapon.Damage * 5;
-        Range = weapon.Range;
+        Damage = weapon.Damage * 2;
+        Range = weapon.Range * 2;
         FireRate = weapon.FireRate;
         TurretSpeed = weapon.TurretSpeed;
         isAntiArmor = weapon.isAntiArmor;
@@ -206,7 +206,7 @@ public class TurretCombat : Combat {
     private bool TargetInLine()
     {
         // Let's create a new vector3 from spawner position that is just above the ground, so it may touch the ground units
-        Vector3 m_SpawnPos = new Vector3(SpawnerPos.x, 0.5f, SpawnerPos.z);
+        Vector3 m_SpawnPos = new Vector3(SpawnerPos.x, 1f, SpawnerPos.z);
 
         // Then let's raycast
         RaycastHit hit;
