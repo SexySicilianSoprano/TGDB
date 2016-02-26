@@ -130,12 +130,10 @@ GameObject:
   - 33: {fileID: 3369064}
   - 23: {fileID: 2339776}
   - 95: {fileID: 9530014}
-  - 114: {fileID: 11466144}
   - 114: {fileID: 11438010}
   - 65: {fileID: 6538362}
   - 54: {fileID: 5464656}
-  - 114: {fileID: 11416776}
-  - 114: {fileID: 11420602}
+  - 114: {fileID: 11481016}
   m_Layer: 0
   m_Name: NavalYard
   m_TagString: Untagged
@@ -248,8 +246,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170034}
-  m_LocalRotation: {x: -0.6642647, y: -0.24191695, z: -0.2417726, w: 0.6646613}
-  m_LocalPosition: {x: 1099.9573, y: 4.990733, z: 117.98236}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 40, y: 40, z: 40}
   m_Children:
   - {fileID: 434910}
@@ -368,9 +366,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 193324}
-  m_LocalRotation: {x: -0.0062428107, y: 0.70726633, z: 0.70689, w: -0.006472919}
-  m_LocalPosition: {x: -0.03791719, y: 0.13109042, z: -0.04040066}
-  m_LocalScale: {x: 0.008983536, y: 0.008983536, z: 0.008983536}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 408886}
   m_RootOrder: 1
@@ -883,35 +881,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11416776
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5fac8401f890c14f87ee40c83689091, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &11420602
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f2a270259bb0450d9361f8db5364076, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvasRectT: {fileID: 0}
-  healthBar: {fileID: 0}
-  healthBarSlider: {fileID: 0}
-  objectToFollow: {fileID: 0}
-  sliderPrefab: {fileID: 0}
-  currentHealth: 0
-  maxHealth: 0
 --- !u!114 &11438010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -926,7 +895,7 @@ MonoBehaviour:
   AttackingEnemy: {fileID: 0}
   m_Health: 0
   m_MaxHealth: 0
---- !u!114 &11466144
+--- !u!114 &11481016
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -934,9 +903,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 170034}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9835c5a8637c00e44bc51b52ac79a555, type: 3}
+  m_Script: {fileID: 11500000, guid: a5e2100694648c44e93ed97d542181de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  radius: 0.5
+  density: 400
+  stickyness: 0.1
+  unit: 3
+  dragCoefficient: 0.3
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -966,19 +940,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalRotation.x
-      value: -0.6642647
+      value: 0.706895
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalRotation.y
-      value: -0.24191695
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalRotation.z
-      value: -0.2417726
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalRotation.w
-      value: 0.6646613
+      value: -0.7073185
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.x

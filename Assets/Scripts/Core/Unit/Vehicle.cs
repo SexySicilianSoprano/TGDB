@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(VehicleMovement))]
+[RequireComponent(typeof(BoatMovement))]
 public class Vehicle : Unit {
 
 	// Use this for initialization

@@ -4,18 +4,19 @@ using UnityEngine.Events;
 using System.Collections;
 using System;
 
-/*
-    This component class determines what the unit does when it gets clicked.
-    It interracts with UIManager's different states.
+/// <summary>
+/// This component determines what the unit does when it gets clicked.
+/// It interracts with UIManager's different states.
+/// 
+/// Some info on on clicks:
+/// - Left Single Click selects the unit when it's clicked and deselects it when clicked on the ground (Deselection handled in UIManager)
+/// - Left Double Click selects all the same type of units on the screen while deselecting previously selected units
+/// - Right Single Click 
+/// 
+/// - Karl Sartorisio
+///  The Great Deep Blue
+/// </summary>
 
-    Some info on on clicks:
-    - Left Single Click selects the unit when it's clicked and deselects it when clicked on the ground (Deselection handled in UIManager)
-    - Left Double Click selects all the same type of units on the screen while deselecting previously selected units
-    - Right Single Click 
-
-    - Karl Sartorisio
-    The Great Deep Blue
-*/
 public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
 {
     // What is the pointer pointing at?
@@ -137,17 +138,8 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
             Debug.Log("Righto Clickan");
             if (m_SelectedManager.ActiveEntityCount() > 0)
             {
-                GetCommand(); // Get a command that will be sent to selected units
-                /*
-                switch (m_Identifier)
-                {
-                    case Identifier.Friend:
-                        GetCommand();
-                        break;
-
-                    case Identifier.Enemy:
-                        break;
-                }*/
+                // Get a command that will be sent to selected units
+                GetCommand();
             }
         }
     }

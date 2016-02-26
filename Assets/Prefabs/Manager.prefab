@@ -1,17 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &126890
+--- !u!1 &144522
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 462056}
-  - 114: {fileID: 11457266}
-  - 114: {fileID: 11467678}
-  - 114: {fileID: 11435624}
-  - 114: {fileID: 11447744}
+  - 4: {fileID: 491162}
+  - 114: {fileID: 11420514}
+  - 114: {fileID: 11456674}
+  - 114: {fileID: 11421030}
+  - 114: {fileID: 11498756}
+  - 114: {fileID: 11493042}
+  - 114: {fileID: 11475912}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -19,47 +21,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &462056
+--- !u!4 &491162
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 126890}
+  m_GameObject: {fileID: 144522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 222.4759, y: 52.979134, z: 117.3498}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11435624
+--- !u!114 &11420514
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 126890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73b76d8eabc9b0b4881c807d65287191, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &11447744
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 126890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c52603d9c80d64844bf160e5cc9a2020, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  victoryPanel: {fileID: 0}
---- !u!114 &11457266
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 126890}
+  m_GameObject: {fileID: 144522}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1684a083ef2cc384692e267941f6b148, type: 3}
@@ -67,17 +46,66 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_primaryPlayer: 
   m_enemyPlayer: 
---- !u!114 &11467678
+--- !u!114 &11421030
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 126890}
+  m_GameObject: {fileID: 144522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73b76d8eabc9b0b4881c807d65287191, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11456674
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144522}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ddf94857604622428089b7660560fce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11475912
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4f20563f9b6fdd48ade93abc8466253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack: {fileID: 10900, guid: 0000000000000000f000000000000000, type: 0}
+  select: {fileID: 10914, guid: 0000000000000000f000000000000000, type: 0}
+  move: {fileID: 2800000, guid: 50607e7b884e43840815149ee22c16d1, type: 3}
+  normal: {fileID: 2800000, guid: 6190e61b240279944bd0ac81d78c2782, type: 3}
+--- !u!114 &11493042
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dc43ae8523ca6f439a3a9618aea88f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11498756
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c52603d9c80d64844bf160e5cc9a2020, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  victoryPanel: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -87,5 +115,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 126890}
+  m_RootGameObject: {fileID: 144522}
   m_IsPrefabParent: 1
