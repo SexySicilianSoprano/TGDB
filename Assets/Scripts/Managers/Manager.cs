@@ -45,13 +45,14 @@ public class Manager : MonoBehaviour, IManager {
     // Use this for initialization
     void Start()
     {
-        Initialise();     
+        Initialise();
+        m_GameManager.InitialiseGameData();
 	}
 	
 	// Update is called once per frame
 	void Update()
     {
-	
+
 	}
 
     private void Initialise()

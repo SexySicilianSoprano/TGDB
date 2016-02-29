@@ -3,7 +3,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour, IGameManager {
+
+    public static GameManager main;
 
     private bool m_GameSet = false;
     private Player m_Player1 = new Player();
@@ -23,9 +25,15 @@ public class GameManager : MonoBehaviour {
 
     public GameObject victoryPanel;
 
-    // Use this for initialization
-    void Start()
+    void Awake()
     {
+        main = this;
+    }
+
+    // Use this for initialization    
+    public void InitialiseGameData()
+    {
+
         m_Player1.AssignDetails(SetPlayer.Player1);
         m_Player2.AssignDetails(SetPlayer.Player2);
 

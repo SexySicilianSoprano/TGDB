@@ -31,7 +31,7 @@ public class InputManager : MonoBehaviour
 	public KeyCode jumpBackToPlayer;
 	
 	public static InputManager instance; // instance reference
-	private Vector3 panAxis = Vector3.zero;
+	private Vector2 panAxis = Vector2.zero;
 	
 	void Awake()
 	{
@@ -45,15 +45,15 @@ public class InputManager : MonoBehaviour
 	
 	private void UpdatePanAxis()
 	{
-		panAxis = Vector3.zero;
+		panAxis = Vector2.zero;
 		
 		if (Input.GetKey(upArrow) || Input.GetKey (upArrowALT))
 		{
-			panAxis.z = 1;
+			panAxis.y = 1;
 		}
 		else if (Input.GetKey(downArrow) || Input.GetKey (downArrowALT))
 		{
-			panAxis.z = -1;
+			panAxis.y = -1;
 		}		
 		if (Input.GetKey(rightArrow) || Input.GetKey (rightArrowALT))
 		{
@@ -65,7 +65,7 @@ public class InputManager : MonoBehaviour
 		}
 	}
 	
-	public Vector3 GetPanAxis()
+	public Vector2 GetPanAxis()
 	{
 		return panAxis;
 	}

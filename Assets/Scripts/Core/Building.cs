@@ -11,6 +11,11 @@ public class Building : RTSEntity {
         
     }
 
+    public void Update()
+    {
+        AstarPath.active.UpdateGraphs(GetComponent<BoxCollider>().bounds);
+    }
+
     public int BuildingIdentifier
     {
         get; set;

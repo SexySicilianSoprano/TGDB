@@ -8,13 +8,7 @@ public class Unit : RTSEntity, IOrderable {
     protected bool m_IsMoveable = true;
     protected bool m_IsDeployable = false;
     protected bool m_IsAttackable = true;
-    protected bool m_IsInteractable = false;
-
-    protected IGUIManager m_guiManager
-    {
-        get;
-        private set;
-    }
+    protected bool m_IsInteractable = false;    
 
     protected ISelectedManager m_selectedManager
     {
@@ -52,7 +46,7 @@ public class Unit : RTSEntity, IOrderable {
 
     protected void Update()
     {
-        
+        AstarPath.active.UpdateGraphs(GetComponent<BoxCollider>().bounds);
     }
 
     public override void SetSelected()

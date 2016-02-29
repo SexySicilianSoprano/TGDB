@@ -38,12 +38,12 @@ public class UIManager : MonoBehaviour, IUIManager {
     //Player identifier variables
     public Player primaryPlayer()
     {
-        return GetComponent<Manager>().primaryPlayer; // Returns controlling player's info
+        return m_GameManager.primaryPlayer(); // Returns controlling player's info
     }
 
     public Player enemyPlayer()
     {
-        return GetComponent<Manager>().enemyPlayer; // Returns enemy player's info
+        return m_GameManager.enemyPlayer(); // Returns enemy player's info
     }
 
     private string m_primaryPlayer
@@ -58,12 +58,8 @@ public class UIManager : MonoBehaviour, IUIManager {
 
     //Interface variables the UI needs to deal with
     public SelectedManager m_SelectedManager;
-    public ICamera m_Camera;
     public CursorManager m_CursorManager;
-    public GameManager m_GameManager;
-    //private IGUIManager m_GuiManager;
-    //private IMiniMapController m_MiniMapController;
-    //private IEventsManager m_EventsManager;
+    public GameManager m_GameManager;    
 
     // UNDER DELETION / REVISION THREAT
     //Building Placement variables
@@ -351,7 +347,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         if (isSelecting) 
         {
             // Get every item with a component called RTSEntity
-            foreach (var selectable in FindObjectsOfType<RTSEntity>()) 
+            foreach (var selectable in FindObjectsOfType<Unit>()) 
             {
                 // Is the item within selection box boundaries?
                 if (IsWithinSelectionBounds(selectable.gameObject))
@@ -388,7 +384,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         // interactionState = InteractionState.Nothing;
         GetInputAction();
 
-        if (hoverOver == HoverOver.Menu || m_SelectedManager.ActiveEntityCount() == 0 )
+        if (hoverOver == HoverOver.Menu || m_SelectedManager.ActiveEntityCount() <= 0 )
         {
             // Nothing orderable Selected or mouse is over menu or support is selected
             CalculateInteraction(hoverOver, ref interactionState);
@@ -583,7 +579,6 @@ public class UIManager : MonoBehaviour, IUIManager {
     private void ScrollWheelHandler(object sender)
     {
         //Zoom In/Out
-        m_Camera.Zoom(sender);
         //m_MiniMapController.ReCalculateViewRect();
     }
 
@@ -591,7 +586,6 @@ public class UIManager : MonoBehaviour, IUIManager {
     private void MouseAtScreenEdgeHandler(object sender)
     {
         //Pan
-        m_Camera.Pan(sender);
         //m_MiniMapController.ReCalculateViewRect();
     }
 

@@ -57,6 +57,7 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
     // Other variables that the class needs to deal with
     private IUIManager m_UIManager; // This is used to communicate with the UIManager
     private ISelectedManager m_SelectedManager; // This is used to communicate with the SelectedManager
+    private IGameManager m_GameManager; // This is used to determine player priorities
     private RTSEntity currentUnit; // This is used to hold the unit data this game object has
     private string unitTag; // Who owns this unit?
     private Player primaryPlayer; // Primary player information   
@@ -72,11 +73,6 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
         enemyPlayer = m_UIManager.enemyPlayer(); // This one too!
     }
     
-    void Update()
-    {
-
-    }
-       
     // This is called when unit has been clicked
     public void OnPointerClick(PointerEventData eventData)
     {

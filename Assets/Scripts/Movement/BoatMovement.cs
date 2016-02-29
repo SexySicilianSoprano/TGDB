@@ -68,26 +68,27 @@ public class BoatMovement : SeaMovement {
 
         if (Path != null /*&& Path.Count > 0*/)
         {
-            if (Vector3.Distance(targetPosition, m_Parent.transform.position) < 10)
-            {
-                // Speed change
-            }
+            Vector3 dir = (Path.vectorPath[currentWaypoint] - transform.position).normalized;
+            
             //We have a path, lets move!
             m_PlayMovingSound = true;
             AffectedByCurrent = false;
             MoveForward();
             
             //Make sure we're pointing at the target            
-            if (!PointingAtTarget())
+            if (!PointingAtTarget(dir))
             {
-                RotateTowards(targetPosition);
+                RotateTowards(dir);
             }           
-            
-            UpdateCurrentTile();
+
+            if (Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < nextWaypointDistance || Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < 20)
+            {
+                currentWaypoint++;
+            }
 
             if (currentWaypoint >= Path.vectorPath.Count || Vector3.Distance(m_Parent.transform.position, targetPosition) < 7)
             {
-                rb.velocity = Vector3.zero;
+                rb.velocity = Vector3.zero;                
                 Path = null;
                 currentWaypoint = 0;
                 AffectedByCurrent = true;
@@ -117,7 +118,7 @@ public class BoatMovement : SeaMovement {
     // Turning towards the destination
     private void RotateTowards(Vector3 location)
     {
-        m_Direction = (location - m_Parent.transform.position).normalized;
+        m_Direction = location;
 
         m_LookRotation = Quaternion.LookRotation(new Vector3(m_Direction.x, m_Direction.y * 0, m_Direction.z));
 
@@ -137,12 +138,10 @@ public class BoatMovement : SeaMovement {
         return false;
     }
 
-
     // Gives the moving command
     public override void MoveTo(Vector3 location)
     {
         seeker.StartPath(transform.position, location, OnPathComplete);
-        targetPosition = location;
     }
 
     public override void Stop()
@@ -160,22 +159,16 @@ public class BoatMovement : SeaMovement {
 
     public override void AssignDetails(Item item)
     {
-        Speed = item.Speed / 10;
+        Speed = item.Speed / 5;
         CurrentSpeed = 0;
-        RotationalSpeed = item.RotationSpeed / 2;
+        RotationalSpeed = item.RotationSpeed / 3;
         Acceleration = item.Acceleration;
     }
 
-    private void UpdateCurrentTile()
-    {
-        
-        
-    }
-
-    private bool PointingAtTarget()
+    private bool PointingAtTarget(Vector3 direction)
     {
         Vector3 forwardVector = transform.forward;
-        Vector3 targetVector = (Path.vectorPath[currentWaypoint]- transform.position).normalized;
+        Vector3 targetVector = direction;
 
         forwardVector.y = 0;
         targetVector.y = 0;
@@ -191,13 +184,13 @@ public class BoatMovement : SeaMovement {
         }
         else
         {
-            int direction = 1;
+            int dir = 1;
             if (angle < 0)
             {
-                direction = -1;
+                dir = -1;
             }
 
-            transform.Rotate(0, RotationalSpeed * Time.deltaTime * direction, 0);
+            transform.Rotate(0, RotationalSpeed * dir * Time.deltaTime, 0);
         }
 
         return false;

@@ -3,7 +3,7 @@ using System.Collections;
 
 public interface ICursorManager 
 {
-	void UpdateCursorIcon(InteractionState interactionState);
+	void UpdateCursorIcon(InteractionState state);
 	void HideCursor();
 	void ShowCursor();
 }

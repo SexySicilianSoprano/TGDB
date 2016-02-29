@@ -14,7 +14,9 @@ GameObject:
   - 33: {fileID: 3391340}
   - 54: {fileID: 5463076}
   - 114: {fileID: 11457512}
-  m_Layer: 8
+  - 114: {fileID: 11463796}
+  - 114: {fileID: 11457858}
+  m_Layer: 12
   m_Name: FloatingFortress
   m_TagString: Player1
   m_Icon: {fileID: 0}
@@ -374,8 +376,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109602}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 324.58212, y: 0.16087838, z: 162.21089}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 123.83612, y: 0.16087838, z: 90.4076}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 418746}
   - {fileID: 432296}
@@ -1006,6 +1008,28 @@ MonoBehaviour:
   AttackingEnemy: {fileID: 0}
   m_Health: 0
   m_MaxHealth: 0
+--- !u!114 &11457858
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 109602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aed3001cfe8ccb042899e8372dec2858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11463796
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 109602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc5c7ebf477b3dd45b15217f67d797d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
