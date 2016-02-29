@@ -10,6 +10,7 @@ public class loadingScript : MonoBehaviour {
     public Text percentage;
 
 	void Start () {
+        this.enabled = true;
         loadingBar.fillAmount = 0;
 	}
 	
