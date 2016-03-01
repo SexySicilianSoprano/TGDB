@@ -31,9 +31,8 @@ public class GameManager : MonoBehaviour, IGameManager {
     }
 
     // Use this for initialization    
-    public void InitialiseGameData()
+    void Start()
     {
-
         m_Player1.AssignDetails(SetPlayer.Player1);
         m_Player2.AssignDetails(SetPlayer.Player2);
 

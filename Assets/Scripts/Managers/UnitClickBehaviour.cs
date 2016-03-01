@@ -55,22 +55,32 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
     }
 
     // Other variables that the class needs to deal with
-    private IUIManager m_UIManager; // This is used to communicate with the UIManager
-    private ISelectedManager m_SelectedManager; // This is used to communicate with the SelectedManager
-    private IGameManager m_GameManager; // This is used to determine player priorities
+    private UIManager m_UIManager { get { return GameObject.Find("Manager").GetComponent<UIManager>(); } } // This is used to communicate with the UIManager
+    private SelectedManager m_SelectedManager { get { return GameObject.Find("Manager").GetComponent<SelectedManager>(); } } // This is used to communicate with the SelectedManager
+    private GameManager m_GameManager { get { return GameObject.Find("Manager").GetComponent<GameManager>(); } } // This is used to determine player priorities
     private RTSEntity currentUnit; // This is used to hold the unit data this game object has
     private string unitTag; // Who owns this unit?
-    private Player primaryPlayer; // Primary player information   
-    private Player enemyPlayer; // Enemy player information
+
+    private Player primaryPlayer() // Primary player information
+    {
+        return GetComponent<GameManager>().primaryPlayer();
+    }    
+    private Player enemyPlayer() // Enemy player information
+    {
+        return GetComponent<GameManager>().primaryPlayer();
+    } 
     
     void Start()
     {
         unitTag = gameObject.tag; // Get the unit's owner
-        m_UIManager = ManagerResolver.Resolve<IUIManager>(); // Get the UIManager that's being used
-        m_SelectedManager = ManagerResolver.Resolve<ISelectedManager>(); // Get the SelectedManager that's being used
-        currentUnit = GetComponent<RTSEntity>(); // Get the unit data tied to this game object
-        primaryPlayer = m_UIManager.primaryPlayer(); // Inject with some sweet data
-        enemyPlayer = m_UIManager.enemyPlayer(); // This one too!
+
+        // Resolve Managers
+        //m_UIManager = ManagerResolver.Resolve<IUIManager>(); // Get the UIManager that's being used
+        //m_SelectedManager = ManagerResolver.Resolve<ISelectedManager>(); // Get the SelectedManager that's being used
+        //m_GameManager = ManagerResolver.Resolve<IGameManager>(); // Get the GameManager that's being used
+
+        // Assign stuff
+        currentUnit = GetComponent<RTSEntity>(); // Get the unit data tied to this game object        
     }
     
     // This is called when unit has been clicked
@@ -96,7 +106,7 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
                             EmptySelected();
                         }
                         // Is the unit friendly?
-                        if (currentUnit.tag == primaryPlayer.controlledTag)
+                        if (currentUnit.tag == primaryPlayer().controlledTag)
                         {
                             Debug.Log("Selected" + currentUnit);          
                             SetSelected();
@@ -198,6 +208,11 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
     private void SetSelected()
     {
         m_SelectedManager.AddToSelected(currentUnit);
+
+        if (GetComponent<Unit>())
+        {
+            GetComponent<Selected>().SetSelected();
+        }
     }
 
     private void EmptySelected()

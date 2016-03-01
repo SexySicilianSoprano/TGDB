@@ -32,7 +32,7 @@ public class Selected : MonoBehaviour {
     // Use this for initialization
     void Start () 
 	{
-        projector = GetComponent<Projector>();
+        projector = GetComponentInChildren<Projector>();
 		IsSelected = false;
 		FindMaxWorldSize();
 		

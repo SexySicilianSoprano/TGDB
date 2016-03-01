@@ -38,12 +38,12 @@ public class UIManager : MonoBehaviour, IUIManager {
     //Player identifier variables
     public Player primaryPlayer()
     {
-        return m_GameManager.primaryPlayer(); // Returns controlling player's info
+        return GetComponent<GameManager>().primaryPlayer(); // Returns controlling player's info
     }
 
     public Player enemyPlayer()
     {
-        return m_GameManager.enemyPlayer(); // Returns enemy player's info
+        return GetComponent<GameManager>().enemyPlayer(); // Returns enemy player's info
     }
 
     private string m_primaryPlayer
@@ -57,9 +57,9 @@ public class UIManager : MonoBehaviour, IUIManager {
     }
 
     //Interface variables the UI needs to deal with
-    public SelectedManager m_SelectedManager;
-    public CursorManager m_CursorManager;
-    public GameManager m_GameManager;    
+    public SelectedManager m_SelectedManager { get { return GetComponent<SelectedManager>(); } }
+    public CursorManager m_CursorManager { get { return GetComponent<CursorManager>(); } }
+    public GameManager m_GameManager { get { return GetComponent<GameManager>(); } }
 
     // UNDER DELETION / REVISION THREAT
     //Building Placement variables
@@ -115,8 +115,9 @@ public class UIManager : MonoBehaviour, IUIManager {
     {
         //Resolve interface variables
         //m_SelectedManager = ManagerResolver.Resolve<ISelectedManager>();
-        //m_Camera = ManagerResolver.Resolve<ICamera>();
         //m_CursorManager = ManagerResolver.Resolve<ICursorManager>();
+        //m_GameManager = ManagerResolver.Resolve<IGameManager>();
+        //m_Manager = ManagerResolver.Resolve<IManager>(); 
     }
 
     // Update is called once per frame
@@ -147,7 +148,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(8 << 16)))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(5 << 16)))
         {
             currentObject = hit.collider.gameObject;
 
@@ -208,7 +209,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(8 << 14)))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(8 << 16)))
         {
             // Right Mouse Button up, what happens next?
             if (Input.GetMouseButtonUp(1) && hoverOver == HoverOver.Land && m_SelectedManager.ActiveEntityCount() > 0)

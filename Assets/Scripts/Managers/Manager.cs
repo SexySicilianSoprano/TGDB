@@ -8,23 +8,17 @@ public class Manager : MonoBehaviour, IManager {
     public static Manager main;
 
     // Components Manager needs to deal with
-    public GameManager m_GameManager;
+    public IGameManager m_GameManager;
 
     // Player variables
-    public Player primaryPlayer
+    public Player primaryPlayer()
     {
-        get 
-        {
-            return m_GameManager.primaryPlayer();
-        }
+        return GetComponent<GameManager>().primaryPlayer();
     }
 
-    public Player enemyPlayer
+    public Player enemyPlayer()
     {
-        get
-        {
-            return m_GameManager.enemyPlayer();
-        }
+        return GetComponent<GameManager>().enemyPlayer();
     }
 
     public string m_primaryPlayer;
@@ -37,6 +31,7 @@ public class Manager : MonoBehaviour, IManager {
             throw new NotImplementedException();
         }
     }
+
     void Awake()
     {
         main = this;
@@ -44,10 +39,9 @@ public class Manager : MonoBehaviour, IManager {
 
     // Use this for initialization
     void Start()
-    {
+    {        
         Initialise();
-        m_GameManager.InitialiseGameData();
-	}
+    }
 	
 	// Update is called once per frame
 	void Update()
@@ -63,8 +57,8 @@ public class Manager : MonoBehaviour, IManager {
 
     private void AssignPlayerInfo()
     {
-        m_primaryPlayer = primaryPlayer.controlledTag;
-        m_enemyPlayer = enemyPlayer.controlledTag;
+        m_primaryPlayer = primaryPlayer().controlledTag;
+        m_enemyPlayer = enemyPlayer().controlledTag;
     }
 
     public void BuildingAdded(Building building)

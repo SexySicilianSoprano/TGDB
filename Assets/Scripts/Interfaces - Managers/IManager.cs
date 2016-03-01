@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 public interface IManager {
 
+    Player primaryPlayer();
+    Player enemyPlayer();
+
 	void BuildingAdded(Building building);
 	void BuildingRemoved(Building building);
 	void UnitAdded(Unit unit);

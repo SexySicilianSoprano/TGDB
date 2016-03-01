@@ -51,7 +51,7 @@ public class TurretCombat : Combat {
 
         // Initialise DangerZone and set its size
         DangerZone = transform.GetComponent<SphereCollider>();
-        DangerZone.radius += 200;
+        DangerZone.radius += 100;
     }
 
     void Update()
@@ -102,7 +102,7 @@ public class TurretCombat : Combat {
     public override void AssignDetails(Weapon weapon)
     {
         Damage = weapon.Damage * 2;
-        Range = weapon.Range * 2;
+        Range = weapon.Range;
         FireRate = weapon.FireRate;
         TurretSpeed = weapon.TurretSpeed;
         isAntiArmor = weapon.isAntiArmor;
