@@ -496,24 +496,7 @@ Prefab:
       propertyPath: focusPoint
       value: 
       objectReference: {fileID: 1447075548}
-    - target: {fileID: 11414996, guid: 602cbbc66ab2b1b4785ca5c4574635b3, type: 2}
-      propertyPath: zoomMaxLimit
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 11414996, guid: 602cbbc66ab2b1b4785ca5c4574635b3, type: 2}
-      propertyPath: zoomSpeed
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 11414996, guid: 602cbbc66ab2b1b4785ca5c4574635b3, type: 2}
-      propertyPath: panSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 11414996, guid: 602cbbc66ab2b1b4785ca5c4574635b3, type: 2}
-      propertyPath: zoomMinLimit
-      value: 5
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 11496916, guid: 602cbbc66ab2b1b4785ca5c4574635b3, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 602cbbc66ab2b1b4785ca5c4574635b3, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &943627498
@@ -1184,7 +1167,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 401270, guid: 296fa622f5c984ad48ed4dd3954e1304, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.17
+      value: 5.58
       objectReference: {fileID: 0}
     - target: {fileID: 401270, guid: 296fa622f5c984ad48ed4dd3954e1304, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1248,7 +1231,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11421214, guid: 296fa622f5c984ad48ed4dd3954e1304, type: 2}
       propertyPath: unit
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 192440, guid: 296fa622f5c984ad48ed4dd3954e1304, type: 2}
       propertyPath: m_Layer
@@ -1536,6 +1519,14 @@ Prefab:
       propertyPath: m_sun
       value: 
       objectReference: {fileID: 1781149345}
+    - target: {fileID: 11407690, guid: eb243eb155800a24f91b10a804a2b1a3, type: 2}
+      propertyPath: disableFoam
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11465584, guid: eb243eb155800a24f91b10a804a2b1a3, type: 2}
+      propertyPath: skyboxInReflection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb243eb155800a24f91b10a804a2b1a3, type: 2}
   m_IsPrefabParent: 0
@@ -2410,7 +2401,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22491530, guid: d17b58f1e3269894f84dec5be79dc965, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 37
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 11495714, guid: d17b58f1e3269894f84dec5be79dc965, type: 2}
       propertyPath: m_Sprite
