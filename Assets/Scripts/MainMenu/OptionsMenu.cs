@@ -12,20 +12,25 @@ public class OptionsMenu : MonoBehaviour {
 
 
 
-    void Start()
+    void Awake()
     {
 
 
-
+        print("JEEEEEEEEEEEE");
 
         soundOptions = GameObject.Find("SoundOptions");
         graphicsOptions = GameObject.Find("GraphicOptions");
         controlOptions = GameObject.Find("ControlOptions");
         gameOptions = GameObject.Find("GameOptions");
 
+   
+
     }
 
-
+    void Start()
+    {
+        DisableSubOptions();
+    }
 
     // Update is called once per frame
     void LateUpdate()
@@ -77,7 +82,7 @@ public class OptionsMenu : MonoBehaviour {
 
     public void Close()
     {
-        gameObject.GetComponent<Canvas>().enabled = false;
+        gameObject.SetActive(false);
 
     }
 

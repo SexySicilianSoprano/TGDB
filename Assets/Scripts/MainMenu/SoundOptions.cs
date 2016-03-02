@@ -15,7 +15,7 @@ public class SoundOptions : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         storage = GameObject.Find("Storage").GetComponent<StorageScript>();
 

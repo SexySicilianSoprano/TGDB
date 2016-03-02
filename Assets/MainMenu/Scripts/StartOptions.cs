@@ -33,7 +33,10 @@ public class StartOptions : MonoBehaviour {
 		//Get a reference to PlayMusic attached to UI object
 		playMusic = GetComponent<PlayMusic> ();
 	}
-
+    void Start()
+    {
+        GameObject.Find("OptionsMenu").SetActive(false);
+    }
 
 	public void StartButtonClicked(int scene)
 	{

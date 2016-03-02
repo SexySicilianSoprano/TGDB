@@ -10,7 +10,7 @@ public class GameOptions : MonoBehaviour {
     Toggle fps;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         storage = GameObject.Find("Storage").GetComponent<StorageScript>();
         showFPS = storage.fps;

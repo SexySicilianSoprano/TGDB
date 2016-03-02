@@ -6,6 +6,8 @@ public class ShowPanels : MonoBehaviour {
 	public GameObject optionsPanel;							//Store a reference to the Game Object OptionsPanel 
 	public GameObject optionsTint;							//Store a reference to the Game Object OptionsTint 
 	public GameObject menuPanel;							//Store a reference to the Game Object MenuPanel 
+    public GameObject factionPanel;                         //Store a reference to the Game Object FactionPanel
+    public GameObject mapPanel;                             //Store a reference to the Game Object MapPanel
 	public GameObject pausePanel;							//Store a reference to the Game Object PausePanel 
 
 
@@ -27,12 +29,15 @@ public class ShowPanels : MonoBehaviour {
 	public void ShowMenu()
 	{
 		menuPanel.SetActive (true);
+
 	}
 
 	//Call this function to deactivate and hide the main menu panel during the main menu
 	public void HideMenu()
 	{
 		menuPanel.SetActive (false);
+        factionPanel.SetActive(false);
+        mapPanel.SetActive(false);
 	}
 	
 	//Call this function to activate and display the Pause panel during game play
