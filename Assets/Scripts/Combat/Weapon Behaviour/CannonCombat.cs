@@ -8,7 +8,7 @@ public class CannonCombat : Combat {
     // ##### Private variables #####
     private bool TargetSet = false;
     private bool canFire = true;
-    private bool m_FollowEnemy = false;
+    private bool m_FollowEnemy = true;
     private bool m_FireAtEnemy = false;
 
     private float m_FireRate;
@@ -36,6 +36,8 @@ public class CannonCombat : Combat {
         SpawnerPos = Spawner.transform.position;
         CurrentPos = CurrentLocation;
         CalculateFireRate();
+
+        Debug.DrawRay(Spawner.transform.position, Spawner.transform.forward*Mathf.Infinity, Color.red);
 
         if (TargetSet && m_Target == null)
         {
@@ -181,13 +183,13 @@ public class CannonCombat : Combat {
     // Checks if target is in line of fires
     private bool TargetInLine()
     {
-        //Vector3 Forward = Spawner.transform.TransformDirection(Vector3.forward);
         RaycastHit hit;
         Ray ray = new Ray(Spawner.transform.position, Spawner.transform.forward);
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, ~( 8 << 12 )))
         {
             if (hit.collider == m_Target.GetComponent<BoxCollider>())
             {
+                Debug.Log(m_Parent + " is hitting shit");
                 return true;
             }
 

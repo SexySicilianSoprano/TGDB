@@ -125,7 +125,7 @@ public class UIManager : MonoBehaviour, IUIManager {
     {
         CheckHoverOver();
         SelectionListener();
-        //Debug.log(hoverOver + " " + interactionState);
+        Debug.Log(hoverOver + " " + interactionState);
 
         switch (m_Mode)
         {
@@ -148,13 +148,16 @@ public class UIManager : MonoBehaviour, IUIManager {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(5 << 16)))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(5 | 8 << 12)))
         {
             currentObject = hit.collider.gameObject;
 
             // What sort of an object are we pointing at?
             switch (currentObject.layer)
             {
+                case 5:
+                    hoverOver = HoverOver.GUI;
+                    break;
                 case 8:
                 case 16:
                 case 15:

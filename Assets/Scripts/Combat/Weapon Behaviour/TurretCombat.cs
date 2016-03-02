@@ -51,7 +51,7 @@ public class TurretCombat : Combat {
 
         // Initialise DangerZone and set its size
         DangerZone = transform.GetComponent<SphereCollider>();
-        DangerZone.radius += 100;
+        DangerZone.radius = 100;
     }
 
     void Update()
@@ -177,7 +177,7 @@ public class TurretCombat : Combat {
     private void Fire()
     {
         // Play firing      
-        //gameObject.transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play(true);
+        Spawner.GetChild(0).GetComponent<ParticleSystem>().Play(true);
         //debug.log("FIRE TURRET, FIRE!");
         
         //LaunchProjectile(Projectile); // Launch projectile
@@ -206,27 +206,31 @@ public class TurretCombat : Combat {
     private bool TargetInLine()
     {
         // Let's create a new vector3 from spawner position that is just above the ground, so it may touch the ground units
-        Vector3 m_SpawnPos = new Vector3(SpawnerPos.x, 1f, SpawnerPos.z);
+        Vector3 m_SpawnPos = new Vector3(SpawnerPos.x, 2f, SpawnerPos.z);
 
         // Then let's raycast
         RaycastHit hit;
         Ray ray = new Ray(m_SpawnPos, Spawner.transform.forward);
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, ~(9 << 12)))
         {
             // Is it the target's box collider?
             if (hit.collider == m_Target.GetComponent<BoxCollider>())
             {
                 // Yeah, we're facing the target
+                Debug.Log(m_Parent + " is hitting shit");
                 return true;
             }
             else
             {
                 // Nope, still can't do
+                Debug.Log(m_Parent + " ain't hitting shit");
                 return false;
             }
         }
         else
-        {            
+        {
+
+            Debug.Log(m_Parent + " ain't hitting shit");
             // We're not hitting anything, so let's try again
             return false;
         }
