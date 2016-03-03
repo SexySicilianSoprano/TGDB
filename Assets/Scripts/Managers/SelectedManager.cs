@@ -20,6 +20,9 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
     private List<RTSEntity> l_Group5 = new List<RTSEntity>();
     private List<RTSEntity> l_Group6 = new List<RTSEntity>();
 
+    // Selected building
+    private RTSEntity selectedBuilding;
+
     void Awake()
     {
         main = this;
@@ -35,14 +38,23 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
     // Adds the unit to selected
     public void AddToSelected(RTSEntity unit)
     {
-        if (!l_Selected.Contains(unit))
+        if (unit.GetComponent<Unit>())
         {
-            if (unit is IOrderable)
+            if (!l_Selected.Contains(unit))
             {
-                SelectedActiveEntities.Add((IOrderable)unit);
+                if (unit is IOrderable)
+                {
+                    SelectedActiveEntities.Add((IOrderable)unit);
+                }
+
+                l_Selected.Add(unit);
+                unit.SetSelected();
             }
-            l_Selected.Add(unit);
+        }
+        else
+        {
             unit.SetSelected();
+            selectedBuilding = unit;
         }
     }
 
@@ -91,6 +103,17 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
     // Removes everything from selected
     public void ClearSelected()
     {
+        foreach (RTSEntity unit in l_Selected)
+        {
+            unit.SetDeselected();
+        }
+        
+        if (selectedBuilding)
+        {
+            selectedBuilding.SetDeselected();
+            selectedBuilding = null;
+        }
+
         l_Selected.Clear();
         SelectedActiveEntities.Clear();
     }

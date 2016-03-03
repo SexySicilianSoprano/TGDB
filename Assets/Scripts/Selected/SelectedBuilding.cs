@@ -13,22 +13,28 @@ public class SelectedBuilding : MonoBehaviour {
 	
 	private float m_HealthSize = 2.0f;
 	private float m_HealthWidth;
+
+    Projector projector;
     
     // Use this for initialization
     void Start () 
 	{
-		//Assign building
-		m_Building = GetComponent<Building>();
+        // Find projector
+        projector = GetComponentInChildren<Projector>();
+
+        //Assign building
+        m_Building = GetComponent<Building>();
 	}
 	
 	public void SetSelected()
 	{
         //Render projection
+        projector.enabled = true;
 	}
 	
 	public void SetDeselected()
 	{
-
+        projector.enabled = false;
     }
 	
 	public void ExecuteFunction()

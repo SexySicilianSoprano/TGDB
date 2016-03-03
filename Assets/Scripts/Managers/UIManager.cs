@@ -57,9 +57,9 @@ public class UIManager : MonoBehaviour, IUIManager {
     }
 
     //Interface variables the UI needs to deal with
-    public SelectedManager m_SelectedManager { get { return GetComponent<SelectedManager>(); } }
-    public CursorManager m_CursorManager { get { return GetComponent<CursorManager>(); } }
-    public GameManager m_GameManager { get { return GetComponent<GameManager>(); } }
+    public SelectedManager m_SelectedManager() { return GetComponent<SelectedManager>(); } 
+    public CursorManager m_CursorManager()  { return GetComponent<CursorManager>(); } 
+    public GameManager m_GameManager() { return GetComponent<GameManager>(); } 
 
     // UNDER DELETION / REVISION THREAT
     //Building Placement variables
@@ -114,9 +114,9 @@ public class UIManager : MonoBehaviour, IUIManager {
     void Start()
     {
         //Resolve interface variables
-        //m_SelectedManager = ManagerResolver.Resolve<ISelectedManager>();
-        //m_CursorManager = ManagerResolver.Resolve<ICursorManager>();
-        //m_GameManager = ManagerResolver.Resolve<IGameManager>();
+        //m_SelectedManager() = ManagerResolver.Resolve<ISelectedManager>();
+        //m_CursorManager() = ManagerResolver.Resolve<ICursorManager>();
+        //m_GameManager() = ManagerResolver.Resolve<IGameManager>();
         //m_Manager = ManagerResolver.Resolve<IManager>(); 
     }
 
@@ -125,7 +125,8 @@ public class UIManager : MonoBehaviour, IUIManager {
     {
         CheckHoverOver();
         SelectionListener();
-        Debug.Log(hoverOver + " " + interactionState);
+        //Debug.Log(hoverOver + " " + interactionState);
+        Debug.Log(m_Identifier + " " + hoverOver);
 
         switch (m_Mode)
         {
@@ -148,19 +149,17 @@ public class UIManager : MonoBehaviour, IUIManager {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(5 | 8 << 12)))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(8 << 18)))
         {
             currentObject = hit.collider.gameObject;
 
             // What sort of an object are we pointing at?
             switch (currentObject.layer)
             {
-                case 5:
-                    hoverOver = HoverOver.GUI;
-                    break;
                 case 8:
                 case 16:
                 case 15:
+                case 17:
                     hoverOver = HoverOver.Land;
                     break;
                 case 9:
@@ -193,6 +192,9 @@ public class UIManager : MonoBehaviour, IUIManager {
                     m_Identifier = Identifier.Enemy;
                     break;
                 case "Untagged":
+                case "Terrain":
+                case "Water":
+                case "BuildingSpot":
                     m_Identifier = Identifier.Neutral;
                     break;
             }        
@@ -212,20 +214,20 @@ public class UIManager : MonoBehaviour, IUIManager {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(8 << 16)))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(8 << 18)))
         {
             // Right Mouse Button up, what happens next?
-            if (Input.GetMouseButtonUp(1) && hoverOver == HoverOver.Land && m_SelectedManager.ActiveEntityCount() > 0)
+            if (Input.GetMouseButtonUp(1) && hoverOver == HoverOver.Land && m_SelectedManager().ActiveEntityCount() > 0)
             {
                 // Create move order
-                m_SelectedManager.GiveOrder(Orders.CreateMoveOrder(hit.point));
+                m_SelectedManager().GiveOrder(Orders.CreateMoveOrder(hit.point));
             }
 
             // Left Mouse Button down, what happens?
             if (Input.GetMouseButtonDown(0) && hoverOver == HoverOver.Land)
             {
                 // Deselect selected units and start selecting new units
-                m_SelectedManager.ClearSelected();
+                m_SelectedManager().ClearSelected();
                 isSelecting = true;
                 v_mousePosition = Input.mousePosition;
             }
@@ -240,9 +242,9 @@ public class UIManager : MonoBehaviour, IUIManager {
 
         if (Input.GetKeyDown(KeyCode.X))
         {
-            if (m_SelectedManager.ActiveEntityCount() > 0)
+            if (m_SelectedManager().ActiveEntityCount() > 0)
             {
-                m_SelectedManager.GiveOrder(Orders.CreateStopOrder());
+                m_SelectedManager().GiveOrder(Orders.CreateStopOrder());
             }
         }
 
@@ -253,12 +255,12 @@ public class UIManager : MonoBehaviour, IUIManager {
             if (Input.GetKey(KeyCode.V))
             {
                 // Create group 1
-                m_SelectedManager.CreateGroup(1);
+                m_SelectedManager().CreateGroup(1);
             }
             else
             {
                 // Select group 1
-                m_SelectedManager.SelectGroup(1);
+                m_SelectedManager().SelectGroup(1);
             }
         }
 
@@ -269,12 +271,12 @@ public class UIManager : MonoBehaviour, IUIManager {
             if (Input.GetKey(KeyCode.V))
             {
                 // Create group 2
-                m_SelectedManager.CreateGroup(2);
+                m_SelectedManager().CreateGroup(2);
             }
             else
             {
                 // Select group 2
-                m_SelectedManager.SelectGroup(2);
+                m_SelectedManager().SelectGroup(2);
             }
         }
 
@@ -285,12 +287,12 @@ public class UIManager : MonoBehaviour, IUIManager {
             if (Input.GetKey(KeyCode.V))
             {
                 // Create group 3
-                m_SelectedManager.CreateGroup(3);
+                m_SelectedManager().CreateGroup(3);
             }
             else
             {
                 // Select group 3
-                m_SelectedManager.SelectGroup(3);
+                m_SelectedManager().SelectGroup(3);
             }
         }
 
@@ -301,12 +303,12 @@ public class UIManager : MonoBehaviour, IUIManager {
             if (Input.GetKey(KeyCode.V))
             {
                 // Create group 4
-                m_SelectedManager.CreateGroup(4);
+                m_SelectedManager().CreateGroup(4);
             }
             else
             {
                 // Select group 4
-                m_SelectedManager.SelectGroup(4);
+                m_SelectedManager().SelectGroup(4);
             }
         }
 
@@ -317,12 +319,12 @@ public class UIManager : MonoBehaviour, IUIManager {
             if (Input.GetKey(KeyCode.V))
             {
                 // Create group 5
-                m_SelectedManager.CreateGroup(5);
+                m_SelectedManager().CreateGroup(5);
             }
             else
             {
                 // Select group 5
-                m_SelectedManager.SelectGroup(5);
+                m_SelectedManager().SelectGroup(5);
             }
         }
 
@@ -333,12 +335,12 @@ public class UIManager : MonoBehaviour, IUIManager {
             if (Input.GetKey(KeyCode.V))
             {
                 // Create group 6
-                m_SelectedManager.CreateGroup(6);
+                m_SelectedManager().CreateGroup(6);
             }
             else
             {
                 // Select group 6
-                m_SelectedManager.SelectGroup(6);
+                m_SelectedManager().SelectGroup(6);
             }
         }
 
@@ -357,10 +359,10 @@ public class UIManager : MonoBehaviour, IUIManager {
                 if (IsWithinSelectionBounds(selectable.gameObject))
                 {
                     // The unit has to be unselected and has to be friendly
-                    if (!m_SelectedManager.ActiveEntityList().Contains((IOrderable)selectable) && selectable.tag == m_primaryPlayer) //
+                    if (!m_SelectedManager().ActiveEntityList().Contains((IOrderable)selectable) && selectable.tag == m_primaryPlayer) //
                     {
                         // Unit is not previously selected and is friendly, so let's select it and turn on the projector
-                        m_SelectedManager.AddToSelected(selectable);
+                        m_SelectedManager().AddToSelected(selectable);
                         // TODO: projector for selected unit indication graphics
                     }
                 }
@@ -388,24 +390,24 @@ public class UIManager : MonoBehaviour, IUIManager {
         // interactionState = InteractionState.Nothing;
         GetInputAction();
 
-        if (hoverOver == HoverOver.Menu || m_SelectedManager.ActiveEntityCount() <= 0 )
+        if (hoverOver == HoverOver.Menu || m_SelectedManager().ActiveEntityCount() <= 0 )
         {
             // Nothing orderable Selected or mouse is over menu or support is selected
             CalculateInteraction(hoverOver, ref interactionState);
         }
-        else if (m_SelectedManager.ActiveEntityCount() == 1)
+        else if (m_SelectedManager().ActiveEntityCount() == 1)
         {
             // One object selected
-            CalculateInteraction(m_SelectedManager.FirstActiveEntity(), hoverOver, m_Identifier, ref interactionState);
+            CalculateInteraction(m_SelectedManager().FirstActiveEntity(), hoverOver, m_Identifier, ref interactionState);
         }
         else
         {
             // Multiple objects selected, need to find which order takes precedence									
-            CalculateInteraction(m_SelectedManager.ActiveEntityList(), hoverOver, m_Identifier, ref interactionState);
+            CalculateInteraction(m_SelectedManager().ActiveEntityList(), hoverOver, m_Identifier, ref interactionState);
         }
 
         // Tell the cursor manager to update itself based on the interactionstate
-        m_CursorManager.UpdateCursorIcon(interactionState);
+        m_CursorManager().UpdateCursorIcon(interactionState);
     }
 
     // Calculates interaction state by hoverover, used when nothing is selected
@@ -429,7 +431,7 @@ public class UIManager : MonoBehaviour, IUIManager {
                 break;
         }
     }
-    
+
     // Calculates interaction state by hoverover and identifier, used when units are selected
     private void CalculateInteraction(IOrderable obj, HoverOver hoveringOver, Identifier identifier, ref InteractionState interactionState)
     {
@@ -476,36 +478,43 @@ public class UIManager : MonoBehaviour, IUIManager {
                 return;
             }
         }
-
-        if (hoverOver == HoverOver.Building)
+        /*
+        if (identifier == Identifier.Friend)
         {
-            if (identifier == Identifier.Friend)
+            //Check if building can interact with object (repair building for example)
+            if (currentObject.GetComponent<Building>().InteractWith(obj))
             {
-                //Check if building can interact with object (repair building for example)
-                if (currentObject.GetComponent<Building>().InteractWith(obj))
-                {
-                    //Interact Interaction
-                    interactionState = InteractionState.Interact;
-                    return;
-                }
-                else
-                {
-                    //Select Interaction
-                    interactionState = InteractionState.Select;
-                    return;
-                }
+                //Interact Interaction
+                interactionState = InteractionState.Interact;
+                return;
+            }
+            else
+            {
+                //Select Interaction
+                interactionState = InteractionState.Select;
+                return;
             }
         }
-
-        if (identifier == Identifier.Friend || hoverOver == HoverOver.Building || hoverOver == HoverOver.Ship || hoverOver == HoverOver.AirUnit || hoverOver == HoverOver.Submarine)
+        else
         {
-            //Select Interaction
+            interactionState = InteractionState.Attack;
+        }
+        */
+
+        if (identifier == Identifier.Friend)
+        {
             interactionState = InteractionState.Select;
+            return;
+        }
+        else
+        {
+            interactionState = InteractionState.Attack;
             return;
         }
 
         //Invalid interaction
         interactionState = InteractionState.Invalid;
+        return;
     }
     
     // Calculates what is the interaction with whatever we're pointing at
@@ -517,7 +526,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 
             if (ShouldInterractB)
             {
-                if (hoveringOver == HoverOver.Ship || hoverOver == HoverOver.Submarine || hoverOver == HoverOver.AirUnit)
+                if (hoveringOver == HoverOver.Ship || hoverOver == HoverOver.Submarine || hoverOver == HoverOver.AirUnit || hoverOver == HoverOver.Building)
                 {
                     CalculateInteraction(obj, hoveringOver, identifier, ref interactionState);
                     return;

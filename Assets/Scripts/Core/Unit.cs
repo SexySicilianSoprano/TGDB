@@ -1,8 +1,9 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 //[RequireComponent(typeof(Selected))]
-public class Unit : RTSEntity, IOrderable {
+public class Unit : RTSEntity, IOrderable{
 
     //Member Variables
     protected bool m_IsMoveable = true;
@@ -22,12 +23,9 @@ public class Unit : RTSEntity, IOrderable {
         private set;
     }
 
-    private Player primaryPlayer
+    private Player primaryPlayer()
     {
-        get
-        {
             return m_UIManager.primaryPlayer();
-        }
     }
 
     protected void Start()
@@ -103,7 +101,7 @@ public class Unit : RTSEntity, IOrderable {
     {
         return m_IsInteractable;
     }
-
+    
     public void GiveOrder(Order order)
     {
         switch (order.OrderType)
@@ -202,7 +200,7 @@ public class Unit : RTSEntity, IOrderable {
 
     new void OnDestroy()
     {
-        if (gameObject.layer == primaryPlayer.controlledLayer)
+        if (gameObject.layer == primaryPlayer().controlledLayer)
         {
             
         }
@@ -211,4 +209,6 @@ public class Unit : RTSEntity, IOrderable {
        m_selectedManager.RemoveFromSelected(this);
        m_selectedManager.RemoveFromGroup(this);
     }
+
+    
 }

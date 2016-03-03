@@ -159,9 +159,9 @@ public class BoatMovement : SeaMovement {
 
     public override void AssignDetails(Item item)
     {
-        Speed = item.Speed / 5;
+        Speed = item.Speed;
         CurrentSpeed = 0;
-        RotationalSpeed = item.RotationSpeed / 3;
+        RotationalSpeed = item.RotationSpeed;
         Acceleration = item.Acceleration;
     }
 

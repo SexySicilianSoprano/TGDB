@@ -37,8 +37,6 @@ public class CannonCombat : Combat {
         CurrentPos = CurrentLocation;
         CalculateFireRate();
 
-        Debug.DrawRay(Spawner.transform.position, Spawner.transform.forward*Mathf.Infinity, Color.red);
-
         if (TargetSet && m_Target == null)
         {
             Stop();
@@ -185,11 +183,10 @@ public class CannonCombat : Combat {
     {
         RaycastHit hit;
         Ray ray = new Ray(Spawner.transform.position, Spawner.transform.forward);
-        if (Physics.Raycast(ray, out hit, ~( 8 << 12 )))
+        if (Physics.Raycast(ray, out hit))
         {
             if (hit.collider == m_Target.GetComponent<BoxCollider>())
             {
-                Debug.Log(m_Parent + " is hitting shit");
                 return true;
             }
 

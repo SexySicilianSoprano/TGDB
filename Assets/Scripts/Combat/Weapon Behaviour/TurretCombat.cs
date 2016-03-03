@@ -211,26 +211,22 @@ public class TurretCombat : Combat {
         // Then let's raycast
         RaycastHit hit;
         Ray ray = new Ray(m_SpawnPos, Spawner.transform.forward);
-        if (Physics.Raycast(ray, out hit, ~(9 << 12)))
+        if (Physics.Raycast(ray, out hit))
         {
             // Is it the target's box collider?
             if (hit.collider == m_Target.GetComponent<BoxCollider>())
             {
                 // Yeah, we're facing the target
-                Debug.Log(m_Parent + " is hitting shit");
                 return true;
             }
             else
             {
                 // Nope, still can't do
-                Debug.Log(m_Parent + " ain't hitting shit");
                 return false;
             }
         }
         else
         {
-
-            Debug.Log(m_Parent + " ain't hitting shit");
             // We're not hitting anything, so let's try again
             return false;
         }

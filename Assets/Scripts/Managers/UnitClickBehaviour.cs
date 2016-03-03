@@ -20,11 +20,11 @@ using System;
 public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
 {
     // What is the pointer pointing at?
-    private HoverOver hoverOver 
-    {
+    private HoverOver hoverOver
+    { 
         get
         {
-            return m_UIManager.HoverOverState;
+            return m_UIManager().HoverOverState;
         }
     }
 
@@ -33,7 +33,7 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
     {
         get
         {
-            return m_UIManager.CurrentMode;
+            return m_UIManager().CurrentMode;
         }
     }   
 
@@ -42,7 +42,7 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
     {
         get
         {
-            return m_UIManager.CurrentState;
+            return m_UIManager().CurrentState;
         }
     }
 
@@ -50,14 +50,14 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
     {
         get
         {
-            return m_UIManager.CurrentIdentifier;
+            return m_UIManager().CurrentIdentifier;
         }
     }
 
     // Other variables that the class needs to deal with
-    private UIManager m_UIManager { get { return GameObject.Find("Manager").GetComponent<UIManager>(); } } // This is used to communicate with the UIManager
-    private SelectedManager m_SelectedManager { get { return GameObject.Find("Manager").GetComponent<SelectedManager>(); } } // This is used to communicate with the SelectedManager
-    private GameManager m_GameManager { get { return GameObject.Find("Manager").GetComponent<GameManager>(); } } // This is used to determine player priorities
+    private UIManager m_UIManager() { return GameObject.Find("Manager").GetComponent<UIManager>(); }  // This is used to communicate with the UIManager
+    private SelectedManager m_SelectedManager() { return GameObject.Find("Manager").GetComponent<SelectedManager>(); } // This is used to communicate with the SelectedManager
+    private GameManager m_GameManager() { return GameObject.Find("Manager").GetComponent<GameManager>(); }// This is used to determine player priorities
     private RTSEntity currentUnit; // This is used to hold the unit data this game object has
     private string unitTag; // Who owns this unit?
 
@@ -75,9 +75,9 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
         unitTag = gameObject.tag; // Get the unit's owner
 
         // Resolve Managers
-        //m_UIManager = ManagerResolver.Resolve<IUIManager>(); // Get the UIManager that's being used
-        //m_SelectedManager = ManagerResolver.Resolve<ISelectedManager>(); // Get the SelectedManager that's being used
-        //m_GameManager = ManagerResolver.Resolve<IGameManager>(); // Get the GameManager that's being used
+        //m_UIManager() = ManagerResolver.Resolve<IUIManager>(); // Get the UIManager that's being used
+        //m_SelectedManager() = ManagerResolver.Resolve<ISelectedManager>(); // Get the SelectedManager that's being used
+        //m_GameManager() = ManagerResolver.Resolve<IGameManager>(); // Get the GameManager that's being used
 
         // Assign stuff
         currentUnit = GetComponent<RTSEntity>(); // Get the unit data tied to this game object        
@@ -88,7 +88,7 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
     {
         Debug.Log("Clickade");
         // Is it a left mouse click?
-        if (eventData.button == PointerEventData.InputButton.Left && !DoubleClickCheck(eventData))
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
             // Single clicked or drag selected, what happens next?
             Debug.Log("Clickan");
@@ -101,16 +101,16 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
                     if (m_State != InteractionState.Invalid)
                     {
                         // Clear the active selected group
-                        if (m_SelectedManager.ActiveEntityList() != null)
+                        if (m_SelectedManager().ActiveEntityList() != null)
                         {
                             EmptySelected();
                         }
                         // Is the unit friendly?
-                        if (currentUnit.tag == primaryPlayer().controlledTag)
+                        if (currentUnit.tag == "Player1")
                         {
-                            Debug.Log("Selected" + currentUnit);          
+                            Debug.Log("Selected" + currentUnit);
                             SetSelected();
-                        }
+                        }                    
                     }                    
                     break;
             }
@@ -142,7 +142,7 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
         {
             // Why, yes it is!
             Debug.Log("Righto Clickan");
-            if (m_SelectedManager.ActiveEntityCount() > 0)
+            if (m_SelectedManager().ActiveEntityCount() > 0)
             {
                 // Get a command that will be sent to selected units
                 GetCommand();
@@ -173,51 +173,39 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
         {
             case InteractionState.Select:
                 Debug.Log("Select " + currentUnit);
-                //SetSelected();
+                SetSelected();
                 break;
             case InteractionState.Move:
                 Debug.Log("Move");
-                m_SelectedManager.GiveOrder(Orders.CreateMoveOrder(Input.mousePosition));
+                m_SelectedManager().GiveOrder(Orders.CreateMoveOrder(Input.mousePosition));
                 break;
             case InteractionState.Attack:
                 Debug.Log("Attack " + currentUnit);
-                m_SelectedManager.GiveOrder(Orders.CreateAttackOrder(currentUnit));
+                m_SelectedManager().GiveOrder(Orders.CreateAttackOrder(currentUnit));
                 break;
             case InteractionState.Deploy:
                 Debug.Log("Deploy " + currentUnit);
-                m_SelectedManager.GiveOrder(Orders.CreateDeployOrder());
+                m_SelectedManager().GiveOrder(Orders.CreateDeployOrder());
                 break;
         }
     }
-
-    private void ListenToDragged()
-    {/*
-        if (GetComponent<Renderer>().isVisible && m_guiManager.Dragging)
-        {
-            if (m_guiManager.IsWithin(transform.position))
-            {
-                m_selectedManager.AddToSelected(this);
-            }
-            else
-            {
-                m_selectedManager.RemoveFromSelected(this);
-            }
-        }*/
-    }
-
     private void SetSelected()
     {
-        m_SelectedManager.AddToSelected(currentUnit);
-
         if (GetComponent<Unit>())
         {
+            m_SelectedManager().AddToSelected(currentUnit);
             GetComponent<Selected>().SetSelected();
+        }
+        else
+        {
+            m_SelectedManager().AddToSelected(currentUnit);
+            GetComponent<SelectedBuilding>().SetSelected();
         }
     }
 
     private void EmptySelected()
     {
-        m_SelectedManager.ClearSelected();
+        m_SelectedManager().ClearSelected();
     }
 
     private void GetAllSimilarUnits()
