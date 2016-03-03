@@ -16,26 +16,25 @@ public class OptionsMenu : MonoBehaviour {
     {
 
 
-        print("JEEEEEEEEEEEE");
-
         soundOptions = GameObject.Find("SoundOptions");
         graphicsOptions = GameObject.Find("GraphicOptions");
         controlOptions = GameObject.Find("ControlOptions");
         gameOptions = GameObject.Find("GameOptions");
+        DontDestroyOnLoad(transform.gameObject);
 
-   
 
     }
 
     void Start()
     {
         DisableSubOptions();
+        
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetButtonDown("Cancel"))
         {     
             Close();
         }

@@ -14,6 +14,7 @@ GameObject:
   - 81: {fileID: 8145042}
   - 114: {fileID: 11465662}
   - 114: {fileID: 11459298}
+  - 114: {fileID: 11412518}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -56,7 +57,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 197236}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 619.2489, y: 20, z: -4.375}
+  m_LocalPosition: {x: 619.2489, y: 35, z: -4.375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 408282}
@@ -110,6 +111,20 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 156072}
   m_Enabled: 1
+--- !u!114 &11412518
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 156072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -768656878, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &11414996
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -126,8 +141,8 @@ MonoBehaviour:
   cameraObject: {fileID: 156072}
   panSpeed: 20
   zoomSpeed: 60
-  zoomMaxLimit: 40
-  zoomMinLimit: 5
+  zoomMaxLimit: 65
+  zoomMinLimit: 20
   rotateAroundSpeed: 70
   followSmoothSpeed: 10
   status: 0

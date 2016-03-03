@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 
 public class StartOptions : MonoBehaviour {
@@ -32,6 +33,8 @@ public class StartOptions : MonoBehaviour {
 
 		//Get a reference to PlayMusic attached to UI object
 		playMusic = GetComponent<PlayMusic> ();
+
+        
 	}
     void Start()
     {
