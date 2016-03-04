@@ -20,7 +20,7 @@ public class OptionsMenu : MonoBehaviour {
         graphicsOptions = GameObject.Find("GraphicOptions");
         controlOptions = GameObject.Find("ControlOptions");
         gameOptions = GameObject.Find("GameOptions");
-        DontDestroyOnLoad(transform.gameObject);
+        //DontDestroyOnLoad(transform.gameObject);
 
 
     }
