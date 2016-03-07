@@ -17,7 +17,7 @@ public class ControlOptions : MonoBehaviour
         invertY = storage.invertY;
 
 
-        invert = GameObject.Find("Toggle_Invert").GetComponent<Toggle>();
+        //invert = GameObject.Find("Toggle_Invert").GetComponent<Toggle>();
 
 
        
