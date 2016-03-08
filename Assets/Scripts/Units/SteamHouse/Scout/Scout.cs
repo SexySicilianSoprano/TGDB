@@ -8,7 +8,7 @@ public class Scout : Vehicle {
     {
         AssignDetails(ItemDB.Scout);
         GetComponent<Movement>().AssignDetails(ItemDB.Scout);
-        GetComponent<Combat>().AssignDetails(WeaponDB.TestMachineGun);
+        GetComponent<Combat>().AssignDetails(WeaponDB.ScoutMachineGun);
 
         base.Start();
     }

@@ -30,7 +30,7 @@ public class CurrentGravity : MonoBehaviour {
    	void OnTriggerStay (Collider other)
     {
         // Is the colliding object a building?      
-        if (other.gameObject.GetComponent<Building>())
+        if (other.gameObject.GetComponent<Building>() && other.gameObject.GetComponent<Rigidbody>())
         {
             // Just move with the current, baby! Add force into colliding object
             other.GetComponent<Rigidbody>().AddForce(this.gameObject.transform.forward * (velocity / divider));

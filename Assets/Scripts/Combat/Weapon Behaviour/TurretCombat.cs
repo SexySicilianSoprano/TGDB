@@ -211,7 +211,7 @@ public class TurretCombat : Combat {
         // Then let's raycast
         RaycastHit hit;
         Ray ray = new Ray(m_SpawnPos, Spawner.transform.forward);
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
             // Is it the target's box collider?
             if (hit.collider == m_Target.GetComponent<BoxCollider>())
@@ -298,16 +298,29 @@ public class TurretCombat : Combat {
         
     // Updates the top priority list and puts the parameter unit on top
     private void PutTopOfTargetList(RTSEntity unit)
-    {        
-        List<RTSEntity> placeHolderList = trueTargetList; // Copy true list to placeholder
-        trueTargetList.Clear(); // Clear true list
+    {
+        List<RTSEntity> placeHolderList = new List<RTSEntity>();
+
+        if (trueTargetList.Count > 0)
+        {
+            // Copy true list to placeholder
+            foreach (RTSEntity ent in trueTargetList)
+            {
+                placeHolderList.Add(ent);
+            }             
+            trueTargetList.Clear(); // Clear true list
+        }
+
         trueTargetList.Add(unit); // Add the target 
 
         // Add all units in placeholder to true list
-        foreach (RTSEntity ent in placeHolderList)
+        if (placeHolderList.Count > 0)
         {
-            trueTargetList.Add(ent);
-        }     
+            foreach (RTSEntity ent in placeHolderList)
+            {
+                trueTargetList.Add(ent);
+            }
+        }
     }
 
     // Cleans lists of units that are either destroyed or not within range any longer

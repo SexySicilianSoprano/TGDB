@@ -16,7 +16,7 @@ public abstract class SeaMovement : Movement {
     public int currentWaypoint = 0;
 
     //The max distance from the AI to a waypoint for it to continue to the next waypoint
-    public float nextWaypointDistance = 20;
+    public float nextWaypointDistance = 10;
 
     public Action PathChangedEvent { get; internal set; }
 

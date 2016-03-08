@@ -10,6 +10,7 @@ public class CannonCombat : Combat {
     private bool canFire = true;
     private bool m_FollowEnemy = true;
     private bool m_FireAtEnemy = false;
+    private bool isFollowing = false;
 
     private float m_FireRate;
 
@@ -107,6 +108,7 @@ public class CannonCombat : Combat {
                     // Is the target within maximum range?
                     if (TargetInRange())
                     {
+                        isFollowing = false;
                         m_Movement.Stop();
                         Fire();
 
@@ -156,6 +158,7 @@ public class CannonCombat : Combat {
         TargetSet = false;
         m_Target = null;
         m_Parent.AttackingEnemy = null;
+        isFollowing = false;
         //GetComponent<Movement>().Stop();
     }
 
@@ -163,11 +166,15 @@ public class CannonCombat : Combat {
         // Follow target until in range
         if (m_FollowEnemy)
         {
-            GetComponent<Movement>().Follow(m_Target.transform);
+            if (!isFollowing)
+            {
+                isFollowing = true;
+                m_Movement.Follow(m_Target.transform);
+            }
 
             if (TargetInRange())
-            { 
-                GetComponent<Rigidbody>().velocity = Vector3.zero;
+            {
+                m_Movement.Stop();
             }
         }
     }

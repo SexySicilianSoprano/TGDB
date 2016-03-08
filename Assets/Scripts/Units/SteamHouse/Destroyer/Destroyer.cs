@@ -9,7 +9,7 @@ public class Destroyer : Vehicle {
 		//Assign variables for health/movement and so on..
 		AssignDetails (ItemDB.Destroyer);
 		GetComponent<Movement>().AssignDetails (ItemDB.Destroyer);
-        GetComponent<Combat>().AssignDetails(WeaponDB.TestCannon);
+        GetComponent<Combat>().AssignDetails(WeaponDB.DestroyerCannon);
         		
         //Call base class start
 		base.Start ();

@@ -12,4 +12,12 @@ public class BuildingSpotScript : MonoBehaviour {
             isOccupied = true;
         }
     }
+
+    private void OnTriggerExit(Collider collider)
+    {
+        if (collider.gameObject.GetComponent<RTSEntity>())
+        {
+            isOccupied = false;
+        }
+    }
 }

@@ -74,12 +74,13 @@ public class BoatMovement : SeaMovement {
             m_PlayMovingSound = true;
             AffectedByCurrent = false;
             MoveForward();
-            
-            //Make sure we're pointing at the target            
+
+            //Make sure we're pointing at the target  
             if (!PointingAtTarget(dir))
             {
                 RotateTowards(dir);
-            }           
+            }
+
 
             if (Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < nextWaypointDistance || Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < 20)
             {
