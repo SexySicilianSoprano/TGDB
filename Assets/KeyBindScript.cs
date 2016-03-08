@@ -15,12 +15,12 @@ public class KeyBindScript : MonoBehaviour {
     private Color32 selected = new Color32(200, 200, 200, 225);
 
 	// Use this for initialization
-	void Start ()
+	/*void Start ()
     {
         GetKeys();
-    }
+    }*/
 
-    private void GetKeys()
+    private void Start()
     {
         keys.Add("Up", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Up", "W")));
         keys.Add("Down", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Down", "S")));
@@ -29,6 +29,14 @@ public class KeyBindScript : MonoBehaviour {
         keys.Add("Jump", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Jump", "Space")));
         keys.Add("camLeft", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("camLeft", "Q")));
         keys.Add("camRight", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("camRight", "E")));
+        
+        /*keys.Add("Up", KeyCode.W);
+        keys.Add("Down", KeyCode.S);
+        keys.Add("Left", KeyCode.A);
+        keys.Add("Right", KeyCode.D);
+        keys.Add("Jump", KeyCode.Space);
+        keys.Add("camLeft", KeyCode.Q);
+        keys.Add("camRight", KeyCode.E);*/
 
         up.text = keys["Up"].ToString();
         down.text = keys["Down"].ToString();
@@ -118,6 +126,6 @@ public class KeyBindScript : MonoBehaviour {
 
         PlayerPrefs.Save();
         keys = null;
-        GetKeys();
+        //GetKeys();
     }
 }
