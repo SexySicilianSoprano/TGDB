@@ -45,7 +45,19 @@ public class WeaponDB {
         isAntiArmor = true,
         isAntiStructure = false,
         //Projectile = ProjectileDB.CannonBall
+    };
 
+    public static Weapon ArtilleryGun = new Weapon
+    {
+        ID = 0,
+        Name = "Artillery Gun",
+        Damage = 50,
+        Range = 150,
+        FireRate = 60,
+        TurretSpeed = 1.0f,
+        isAntiArmor = false,
+        isAntiStructure = true,
+        //Projectile = ProjectileDB.CannonBall
     };
 
     public static void Initialise()
@@ -53,6 +65,7 @@ public class WeaponDB {
         InitialiseWeapon(DestroyerCannon);
         InitialiseWeapon(ScoutMachineGun);
         InitialiseWeapon(TurretCannon);
+        InitialiseWeapon(ArtilleryGun);
     }
 
     private static void InitialiseWeapon(Weapon weapon)

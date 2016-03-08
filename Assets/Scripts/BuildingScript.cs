@@ -41,13 +41,15 @@ public class BuildingScript : MonoBehaviour {
 
 	        	//If the ray hits the Terrain, it will drag the building object on top of it and underneath the mouse cursor
 	        	if (hit.transform.tag == "Terrain"){
+                    Debug.Log("Fuggen terrain");
 					Vector3 target = new Vector3(hit.point.x, hit.point.y + 1.5f, hit.point.z);
                 	currentBuilding.transform.position = target;
 					currentBuilding.GetComponent<Renderer>().material.mainTexture = textures[0];
 					currentBuilding.GetComponent<Renderer>().material.color = Color.red;
 
                 	//If a building spot is hit with the ray, the building will turn green and snap to place
-                	if (hit.transform.name == "BuildingSpot"){
+                	if (hit.collider.gameObject.layer == 15 ){
+                        Debug.Log("BuildingSpot found!");
                 		currentBuildingSpot = hit.transform.gameObject;
                 		currentBuilding.GetComponent<Renderer>().material.mainTexture = textures[0];
 						currentBuilding.GetComponent<Renderer>().material.color = Color.green;

@@ -506,7 +506,7 @@ public class UIManager : MonoBehaviour, IUIManager {
             interactionState = InteractionState.Select;
             return;
         }
-        else
+        else if(identifier == Identifier.Enemy)
         {
             interactionState = InteractionState.Attack;
             return;

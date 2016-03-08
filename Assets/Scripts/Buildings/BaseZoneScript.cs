@@ -19,8 +19,11 @@ public class BaseZoneScript : MonoBehaviour {
     {
         if (other.gameObject.GetComponent<Unit>())
         {
+            Debug.Log(other.gameObject + " joins the base");
             other.gameObject.transform.SetParent(gameObject.transform);
+            other.gameObject.GetComponent<BoatMovement>().AffectedByCurrent = false;
         }
+    
     }
 
     private void OnTriggerExit(Collider other)
