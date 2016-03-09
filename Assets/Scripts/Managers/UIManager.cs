@@ -138,7 +138,6 @@ public class UIManager : MonoBehaviour, IUIManager {
                 break;
 
             case Mode.PlaceBuilding:
-                ModePlaceBuildingBehaviour();
                 break;
         }        
     }
@@ -550,7 +549,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 
     
     //-----------------------------------UP FOR DELETION / REVISION---------------------------------
-
+    /*
     // UP FOR REVISIONING
     private void ModePlaceBuildingBehaviour()
     {
@@ -629,37 +628,14 @@ public class UIManager : MonoBehaviour, IUIManager {
         m_ObjectBeingPlaced = (GameObject)Instantiate(m_ItemBeingPlaced.Prefab);
         m_ObjectBeingPlaced.AddComponent<BuildingBeingPlaced>();
     }
-
+    */
     //-------------------------------------------------------------------------------------
 
     public bool IsCurrentUnit(RTSEntity obj)
     {
         return currentObject == obj.gameObject;
     }    
-
-    // Switches the Mode to your choosing
-    public void SwitchMode(Mode mode)
-    {
-        switch (mode)
-        {
-
-            case Mode.Normal:
-                SwitchToModeNormal();
-                break;
-
-            case Mode.Menu:
-
-                break;
-
-            case Mode.Disabled:
-
-                break;
-        }
-    }
-
-    
-
-    
+   
 }
 
 public enum Identifier

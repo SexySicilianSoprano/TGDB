@@ -7,7 +7,7 @@ public class BuildingSpotScript : MonoBehaviour {
 
     private void OnTriggerStay(Collider collider)
     {
-        if (collider.gameObject.GetComponent<RTSEntity>())
+        if (collider.gameObject.GetComponent<Unit>())
         {
             isOccupied = true;
         }
@@ -15,7 +15,7 @@ public class BuildingSpotScript : MonoBehaviour {
 
     private void OnTriggerExit(Collider collider)
     {
-        if (collider.gameObject.GetComponent<RTSEntity>())
+        if (collider.gameObject.GetComponent<Unit>())
         {
             isOccupied = false;
         }

@@ -5,49 +5,25 @@ using System.Collections.Generic;
 [RequireComponent(typeof(BoxCollider))]
 public class BuildingBeingPlaced : MonoBehaviour {
 
-    private List<Material> m_BuildingMaterials = new List<Material>();
-    private List<Color> m_ValidBuildingColors = new List<Color>();
-    private List<Color> m_InvalidBuildingColors = new List<Color>();
+    public GameObject collidingObject;
 
-    private float m_AlphaValue = 0.7f;
-
-    public bool BuildValid = true;
-    
-    // Use this for initialization
-    void Start()
+    void OnTriggerStay(Collider other)
     {
-        
-    }
-
-    void Update()
-    {
-        gameObject.transform.position = Input.mousePosition;
-    }
-
-    public void SetToValid()
-    {
-
-    }
-
-    public void SetToInvalid()
-    {
-
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.layer == 8 || other.gameObject.layer == 9 || other.gameObject.layer == 12 || other.gameObject.layer == 3)
+        if (other.transform.tag == "BuildingSpot")
         {
-            BuildValid = false;
+            Debug.Log("Entered BuildingSpot");
+            collidingObject = other.gameObject;
         }
         else
         {
-            BuildValid = true;
-        }    
+            Physics.IgnoreCollision(GetComponent<Collider>(), other.gameObject.GetComponent<Collider>());
+        }
+
     }
 
-    void OnTriggerExit(Collider other) {
-        BuildValid = true;
+    void OnTriggernExit(Collider other)
+    {
+        collidingObject = null;
     }
         
 	void OnDestroy()

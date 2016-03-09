@@ -52,7 +52,7 @@ public class BoatMovement : SeaMovement {
 
     }
 
-    private new void Update()
+    private void FixedUpdate()
     {
         base.Update();
 
@@ -160,10 +160,10 @@ public class BoatMovement : SeaMovement {
 
     public override void AssignDetails(Item item)
     {
-        Speed = item.Speed;
+        Speed = item.Speed / 6;
         CurrentSpeed = 0;
-        RotationalSpeed = item.RotationSpeed;
-        Acceleration = item.Acceleration;
+        RotationalSpeed = item.RotationSpeed / 6;
+        Acceleration = item.Acceleration / 6;
     }
 
     private bool PointingAtTarget(Vector3 direction)

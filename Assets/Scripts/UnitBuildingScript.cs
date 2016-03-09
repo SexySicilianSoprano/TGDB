@@ -39,6 +39,7 @@ public class UnitBuildingScript : MonoBehaviour {
             navalYard = GameObject.Find("NavalYard");
             if (navalYard)
             {
+                Debug.Log("Set naval yardo");
                 SetSpawnSpots();
                 navalYardIsSet = true;
                 return true;
@@ -97,7 +98,7 @@ public class UnitBuildingScript : MonoBehaviour {
             // Create a new spawn point
             Vector3 spawnPos = new Vector3(
                 spawnPoint.transform.position.x,
-                1f,
+                1.1f,
                 spawnPoint.transform.position.z);
 
             // Also a new rotation position

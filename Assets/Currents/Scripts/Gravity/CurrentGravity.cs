@@ -33,7 +33,7 @@ public class CurrentGravity : MonoBehaviour {
         if (other.gameObject.GetComponent<Building>() && other.gameObject.GetComponent<Rigidbody>())
         {
             // Just move with the current, baby! Add force into colliding object
-            other.GetComponent<Rigidbody>().AddForce(this.gameObject.transform.forward * (velocity / divider));
+            other.GetComponent<Rigidbody>().AddForce(this.gameObject.transform.forward * (velocity / divider) * 1000);
             //other.transform.Translate(this.gameObject.transform.forward * (velocity / divider * Time.deltaTime));
         } 
         // Is the colliding object an unit that's affected by currents?

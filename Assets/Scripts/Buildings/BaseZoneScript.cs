@@ -5,30 +5,29 @@ public class BaseZoneScript : MonoBehaviour {
 
     private Vector3 basePosition;
 
-    // Use this for initialization
-    void Start() {
-
-    }
-
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
         basePosition = transform.position;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.GetComponent<Unit>())
+        if (other.gameObject.GetComponent<Unit>() && other.gameObject.tag == "Player1")
         {
-            Debug.Log(other.gameObject + " joins the base");
             other.gameObject.transform.SetParent(gameObject.transform);
-            other.gameObject.GetComponent<BoatMovement>().AffectedByCurrent = false;
+            other.gameObject.GetComponent<BoatMovement>().AffectedByCurrent = true;
         }
-    
+
+        if (other.gameObject.GetComponent<Building>() && other.gameObject.tag == "Player1" && other.gameObject.GetComponent<BoxCollider>().isTrigger == false)
+        {
+            other.gameObject.transform.SetParent(gameObject.transform);            
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.GetComponent<Unit>())
+        if (other.gameObject.GetComponent<RTSEntity>())
         {
             other.gameObject.transform.parent = null;
         }
