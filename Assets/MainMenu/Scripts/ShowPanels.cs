@@ -37,7 +37,7 @@ public class ShowPanels : MonoBehaviour {
 	{
 		menuPanel.SetActive (false);
         factionPanel.SetActive(false);
-        mapPanel.SetActive(false);
+        //mapPanel.SetActive(false);
 	}
 	
 	//Call this function to activate and display the Pause panel during game play

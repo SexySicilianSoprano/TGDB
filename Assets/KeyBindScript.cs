@@ -12,15 +12,15 @@ public class KeyBindScript : MonoBehaviour {
     private GameObject currentKey;
 
     private Color32 normal = new Color32(255, 255, 255, 255);
-    private Color32 selected = new Color32(200, 200, 200, 225);
+    private Color32 selected = new Color32(131, 200, 218, 225);
 
 	// Use this for initialization
 	/*void Start ()
     {
-        GetKeys();
+        DefaultKeys();
     }*/
 
-    private void Start()
+    void Start()
     {
         keys.Add("Up", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Up", "W")));
         keys.Add("Down", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Down", "S")));
@@ -29,14 +29,6 @@ public class KeyBindScript : MonoBehaviour {
         keys.Add("Jump", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Jump", "Space")));
         keys.Add("camLeft", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("camLeft", "Q")));
         keys.Add("camRight", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("camRight", "E")));
-        
-        /*keys.Add("Up", KeyCode.W);
-        keys.Add("Down", KeyCode.S);
-        keys.Add("Left", KeyCode.A);
-        keys.Add("Right", KeyCode.D);
-        keys.Add("Jump", KeyCode.Space);
-        keys.Add("camLeft", KeyCode.Q);
-        keys.Add("camRight", KeyCode.E);*/
 
         up.text = keys["Up"].ToString();
         down.text = keys["Down"].ToString();
@@ -47,8 +39,30 @@ public class KeyBindScript : MonoBehaviour {
         camRight.text = keys["camRight"].ToString();
     }
 
+    //Supposed to set key values back to default ones, but still need to figure out how.
+    public void DefaultKeys()
+    {
+        keys.Add("Up", KeyCode.W);
+        keys.Add("Down", KeyCode.S);
+        keys.Add("Left", KeyCode.A);
+        keys.Add("Right", KeyCode.D);
+        keys.Add("Jump", KeyCode.Space);
+        keys.Add("camLeft", KeyCode.Q);
+        keys.Add("camRight", KeyCode.E);
+
+        up.text = keys["Up"].ToString();
+        down.text = keys["Down"].ToString();
+        left.text = keys["Left"].ToString();
+        right.text = keys["Right"].ToString();
+        jump.text = keys["Jump"].ToString();
+        camLeft.text = keys["camLeft"].ToString();
+        camRight.text = keys["camRight"].ToString();
+
+    }
+
     // Update is called once per frame
-    void Update () {
+    void Update ()
+    {
 	    if (Input.GetKeyDown(keys["Up"]))
         {
             //Do a move action
@@ -84,11 +98,11 @@ public class KeyBindScript : MonoBehaviour {
             //Do a move action
             Debug.Log("camRight");
         }
-        if (Input.GetKeyDown(KeyCode.F1))
+        /*if (Input.GetKeyDown(KeyCode.F1))
         {
             Debug.Log("Tallennettu!");
             SaveKeys();
-        }
+        }*/
     }
 
     void OnGUI()
