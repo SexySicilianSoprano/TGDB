@@ -20,7 +20,7 @@ public class SelectedBuilding : MonoBehaviour {
     void Start () 
 	{
         // Find projector
-        projector = GetComponentInChildren<Projector>();
+        projector = transform.Find("Projector").GetComponent<Projector>();        
 
         //Assign building
         m_Building = GetComponent<Building>();
@@ -29,11 +29,13 @@ public class SelectedBuilding : MonoBehaviour {
 	public void SetSelected()
 	{
         //Render projection
-        projector.enabled = true;
+        if (projector.enabled == false)
+            projector.enabled = true;
 	}
 	
 	public void SetDeselected()
 	{
+        if (projector.enabled == true)
         projector.enabled = false;
     }
 	

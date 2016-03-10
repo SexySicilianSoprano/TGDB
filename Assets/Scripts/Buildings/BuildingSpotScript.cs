@@ -4,12 +4,29 @@ using System.Collections;
 public class BuildingSpotScript : MonoBehaviour {
 
     public bool isOccupied = false;
+    private Projector projector;
+
+    void Start()
+    {
+        projector = transform.Find("USProjector").GetComponent<Projector>();
+    }
 
     private void OnTriggerStay(Collider collider)
     {
-        if (collider.gameObject.GetComponent<RTSEntity>())
+        if (collider.gameObject.GetComponent<Unit>())
         {
             isOccupied = true;
+            projector.enabled = false;
+
+        }
+    }
+
+    private void OnTriggerExit(Collider collider)
+    {
+        if (collider.gameObject.GetComponent<Unit>())
+        {
+            isOccupied = false;
+            projector.enabled = true;
         }
     }
 }

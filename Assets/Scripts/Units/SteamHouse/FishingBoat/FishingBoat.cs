@@ -9,7 +9,7 @@ public class FishingBoat : Vehicle {
 		//Assign variables for health/movement and so on..
 		AssignDetails (ItemDB.FishingBoat);
 		GetComponent<Movement>().AssignDetails (ItemDB.FishingBoat);
-        GetComponent<Combat>().AssignDetails(WeaponDB.TestCannon);
+        //GetComponent<Combat>().AssignDetails(WeaponDB.TestCannon);
         		
         //Call base class start
 		base.Start ();

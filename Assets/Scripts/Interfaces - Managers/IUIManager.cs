@@ -43,8 +43,8 @@ public interface IUIManager
 	
 	bool IsCurrentUnit(RTSEntity obj);	
 	
-	void UserPlacingBuilding(Item item, Action callbackFunction);
+	//void UserPlacingBuilding(Item item, Action callbackFunction);
     
-    void SwitchMode(Mode mode);
+    //void SwitchMode(Mode mode);
 
 }

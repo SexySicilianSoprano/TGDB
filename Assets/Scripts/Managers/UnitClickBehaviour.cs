@@ -170,11 +170,7 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
     private void GetCommand()
     {
         switch (m_State)
-        {
-            case InteractionState.Select:
-                Debug.Log("Select " + currentUnit);
-                SetSelected();
-                break;
+        {            
             case InteractionState.Move:
                 Debug.Log("Move");
                 m_SelectedManager().GiveOrder(Orders.CreateMoveOrder(Input.mousePosition));

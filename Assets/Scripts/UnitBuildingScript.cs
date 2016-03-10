@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -9,13 +10,17 @@ public class UnitBuildingScript : MonoBehaviour {
 	public List<GameObject> unitBuildingQueue;
 	private bool isAlreadyBuilding;
     private bool navalYardIsSet;
-	public GameObject navalYard;
+    private bool spawnPointFound;
+    public GameObject navalYard;
     public List<GameObject> spawnPointList = new List<GameObject>();
-	// Use this for initialization
-	void Start ()
+    private Func<bool> meinDel;
+    private GameObject spawnPoint;
+
+    // Use this for initialization
+    void Start ()
     {
-	
-	}
+        meinDel = () => spawnPointFound;
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -23,13 +28,18 @@ public class UnitBuildingScript : MonoBehaviour {
 		if (unitBuildingQueue.Count > 0){
 			StartBuilding();
 		}
+        
+        FindSpawnSpot();
 	}
 
 	public void BuildNewUnit(int unit)
     {
 		CheckNavalYard();
 		CheckFunds();
-		unitBuildingQueue.Add(unitBuildingList[unit]);
+        if (unitBuildingQueue.Count < maxQueuedUnits)
+        {
+            unitBuildingQueue.Add(unitBuildingList[unit]);
+        }
 	}
 
     public bool CheckNavalYard()
@@ -39,6 +49,7 @@ public class UnitBuildingScript : MonoBehaviour {
             navalYard = GameObject.Find("NavalYard");
             if (navalYard)
             {
+                Debug.Log("Set naval yardo");
                 SetSpawnSpots();
                 navalYardIsSet = true;
                 return true;
@@ -47,9 +58,14 @@ public class UnitBuildingScript : MonoBehaviour {
                 return false;
             }
         }
-        else
+        else if (navalYardIsSet && GameObject.Find("NavalYard"))
         {
             return true;
+        }
+        else
+        {
+            navalYardIsSet = false;
+            return false;
         }
 	}
 
@@ -67,9 +83,11 @@ public class UnitBuildingScript : MonoBehaviour {
         {
             if (!spot.GetComponent<BuildingSpotScript>().isOccupied)
             {
+                spawnPointFound = true;
                 return spot;
             }
         }
+        spawnPointFound = false;
         return null;
     }
 
@@ -91,13 +109,14 @@ public class UnitBuildingScript : MonoBehaviour {
     {
 		yield return new WaitForSeconds(seconds);
 
-        GameObject spawnPoint = FindSpawnSpot();
-        if (spawnPoint != null)
-        {            
+        spawnPoint = FindSpawnSpot();
+        
+        yield return new WaitUntil(() => spawnPointFound == true);
+        
             // Create a new spawn point
             Vector3 spawnPos = new Vector3(
                 spawnPoint.transform.position.x,
-                1f,
+                1.1f,
                 spawnPoint.transform.position.z);
 
             // Also a new rotation position
@@ -112,6 +131,6 @@ public class UnitBuildingScript : MonoBehaviour {
             //Instantiate(unit, navalYard.transform.GetChild(0).gameObject.transform.position, Quaternion.identity);
             unitBuildingQueue.RemoveAt(0);
             isAlreadyBuilding = false;
-        }
+
 	}
 }

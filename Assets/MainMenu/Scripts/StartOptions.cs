@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 
 public class StartOptions : MonoBehaviour {
@@ -32,8 +33,13 @@ public class StartOptions : MonoBehaviour {
 
 		//Get a reference to PlayMusic attached to UI object
 		playMusic = GetComponent<PlayMusic> ();
-	}
 
+        
+	}
+    void Start()
+    {
+        GameObject.Find("OptionsMenu").SetActive(false);
+    }
 
 	public void StartButtonClicked(int scene)
 	{
@@ -49,6 +55,7 @@ public class StartOptions : MonoBehaviour {
 		//If changeScenes is true, start fading and change scenes halfway through animation when screen is blocked by FadeImage
 		if (changeScenes) 
 		{
+            Time.timeScale = 1;
 			//Use invoke to delay calling of LoadDelayed by half the length of fadeColorAnimationClip
 			Invoke ("LoadDelayed", fadeColorAnimationClip.length * .5f);
 

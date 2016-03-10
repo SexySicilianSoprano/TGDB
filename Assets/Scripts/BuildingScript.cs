@@ -35,20 +35,24 @@ public class BuildingScript : MonoBehaviour {
 			if (Input.GetMouseButton(0)){
 				Destroy (currentBuilding);
 			}
-
+            
 			//Casting ray which only hits the colliders in the layer mask
 	        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)) {
 
 	        	//If the ray hits the Terrain, it will drag the building object on top of it and underneath the mouse cursor
-	        	if (hit.transform.tag == "Terrain"){
+	        	if (hit.transform.tag == "Terrain" )
+                {
 					Vector3 target = new Vector3(hit.point.x, hit.point.y + 1.5f, hit.point.z);
                 	currentBuilding.transform.position = target;
 					currentBuilding.GetComponent<Renderer>().material.mainTexture = textures[0];
 					currentBuilding.GetComponent<Renderer>().material.color = Color.red;
 
-                	//If a building spot is hit with the ray, the building will turn green and snap to place
-                	if (hit.transform.name == "BuildingSpot"){
-                		currentBuildingSpot = hit.transform.gameObject;
+                	//If a building spot is hit with the ray, the building will turn green and snap to place *SCRAP THAT*
+                    //Actually, check if temporary building's Building Being Placed -component collides with anything called BuildingSpot
+                	if (currentBuilding.GetComponent<BuildingBeingPlaced>().collidingObject == GameObject.Find("BuildingSpot"))
+                    {
+                        currentBuildingSpot = currentBuilding.GetComponent<BuildingBeingPlaced>().collidingObject;
+                        //currentBuildingSpot = hit.transform.gameObject;
                 		currentBuilding.GetComponent<Renderer>().material.mainTexture = textures[0];
 						currentBuilding.GetComponent<Renderer>().material.color = Color.green;
 						currentBuilding.transform.position = currentBuildingSpot.transform.position;
@@ -57,15 +61,15 @@ public class BuildingScript : MonoBehaviour {
 						if (Input.GetMouseButton(0)){
 							Destroy (currentBuilding);
 							tempBuilding = Instantiate(buildingList[buildingListIndex], currentBuildingSpot.transform.position, Quaternion.identity) as GameObject;
-							tempBuilding.GetComponent<Renderer>().material.mainTexture = textures[0];
-							tempBuilding.GetComponent<Renderer>().material.color = Color.gray;
-							StartCoroutine (WaitAndBuild(2, currentBuildingSpot.transform.position));
-							Destroy (currentBuildingSpot);
+                            tempBuilding.GetComponent<Renderer>().material.mainTexture = textures[0];
+                            tempBuilding.GetComponent<Renderer>().material.color = Color.gray;
+                            //Destroy(tempBuilding.GetComponent<Rigidbody>());
+                            //tempBuilding.GetComponent<BoxCollider>().isTrigger = false;
+                            StartCoroutine (WaitAndBuild(2, currentBuildingSpot.transform.position));
+                            currentBuildingSpot.SetActive(false);
 						}
-
 					}
 	        	}
-
 	        } 
 		}
 	}
@@ -73,13 +77,19 @@ public class BuildingScript : MonoBehaviour {
 	//The building function being called by the GUI button
 	public void buildingFunction (int buildingIndex){
 		currentBuilding = Instantiate(buildingList[buildingIndex]) as GameObject;
+        currentBuilding.AddComponent<BuildingBeingPlaced>();
+        //currentBuilding.GetComponent<SelectedBuilding>().enabled = false;
+        currentBuilding.GetComponent<Collider>().isTrigger = true;
 		buildingListIndex = buildingIndex;
 	}
 
 	//Timer function for when the building is being built
 	IEnumerator WaitAndBuild(float seconds, Vector3 spot){
 		yield return new WaitForSeconds(seconds);
-		Destroy (tempBuilding);
-		Instantiate(buildingList[buildingListIndex], spot, Quaternion.identity);
-	}
+        spot = tempBuilding.transform.position;
+        Destroy (tempBuilding);
+		GameObject realBuilding = Instantiate(buildingList[buildingListIndex], new Vector3(spot.x, 1f, spot.z), Quaternion.identity) as GameObject;
+        realBuilding.name = buildingList[buildingListIndex].name;
+        realBuilding.GetComponent<BoxCollider>().isTrigger = false;
+    }
 }
