@@ -11,7 +11,7 @@ public class BaseZoneScript : MonoBehaviour {
         basePosition = transform.position;
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<Unit>() && other.gameObject.tag == "Player1")
         {
@@ -19,7 +19,7 @@ public class BaseZoneScript : MonoBehaviour {
             other.gameObject.GetComponent<BoatMovement>().AffectedByCurrent = true;
         }
 
-        if (other.gameObject.GetComponent<Building>() && other.gameObject.tag == "Player1" && other.gameObject.GetComponent<BoxCollider>().isTrigger == false)
+        if (other.gameObject.GetComponent<Building>() && other.gameObject.tag == "Player1")
         {
             other.gameObject.transform.SetParent(gameObject.transform);            
         }
