@@ -27,7 +27,6 @@ GameObject:
   - 224: {fileID: 22451734}
   - 222: {fileID: 22235420}
   - 114: {fileID: 11496162}
-  - 114: {fileID: 11407040}
   m_Layer: 5
   m_Name: HPBar
   m_TagString: Untagged
@@ -97,23 +96,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &11407040
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 120216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7ce34f148eddc247b55163b79911d4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvasRectT: {fileID: 22496796}
-  healthBar: {fileID: 22451734}
-  objectToFollow: {fileID: 0}
-  Bar: {fileID: 11422690}
-  max_health: 100
-  cur_health: 0
 --- !u!114 &11422690
 MonoBehaviour:
   m_ObjectHideFlags: 1

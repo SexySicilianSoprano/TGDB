@@ -8,7 +8,7 @@ public class Healthbar : MonoBehaviour
 
     public RectTransform canvasRectT;
     public RectTransform healthBar;
-    public Image healthBarSlider;
+    public Slider healthBarSlider;
     public Transform objectToFollow;
     public GameObject ImagePrefab;
     public float currentHealth;
@@ -22,7 +22,7 @@ public class Healthbar : MonoBehaviour
         newHealthSlider.transform.SetParent(canvasRectT, true);
         newHealthSlider.transform.position = new Vector3(0, 0, 0);
         healthBar = (RectTransform)newHealthSlider.transform;
-        healthBarSlider = newHealthSlider.gameObject.GetComponent<Image>();
+        healthBarSlider = newHealthSlider.gameObject.GetComponent<Slider>();
         objectToFollow = this.gameObject.transform;
     }
 
@@ -30,8 +30,8 @@ public class Healthbar : MonoBehaviour
     {
         Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, objectToFollow.position);
         healthBar.anchoredPosition = screenPoint - canvasRectT.sizeDelta / 2f;
-        healthBarSlider.fillAmount = GetComponent<RTSEntity>().m_Health;
-       // healthBarSlider.maxValue = GetComponent<RTSEntity>().m_MaxHealth;
+        healthBarSlider.value = GetComponent<RTSEntity>().m_Health;
+        healthBarSlider.maxValue = GetComponent<RTSEntity>().m_MaxHealth;
 
         if (gameObject.layer == 9)
         {
