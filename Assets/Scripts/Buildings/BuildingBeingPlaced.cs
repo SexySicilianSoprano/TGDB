@@ -18,7 +18,6 @@ public class BuildingBeingPlaced : MonoBehaviour {
         {
             Physics.IgnoreCollision(GetComponent<Collider>(), other.gameObject.GetComponent<Collider>());
         }
-
     }
 
     void OnTriggernExit(Collider other)

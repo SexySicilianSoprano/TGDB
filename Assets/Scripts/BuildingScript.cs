@@ -49,8 +49,9 @@ public class BuildingScript : MonoBehaviour {
 
                 	//If a building spot is hit with the ray, the building will turn green and snap to place *SCRAP THAT*
                     //Actually, check if temporary building's Building Being Placed -component collides with anything called BuildingSpot
-                	if (currentBuilding.GetComponent<BuildingBeingPlaced>().collidingObject == GameObject.Find("BuildingSpot"))
+                	if (currentBuilding.GetComponent<BuildingBeingPlaced>().collidingObject.tag == "BuildingSpot")
                     {
+                        Debug.Log("Take it easy, hey");
                         currentBuildingSpot = currentBuilding.GetComponent<BuildingBeingPlaced>().collidingObject;
                         //currentBuildingSpot = hit.transform.gameObject;
                 		currentBuilding.GetComponent<Renderer>().material.mainTexture = textures[0];
@@ -58,7 +59,8 @@ public class BuildingScript : MonoBehaviour {
 						currentBuilding.transform.position = currentBuildingSpot.transform.position;
 
 						//If mouse button is pressed on top of a building spot, the object is destroyed and instantiated as a temporary one and turned gray, then calling the timer coroutine
-						if (Input.GetMouseButton(0)){
+						if (Input.GetMouseButton(0))
+                        {
 							Destroy (currentBuilding);
 							tempBuilding = Instantiate(buildingList[buildingListIndex], currentBuildingSpot.transform.position, Quaternion.identity) as GameObject;
                             tempBuilding.GetComponent<Renderer>().material.mainTexture = textures[0];
@@ -75,16 +77,18 @@ public class BuildingScript : MonoBehaviour {
 	}
 
 	//The building function being called by the GUI button
-	public void buildingFunction (int buildingIndex){
+	public void buildingFunction (int buildingIndex)
+    {
 		currentBuilding = Instantiate(buildingList[buildingIndex]) as GameObject;
         currentBuilding.AddComponent<BuildingBeingPlaced>();
-        //currentBuilding.GetComponent<SelectedBuilding>().enabled = false;
-        currentBuilding.GetComponent<Collider>().isTrigger = true;
+        // currentBuilding.GetComponent<SelectedBuilding>().enabled = false;
+        //currentBuilding.GetComponent<Collider>().isTrigger = true;
 		buildingListIndex = buildingIndex;
 	}
 
 	//Timer function for when the building is being built
-	IEnumerator WaitAndBuild(float seconds, Vector3 spot){
+	IEnumerator WaitAndBuild(float seconds, Vector3 spot)
+    {
 		yield return new WaitForSeconds(seconds);
         spot = tempBuilding.transform.position;
         Destroy (tempBuilding);
