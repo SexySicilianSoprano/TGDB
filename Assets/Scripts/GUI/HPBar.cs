@@ -25,7 +25,7 @@ public class HPBar : MonoBehaviour {
         newHealthBar.transform.SetParent(canvasRectT);
         newHealthBar.transform.position = new Vector3 (0, 0, 0);
         healthBar = (RectTransform)newHealthBar.transform;
-        bar = newHealthBar.gameObject.GetComponent<Image>();
+        bar = newHealthBar.transform.Find("HPBG").transform.Find("HPGreen").GetComponent<Image>();
         objectToFollow = this.gameObject.transform;
         //InvokeRepeating ("decreaseHealth", 0f, 2f);
 	}
@@ -34,8 +34,11 @@ public class HPBar : MonoBehaviour {
     {
         Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, objectToFollow.position);
         healthBar.anchoredPosition = screenPoint - canvasRectT.sizeDelta / 2f;
-        bar.fillAmount = GetComponent<RTSEntity>().GetHealthRatio();
-        
+        bar.fillAmount = cur_health / max_health;
+        Debug.Log (bar.fillAmount);
+
+        cur_health = GetComponent<RTSEntity>().m_Health;
+
         if (gameObject.layer == 9) 
         {
             bar.gameObject.SetActive(false);
