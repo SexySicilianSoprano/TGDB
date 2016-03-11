@@ -81,8 +81,10 @@ public class BuildingScript : MonoBehaviour {
     {
 		currentBuilding = Instantiate(buildingList[buildingIndex]) as GameObject;
         currentBuilding.AddComponent<BuildingBeingPlaced>();
-        // currentBuilding.GetComponent<SelectedBuilding>().enabled = false;
-        //currentBuilding.GetComponent<Collider>().isTrigger = true;
+        //Destroy(currentBuilding.GetComponent<Rigidbody>());
+        Destroy(currentBuilding.GetComponent<HPBar>());
+        Destroy(currentBuilding.GetComponent<RTSEntity>());
+        currentBuilding.GetComponent<Collider>().isTrigger = true;
 		buildingListIndex = buildingIndex;
 	}
 
@@ -95,5 +97,6 @@ public class BuildingScript : MonoBehaviour {
 		GameObject realBuilding = Instantiate(buildingList[buildingListIndex], new Vector3(spot.x, 1f, spot.z), Quaternion.identity) as GameObject;
         realBuilding.name = buildingList[buildingListIndex].name;
         realBuilding.GetComponent<BoxCollider>().isTrigger = false;
+        realBuilding.AddComponent<BuildingOnDestroy>();
     }
 }

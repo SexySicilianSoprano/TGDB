@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour, IGameManager {
     }
 
     public GameObject victoryPanel;
+    public GameObject defeatPanel;
 
     void Awake()
     {
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour, IGameManager {
             // Lose condition
             else if (!m_FloatingFortress1 && primaryPlayer() == m_Player1 || !m_FloatingFortress2 && primaryPlayer() == m_Player2)
             {
+                defeatPanel.SetActive(true);
                 m_GameSet = true;
             }
         }

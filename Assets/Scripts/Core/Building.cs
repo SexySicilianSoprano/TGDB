@@ -83,8 +83,5 @@ public class Building : RTSEntity{
 
 	}
 
-    new void OnDestroy()
-    {
-        
-    }
+    
 }

@@ -105,14 +105,15 @@ public class UnitBuildingScript : MonoBehaviour {
 		}
 	}
 
-	IEnumerator WaitAndBuild(float seconds, GameObject unit)
+    IEnumerator WaitAndBuild(float seconds, GameObject unit)
     {
-		yield return new WaitForSeconds(seconds);
+        yield return new WaitForSeconds(seconds);
 
         spawnPoint = FindSpawnSpot();
-        
+
         yield return new WaitUntil(() => spawnPointFound == true);
-        
+        if (spawnPoint != null)
+        {
             // Create a new spawn point
             Vector3 spawnPos = new Vector3(
                 spawnPoint.transform.position.x,
@@ -131,6 +132,11 @@ public class UnitBuildingScript : MonoBehaviour {
             //Instantiate(unit, navalYard.transform.GetChild(0).gameObject.transform.position, Quaternion.identity);
             unitBuildingQueue.RemoveAt(0);
             isAlreadyBuilding = false;
+        }
+        else
+        {
+            WaitAndBuild(2, unitBuildingList[0]);
+        }
 
 	}
 }

@@ -11,9 +11,7 @@ GameObject:
   - 33: {fileID: 3353974}
   - 23: {fileID: 2379312}
   - 65: {fileID: 6593344}
-  - 65: {fileID: 6596752}
-  - 65: {fileID: 6514040}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Building1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,8 +25,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 164200}
   m_LocalRotation: {x: 0.27018818, y: 0.6534512, z: 0.65345114, w: -0.2701881}
-  m_LocalPosition: {x: 285.0415, y: 547.6398, z: 71.95563}
-  m_LocalScale: {x: 202.00179, y: 202.00175, z: 202.00175}
+  m_LocalPosition: {x: 278, y: -40, z: 359}
+  m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -65,18 +63,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 164200}
   m_Mesh: {fileID: 4300000, guid: bc88e0d2f68752c428a71e7e5b760607, type: 3}
---- !u!65 &6514040
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 164200}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.3356863, y: 0.11631776, z: 0.52943176}
-  m_Center: {x: -0.10526256, y: -0.012310162, z: 0.2647169}
 --- !u!65 &6593344
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -87,20 +73,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.18483427, y: 0.5082693, z: 0.51243603}
-  m_Center: {x: 0.0093295025, y: 0.0013015111, z: 0.25621703}
---- !u!65 &6596752
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 164200}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.26647523, y: 0.28492022, z: 0.52581704}
-  m_Center: {x: -0.070671156, y: -0.0039887438, z: 0.26291123}
+  m_Size: {x: 0.18483427, y: 0.2306281, z: 0.89751005}
+  m_Center: {x: 0.009291583, y: -0.011817468, z: 0.4487859}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

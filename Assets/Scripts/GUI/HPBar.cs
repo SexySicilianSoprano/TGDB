@@ -13,6 +13,7 @@ public class HPBar : MonoBehaviour {
     public RectTransform healthBar;
     public Transform objectToFollow;
     public GameObject imgPrefab;
+    public GameObject newHealthBar;
     public Image bar;
     public float max_health;
     public float cur_health;
@@ -23,8 +24,9 @@ public class HPBar : MonoBehaviour {
         //Set variables to components
         cur_health = GetComponent<RTSEntity>().m_Health;
         max_health = GetComponent<RTSEntity>().m_MaxHealth;
+        canvasRectT = GameObject.Find("Healthbars").GetComponent<RectTransform>();
         objectToFollow = transform;
-        GameObject newHealthBar = Instantiate(imgPrefab, gameObject.transform.position, Quaternion.identity) as GameObject;
+        newHealthBar = Instantiate(imgPrefab, gameObject.transform.position, Quaternion.identity) as GameObject;
         newHealthBar.transform.SetParent(canvasRectT);
         newHealthBar.transform.position = new Vector3 (0, 0, 0);
         healthBar = (RectTransform)newHealthBar.transform;
@@ -40,6 +42,7 @@ public class HPBar : MonoBehaviour {
         bar.fillAmount = cur_health / max_health;
         Debug.Log (bar.fillAmount);
 
+        max_health = GetComponent<RTSEntity>().m_MaxHealth;
         cur_health = GetComponent<RTSEntity>().m_Health;
 
         if (gameObject.layer == 9) 
@@ -50,6 +53,12 @@ public class HPBar : MonoBehaviour {
                 bar.gameObject.SetActive(true);
             }
         }
+    }
+
+    void OnDestroy()
+    {
+        Destroy(bar);
+        Destroy(newHealthBar);
     }
 
 	/*void decreaseHealth () {

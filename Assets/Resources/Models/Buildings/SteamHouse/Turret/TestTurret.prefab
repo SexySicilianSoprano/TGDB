@@ -65,6 +65,7 @@ GameObject:
   - 23: {fileID: 2324452}
   - 114: {fileID: 11450676}
   - 135: {fileID: 13552118}
+  - 114: {fileID: 11420672}
   m_Layer: 12
   m_Name: TestTurret
   m_TagString: Player2
@@ -184,7 +185,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 491270}
   - 212: {fileID: 21250862}
-  m_Layer: 19
+  m_Layer: 18
   m_Name: minimapdot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +271,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 141580}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 444.7333, y: 6.2359138, z: 133.58525}
+  m_LocalPosition: {x: 436.1, y: 6.2359138, z: 133.58525}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 435110}
@@ -301,7 +302,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 114264}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: 0, y: -9.8, z: 0}
+  m_LocalPosition: {x: 0, y: -8.88, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 422424}
@@ -559,6 +560,25 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11420672
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 141580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7ce34f148eddc247b55163b79911d4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasRectT: {fileID: 0}
+  healthBar: {fileID: 0}
+  objectToFollow: {fileID: 0}
+  imgPrefab: {fileID: 190398, guid: 284afc42167d6fb4db5ea3ab5d252d99, type: 2}
+  newHealthBar: {fileID: 0}
+  bar: {fileID: 0}
+  max_health: 0
+  cur_health: 0
 --- !u!114 &11425264
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -630,7 +650,7 @@ Projector:
   m_Material: {fileID: 2100000, guid: ba587862550981b40ab66ee2dad338ea, type: 2}
   m_IgnoreLayers:
     serializedVersion: 2
-    m_Bits: 4294705151
+    m_Bits: 4294836223
 --- !u!135 &13552118
 SphereCollider:
   m_ObjectHideFlags: 1

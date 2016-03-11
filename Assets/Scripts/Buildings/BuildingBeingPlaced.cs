@@ -16,7 +16,7 @@ public class BuildingBeingPlaced : MonoBehaviour {
         }
         else
         {
-            Physics.IgnoreCollision(GetComponent<Collider>(), other.gameObject.GetComponent<Collider>());
+            Physics.IgnoreCollision(GetComponent<Collider>(), other.gameObject.GetComponent<Collider>(), true);
         }
     }
 
