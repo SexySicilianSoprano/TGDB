@@ -7,6 +7,8 @@ public class KeyBindScript : MonoBehaviour {
 
     private Dictionary<string, KeyCode> keys = new Dictionary<string, KeyCode>();
 
+    public List<string> ReservedKeys = new List<string>();
+
     public Text up, down, left, right, jump, camLeft, camRight;
 
     private GameObject currentKey;
@@ -22,7 +24,9 @@ public class KeyBindScript : MonoBehaviour {
 
     void Start()
     {
-        keys.Add("Up", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Up", "W")));
+        DefaultKeys();
+
+        /*keys.Add("Up", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Up", "W")));
         keys.Add("Down", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Down", "S")));
         keys.Add("Left", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Left", "A")));
         keys.Add("Right", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Right", "D")));
@@ -36,7 +40,7 @@ public class KeyBindScript : MonoBehaviour {
         right.text = keys["Right"].ToString();
         jump.text = keys["Jump"].ToString();
         camLeft.text = keys["camLeft"].ToString();
-        camRight.text = keys["camRight"].ToString();
+        camRight.text = keys["camRight"].ToString(); */
     }
 
     //Supposed to set key values back to default ones, but still need to figure out how.
@@ -105,6 +109,18 @@ public class KeyBindScript : MonoBehaviour {
         }*/
     }
 
+    public void ReservedKeysList()
+    {
+        ReservedKeys.Clear();
+        ReservedKeys.Add(up.text);
+        ReservedKeys.Add(down.text);
+        ReservedKeys.Add(left.text);
+        ReservedKeys.Add(right.text);
+        ReservedKeys.Add(jump.text);
+        ReservedKeys.Add(camLeft.text);
+        ReservedKeys.Add(camRight.text);
+    }
+
     void OnGUI()
     {
         if (currentKey != null)
@@ -112,11 +128,58 @@ public class KeyBindScript : MonoBehaviour {
             Event e = Event.current;
             if (e.isKey)
             {
-                keys[currentKey.name] = e.keyCode;
-                currentKey.transform.GetChild(0).GetComponent<Text>().text = e.keyCode.ToString();
+                if (CheckForAvailability(e.keyCode.ToString()) || currentKey.transform.Find("Text").GetComponent<Text>().text ==  e.keyCode.ToString())
+                {
+                    keys[currentKey.name] = e.keyCode;
+                    currentKey.transform.GetChild(0).GetComponent<Text>().text = e.keyCode.ToString();
+                    currentKey.GetComponent<Image>().color = normal;
+                    currentKey = null;
+
+                    ReservedKeysList();
+                }
+
+                else
+                {
+                    currentKey.GetComponent<Image>().color = normal;
+                    currentKey = null;
+                }
+      
+            }
+
+            if (e.isMouse)
+            {
+                switch (e.button)
+                {
+                    case 0: 
+                        if (CheckForAvailability(KeyCode.Mouse0.ToString()))
+                        {
+                            currentKey.transform.Find("Text").GetComponent<Text>().text = "Mouse0";
+                            keys[currentKey.name] = KeyCode.Mouse0;
+                        }
+                        break;
+
+                    case 1:
+                        if (CheckForAvailability(KeyCode.Mouse1.ToString()))
+                        {
+                            currentKey.transform.Find("Text").GetComponent<Text>().text = "Mouse1";
+                            keys[currentKey.name] = KeyCode.Mouse1;
+                        }
+                        break;
+                    case 2:
+                        if (CheckForAvailability(KeyCode.Mouse2.ToString()))
+                        {
+                            currentKey.transform.Find("Text").GetComponent<Text>().text = "Mouse2";
+                            keys[currentKey.name] = KeyCode.Mouse2;
+                        }
+                        break;
+                }
+
+                ReservedKeysList();
+
                 currentKey.GetComponent<Image>().color = normal;
                 currentKey = null;
             }
+
         }
     }
 
@@ -141,5 +204,18 @@ public class KeyBindScript : MonoBehaviour {
         PlayerPrefs.Save();
         keys = null;
         //GetKeys();
+    }
+
+    public bool CheckForAvailability (string key)
+    {
+        foreach(string s in ReservedKeys)
+        {
+            if (key == s)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
