@@ -6,21 +6,21 @@ public class minimap : MonoBehaviour {
 
     public Camera minimapCamera;
     public Camera mainCamera;
-    public Image minimapIMG;
+    public RawImage minimapIMG;
 
     public float MapWidth;
     public float MapHeight;
 
     void Start () {
 
-        //MapWidth = ;
-       // MapHeight = ;
+        MapWidth = minimapCamera.pixelWidth;
+        MapHeight = minimapCamera.pixelHeight;
     }
 
 	// Update is called once per frame
 	void Update () {
 
-        //If left button is pressed and click is in the minimap Rect
+        /*//If left button is pressed and click is in the minimap Rect
 	    if (Input.GetMouseButtonDown(0) && GetComponent<Camera>().pixelRect.Contains(Input.mousePosition))
         {
             RaycastHit hit;
@@ -37,7 +37,7 @@ public class minimap : MonoBehaviour {
                 Debug.Log(hit.point);
             }
 
-        }
+        }*/
 
 	}
 
@@ -50,14 +50,18 @@ public class minimap : MonoBehaviour {
             minimapRect.width, minimapRect.height);
 
         var mousePos = Input.mousePosition;
-        mousePos.y -= screenRect.y;
+        mousePos.z -= screenRect.y;
         mousePos.x -= screenRect.x;
+
+        Debug.Log(mousePos + "Mouse Pos.");
 
         var camPos = new Vector3(
             mousePos.x * (MapWidth / screenRect.width),
-            mousePos.y * (MapHeight / screenRect.height),
+            mousePos.z * (MapHeight / screenRect.height),
             Camera.main.transform.position.z);
 
         Camera.main.transform.position = camPos;
+
+        Debug.Log(camPos + "Camera Pos.");
     }
 }

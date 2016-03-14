@@ -40,7 +40,7 @@ public class HPBar : MonoBehaviour {
         Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, objectToFollow.position);
         healthBar.anchoredPosition = screenPoint - canvasRectT.sizeDelta / 2f;
         bar.fillAmount = cur_health / max_health;
-        Debug.Log (bar.fillAmount);
+        //Debug.Log (bar.fillAmount);
 
         max_health = GetComponent<RTSEntity>().m_MaxHealth;
         cur_health = GetComponent<RTSEntity>().m_Health;
