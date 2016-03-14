@@ -59,9 +59,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f20563f9b6fdd48ade93abc8466253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: {fileID: 10900, guid: 0000000000000000f000000000000000, type: 0}
-  select: {fileID: 10914, guid: 0000000000000000f000000000000000, type: 0}
-  move: {fileID: 2800000, guid: f3d97ec79d7eeaf419039f2971ff98a2, type: 3}
+  attack: {fileID: 2800000, guid: 8fb993b7211bd5444a386654d67cc85f, type: 3}
+  select: {fileID: 2800000, guid: 2babbd4e70325694e833b06f06922391, type: 3}
+  move: {fileID: 2800000, guid: 324dcbac8bd773244b9f43709325797f, type: 3}
   normal: {fileID: 2800000, guid: f3d97ec79d7eeaf419039f2971ff98a2, type: 3}
 --- !u!114 &11441268
 MonoBehaviour:
@@ -79,6 +79,7 @@ MonoBehaviour:
   maxQueuedUnits: 10
   unitBuildingQueue: []
   navalYard: {fileID: 0}
+  spawnPointList: []
 --- !u!114 &11448276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -118,8 +119,9 @@ MonoBehaviour:
   camera: {fileID: 0}
   layerMask:
     serializedVersion: 2
-    m_Bits: 256
-  textures: []
+    m_Bits: 33024
+  textures:
+  - {fileID: 0}
 --- !u!114 &11493042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -143,6 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   victoryPanel: {fileID: 0}
+  defeatPanel: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
