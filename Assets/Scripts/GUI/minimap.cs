@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class minimap : MonoBehaviour {
 
     public Camera minimapCamera;
-    public Camera mainCamera;
+    public GameObject mainCamera;
     public RawImage minimapIMG;
 
     public float MapWidth;
@@ -50,18 +50,19 @@ public class minimap : MonoBehaviour {
             minimapRect.width, minimapRect.height);
 
         var mousePos = Input.mousePosition;
-        mousePos.z -= screenRect.y;
+        mousePos.y -= screenRect.y;
         mousePos.x -= screenRect.x;
-
-        Debug.Log(mousePos + "Mouse Pos.");
 
         var camPos = new Vector3(
             mousePos.x * (MapWidth / screenRect.width),
-            mousePos.z * (MapHeight / screenRect.height),
-            Camera.main.transform.position.z);
+            mainCamera.transform.position.y,
+            mousePos.y * (MapHeight / screenRect.height));
 
-        Camera.main.transform.position = camPos;
+        mainCamera.transform.position = camPos;
 
-        Debug.Log(camPos + "Camera Pos.");
+        Debug.Log(screenRect);
+        Debug.Log("Map Width:" + MapWidth + "Map Height:" + MapHeight);
+        Debug.Log("Mouse Pos." + mousePos);
+        Debug.Log("Camera Pos." + camPos);
     }
 }
