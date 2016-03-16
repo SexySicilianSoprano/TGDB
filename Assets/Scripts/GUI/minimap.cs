@@ -13,8 +13,8 @@ public class minimap : MonoBehaviour {
 
     void Start () {
 
-        MapWidth = minimapCamera.pixelWidth;
-        MapHeight = minimapCamera.pixelHeight;
+        MapWidth = 500f;
+        MapHeight = 500f;
     }
 
 	// Update is called once per frame
