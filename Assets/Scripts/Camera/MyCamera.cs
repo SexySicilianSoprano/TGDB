@@ -36,6 +36,8 @@ public class MyCamera : MonoBehaviour
 	// follow
 	public float followSmoothSpeed; // used to lerp the follow
 
+    private Rect boundries;
+
 	#endregion
 	
 	#region Other Variables
@@ -79,7 +81,7 @@ public class MyCamera : MonoBehaviour
 	
 	#endregion
 	
-	#region Controlls
+	#region Controls
 	
 	/// <summary>
 	/// Refresh the focus point position, doing a raycast to put it on the center of the camera view. 
@@ -128,6 +130,8 @@ public class MyCamera : MonoBehaviour
 		movement.z += InputManager.instance.GetPanAxis().y;
 
 		transform.Translate(movement * Time.deltaTime * panSpeed, Space.Self); // move based to world space.
+
+        
 	}
 	
 	/// <summary>

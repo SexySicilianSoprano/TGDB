@@ -13,8 +13,8 @@ public class minimap : MonoBehaviour {
 
     void Start () {
 
-        MapWidth = 500f;
-        MapHeight = 500f;
+        MapWidth = 550f;
+        MapHeight = 550f;
     }
 
 	// Update is called once per frame
@@ -61,7 +61,7 @@ public class minimap : MonoBehaviour {
         mainCamera.transform.position = camPos;
 
         Debug.Log(screenRect);
-        Debug.Log("Map Width:" + MapWidth + "Map Height:" + MapHeight);
+        Debug.Log("Map Width: " + MapWidth + " Map Height: " + MapHeight);
         Debug.Log("Mouse Pos." + mousePos);
         Debug.Log("Camera Pos." + camPos);
     }
