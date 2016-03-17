@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class minimap : MonoBehaviour {
+public class MinimapScript : MonoBehaviour {
 
     public Camera minimapCamera;
     public GameObject mainCamera;
@@ -10,6 +10,10 @@ public class minimap : MonoBehaviour {
 
     public float MapWidth;
     public float MapHeight;
+
+    public MyCameraStatusEnum status;
+
+    public static MinimapScript minimap;
 
     void Start () {
 
@@ -43,16 +47,20 @@ public class minimap : MonoBehaviour {
 
     public void MinimapClick()
     {
+        //This part determines the rect size of minimap
         var minimapRect = minimapIMG.GetComponent<RectTransform>().rect;
         var screenRect = new Rect(
             minimapIMG.transform.position.x,
             minimapIMG.transform.position.y,
             minimapRect.width, minimapRect.height);
 
+        //This part determines what the mouse position is on map, and excludes the map coordinates from it.
+        // TODO: the problem might be at this part
         var mousePos = Input.mousePosition;
         mousePos.y -= screenRect.y;
         mousePos.x -= screenRect.x;
 
+        //This is what translates to main camera position from mouse position on minimap.
         var camPos = new Vector3(
             mousePos.x * (MapWidth / screenRect.width),
             mainCamera.transform.position.y,
@@ -60,9 +68,14 @@ public class minimap : MonoBehaviour {
 
         mainCamera.transform.position = camPos;
 
+        //And debugs to see what the hell is going on
         Debug.Log(screenRect);
         Debug.Log("Map Width: " + MapWidth + " Map Height: " + MapHeight);
         Debug.Log("Mouse Pos." + mousePos);
         Debug.Log("Camera Pos." + camPos);
+
+        //I tried to see if I can use this code to go MANUAL mode here. Nope. No can do. GG.
+
+        status = MyCameraStatusEnum.MANUAL;
     }
 }

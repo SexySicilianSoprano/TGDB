@@ -43,6 +43,7 @@ public class MyCamera : MonoBehaviour
 	#region Other Variables
 	
 	public MyCameraStatusEnum status; // holds the current status
+    
 
 	#endregion
 	
@@ -170,12 +171,17 @@ public class MyCamera : MonoBehaviour
 	/// </summary>
 	public void UpdateStatus()
 	{
-		// rule 1: AT_PLAYER to MANUAL
-		if (status == MyCameraStatusEnum.AT_PLAYER && InputManager.instance.GetPanAxis() != Vector2.zero)
-		{
-			status = MyCameraStatusEnum.MANUAL;
-			Debug.Log (status);
-		}
+        // rule 1: AT_PLAYER to MANUAL
+        if (status == MyCameraStatusEnum.AT_PLAYER && InputManager.instance.GetPanAxis() != Vector2.zero)
+        {
+            status = MyCameraStatusEnum.MANUAL;
+            Debug.Log(status);
+        }
+
+       /* else if (status == MyCameraStatusEnum.AT_PLAYER && MinimapScript.minimap.)
+        {
+
+        }*/
         /*
 		//bonus rule supposed to apply MANUAL status if moving mouse cursor over screen edge
 		//TODO: make it work lol. It works, but it doesn't center focus back to FF. Figure out how to fix it
