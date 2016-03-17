@@ -13,7 +13,7 @@ public class BuildingSpotScript : MonoBehaviour {
 
     private void OnTriggerStay(Collider collider)
     {
-        if (collider.gameObject.GetComponent<Unit>())
+        if (collider.gameObject.GetComponent<Unit>() && collider == GetComponent<BoxCollider>())
         {
             isOccupied = true;
             projector.enabled = false;
@@ -23,7 +23,7 @@ public class BuildingSpotScript : MonoBehaviour {
 
     private void OnTriggerExit(Collider collider)
     {
-        if (collider.gameObject.GetComponent<Unit>())
+        if (collider.gameObject.GetComponent<Unit>() && collider == GetComponent<BoxCollider>())
         {
             isOccupied = false;
             projector.enabled = true;

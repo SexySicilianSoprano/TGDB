@@ -172,6 +172,7 @@ GameObject:
   - 114: {fileID: 11465552}
   - 114: {fileID: 11473234}
   - 114: {fileID: 11464938}
+  - 135: {fileID: 13535264}
   m_Layer: 9
   m_Name: Destroyer
   m_TagString: Player1
@@ -344,7 +345,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 129830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 244.71715, y: 0.022144761, z: 80.43171}
+  m_LocalPosition: {x: 357.95975, y: 0.022144761, z: 340.07938}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 479760}
@@ -1012,6 +1013,18 @@ Projector:
   m_IgnoreLayers:
     serializedVersion: 2
     m_Bits: 4294836223
+--- !u!135 &13535264
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 129830}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.00001
+  m_Center: {x: -0.000041175634, y: -0.007583374, z: 0.028759193}
 --- !u!198 &19800758
 ParticleSystem:
   m_ObjectHideFlags: 1

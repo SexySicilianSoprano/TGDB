@@ -3,44 +3,42 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
-/// <summary>
-/// This is the <TurretCombat> script. It's used to give behaviour to enemy towers
-/// It is fundamentally same as <CannonCombat>, but modified to fire autonomously (wait, that could be used in normal <CannonCombat>)
-/// 
-/// Well anywho, pretty much nothing else to report. Apart from autonomous firing, it's pretty much the same.
-/// Just commented better.
-/// 
-/// - Karl Sartorisio
-/// The Great Deep Blue
-/// </summary>
-
 [RequireComponent(typeof(RTSEntity))]
-public class TurretCombat : Combat {
+public class MachineGunCombat : Combat {
 
+    // ##### Private variables #####
     // Private booleans
     private bool TargetSet = false; // Is a target set?
     private bool canFire = true; // Are we able to fire?
     private bool m_FollowEnemy = false; // Do we follow a fleeing enemy?
     private bool m_FireAtEnemy = false; // Do we fire at an enemy without command?
+    private bool isFollowing = false;
 
     // Rate of fire
     private float m_FireRate;
 
+    // Weapon burst counter
+    private int m_shotsFired = 0;
+    private int m_magazineSize = 3;
+
     // Position variables
     private Vector3 CurrentPos;
     private Vector3 TargetPos;
-        
+
     // Projectile spawner / turret variables
     private Transform Spawner;
     private Vector3 SpawnerPos;
 
     // SphereCollider with trigger to detect enemies
     private SphereCollider DangerZone;
-    
+
     // List of targets and priorities
     private List<RTSEntity> targetList = new List<RTSEntity>(); // Normal priority
     private List<RTSEntity> trueTargetList = new List<RTSEntity>(); // High priority
 
+    // This unit's movement script
+    private Movement m_Movement;
+        
     // Use this for initialization
     void Start()
     {
@@ -48,6 +46,7 @@ public class TurretCombat : Combat {
         SwitchMode(CombatMode.Defensive);
         m_Parent = GetComponent<RTSEntity>();
         Spawner = m_Parent.transform.GetChild(0);
+        m_Movement = GetComponent<Movement>();
 
         // Initialise DangerZone and set its size
         DangerZone = transform.GetComponent<SphereCollider>();
@@ -55,7 +54,7 @@ public class TurretCombat : Combat {
     }
 
     void FixedUpdate()
-    {        
+    {
         // Updates positions and firerate
         SpawnerPos = Spawner.transform.position;
         CurrentPos = CurrentLocation;
@@ -64,23 +63,67 @@ public class TurretCombat : Combat {
         // Check if lists need refreshing aka target is destroyed or off the DangerZone
         RefreshTargetLists(m_Target);
 
-        // Is there a unit listed on top priority list?
-        if (trueTargetList.Count > 0)
+        // Behaviour query
+        if (TargetSet && m_Target == null)
         {
-            Attack(trueTargetList[0]);
+            // Target is set, but can't be found, so let's stop
+            Stop();
         }
-        // If not, is there a unit listed on normal priority list?
-        else if (targetList.Count > 0)
-        {            
-            Attack(targetList[0]);
+        else if (TargetSet && canFire == true)
+        {
+            // Target is set and found, let's update locations and fire
+            TargetPos = TargetLocation;
+            Attack(m_Target);
         }
         else
         {
+            // Target is not set, we're idle, so let's see if target lists have anything to shoot at
+            // Is there a unit listed on top priority list?
+            if (trueTargetList.Count > 0)
+            {
+                Attack(trueTargetList[0]);
+            }
+            // If not, is there a unit listed on normal priority list?
+            else if (targetList.Count > 0)
+            {
+                Attack(targetList[0]);
+            }
+            else
+            {
+                Stop();
+            }
+        }
+
+        /*
+        if (TargetSet && m_Target == null)
+        {
             Stop();
         }
+        else if (TargetSet && canFire == true)
+        {
+            TargetPos = TargetLocation;            
+            Attack(m_Target);
+        } 
+
+        if (m_Parent.AttackingEnemy)
+        {
+            m_Target = m_Parent.AttackingEnemy;
+            if (m_FireAtEnemy == true)
+            {
+                Attack(m_Target);
+            }
+            else if (m_FireAtEnemy == false)
+            {
+
+            }
+            else
+            {
+                Debug.LogError("Something went wrong with stances");
+            }
+        }*/
     }
 
-   // Host unit location
+    // Host unit location
     public override Vector3 CurrentLocation
     {
         get
@@ -97,11 +140,11 @@ public class TurretCombat : Combat {
             return m_Target.transform.position;
         }
     }
-    
+
     // Assign weapon details
     public override void AssignDetails(Weapon weapon)
     {
-        Damage = weapon.Damage * 2;
+        Damage = weapon.Damage;
         Range = weapon.Range;
         FireRate = weapon.FireRate;
         TurretSpeed = weapon.TurretSpeed;
@@ -109,7 +152,7 @@ public class TurretCombat : Combat {
         isAntiStructure = weapon.isAntiStructure;
         //Projectile = weapon.Projectile;
     }
-       
+    
     // Attack command
     public override void Attack(RTSEntity obj)
     {
@@ -135,7 +178,9 @@ public class TurretCombat : Combat {
                     // Is the target within maximum range?
                     if (TargetInRange())
                     {
-                        // FIRE!
+                        // Stop movement and fire the guns
+                        isFollowing = false;
+                        m_Movement.Stop();
                         Fire();
 
                         // Check if target is destroyed after the shot
@@ -148,8 +193,8 @@ public class TurretCombat : Combat {
                     }
                     else
                     {
-                        // Target isn't in range, so let's forget about it
-                        Stop();
+                        // Target not in range, follow it!
+                        Follow();
                         return;
                     }
                 }
@@ -167,24 +212,34 @@ public class TurretCombat : Combat {
         }
         else
         {
-            // Just stop, ain't worth shitting around with no target
+            // Just stop, ain't worth shitting around with no target, mate
             Stop();
             return;
         }
     }
 
-    // Fire the weapon
     private void Fire()
     {
-        // Play firing      
-        Spawner.GetChild(0).GetComponent<ParticleSystem>().Play(true);
-        //debug.log("FIRE TURRET, FIRE!");
-        
-        //LaunchProjectile(Projectile); // Launch projectile
-        m_Target.TakeDamage(Damage); // Target takes damage
-        m_Target.AttackingEnemy = m_Parent; // Let the target know it's being fired so it can shoot back
-        canFire = false; // We can't fire anymore
-        StartCoroutine(WaitAndFire()); // Start cooldown routine so we can fire again
+        // Start firing
+        gameObject.transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play(true);
+        Debug.DrawLine(SpawnerPos, TargetPos);
+
+        //LaunchProjectile(Projectile);
+        m_Target.TakeDamage(Damage);
+        m_Target.AttackingEnemy = m_Parent;
+
+        if (m_shotsFired == m_magazineSize)
+        {
+            m_shotsFired = 0;
+            canFire = false;
+            StartCoroutine(WaitForReload());
+        }
+        else
+        {
+            m_shotsFired++;
+            canFire = false;
+            StartCoroutine(WaitAndFire());
+        }
     }
 
     // Stops just whatever is being done
@@ -194,40 +249,57 @@ public class TurretCombat : Combat {
         TargetSet = false;
         m_Target = null;
         m_Parent.AttackingEnemy = null;
+        isFollowing = false;
+        //GetComponent<Movement>().Stop();
+    }
+
+    // Follow the target
+    public void Follow() {
+        // Follow target until in range
+        if (m_FollowEnemy)
+        {
+            if (!isFollowing)
+            {
+                isFollowing = true;
+                m_Movement.Follow(m_Target.transform);
+            }
+
+            if (TargetInRange())
+            {
+                m_Movement.Stop();
+            }
+        }
     }
 
     // Launches projectile
     private void LaunchProjectile()
     {
-        // TODO: Launch a projectile, you hobo
+           
     }
 
     // Checks if target is in line of fires
     private bool TargetInLine()
     {
-        // Let's create a new vector3 from spawner position that is just above the ground, so it may touch the ground units
-        Vector3 m_SpawnPos = new Vector3(SpawnerPos.x, 2f, SpawnerPos.z);
-
-        // Then let's raycast
+        // Raycastin' yo
         RaycastHit hit;
-        Ray ray = new Ray(m_SpawnPos, Spawner.transform.forward);
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        Ray ray = new Ray(Spawner.transform.position, Spawner.transform.forward);
+        if (Physics.Raycast(ray, out hit))
         {
-            // Is it the target's box collider?
+            // Did we hit the target's box collider?
             if (hit.collider == m_Target.GetComponent<BoxCollider>())
             {
-                // Yeah, we're facing the target
+                // Yup, target on sights
                 return true;
             }
             else
             {
-                // Nope, still can't do
+                // Apparently not
                 return false;
             }
         }
         else
-        {
-            // We're not hitting anything, so let's try again
+        {           
+            // We're not hitting anything, so let's try again 
             return false;
         }
     }
@@ -238,7 +310,7 @@ public class TurretCombat : Combat {
         GameObject target = collider.gameObject;
 
         // Is it a unit or a building?
-        if (target.GetComponent<RTSEntity>() && target.tag == "Player1")
+        if (target.GetComponent<RTSEntity>() && target.tag != m_Parent.tag)
         {
             RTSEntity m_ent = target.GetComponent<RTSEntity>();
 
@@ -248,26 +320,15 @@ public class TurretCombat : Combat {
                 // Is it a building?
                 if (target.GetComponent<Building>())
                 {
-                    //debug.log("It's a building! " + m_ent);
-                    // Is it a Naval Yard?
-                    if (target.GetComponent<NavalYard>())
-                    {
-                        // Naval Yard in range, fire at Naval Yard
-                        // Add to top priority list
-                        PutTopOfTargetList(m_ent);
-                    }
-                    else if (target.GetComponent<FloatingFortress>())
-                    {
-                        // No Naval Yard or other buildings in range, fire at Floating Fortress
-                        // Add to priority list
-                        trueTargetList.Add(m_ent);
-                    }
+                    // Yeah, just a building. Put on low prio list
+                    targetList.Add(m_ent);
+                    
                 }
                 // Is it a unit?
                 if (target.GetComponent<Unit>())
                 {
-                    // Add unit to target list
-                    targetList.Add(m_ent);
+                    // Put on high prio list
+                    trueTargetList.Add(m_ent);
                 }
             }
         }
@@ -278,7 +339,7 @@ public class TurretCombat : Combat {
     {
         GameObject target = collider.gameObject;
 
-        if (target.GetComponent<RTSEntity>() && target.tag == "Player1")
+        if (target.GetComponent<RTSEntity>() && target.tag != m_Parent.tag)
         {
             RTSEntity m_ent = target.GetComponent<RTSEntity>();
 
@@ -295,7 +356,7 @@ public class TurretCombat : Combat {
             }
         }
     }
-        
+
     // Updates the top priority list and puts the parameter unit on top
     private void PutTopOfTargetList(RTSEntity unit)
     {
@@ -307,7 +368,7 @@ public class TurretCombat : Combat {
             foreach (RTSEntity ent in trueTargetList)
             {
                 placeHolderList.Add(ent);
-            }             
+            }
             trueTargetList.Clear(); // Clear true list
         }
 
@@ -390,26 +451,27 @@ public class TurretCombat : Combat {
 
         // Calculate the quaternion lookrotation with vector we just determined
         Quaternion m_LookRotation = Quaternion.LookRotation(new Vector3(m_Direction.x, m_Direction.y * 0, m_Direction.z));
-        
+
         // Use quaternion slerp to rotate the turret towards desired position with set speed
         Spawner.transform.rotation = Quaternion.Slerp(Spawner.transform.rotation, m_LookRotation, TurretSpeed * Time.deltaTime);
+
     }
 
     // Calculates rate of fire with 60 divided by shots per minute
     private void CalculateFireRate()
-    {        
+    {
         m_FireRate = 60 / FireRate;
     }
-    
+
     // Checks if the target is within range
     private bool TargetInRange()
-    { 
+    {
         TargetPos = TargetLocation;
         float dist = Vector3.Distance(CurrentPos, TargetPos);
 
         // Is the distance between target and parent smaller than maximum range?
         if (dist <= Range)
-        {            
+        {
             // Yup, we're good to go
             return true;
         }
@@ -450,14 +512,21 @@ public class TurretCombat : Combat {
         canFire = true;
     }
 
+    IEnumerator WaitForReload()
+    {
+        yield return new WaitForSeconds(2);
+        canFire = true;
+    }
+
     // Combat mode
     // - Passive doesn't fire back at all
     // - Aggressive fires when enemy is within range
     // - Defensive fires only when attacked
-    public enum CombatMode {
+    public enum CombatMode
+    {
         Passive,
         Aggressive,
         Defensive
-    } 
-  
+    }
+
 }
