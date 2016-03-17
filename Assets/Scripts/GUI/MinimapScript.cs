@@ -17,14 +17,14 @@ public class MinimapScript : MonoBehaviour {
 
     void Start () {
 
-        MapWidth = 550f;
-        MapHeight = 550f;
+        MapWidth = GameObject.Find("Plane").GetComponent<Transform>().localScale.x * 10f;
+        MapHeight = GameObject.Find("Plane").GetComponent<Transform>().localScale.z * 10f;
     }
 
 	// Update is called once per frame
 	void Update () {
 
-        /*//If left button is pressed and click is in the minimap Rect
+        //If left button is pressed and click is in the minimap Rect
 	    if (Input.GetMouseButtonDown(0) && GetComponent<Camera>().pixelRect.Contains(Input.mousePosition))
         {
             RaycastHit hit;
@@ -41,9 +41,9 @@ public class MinimapScript : MonoBehaviour {
                 Debug.Log(hit.point);
             }
 
-        }*/
+        }
 
-	}
+    }
 
     public void MinimapClick()
     {
