@@ -17,8 +17,8 @@ public class MinimapScript : MonoBehaviour {
 
     void Start () {
 
-        MapWidth = GameObject.Find("Plane").GetComponent<Transform>().localScale.x * 10f;
-        MapHeight = GameObject.Find("Plane").GetComponent<Transform>().localScale.z * 10f;
+        MapWidth = 750f;
+        MapHeight = 750f;
     }
 
 	// Update is called once per frame
