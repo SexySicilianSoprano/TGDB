@@ -82,12 +82,12 @@ public class BoatMovement : SeaMovement {
             }
 
 
-            if (Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < nextWaypointDistance || Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < 20)
+            if (Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < nextWaypointDistance || Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < 10 && currentWaypoint <= Path.vectorPath.Count)
             {
                 currentWaypoint++;
             }
 
-            if (currentWaypoint >= Path.vectorPath.Count || Vector3.Distance(m_Parent.transform.position, targetPosition) < 7)
+            if (currentWaypoint >= Path.vectorPath.Count || Vector3.Distance(m_Parent.transform.position, targetPosition) < 5)
             {
                 rb.velocity = Vector3.zero;                
                 Path = null;
