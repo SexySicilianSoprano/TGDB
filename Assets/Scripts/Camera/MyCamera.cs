@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// Script that controls the camera movements.
@@ -35,8 +36,6 @@ public class MyCamera : MonoBehaviour
 	public float rotateAroundSpeed;
 	// follow
 	public float followSmoothSpeed; // used to lerp the follow
-
-    private Rect boundries;
 
 	#endregion
 	
@@ -178,10 +177,12 @@ public class MyCamera : MonoBehaviour
             Debug.Log(status);
         }
 
-       /* else if (status == MyCameraStatusEnum.AT_PLAYER && MinimapScript.minimap.)
+        else if (status == MyCameraStatusEnum.AT_PLAYER && MinimapScript.minimap.isClicked == true)
         {
-
-        }*/
+            status = MyCameraStatusEnum.MANUAL;
+            Debug.Log(status);
+        }
+        
         /*
 		//bonus rule supposed to apply MANUAL status if moving mouse cursor over screen edge
 		//TODO: make it work lol. It works, but it doesn't center focus back to FF. Figure out how to fix it
@@ -208,6 +209,6 @@ public class MyCamera : MonoBehaviour
 			Debug.Log (status);
 		}
 	}
-	
-	#endregion
+
+    #endregion
 }

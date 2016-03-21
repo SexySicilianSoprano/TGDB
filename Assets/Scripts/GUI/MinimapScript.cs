@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class MinimapScript : MonoBehaviour {
+public class MinimapScript : MonoBehaviour, /*IPointerEnterHandler, IPointerExitHandler, */IPointerUpHandler, IPointerDownHandler{
 
     public Camera minimapCamera;
     public GameObject mainCamera;
@@ -11,20 +12,33 @@ public class MinimapScript : MonoBehaviour {
     public float MapWidth;
     public float MapHeight;
 
-    public MyCameraStatusEnum status;
+    public bool isClicked;
 
     public static MinimapScript minimap;
+    public Rect screenRect; //this is the Rect that determines camera movement status
+
+    void Awake()
+    {
+        minimap = this;
+    }
 
     void Start () {
 
         MapWidth = 750f;
         MapHeight = 750f;
+
+        //This part determines the rect size of minimap
+        var minimapRect = minimapIMG.GetComponent<RectTransform>().rect;
+        screenRect = new Rect(
+            minimapIMG.transform.position.x,
+            minimapIMG.transform.position.y,
+            minimapRect.width, minimapRect.height);
     }
 
 	// Update is called once per frame
 	void Update () {
 
-        //If left button is pressed and click is in the minimap Rect
+        /*//If left button is pressed and click is in the minimap Rect
 	    if (Input.GetMouseButtonDown(0) && GetComponent<Camera>().pixelRect.Contains(Input.mousePosition))
         {
             RaycastHit hit;
@@ -41,18 +55,19 @@ public class MinimapScript : MonoBehaviour {
                 Debug.Log(hit.point);
             }
 
+        }*/
+
+        if (screenRect.Contains(Input.mousePosition))
+        {
+            Debug.Log("No toimiiko tää");
         }
 
     }
 
+ 
+
     public void MinimapClick()
     {
-        //This part determines the rect size of minimap
-        var minimapRect = minimapIMG.GetComponent<RectTransform>().rect;
-        var screenRect = new Rect(
-            minimapIMG.transform.position.x,
-            minimapIMG.transform.position.y,
-            minimapRect.width, minimapRect.height);
 
         //This part determines what the mouse position is on map, and excludes the map coordinates from it.
         // TODO: the problem might be at this part
@@ -74,8 +89,29 @@ public class MinimapScript : MonoBehaviour {
         Debug.Log("Mouse Pos." + mousePos);
         Debug.Log("Camera Pos." + camPos);
 
-        //I tried to see if I can use this code to go MANUAL mode here. Nope. No can do. GG.
+    }
 
-        status = MyCameraStatusEnum.MANUAL;
+    /*public void OnPointerExit(PointerEventData eventData)
+    {
+        isClicked = false;
+        Debug.Log("Exited Minimap");
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        isClicked = true;
+        Debug.Log("Entered Minimap");
+    }*/
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        isClicked = false;
+        Debug.Log("False");
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        isClicked = true;
+        Debug.Log("True");
     }
 }

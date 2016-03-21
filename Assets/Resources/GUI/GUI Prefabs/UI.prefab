@@ -155,6 +155,7 @@ GameObject:
   - 222: {fileID: 22236094}
   - 114: {fileID: 11438534}
   - 114: {fileID: 11450376}
+  - 114: {fileID: 11426188}
   m_Layer: 5
   m_Name: Minimap
   m_TagString: Untagged
@@ -277,7 +278,7 @@ GameObject:
   - 224: {fileID: 22467252}
   - 222: {fileID: 22289754}
   m_Layer: 5
-  m_Name: Minimap
+  m_Name: MinimapPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2211,6 +2212,29 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Ready!
+--- !u!114 &11426188
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32b71ed01f4a1244e905a64cf45b717a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minimapCamera: {fileID: 0}
+  mainCamera: {fileID: 0}
+  minimapIMG: {fileID: 11438534}
+  MapWidth: 0
+  MapHeight: 0
+  isClicked: 0
+  screenRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
 --- !u!114 &11427622
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2686,10 +2710,10 @@ MonoBehaviour:
   m_Texture: {fileID: 8400000, guid: d1c730045a41d294eb344efe011d796f, type: 2}
   m_UVRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+    x: 0.05
+    y: 0.05
+    width: 0.9
+    height: 0.9
 --- !u!114 &11438748
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3097,7 +3121,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 11426188}
         m_MethodName: MinimapClick
         m_Mode: 1
         m_Arguments:
@@ -4053,7 +4077,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -5317,10 +5341,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22453420}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3, y: -0.29999924}
-  m_SizeDelta: {x: 215, y: 215}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 114, y: 121}
+  m_SizeDelta: {x: 200, y: 198}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22422920
 RectTransform:
@@ -5749,8 +5773,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1, y: 5}
-  m_SizeDelta: {x: -101, y: -151}
+  m_AnchoredPosition: {x: 0, y: 1.800003}
+  m_SizeDelta: {x: -121.5, y: -140.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22453816
 RectTransform:
@@ -5962,8 +5986,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -143.2, y: -215}
-  m_SizeDelta: {x: 318.4, y: 363}
+  m_AnchoredPosition: {x: -157.8, y: -237.3}
+  m_SizeDelta: {x: 349.4, y: 383}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22467776
 RectTransform:
