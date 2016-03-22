@@ -11,25 +11,15 @@ public class Manager : MonoBehaviour, IManager {
     public IGameManager m_GameManager;
 
     // Player variables
-    public Player primaryPlayer()
-    {
-        return GetComponent<GameManager>().primaryPlayer();
-    }
-
-    public Player enemyPlayer()
-    {
-        return GetComponent<GameManager>().enemyPlayer();
-    }
-
+    public Player primaryPlayer() { return GetComponent<GameManager>().primaryPlayer(); }
+    public Player enemyPlayer() { return GetComponent<GameManager>().enemyPlayer(); }
     public string m_primaryPlayer;
     public string m_enemyPlayer;
 
-    public int Money
+    public int Resource
     {
-        get
-        {
-            throw new NotImplementedException();
-        }
+        get;
+        private set;
     }
 
     void Awake()
@@ -86,17 +76,17 @@ public class Manager : MonoBehaviour, IManager {
         throw new NotImplementedException();
     }
 
-    public void AddMoney(float money)
+    public void AddResource(float amount)
     {
         throw new NotImplementedException();
     }
 
-    public void AddMoneyInstant(float money)
+    public void AddResourceInstant(float amount)
     {
         throw new NotImplementedException();
     }
 
-    public void RemoveMoneyInstant(float money)
+    public void RemoveResourceInstant(float amount)
     {
         throw new NotImplementedException();
     }

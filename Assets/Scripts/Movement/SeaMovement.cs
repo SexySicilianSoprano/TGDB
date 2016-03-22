@@ -5,10 +5,7 @@ using Pathfinding;
 using System;
 
 public abstract class SeaMovement : Movement {
-
-    // Target location
-    public Vector3 targetPosition;
-
+    
     // Calculated path
     public Path Path;
         
