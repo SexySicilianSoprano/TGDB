@@ -8,7 +8,7 @@ public class Manager : MonoBehaviour, IManager {
     public static Manager main;
 
     // Components Manager needs to deal with
-    public IGameManager m_GameManager;
+    public GameManager m_GameManager;
 
     // Player variables
     public Player primaryPlayer() { return GetComponent<GameManager>().primaryPlayer(); }
@@ -16,7 +16,7 @@ public class Manager : MonoBehaviour, IManager {
     public string m_primaryPlayer;
     public string m_enemyPlayer;
 
-    public int Resource
+    public float Resource
     {
         get;
         private set;
@@ -31,6 +31,7 @@ public class Manager : MonoBehaviour, IManager {
     void Start()
     {        
         Initialise();
+        Resource = m_GameManager.missionResources;
     }
 	
 	// Update is called once per frame
@@ -76,23 +77,36 @@ public class Manager : MonoBehaviour, IManager {
         throw new NotImplementedException();
     }
 
+    // Functions for handling in-game resources
     public void AddResource(float amount)
     {
-        throw new NotImplementedException();
+        Resource += amount;
+    }
+
+    public void RemoveResource(float amount)
+    {
+        Resource -= amount;
     }
 
     public void AddResourceInstant(float amount)
     {
-        throw new NotImplementedException();
+        Resource += amount;
     }
 
     public void RemoveResourceInstant(float amount)
     {
-        throw new NotImplementedException();
+        Resource -= amount;
     }
 
     public bool CostAcceptable(float cost)
     {
-        throw new NotImplementedException();
+        if (cost <= Resource)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

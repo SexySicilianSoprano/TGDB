@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour, IGameManager {
     public int missionNumber;
     public string missionPlayerHouse;
     public float missionExp;
+    public float missionResources;
 
     // Player-related variables
     private Player m_Player1 = new Player();

@@ -18,6 +18,7 @@ public class Mission : MonoBehaviour {
     public string m_name;
     public int m_number;
     public float m_exp;
+    public float m_startingResources;
     public string m_description;
     public string m_Scene;
 
@@ -27,6 +28,7 @@ public class Mission : MonoBehaviour {
         m_name = mission.m_name;
         m_number = mission.m_number;
         m_exp = mission.m_exp;
+        m_startingResources = mission.m_startingResources;
         m_description = mission.m_description;
         m_Scene = mission.m_Scene;
     }

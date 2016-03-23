@@ -20,5 +20,5 @@ public interface IManager {
 	
 	bool CostAcceptable(float cost);
 	
-	int Resource { get; }
+	float Resource { get; }
 }
