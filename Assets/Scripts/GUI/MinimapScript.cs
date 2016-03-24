@@ -91,18 +91,6 @@ public class MinimapScript : MonoBehaviour, /*IPointerEnterHandler, IPointerExit
 
     }
 
-    /*public void OnPointerExit(PointerEventData eventData)
-    {
-        isClicked = false;
-        Debug.Log("Exited Minimap");
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        isClicked = true;
-        Debug.Log("Entered Minimap");
-    }*/
-
     public void OnPointerUp(PointerEventData eventData)
     {
         isClicked = false;
