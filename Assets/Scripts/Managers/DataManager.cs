@@ -21,6 +21,7 @@ public class DataManager : MonoBehaviour {
     public int p_Rank;
     public float p_Exp;
     public string p_Name;
+    public float p_Score;
 
     // House Data
     public float gearsExp;
@@ -33,6 +34,7 @@ public class DataManager : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        DontDestroyOnLoad(this);
         // Fetch data from storage
         LoadData();
 	}
@@ -60,6 +62,12 @@ public class DataManager : MonoBehaviour {
             PlayerPrefs.SetInt("mechanusMissions", 1);
         }
 
+        // Loading player overall data
+        p_Name = PlayerPrefs.GetString("playerName");
+        p_Exp = PlayerPrefs.GetFloat("playerExp");
+        p_Rank = PlayerPrefs.GetInt("playerRank");
+        p_Score = PlayerPrefs.GetFloat("playerScore");
+
         // Load House-specific data
         gearsRank = PlayerPrefs.GetInt("gearsRank");
         scalesRank = PlayerPrefs.GetInt("scalesRank");
@@ -80,6 +88,7 @@ public class DataManager : MonoBehaviour {
         SaveExp(p_Exp);
         SaveName(p_Name);
         SaveRank(p_Rank);
+        SaveScore(p_Score);
 
         // Save House data
         SaveHouseExp("gearsExp", gearsExp);
@@ -105,13 +114,18 @@ public class DataManager : MonoBehaviour {
     // Save overall exp
     public void SaveExp(float exp)
     {
-        PlayerPrefs.SetFloat("exp", exp);
+        PlayerPrefs.SetFloat("playerExp", exp);
     }
     
     // Save overall rank
     public void SaveRank(int rank)
     {
         PlayerPrefs.SetInt("playerRank", rank);
+    }
+
+    public void SaveScore(float score)
+    {
+        PlayerPrefs.SetFloat("playerScore", score);
     }
 
     // Save House rank
@@ -142,6 +156,24 @@ public class DataManager : MonoBehaviour {
     public void LoadString(string key)
     {
         PlayerPrefs.GetString(key);
+    }
+
+    // Set a specific int
+    public void SaveInt(string key, int value)
+    {
+        PlayerPrefs.SetInt(key, value);
+    }
+
+    // Set a specific float
+    public void SaveFloat(string key, float value)
+    {
+        PlayerPrefs.SetFloat(key, value);
+    }
+
+    // Set a specific string
+    public void SaveString(string key, string value)
+    {
+        PlayerPrefs.SetString(key, value);
     }
 
     void OnApplicationQuit()

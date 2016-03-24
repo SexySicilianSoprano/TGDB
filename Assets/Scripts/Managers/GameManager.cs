@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour, IGameManager {
 
     // Game Set Bool
     private bool m_GameSet = false;
+    private bool m_Victory = false;
 
     // Map Data
     public string missionName;
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour, IGameManager {
 
     // Manager accessors
     public DataManager m_DataManager;
+    public DataStorage m_DataStorage;
     public Manager m_Manager;
 
     // Refer singleton
@@ -43,11 +45,16 @@ public class GameManager : MonoBehaviour, IGameManager {
     // Initialize details   
     void Start()
     {
+        // Assign datahandlers
         m_DataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
+        m_DataStorage = GameObject.Find("DataManager").GetComponent<DataStorage>();
 
+        // Assign mission data
+        AssignMissionData(m_DataStorage.m_Mission);
+
+        // Assign player data
         m_Player1.AssignDetails(SetPlayer.Player1);
         m_Player2.AssignDetails(SetPlayer.Player2);
-
         m_FloatingFortress1 = GameObject.Find("Player1");
         m_FloatingFortress2 = GameObject.Find("Player2");
     }
@@ -63,14 +70,18 @@ public class GameManager : MonoBehaviour, IGameManager {
             {
                 victoryPanel.SetActive(true);
                 m_GameSet = true;
-
+                m_Victory = true;
+                SaveProgress();
             }
             // Lose condition
             else if (!m_FloatingFortress1 && primaryPlayer() == m_Player1 || !m_FloatingFortress2 && primaryPlayer() == m_Player2)
             {
                 defeatPanel.SetActive(true);
                 m_GameSet = true;
+                m_Victory = false;
+                SaveProgress();
             }
+
         }
     }
 
@@ -79,6 +90,11 @@ public class GameManager : MonoBehaviour, IGameManager {
         // If we win
             // If mission number is the same as available missions + less than total number of missions, open new mission
             // Save accumulated experience points
+        if (m_Victory)
+        {
+            float exp = missionExp + m_Manager.ReturnAccumulatedExperience();
+            m_DataStorage.SaveDataRequest(exp, missionPlayerHouse);
+        }
 
         // else
             // Save accumulated experience points with a cut because defeat
@@ -88,5 +104,10 @@ public class GameManager : MonoBehaviour, IGameManager {
     private void AssignMissionData(Mission mission)
     {
         // Assign mission data
+        missionName = mission.m_name;
+        missionNumber = mission.m_number;
+        missionExp = mission.m_exp;
+        missionResources = mission.m_startingResources;
+        //smissionPlayerHouse = mission.m_PlayerHouse;
     }
 }
