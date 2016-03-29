@@ -37,6 +37,8 @@ public class MyCamera : MonoBehaviour
 	// follow
 	public float followSmoothSpeed; // used to lerp the follow
 
+    public bool isEdge;
+
 	#endregion
 	
 	#region Other Variables
@@ -51,6 +53,7 @@ public class MyCamera : MonoBehaviour
 	private void Start()
 	{
 		status = MyCameraStatusEnum.AT_PLAYER; // the camera must start at AT_PLAYER status
+        isEdge = false;
 	}
 	
 	public void Update()
@@ -183,7 +186,7 @@ public class MyCamera : MonoBehaviour
             Debug.Log(status);
         }
 
-         else if (status == MyCameraStatusEnum.AT_PLAYER && ScreenEdgeScript.ScreenEdge.isEdge == true)
+         else if (status == MyCameraStatusEnum.AT_PLAYER && isEdge == true)
         {
             status = MyCameraStatusEnum.MANUAL;
             Debug.Log(status);
