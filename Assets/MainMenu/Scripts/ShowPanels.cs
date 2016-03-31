@@ -7,7 +7,6 @@ public class ShowPanels : MonoBehaviour {
 	public GameObject optionsTint;							//Store a reference to the Game Object OptionsTint 
 	public GameObject menuPanel;							//Store a reference to the Game Object MenuPanel 
     public GameObject factionPanel;                         //Store a reference to the Game Object FactionPanel
-    public GameObject mapPanel;                             //Store a reference to the Game Object MapPanel
 	public GameObject pausePanel;							//Store a reference to the Game Object PausePanel 
 
 
@@ -37,7 +36,6 @@ public class ShowPanels : MonoBehaviour {
 	{
 		menuPanel.SetActive (false);
         factionPanel.SetActive(false);
-        //mapPanel.SetActive(false);
 	}
 	
 	//Call this function to activate and display the Pause panel during game play
