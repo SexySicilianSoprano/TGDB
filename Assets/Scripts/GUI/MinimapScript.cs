@@ -24,8 +24,10 @@ public class MinimapScript : MonoBehaviour, /*IPointerEnterHandler, IPointerExit
 
     void Start () {
 
-        MapWidth = 750f;
-        MapHeight = 750f;
+        //if the minimap is perfect with minimapsize being 200 and whole map being 750, then to make it working, we need to calculate the map size from minimap size.
+        //ie. 750 / 200 = 3,75
+        //So, if minimap is 300, we'd get the correct size for map by calculating
+        //3,75 * 300
 
         //This part determines the rect size of minimap
         var minimapRect = minimapIMG.GetComponent<RectTransform>().rect;
@@ -33,6 +35,9 @@ public class MinimapScript : MonoBehaviour, /*IPointerEnterHandler, IPointerExit
             minimapIMG.transform.position.x,
             minimapIMG.transform.position.y,
             minimapRect.width, minimapRect.height);
+
+        MapWidth = 3.75f * minimapRect.width;
+        MapHeight = 3.75f * minimapRect.height;
     }
 
 	// Update is called once per frame

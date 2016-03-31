@@ -17,6 +17,9 @@ public class HPBar : MonoBehaviour {
     public Image bar;
     public float max_health;
     public float cur_health;
+    public MyCamera MyCamera;
+
+    public float SizeDif;
 
 	// Use this for initialization
 	void Start ()
@@ -33,6 +36,12 @@ public class HPBar : MonoBehaviour {
         bar = newHealthBar.transform.Find("HPBG").transform.Find("HPGreen").GetComponent<Image>();
         objectToFollow = this.gameObject.transform;
         //InvokeRepeating ("decreaseHealth", 0f, 2f);
+
+        RectTransform panelRectTransform = newHealthBar.GetComponent<RectTransform>();
+
+        /*SizeDif = MyCamera.zoomMinLimit / MyCamera.;
+
+        panelRectTransform.sizeDelta =  panelRectTransform.sizeDelta.y);*/
 	}
 	
     void Update()
