@@ -13,12 +13,12 @@ public interface IManager {
 	void UnitRemoved(Unit unit);
 	int GetUniqueID();	
 	
-	void AddMoney(float money);
+	void AddResource(float amount);
 	
-	void AddMoneyInstant(float money);
-	void RemoveMoneyInstant(float money);
+	void AddResourceInstant(float amount);
+	void RemoveResourceInstant(float amount);
 	
 	bool CostAcceptable(float cost);
 	
-	int Money { get; }
+	float Resources { get; }
 }
