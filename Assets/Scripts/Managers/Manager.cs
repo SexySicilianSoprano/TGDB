@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using System;
 
 public class Manager : MonoBehaviour, IManager {
@@ -21,7 +22,7 @@ public class Manager : MonoBehaviour, IManager {
     public float Resources
     {
         get;
-        private set;
+        set;
     }
 
     // Earned experience points
@@ -42,32 +43,40 @@ public class Manager : MonoBehaviour, IManager {
     void Start()
     {
         Initialise();
-        Resources = m_GameManager.missionResources;
     }
 	
 	// Update is called once per frame
 	void Update()
     {
-
+        UpdateResourceText();
 	}
 
+    // Initialise data
     private void Initialise()
     {
         ItemDB.Initialise();
         AssignPlayerInfo();
     }
 
+    // Assign player details
     private void AssignPlayerInfo()
     {
-        m_primaryPlayer = primaryPlayer().controlledTag;
-        m_enemyPlayer = enemyPlayer().controlledTag;
+
     }
 
+    // Returns total amount of experience
     public float ReturnAccumulatedExperience()
     {
         float accExp = 0;
         accExp += earnedExperience;
         return accExp;
+    }
+
+    // Update Resource text on GUI
+    private void UpdateResourceText()
+    {
+        Text text = GameObject.Find("UI").transform.Find("Resources").transform.Find("Text").GetComponent<Text>();
+        text.text = Resources.ToString();
     }
 
     // Calculate accumulated experience points by adding up all defeated and lost units with respective multipliers

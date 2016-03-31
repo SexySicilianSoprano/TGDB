@@ -11,28 +11,30 @@ public class Unit : RTSEntity, IOrderable{
     protected bool m_IsAttackable = true;
     protected bool m_IsInteractable = false;    
 
-    protected ISelectedManager m_selectedManager
+    protected SelectedManager m_selectedManager
     {
-        get;
-        private set;
+        get
+        {
+            return GameObject.Find("Manager").GetComponent<SelectedManager>();
+        }
     }
 
-    protected IUIManager m_UIManager
+    protected UIManager m_UIManager
     {
-        get;
-        private set;
+        get
+        {
+            return GameObject.Find("Manager").GetComponent<UIManager>();
+        }
     }
 
     private Player primaryPlayer()
     {
-            return m_UIManager.primaryPlayer();
+        return m_UIManager.primaryPlayer();
     }
 
     protected void Start()
     {
         // m_guiManager = ManagerResolver.Resolve<IGUIManager>();
-        m_selectedManager = ManagerResolver.Resolve<ISelectedManager>();
-        m_UIManager = ManagerResolver.Resolve<IUIManager>();
         // ManagerResolver.Resolve<IManager>().UnitAdded(this);
   
         /*

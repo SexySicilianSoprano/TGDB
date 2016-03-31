@@ -11,7 +11,7 @@ using System;
 /// Some info on on clicks:
 /// - Left Single Click selects the unit when it's clicked and deselects it when clicked on the ground (Deselection handled in UIManager)
 /// - Left Double Click selects all the same type of units on the screen while deselecting previously selected units
-/// - Right Single Click 
+/// - Right Single Click is the attack command, selected units will attack this unit if able
 /// 
 /// - Karl Sartorisio
 ///  The Great Deep Blue
@@ -92,7 +92,6 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
         {
             // Single clicked or drag selected, what happens next?
             Debug.Log("Clickan");
-            
 
             switch (m_Mode)
             {
