@@ -1382,6 +1382,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   paused: 0
+--- !u!1 &836385181 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 129830, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
+  m_PrefabInternal: {fileID: 1872619958}
+--- !u!4 &836385196 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 422796, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
+  m_PrefabInternal: {fileID: 1872619958}
+--- !u!96 &836385197
+TrailRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 836385181}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 79c686c9d1ed8c84faceb0a233c2e5bd, type: 2}
+  - {fileID: 2100000, guid: 644504db5eb619e4fa2448d0dc5ba946, type: 2}
+  - {fileID: 2100000, guid: aeaa6d64f7260854cb4e7f0a2d95d985, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Time: 3
+  m_StartWidth: 1
+  m_EndWidth: 5
+  m_Colors:
+    m_Color[0]:
+      serializedVersion: 2
+      rgba: 2247287708
+    m_Color[1]:
+      serializedVersion: 2
+      rgba: 1744830394
+    m_Color[2]:
+      serializedVersion: 2
+      rgba: 1157627854
+    m_Color[3]:
+      serializedVersion: 2
+      rgba: 301989830
+    m_Color[4]:
+      serializedVersion: 2
+      rgba: 16777215
+  m_MinVertexDistance: 0.1
+  m_Autodestruct: 0
 --- !u!1001 &872191895
 Prefab:
   m_ObjectHideFlags: 0
@@ -1489,6 +1546,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 48
+--- !u!1 &949266645
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 949266646}
+  m_Layer: 9
+  m_Name: FoamTrail
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &949266646
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 949266645}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2022042955}
+  m_Father: {fileID: 836385196}
+  m_RootOrder: 5
 --- !u!1001 &1001920449
 Prefab:
   m_ObjectHideFlags: 0
@@ -3598,86 +3683,6 @@ Prefab:
       propertyPath: m_Name
       value: Destroyer_LargerFlares
       objectReference: {fileID: 0}
-    - target: {fileID: 461710, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 461710, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 461710, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 461710, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 7.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 461710, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 7.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 422586, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 422586, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 422586, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 494320, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 494320, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 494320, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 471570, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 471570, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 471570, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 438614, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 438614, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 438614, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 407604, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 407604, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 407604, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
   m_IsPrefabParent: 0
@@ -3892,6 +3897,81 @@ RectTransform:
 GameObject:
   m_PrefabParentObject: {fileID: 120848, guid: bf3ca6fda60444c4899a0f73e98e4bd5, type: 2}
   m_PrefabInternal: {fileID: 421983964}
+--- !u!1 &2022042954
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2022042955}
+  - 96: {fileID: 2022042956}
+  m_Layer: 9
+  m_Name: Foam1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2022042955
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2022042954}
+  m_LocalRotation: {x: 0, y: 0.38268346, z: 0, w: 0.9238795}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 949266646}
+  m_RootOrder: 0
+--- !u!96 &2022042956
+TrailRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2022042954}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 79c686c9d1ed8c84faceb0a233c2e5bd, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Time: 3
+  m_StartWidth: 1
+  m_EndWidth: 3
+  m_Colors:
+    m_Color[0]:
+      serializedVersion: 2
+      rgba: 1342177279
+    m_Color[1]:
+      serializedVersion: 2
+      rgba: 771751935
+    m_Color[2]:
+      serializedVersion: 2
+      rgba: 318767103
+    m_Color[3]:
+      serializedVersion: 2
+      rgba: 134217727
+    m_Color[4]:
+      serializedVersion: 2
+      rgba: 16777215
+  m_MinVertexDistance: 0.1
+  m_Autodestruct: 0
 --- !u!1 &2033039857
 GameObject:
   m_ObjectHideFlags: 0
