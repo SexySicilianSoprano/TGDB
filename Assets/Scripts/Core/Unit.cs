@@ -125,7 +125,7 @@ public class Unit : RTSEntity, IOrderable{
             // Move Order
             case Const.ORDER_MOVE_TO:
 
-                GetComponent<Movement>().Stop();
+                //GetComponent<Movement>().Stop();
                 GetComponent<Combat>().Stop();
                 if (IsMoveable())
                 {
@@ -149,7 +149,7 @@ public class Unit : RTSEntity, IOrderable{
             // Attack Order
             case Const.ORDER_ATTACK:
 
-                GetComponent<Movement>().Stop();
+                //GetComponent<Movement>().Stop();
                 GetComponent<Combat>().Stop();
                 if (IsAttackable())
                 {

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class SelectedManager : MonoBehaviour, ISelectedManager {
 
@@ -10,9 +11,9 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
     // Active selected list variables
     private List<RTSEntity> l_Selected = new List<RTSEntity>();
     private List<IOrderable> SelectedActiveEntities = new List<IOrderable>();
+    private List<GameObject> l_Printed = new List<GameObject>();
 
     // Grouping variables
-    private List<int> ListOfGroups = new List<int>();
     private List<RTSEntity> l_Group1 = new List<RTSEntity>();
     private List<RTSEntity> l_Group2 = new List<RTSEntity>();
     private List<RTSEntity> l_Group3 = new List<RTSEntity>();
@@ -28,6 +29,11 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
         main = this;
     }
 
+
+    void Start()
+    {
+
+    }
     void Update()
     {
         Debug.Log(ActiveEntityCount());
@@ -49,6 +55,7 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
 
                 l_Selected.Add(unit);
                 unit.SetSelected();
+                PrintSelected(unit);
             }
         }
         else
@@ -63,6 +70,91 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
     {
         l_Selected.Remove(unit);
         unit.SetDeselected();
+        ClearPrints();
+    }
+
+   
+
+    // Removes everything from selected
+    public void ClearSelected()
+    {
+        foreach (RTSEntity unit in l_Selected)
+        {
+            unit.SetDeselected();
+        }
+        
+        if (selectedBuilding)
+        {
+            selectedBuilding.SetDeselected();
+            selectedBuilding = null;
+        }
+
+        l_Selected.Clear();
+        SelectedActiveEntities.Clear();
+        ClearPrints();
+    }
+
+    // ### Grouping functions ###
+
+    // Clear a group specific group to for reusal
+    private void ClearGroup(int number)
+    {
+        switch (number)
+        {
+            case 1:
+                foreach (RTSEntity unit in l_Group1)
+                {
+                    Text text = unit.GetComponent<HPBar>().healthBar.transform.Find("GroupNumber").GetComponent<Text>();
+                    text.text = "";
+                }
+                l_Group1.Clear();
+                break;
+
+            case 2:
+                foreach (RTSEntity unit in l_Group2)
+                {
+                    Text text = unit.GetComponent<HPBar>().healthBar.transform.Find("GroupNumber").GetComponent<Text>();
+                    text.text = "";
+                }
+                l_Group2.Clear();
+                break;
+
+            case 3:
+                foreach (RTSEntity unit in l_Group3)
+                {
+                    Text text = unit.GetComponent<HPBar>().healthBar.transform.Find("GroupNumber").GetComponent<Text>();
+                    text.text = "";
+                }
+                l_Group3.Clear();
+                break;
+
+            case 4:
+                foreach (RTSEntity unit in l_Group4)
+                {
+                    Text text = unit.GetComponent<HPBar>().healthBar.transform.Find("GroupNumber").GetComponent<Text>();
+                    text.text = "";
+                }
+                l_Group4.Clear();
+                break;
+
+            case 5:
+                foreach (RTSEntity unit in l_Group5)
+                {
+                    Text text = unit.GetComponent<HPBar>().healthBar.transform.Find("GroupNumber").GetComponent<Text>();
+                    text.text = "";
+                }
+                l_Group5.Clear();
+                break;
+
+            case 6:
+                foreach (RTSEntity unit in l_Group6)
+                {
+                    Text text = unit.GetComponent<HPBar>().healthBar.transform.Find("GroupNumber").GetComponent<Text>();
+                    text.text = "";
+                }
+                l_Group6.Clear();
+                break;
+        }
     }
 
     // Checks if the unit is within a group and deletes the unit from it
@@ -100,70 +192,70 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
         }
     }
 
-    // Removes everything from selected
-    public void ClearSelected()
-    {
-        foreach (RTSEntity unit in l_Selected)
-        {
-            unit.SetDeselected();
-        }
-        
-        if (selectedBuilding)
-        {
-            selectedBuilding.SetDeselected();
-            selectedBuilding = null;
-        }
-
-        l_Selected.Clear();
-        SelectedActiveEntities.Clear();
-    }
-
-    // ### Grouping functions ###
-
     // Add selected units to a group
     public void CreateGroup(int number)
     {
+        ClearGroup(number);
+
         switch (number)
         {
             case 1:
                 foreach (RTSEntity unit in l_Selected)
                 {
+                    RemoveFromGroup(unit);
                     l_Group1.Add(unit);
+                    Text text = unit.GetComponent<HPBar>().healthBar.transform.Find("GroupNumber").GetComponent<Text>();
+                    text.text = "1";
                 }
                 break;
 
             case 2:
                 foreach (RTSEntity unit in l_Selected)
                 {
+                    RemoveFromGroup(unit);
                     l_Group2.Add(unit);
+                    Text text = unit.GetComponent<HPBar>().healthBar.transform.Find("GroupNumber").GetComponent<Text>();
+                    text.text = "2";
                 }
                 break;
 
             case 3:
                 foreach (RTSEntity unit in l_Selected)
                 {
+                    RemoveFromGroup(unit);
                     l_Group3.Add(unit);
+                    Text text = unit.GetComponent<HPBar>().healthBar.transform.Find("GroupNumber").GetComponent<Text>();
+                    text.text = "3";
                 }
                 break;
 
             case 4:
                 foreach (RTSEntity unit in l_Selected)
                 {
+                    RemoveFromGroup(unit);
                     l_Group4.Add(unit);
+                    Text text = unit.GetComponent<HPBar>().healthBar.transform.Find("GroupNumber").GetComponent<Text>();
+                    text.text = "4";
                 }
                 break;
 
             case 5:
                 foreach (RTSEntity unit in l_Selected)
                 {
+                    RemoveFromGroup(unit);
                     l_Group5.Add(unit);
+                    Text text = unit.GetComponent<HPBar>().healthBar.transform.Find("GroupNumber").GetComponent<Text>();
+                    text.text = "5";
                 }
                 break;
 
             case 6:
                 foreach (RTSEntity unit in l_Selected)
                 {
+                    RemoveFromGroup(unit);
                     l_Group6.Add(unit);
+                    Text text = unit.GetComponent<HPBar>().healthBar.transform.Find("GroupNumber").GetComponent<Text>();
+                    text.text = "6";
                 }
                 break;
         }
@@ -221,6 +313,45 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
         }
     }
 
+
+    // ### Other functions (some are called from outside this script) ###
+
+    // Prints selected units' icons on SelectedPanel
+    private void PrintSelected(RTSEntity unit)
+    {
+        // Get SelectedPanel
+        GameObject selectedPanel = GameObject.Find("UI").transform.Find("SelectedPanel").gameObject;
+
+        // Create a new GUI element and set its size and place
+        GameObject newSelectedImg = new GameObject();
+        newSelectedImg.name = "SelectedImg";
+        newSelectedImg.transform.SetParent(selectedPanel.transform);
+        newSelectedImg.AddComponent<RectTransform>();
+        newSelectedImg.GetComponent<RectTransform>().localScale = Vector3.one;
+        newSelectedImg.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
+        newSelectedImg.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+        newSelectedImg.GetComponent<RectTransform>().sizeDelta.Set(10, 10);
+
+        // Add Image and determine picture
+        newSelectedImg.AddComponent<Image>();
+        Item item = ItemDB.AllItems.Find(x => x.Name.Contains(unit.Name));
+        newSelectedImg.GetComponent<Image>().sprite = item.ItemImage;
+        //newSelectedImg.GetComponent<Image>().preserveAspect = true;
+        l_Printed.Add(newSelectedImg);
+        
+    }
+
+    // Clear the printed list
+    private void ClearPrints()
+    {
+        foreach (GameObject print in l_Printed)
+        {
+            Destroy(print);
+        }
+
+        l_Printed.Clear();
+    }
+
     // Give orders to selected units
     public void GiveOrder(Order order)
     {
@@ -229,8 +360,6 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
             orderable.GiveOrder(order);
         }
     }
-
-    // ### Functions to use in outside scripts ###
 
     // Returns the number of units currently selected
     public int ActiveEntityCount()
