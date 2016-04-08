@@ -67,13 +67,15 @@ public class BoatMovement : SeaMovement {
             // We have a path, lets move!
             m_PlayMovingSound = true;
             AffectedByCurrent = false;
-            MoveForward();
 
             // Make sure we're pointing at the target  
             if (!PointingAtTarget(dir))
             {
                 RotateTowards(dir);
             }
+
+            // Add velocity
+            MoveForward();
 
             // If we're close enough to the next waypoint, jump to next one
             if (Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < nextWaypointDistance || Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < 10 && currentWaypoint <= Path.vectorPath.Count)
@@ -90,6 +92,7 @@ public class BoatMovement : SeaMovement {
                 AffectedByCurrent = true;
                 return;
             }
+            
         }
         else
         {
@@ -100,6 +103,7 @@ public class BoatMovement : SeaMovement {
             if (gameObject.transform.parent)
             {
                 AffectedByCurrent = false;
+                gameObject.transform.localPosition = gameObject.transform.position;
             }
             else
             {
@@ -137,6 +141,21 @@ public class BoatMovement : SeaMovement {
     {
         rb.AddForce(m_Parent.transform.forward * Speed);
     }
+
+    // Check if something is in front of you, calculate a new route if we do
+    private bool CheckFront()
+    {
+        RaycastHit hit;
+        Ray ray = new Ray(m_Parent.transform.position, m_Parent.transform.forward);
+        if (Physics.Raycast(ray, out hit, 20))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     
     // Gives the moving command
     public override void MoveTo(Vector3 location)
@@ -163,7 +182,7 @@ public class BoatMovement : SeaMovement {
     {
         Speed = item.Speed / 6;
         CurrentSpeed = 0;
-        RotationalSpeed = item.RotationSpeed / 6;
+        RotationalSpeed = item.RotationSpeed / 3;
         Acceleration = item.Acceleration / 6;
     }
 

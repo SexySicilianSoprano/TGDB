@@ -21,8 +21,9 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
     private List<RTSEntity> l_Group5 = new List<RTSEntity>();
     private List<RTSEntity> l_Group6 = new List<RTSEntity>();
 
-    // Selected building
+    // Specific selected variables
     private RTSEntity selectedBuilding;
+    public RTSEntity thisUnit;
 
     void Awake()
     {
@@ -326,6 +327,8 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
         GameObject newSelectedImg = new GameObject();
         newSelectedImg.name = "SelectedImg";
         newSelectedImg.transform.SetParent(selectedPanel.transform);
+
+        // Format position variables and set new values
         newSelectedImg.AddComponent<RectTransform>();
         newSelectedImg.GetComponent<RectTransform>().localScale = Vector3.one;
         newSelectedImg.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
@@ -336,7 +339,30 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
         newSelectedImg.AddComponent<Image>();
         Item item = ItemDB.AllItems.Find(x => x.Name.Contains(unit.Name));
         newSelectedImg.GetComponent<Image>().sprite = item.ItemImage;
+        newSelectedImg.layer = 5;
+
+        // Give the new image gameobject vertical layout group component
+        newSelectedImg.AddComponent<VerticalLayoutGroup>();
+        newSelectedImg.GetComponent<VerticalLayoutGroup>().childAlignment = TextAnchor.LowerCenter;
+        newSelectedImg.GetComponent<VerticalLayoutGroup>().childForceExpandHeight = false;
+        newSelectedImg.GetComponent<VerticalLayoutGroup>().childForceExpandWidth = false;
         //newSelectedImg.GetComponent<Image>().preserveAspect = true;
+
+        // Give it a button to select itself if necessary
+        newSelectedImg.AddComponent<Button>();
+
+        thisUnit = unit;
+        newSelectedImg.GetComponent<Button>().onClick.AddListener(() => AddToSelected(thisUnit));
+
+        // Add Health bar to the print
+        GameObject newHPBar = Instantiate(unit.GetComponent<HPBar>().healthBar.gameObject);
+        newHPBar.transform.SetParent(newSelectedImg.transform);
+        newHPBar.GetComponent<RectTransform>().localScale = Vector3.one * 0.7f;
+        unit.GetComponent<HPBar>().selectedHealthBar = newHPBar;
+        unit.GetComponent<HPBar>().selectedBar = newHPBar.transform.Find("HPBG").transform.Find("HPGreen").GetComponent<Image>();
+        //newHPBar.GetComponent<RectTransform>().localPosition = new Vector2(50, 0);
+
+        // Add to printed unit list
         l_Printed.Add(newSelectedImg);
         
     }

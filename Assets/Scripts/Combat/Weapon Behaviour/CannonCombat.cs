@@ -89,34 +89,6 @@ public class CannonCombat : Combat {
                 Stop();
             }
         }
-
-        /*
-        if (TargetSet && m_Target == null)
-        {
-            Stop();
-        }
-        else if (TargetSet && canFire == true)
-        {
-            TargetPos = TargetLocation;            
-            Attack(m_Target);
-        } 
-
-        if (m_Parent.AttackingEnemy)
-        {
-            m_Target = m_Parent.AttackingEnemy;
-            if (m_FireAtEnemy == true)
-            {
-                Attack(m_Target);
-            }
-            else if (m_FireAtEnemy == false)
-            {
-
-            }
-            else
-            {
-                Debug.LogError("Something went wrong with stances");
-            }
-        }*/
     }
 
     // Host unit location

@@ -148,13 +148,16 @@ public class UIManager : MonoBehaviour, IUIManager {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(8 << 18)))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(5 << 18)))
         {
             currentObject = hit.collider.gameObject;
 
             // What sort of an object are we pointing at?
             switch (currentObject.layer)
             {
+                case 5:
+                    hoverOver = HoverOver.GUI;
+                    break;
                 case 8:
                 case 16:
                 case 15:
