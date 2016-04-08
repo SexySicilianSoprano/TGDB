@@ -23,13 +23,11 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
 
     // Specific selected variables
     private RTSEntity selectedBuilding;
-    public RTSEntity thisUnit;
 
     void Awake()
     {
         main = this;
     }
-
 
     void Start()
     {
@@ -317,7 +315,7 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
 
     // ### Other functions (some are called from outside this script) ###
 
-    // Prints selected units' icons on SelectedPanel
+    // Prints selected unit's icons on SelectedPanel
     private void PrintSelected(RTSEntity unit)
     {
         // Get SelectedPanel
@@ -351,7 +349,7 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
         // Give it a button to select itself if necessary
         newSelectedImg.AddComponent<Button>();
 
-        thisUnit = unit;
+        RTSEntity thisUnit = unit;
         newSelectedImg.GetComponent<Button>().onClick.AddListener(() => AddToSelected(thisUnit));
 
         // Add Health bar to the print
@@ -366,6 +364,8 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
         l_Printed.Add(newSelectedImg);
         
     }
+
+    
 
     // Clear the printed list
     private void ClearPrints()

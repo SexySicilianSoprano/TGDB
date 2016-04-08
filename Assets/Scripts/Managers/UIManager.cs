@@ -113,11 +113,7 @@ public class UIManager : MonoBehaviour, IUIManager {
     // Use this for initialization
     void Start()
     {
-        //Resolve interface variables
-        //m_SelectedManager() = ManagerResolver.Resolve<ISelectedManager>();
-        //m_CursorManager() = ManagerResolver.Resolve<ICursorManager>();
-        //m_GameManager() = ManagerResolver.Resolve<IGameManager>();
-        //m_Manager = ManagerResolver.Resolve<IManager>(); 
+
     }
 
     // Update is called once per frame
@@ -219,7 +215,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(8 << 18)))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(5 << 18)))
         {
             // Right Mouse Button up, what happens next?
             if (Input.GetMouseButtonUp(1) && hoverOver == HoverOver.Land && m_SelectedManager().ActiveEntityCount() > 0)
