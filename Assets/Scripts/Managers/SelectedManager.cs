@@ -29,15 +29,6 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
         main = this;
     }
 
-    void Start()
-    {
-
-    }
-    void Update()
-    {
-        Debug.Log(ActiveEntityCount());
-    }
-
     // ### Selection functions ###
 
     // Adds the unit to selected
@@ -45,13 +36,14 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
     {
         if (unit.GetComponent<Unit>())
         {
+            // We've selecting an unit
             if (!l_Selected.Contains(unit))
             {
                 if (unit is IOrderable)
                 {
                     SelectedActiveEntities.Add((IOrderable)unit);
                 }
-
+                Item item = ItemDB.AllItems.Find(x => x.Name.Contains(unit.Name));
                 l_Selected.Add(unit);
                 unit.SetSelected();
                 PrintSelected(unit);
@@ -59,6 +51,7 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
         }
         else
         {
+            // We selected a building, so let's just behave that way
             unit.SetSelected();
             selectedBuilding = unit;
         }
@@ -72,7 +65,14 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
         ClearPrints();
     }
 
-   
+    // Select only this unit and delete all others from printed / selected
+    public void AddOnlyThis(RTSEntity unit)
+    {
+        ClearPrints();
+        ClearSelected();
+        Item item = ItemDB.AllItems.Find(x => x.Name.Contains(unit.Name));
+        AddToSelected(unit);
+    }
 
     // Removes everything from selected
     public void ClearSelected()
@@ -338,6 +338,7 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
         Item item = ItemDB.AllItems.Find(x => x.Name.Contains(unit.Name));
         newSelectedImg.GetComponent<Image>().sprite = item.ItemImage;
         newSelectedImg.layer = 5;
+        newSelectedImg.GetComponent<Image>().preserveAspect = true;
 
         // Give the new image gameobject vertical layout group component
         newSelectedImg.AddComponent<VerticalLayoutGroup>();
@@ -348,9 +349,8 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
 
         // Give it a button to select itself if necessary
         newSelectedImg.AddComponent<Button>();
-
-        RTSEntity thisUnit = unit;
-        newSelectedImg.GetComponent<Button>().onClick.AddListener(() => AddToSelected(thisUnit));
+        UnityEngine.Events.UnityAction addAction = () => { AddOnlyThis(unit); };
+        newSelectedImg.GetComponent<Button>().onClick.AddListener(addAction);
 
         // Add Health bar to the print
         GameObject newHPBar = Instantiate(unit.GetComponent<HPBar>().healthBar.gameObject);
@@ -362,10 +362,7 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
 
         // Add to printed unit list
         l_Printed.Add(newSelectedImg);
-        
     }
-
-    
 
     // Clear the printed list
     private void ClearPrints()

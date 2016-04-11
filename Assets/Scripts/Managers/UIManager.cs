@@ -12,7 +12,9 @@ using System.Collections.Generic;
 /// This component borrows its base from an old RTS Engine made by Brett Hewitt,
 /// but is heavily modified and altered to suit TGDB's needs.
 /// 
-/// Also to get rid of the old style script-drawn GUI bullshit.
+/// Also to get rid of the old script-drawn GUI bullshit.
+/// 
+/// - Karl Sartorisio
 /// The Great Deep Blue
 /// 
 /// </summary>
@@ -143,8 +145,7 @@ public class UIManager : MonoBehaviour, IUIManager {
     {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(5 << 18)))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(5 << 19)))
         {
             currentObject = hit.collider.gameObject;
 
@@ -152,6 +153,7 @@ public class UIManager : MonoBehaviour, IUIManager {
             switch (currentObject.layer)
             {
                 case 5:
+                case 20:
                     hoverOver = HoverOver.GUI;
                     break;
                 case 8:
@@ -198,7 +200,7 @@ public class UIManager : MonoBehaviour, IUIManager {
                 case "mmCamera":
                     m_Identifier = Identifier.Neutral;
                     break;
-            }        
+            }
         }
         else
         {
@@ -207,6 +209,7 @@ public class UIManager : MonoBehaviour, IUIManager {
             hoverOver = HoverOver.GUI;
             m_Identifier = Identifier.Neutral;
         }
+        
     }
 
     // Listens to mouse input actions and does shit whenever we click the mouse buttons
@@ -215,8 +218,8 @@ public class UIManager : MonoBehaviour, IUIManager {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(5 << 18)))
-        {
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(5 << 19)) && EventSystem.current.IsPointerOverGameObject() == false)
+        {           
             // Right Mouse Button up, what happens next?
             if (Input.GetMouseButtonUp(1) && hoverOver == HoverOver.Land && m_SelectedManager().ActiveEntityCount() > 0)
             {
@@ -225,22 +228,24 @@ public class UIManager : MonoBehaviour, IUIManager {
             }
 
             // Left Mouse Button down, what happens?
-            if (Input.GetMouseButtonDown(0) && hoverOver == HoverOver.Land)
+            if (Input.GetMouseButtonDown(0))
             {
                 // Deselect selected units and start selecting new units
                 m_SelectedManager().ClearSelected();
                 isSelecting = true;
                 v_mousePosition = Input.mousePosition;
-            }
-
-            // Left Mouse Button up, what happens?
-            if (Input.GetMouseButtonUp(0))
-            {
-                // Selecting endes
-                isSelecting = false;
+                    
             }
         }
 
+        // Left Mouse Button up, what happens?
+        if (Input.GetMouseButtonUp(0))
+        {
+            // Selecting endes
+            isSelecting = false;
+        }
+
+        // Stippedi stop :D
         if (Input.GetKeyDown(KeyCode.X))
         {
             if (m_SelectedManager().ActiveEntityCount() > 0)
@@ -416,6 +421,7 @@ public class UIManager : MonoBehaviour, IUIManager {
     {
         switch (hoveringOver)
         {
+            case HoverOver.GUI:
             case HoverOver.Menu:
             case HoverOver.Land:
                 interactionState = InteractionState.Nothing;

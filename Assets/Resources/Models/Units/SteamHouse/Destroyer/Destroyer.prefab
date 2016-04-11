@@ -16,6 +16,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &102958
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 494378}
+  m_Layer: 9
+  m_Name: FoamTrail
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &104730
 GameObject:
   m_ObjectHideFlags: 1
@@ -151,6 +166,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &123088
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 425096}
+  - 96: {fileID: 9611112}
+  m_Layer: 9
+  m_Name: Foam1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &129830
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,6 +204,7 @@ GameObject:
   - 114: {fileID: 11473234}
   - 114: {fileID: 11464938}
   - 135: {fileID: 13535264}
+  - 96: {fileID: 9634148}
   m_Layer: 9
   m_Name: Destroyer
   m_TagString: Player1
@@ -353,7 +385,20 @@ Transform:
   - {fileID: 434972}
   - {fileID: 462054}
   - {fileID: 439252}
+  - {fileID: 494378}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!4 &425096
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 123088}
+  m_LocalRotation: {x: 0, y: 0.38268346, z: 0, w: 0.9238795}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 494378}
   m_RootOrder: 0
 --- !u!4 &430012
 Transform:
@@ -519,6 +564,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 461710}
   m_RootOrder: 0
+--- !u!4 &494378
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 102958}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 425096}
+  m_Father: {fileID: 422796}
+  m_RootOrder: 5
 --- !u!23 &2301000
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -860,6 +918,102 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!96 &9611112
+TrailRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 123088}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 79c686c9d1ed8c84faceb0a233c2e5bd, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Time: 3
+  m_StartWidth: 1
+  m_EndWidth: 3
+  m_Colors:
+    m_Color[0]:
+      serializedVersion: 2
+      rgba: 1342177279
+    m_Color[1]:
+      serializedVersion: 2
+      rgba: 771751935
+    m_Color[2]:
+      serializedVersion: 2
+      rgba: 318767103
+    m_Color[3]:
+      serializedVersion: 2
+      rgba: 134217727
+    m_Color[4]:
+      serializedVersion: 2
+      rgba: 16777215
+  m_MinVertexDistance: 0.1
+  m_Autodestruct: 0
+--- !u!96 &9634148
+TrailRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 129830}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 79c686c9d1ed8c84faceb0a233c2e5bd, type: 2}
+  - {fileID: 2100000, guid: 644504db5eb619e4fa2448d0dc5ba946, type: 2}
+  - {fileID: 2100000, guid: aeaa6d64f7260854cb4e7f0a2d95d985, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Time: 3
+  m_StartWidth: 1
+  m_EndWidth: 5
+  m_Colors:
+    m_Color[0]:
+      serializedVersion: 2
+      rgba: 2247287708
+    m_Color[1]:
+      serializedVersion: 2
+      rgba: 1744830394
+    m_Color[2]:
+      serializedVersion: 2
+      rgba: 1157627854
+    m_Color[3]:
+      serializedVersion: 2
+      rgba: 301989830
+    m_Color[4]:
+      serializedVersion: 2
+      rgba: 16777215
+  m_MinVertexDistance: 0.1
+  m_Autodestruct: 0
 --- !u!114 &11458008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -906,7 +1060,9 @@ MonoBehaviour:
   objectToFollow: {fileID: 0}
   imgPrefab: {fileID: 190398, guid: 284afc42167d6fb4db5ea3ab5d252d99, type: 2}
   newHealthBar: {fileID: 0}
+  selectedHealthBar: {fileID: 0}
   bar: {fileID: 0}
+  selectedBar: {fileID: 0}
   max_health: 0
   cur_health: 0
   MyCamera: {fileID: 0}
