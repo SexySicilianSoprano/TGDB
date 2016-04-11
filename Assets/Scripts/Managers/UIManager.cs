@@ -194,6 +194,9 @@ public class UIManager : MonoBehaviour, IUIManager {
                 case "Terrain":
                 case "Water":
                 case "BuildingSpot":
+                case "GUI":
+                case "HitSurface":
+                case "mmCamera":
                     m_Identifier = Identifier.Neutral;
                     break;
             }        
@@ -433,7 +436,8 @@ public class UIManager : MonoBehaviour, IUIManager {
 
     // Calculates interaction state by hoverover and identifier, used when units are selected
     private void CalculateInteraction(IOrderable obj, HoverOver hoveringOver, Identifier identifier, ref InteractionState interactionState)
-    {
+    { 
+        
         if (obj.IsAttackable())
         {
             if (identifier == Identifier.Enemy)
@@ -478,6 +482,7 @@ public class UIManager : MonoBehaviour, IUIManager {
             }
         }
         /*
+        
         if (identifier == Identifier.Friend)
         {
             //Check if building can interact with object (repair building for example)
@@ -505,9 +510,14 @@ public class UIManager : MonoBehaviour, IUIManager {
             interactionState = InteractionState.Select;
             return;
         }
-        else if(identifier == Identifier.Enemy)
+        else if (identifier == Identifier.Enemy)
         {
             interactionState = InteractionState.Attack;
+            return;
+        }
+        else if (identifier == Identifier.Neutral)
+        {
+            interactionState = InteractionState.Move;
             return;
         }
 
@@ -545,91 +555,6 @@ public class UIManager : MonoBehaviour, IUIManager {
             SelectionBox.DrawScreenRectBorder(rect, 2, new Color(0.8f, 0.8f, 0.95f));
         }
     }
-
-
-    
-    //-----------------------------------UP FOR DELETION / REVISION---------------------------------
-    /*
-    // UP FOR REVISIONING
-    private void ModePlaceBuildingBehaviour()
-    {
-        //Get current location and place building on that location
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 11))
-        {
-            m_ObjectBeingPlaced.transform.position = hit.point;
-        }
-
-        if (m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().BuildValid == true)
-        {
-            m_PositionValid = true;
-        }
-        else
-        {
-            m_PositionValid = false;
-        }
-
-        if (m_PositionValid)
-        {
-            m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().SetToValid();
-        }
-        else
-        {
-            m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().SetToInvalid();
-        }
-
-    }
-
-    private void KeyBoardPressedHandler()
-    {
-        //e.Command();
-    }
-
-        // UP FOR DELETION ????
-    private void ScrollWheelHandler(object sender)
-    {
-        //Zoom In/Out
-        //m_MiniMapController.ReCalculateViewRect();
-    }
-
-    // UP FOR DELETION ????
-    private void MouseAtScreenEdgeHandler(object sender)
-    {
-        //Pan
-        //m_MiniMapController.ReCalculateViewRect();
-    }
-
-
-    public void UserPlacingBuilding(Item item, Action callbackFunction)
-    {
-        SwitchToModePlacingBuilding(item, callbackFunction);
-    }
-
-    // Determine what to do with this
-    private void SwitchToModeNormal()
-    {
-        if (m_ObjectBeingPlaced)
-        {
-            Destroy(m_ObjectBeingPlaced);
-        }
-        m_CallBackFunction = null;
-        m_ItemBeingPlaced = null;
-        m_Mode = Mode.Normal;
-    }
-
-    // REVISION
-    private void SwitchToModePlacingBuilding(Item item, Action callBackFunction)
-    {
-        m_Mode = Mode.PlaceBuilding;
-        m_CallBackFunction = callBackFunction;
-        m_ItemBeingPlaced = item;
-        m_ObjectBeingPlaced = (GameObject)Instantiate(m_ItemBeingPlaced.Prefab);
-        m_ObjectBeingPlaced.AddComponent<BuildingBeingPlaced>();
-    }
-    */
-    //-------------------------------------------------------------------------------------
 
     public bool IsCurrentUnit(RTSEntity obj)
     {

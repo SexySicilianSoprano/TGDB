@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// Script that controls the camera movements.
@@ -36,11 +37,14 @@ public class MyCamera : MonoBehaviour
 	// follow
 	public float followSmoothSpeed; // used to lerp the follow
 
+    public bool isEdge;
+
 	#endregion
 	
 	#region Other Variables
 	
 	public MyCameraStatusEnum status; // holds the current status
+    
 
 	#endregion
 	
@@ -49,6 +53,7 @@ public class MyCamera : MonoBehaviour
 	private void Start()
 	{
 		status = MyCameraStatusEnum.AT_PLAYER; // the camera must start at AT_PLAYER status
+        isEdge = false;
 	}
 	
 	public void Update()
@@ -79,7 +84,7 @@ public class MyCamera : MonoBehaviour
 	
 	#endregion
 	
-	#region Controlls
+	#region Controls
 	
 	/// <summary>
 	/// Refresh the focus point position, doing a raycast to put it on the center of the camera view. 
@@ -127,7 +132,9 @@ public class MyCamera : MonoBehaviour
 		movement.x += InputManager.instance.GetPanAxis().x;
 		movement.z += InputManager.instance.GetPanAxis().y;
 
-		transform.Translate(movement * Time.deltaTime * panSpeed, Space.Self); // move based to world space.
+		transform.Translate(movement * Time.deltaTime * panSpeed, Space.Self); // move based on local space.
+
+        
 	}
 	
 	/// <summary>
@@ -166,38 +173,32 @@ public class MyCamera : MonoBehaviour
 	/// </summary>
 	public void UpdateStatus()
 	{
-		// rule 1: AT_PLAYER to MANUAL
-		if (status == MyCameraStatusEnum.AT_PLAYER && InputManager.instance.GetPanAxis() != Vector2.zero)
-		{
-			status = MyCameraStatusEnum.MANUAL;
-			Debug.Log (status);
-		}
-        /*
-		//bonus rule supposed to apply MANUAL status if moving mouse cursor over screen edge
-		//TODO: make it work lol. It works, but it doesn't center focus back to FF. Figure out how to fix it
-		else if (status == MyCameraStatusEnum.AT_PLAYER 
-		    && (Input.mousePosition.x >= Screen.width*0.98f
-		    || Input.mousePosition.y >= Screen.height*0.98f
-		    || Input.mousePosition.x == 0
-		    || Input.mousePosition.y == 0))
-		{
-			status = MyCameraStatusEnum.MANUAL;
-			Debug.Log (status);
-		}
+        // rule 1: AT_PLAYER to MANUAL
+        if (status == MyCameraStatusEnum.AT_PLAYER && InputManager.instance.GetPanAxis() != Vector2.zero)
+        {
+            status = MyCameraStatusEnum.MANUAL;
+            Debug.Log(status);
+        }
 
-		else if (status == MyCameraStatusEnum.AT_PLAYER && MiniMapController.main.m_MiniMapRect.Contains (Input.mousePosition))
-		{
-			status = MyCameraStatusEnum.MANUAL;
-			Debug.Log (status);
-		}*/
+        else if (status == MyCameraStatusEnum.AT_PLAYER && MinimapScript.minimap.isClicked == true)
+        {
+            status = MyCameraStatusEnum.MANUAL;
+            Debug.Log(status);
+        }
 
-		// rule 2: MANUAL to AT_PLAYER
-		else if (status == MyCameraStatusEnum.MANUAL && InputManager.instance.GetJumpBackToPlayer())
+         else if (status == MyCameraStatusEnum.AT_PLAYER && isEdge == true)
+        {
+            status = MyCameraStatusEnum.MANUAL;
+            Debug.Log(status);
+        }
+
+        // rule 2: MANUAL to AT_PLAYER
+        else if (status == MyCameraStatusEnum.MANUAL && InputManager.instance.GetJumpBackToPlayer())
 		{
 			status = MyCameraStatusEnum.AT_PLAYER;
 			Debug.Log (status);
 		}
 	}
-	
-	#endregion
+
+    #endregion
 }

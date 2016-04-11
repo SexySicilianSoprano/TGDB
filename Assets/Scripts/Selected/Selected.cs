@@ -111,7 +111,7 @@ public class Selected : MonoBehaviour {
 	private void GLExecuteFunction()
 	{
 		//Need to get target location
-		Vector3 target = GetComponent<Movement>().TargetLocation;
+		Vector3 target = GetComponent<Movement>().targetPosition;
 		
 		if (IsSelected && target != Vector3.zero)
 		{

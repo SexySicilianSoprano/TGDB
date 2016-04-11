@@ -28,8 +28,11 @@ public class UnitBuildingScript : MonoBehaviour {
 		if (unitBuildingQueue.Count > 0){
 			StartBuilding();
 		}
-        
-        FindSpawnSpot();
+
+        if (!FindSpawnSpot())
+        {
+            FindSpawnSpot();
+        }
 	}
 
 	public void BuildNewUnit(int unit)
@@ -135,7 +138,8 @@ public class UnitBuildingScript : MonoBehaviour {
         }
         else
         {
-            WaitAndBuild(2, unitBuildingList[0]);
+            isAlreadyBuilding = false;
+            StartBuilding();
         }
 
 	}

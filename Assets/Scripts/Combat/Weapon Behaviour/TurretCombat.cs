@@ -54,7 +54,7 @@ public class TurretCombat : Combat {
         DangerZone.radius = 100;
     }
 
-    void Update()
+    void FixedUpdate()
     {        
         // Updates positions and firerate
         SpawnerPos = Spawner.transform.position;
