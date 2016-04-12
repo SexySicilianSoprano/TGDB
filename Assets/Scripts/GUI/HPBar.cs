@@ -65,12 +65,14 @@ public class HPBar : MonoBehaviour {
         max_health = GetComponent<RTSEntity>().m_MaxHealth;
         cur_health = GetComponent<RTSEntity>().m_Health;
 
-        if (gameObject.layer == 9) 
+        if (GetComponent<Building>()) 
         {
-            //bar.gameObject.SetActive(false);
+            bar.gameObject.SetActive(false);
+            healthBar.gameObject.SetActive(false);
             if (GetComponent<RTSEntity>().m_Health < GetComponent<RTSEntity>().m_MaxHealth)
             {
                 bar.gameObject.SetActive(true);
+                healthBar.gameObject.SetActive(true);
             }
         }
     }

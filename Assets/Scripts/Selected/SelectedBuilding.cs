@@ -2,18 +2,8 @@ using UnityEngine;
 using System.Collections;
 
 public class SelectedBuilding : MonoBehaviour {
-	
-	private Vector3[] WorldVertices = new Vector3[8];
-	private Vector3[] WorldHealthVertices = new Vector3[8];
-	
-	private Vector3[] ScreenVertices = new Vector3[8];
-	private Vector3[] ScreenHealthVertices = new Vector3[8];
-	
-	private Building m_Building;
-	
-	private float m_HealthSize = 2.0f;
-	private float m_HealthWidth;
 
+	private Building m_Building;
     Projector projector;
     
     // Use this for initialization
@@ -31,18 +21,22 @@ public class SelectedBuilding : MonoBehaviour {
         //Render projection
         if (projector.enabled == false)
             projector.enabled = true;
+
+        // If building spots, show 'em
+        if (GetComponent<BuildingSpotHandler>())
+            GetComponent<BuildingSpotHandler>().ShowBuildingSpots();
 	}
 	
 	public void SetDeselected()
 	{
+        // Stop rendering the projector
         if (projector.enabled == true)
         projector.enabled = false;
+
+        // If building spots, don't show 'em
+        if (GetComponent<BuildingSpotHandler>())
+            GetComponent<BuildingSpotHandler>().HideBuildingSpots();
     }
-	
-	public void ExecuteFunction()
-	{
-		
-	}
 	
 	void OnDestroy()
 	{

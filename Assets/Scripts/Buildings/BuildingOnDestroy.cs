@@ -2,12 +2,15 @@
 using System.Collections;
 
 public class BuildingOnDestroy : MonoBehaviour {
-    
+
+    // This building's building spot
+    public GameObject MyBuildingSpot;
     void OnDestroy()
     {
         if (GetComponent<NavalYard>())
         {
-            GameObject.Find("Player1").transform.Find("BuildingSpot").gameObject.SetActive(true);
+            // Free the reserved building spot for use
+            MyBuildingSpot.SetActive(true);
         }
     }
 }

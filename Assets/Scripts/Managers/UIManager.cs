@@ -428,9 +428,6 @@ public class UIManager : MonoBehaviour, IUIManager {
                 break;
 
             case HoverOver.Building:
-                interactionState = InteractionState.Select;
-                break;
-
             case HoverOver.Ship:
             case HoverOver.Submarine:
             case HoverOver.AirUnit:
@@ -442,7 +439,7 @@ public class UIManager : MonoBehaviour, IUIManager {
     // Calculates interaction state by hoverover and identifier, used when units are selected
     private void CalculateInteraction(IOrderable obj, HoverOver hoveringOver, Identifier identifier, ref InteractionState interactionState)
     { 
-        
+        /*
         if (obj.IsAttackable())
         {
             if (identifier == Identifier.Enemy)
@@ -485,7 +482,7 @@ public class UIManager : MonoBehaviour, IUIManager {
                 interactionState = InteractionState.Move;
                 return;
             }
-        }
+        }*/
         /*
         
         if (identifier == Identifier.Friend)
@@ -540,7 +537,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 
             if (ShouldInterractB)
             {
-                if (hoveringOver == HoverOver.Ship || hoverOver == HoverOver.Submarine || hoverOver == HoverOver.AirUnit || hoverOver == HoverOver.Building)
+                if (hoveringOver == HoverOver.Land || hoveringOver == HoverOver.Ship || hoverOver == HoverOver.Submarine || hoverOver == HoverOver.AirUnit || hoverOver == HoverOver.Building)
                 {
                     CalculateInteraction(obj, hoveringOver, identifier, ref interactionState);
                     return;
