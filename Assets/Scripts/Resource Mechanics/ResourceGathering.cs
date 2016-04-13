@@ -60,6 +60,7 @@ public class ResourceGathering : MonoBehaviour {
                 // Are we close enough to gather?
                 if (CloseEnough(minePosition))
                 {
+                    onMyWay = false;
                     // Gather!
                     TakeResources();
                 }
@@ -113,7 +114,7 @@ public class ResourceGathering : MonoBehaviour {
 
     private bool CloseEnough(Vector3 target)
     {
-        if (Vector3.Distance(target, transform.position) <= 15)
+        if (Vector3.Distance(target, transform.position) <= 20)
         {
             return true;
         }

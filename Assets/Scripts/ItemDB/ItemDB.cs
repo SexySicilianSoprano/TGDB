@@ -175,7 +175,7 @@ public static class ItemDB {
         TeamIdentifier = Const.TEAM_STEAMHOUSE,
         BuildingIdentifier = Const.BUILDING_TURRET,
         Name = "Defense Turret",
-        Health = 400f,
+        Health = 200f,
         Armour = 3.0f,
         Explosion = Resources.Load("Effects/Prefabs/Explosion_4") as GameObject,
         Prefab = Resources.Load("Models/Buildings/SteamHouse/Turret/Turret", typeof(GameObject)) as GameObject,

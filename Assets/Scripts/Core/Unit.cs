@@ -116,8 +116,17 @@ public class Unit : RTSEntity, IOrderable{
         {
             // Stop Order
             case Const.ORDER_STOP:
-                                
-                GetComponent<Combat>().Stop();
+
+                if (GetComponent<Combat>())
+                {
+                    GetComponent<Combat>().Stop();
+                }
+
+                if (GetComponent<ResourceGathering>())
+                {
+                    GetComponent<ResourceGathering>().Stop();
+                }
+
                 if (IsMoveable())
                 {
                     if (IsDeployable())
@@ -130,11 +139,15 @@ public class Unit : RTSEntity, IOrderable{
 
             // Move Order
             case Const.ORDER_MOVE_TO:
-
-                //GetComponent<Movement>().Stop();
+                
                 if (GetComponent<Combat>())
                 {
                     GetComponent<Combat>().Stop();
+                }
+
+                if (GetComponent<ResourceGathering>())
+                {
+                    GetComponent<ResourceGathering>().Stop();
                 }
 
                 if (IsMoveable())
@@ -171,6 +184,7 @@ public class Unit : RTSEntity, IOrderable{
             case Const.ORDER_GATHER:
                 if (GetComponent<ResourceGathering>())
                 {
+                    GetComponent<ResourceGathering>().Stop();
                     GetComponent<ResourceGathering>().Gather(order.Mine);
                 }
                 break;

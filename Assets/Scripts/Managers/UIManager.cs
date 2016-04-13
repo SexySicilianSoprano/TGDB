@@ -229,6 +229,10 @@ public class UIManager : MonoBehaviour, IUIManager {
                 // Create move order
                 m_SelectedManager().GiveOrder(Orders.CreateMoveOrder(hit.point));
             }
+            else if (Input.GetMouseButtonUp(1) && interactionState == InteractionState.Gather)
+            {
+                m_SelectedManager().GiveOrder(Orders.CreateGatherOrder(hit.transform.gameObject.GetComponent<ResourceMine>()));
+            }
 
             // Left Mouse Button down, what happens?
             if (Input.GetMouseButtonDown(0))
@@ -424,6 +428,7 @@ public class UIManager : MonoBehaviour, IUIManager {
     {
         switch (hoveringOver)
         {
+            case HoverOver.Mine:
             case HoverOver.GUI:
             case HoverOver.Menu:
             case HoverOver.Land:
@@ -525,9 +530,13 @@ public class UIManager : MonoBehaviour, IUIManager {
             if (hoverOver == HoverOver.Mine)
             {
                 interactionState = InteractionState.Gather;
+                return;
             }
-            interactionState = InteractionState.Move;
-            return;
+            else
+            {
+                interactionState = InteractionState.Move;
+                return;
+            }
         }
 
         //Invalid interaction

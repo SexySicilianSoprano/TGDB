@@ -28,6 +28,7 @@ GameObject:
   - 65: {fileID: 6529118}
   - 114: {fileID: 11405022}
   - 23: {fileID: 2398970}
+  - 114: {fileID: 11451122}
   m_Layer: 22
   m_Name: ResourceMine
   m_TagString: Untagged
@@ -126,7 +127,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 172898}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 9.89694, y: 2.853447, z: 8.65546}
@@ -144,6 +145,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resource: 0
   maxGatherers: 0
+--- !u!114 &11451122
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aed3001cfe8ccb042899e8372dec2858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

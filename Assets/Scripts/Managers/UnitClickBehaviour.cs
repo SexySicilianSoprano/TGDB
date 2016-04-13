@@ -72,12 +72,8 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
     
     void Start()
     {
-        unitTag = gameObject.tag; // Get the unit's owner
-
-        // Resolve Managers
-        //m_UIManager() = ManagerResolver.Resolve<IUIManager>(); // Get the UIManager that's being used
-        //m_SelectedManager() = ManagerResolver.Resolve<ISelectedManager>(); // Get the SelectedManager that's being used
-        //m_GameManager() = ManagerResolver.Resolve<IGameManager>(); // Get the GameManager that's being used
+        // Get the unit's owner
+        unitTag = gameObject.tag;
 
         // Assign stuff
         currentUnit = GetComponent<RTSEntity>(); // Get the unit data tied to this game object        
@@ -181,6 +177,10 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
             case InteractionState.Deploy:
                 Debug.Log("Deploy " + currentUnit);
                 m_SelectedManager().GiveOrder(Orders.CreateDeployOrder());
+                break;
+            case InteractionState.Gather:
+                Debug.Log("Let's Mine");
+                m_SelectedManager().GiveOrder(Orders.CreateGatherOrder(GetComponent<ResourceMine>()));
                 break;
         }
     }
