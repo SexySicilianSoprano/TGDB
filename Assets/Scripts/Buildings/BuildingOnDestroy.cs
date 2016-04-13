@@ -12,5 +12,12 @@ public class BuildingOnDestroy : MonoBehaviour {
             // Free the reserved building spot for use
             MyBuildingSpot.SetActive(true);
         }
+        else
+        {
+            Vector3 newPos = new Vector3(transform.position.x, 1.0f, transform.position.z);
+            GameObject newMine = Instantiate(Resources.Load("Other/ResourceMine"), newPos, Quaternion.identity) as GameObject;
+            newMine.GetComponent<ResourceMine>().resource = 5000;
+            newMine.GetComponent<ResourceMine>().maxGatherers = 1;
+        }
     }
-}
+} 

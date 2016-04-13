@@ -29,10 +29,10 @@ public class Manager : MonoBehaviour, IManager {
     public float earnedExperience;
 
     // Lists of defeated and lost units and buildings
-    public List<RTSEntity> DefeatedBuildings = new List<RTSEntity>();
-    public List<RTSEntity> DefeatedUnits = new List<RTSEntity>();
-    public List<RTSEntity> LostBuildings = new List<RTSEntity>();
-    public List<RTSEntity> LostUnits = new List<RTSEntity>();
+    public List<RTSEntity> defeatedBuildings = new List<RTSEntity>();
+    public List<RTSEntity> defeatedUnits = new List<RTSEntity>();
+    public List<RTSEntity> lostBuildings = new List<RTSEntity>();
+    public List<RTSEntity> lostUnits = new List<RTSEntity>();
 
     void Awake()
     {
@@ -83,10 +83,10 @@ public class Manager : MonoBehaviour, IManager {
     public void CalculateAccumulatedExperience()
     {
         earnedExperience =
-            (DefeatedBuildings.Count * 100f)
-            + (DefeatedUnits.Count * 10f)
-            - (LostBuildings.Count * 50f)
-            - (LostUnits.Count * 5f);
+            (defeatedBuildings.Count * 100f)
+            + (defeatedUnits.Count * 10f)
+            - (lostBuildings.Count * 50f)
+            - (lostUnits.Count * 5f);
     }
 
     public void BuildingAdded(Building building)

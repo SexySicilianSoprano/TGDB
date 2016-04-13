@@ -26,6 +26,12 @@ public class Order {
 		get;
 		private set;
 	}
+
+    public ResourceMine Mine
+    {
+        get;
+        private set;
+    }
 	
 	public Order(string name, int orderType)
 	{
@@ -47,4 +53,12 @@ public class Order {
 		OrderLocation = target.transform.position;
 		Target = target;
 	}
+
+    public Order(string name, int orderType, ResourceMine mine)
+    {
+        Name = name;
+        OrderType = orderType;
+        OrderLocation = mine.transform.position;
+        Mine = mine;
+    }
 }

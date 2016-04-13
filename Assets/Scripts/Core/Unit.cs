@@ -9,7 +9,8 @@ public class Unit : RTSEntity, IOrderable{
     protected bool m_IsMoveable = true;
     protected bool m_IsDeployable = false;
     protected bool m_IsAttackable = true;
-    protected bool m_IsInteractable = false;    
+    protected bool m_IsInteractable = false;
+    protected bool m_IsGatherable = true;
 
     protected SelectedManager m_selectedManager
     {
@@ -103,6 +104,11 @@ public class Unit : RTSEntity, IOrderable{
     {
         return m_IsInteractable;
     }
+
+    public bool IsGatherable()
+    {
+        return m_IsGatherable;
+    }
     
     public void GiveOrder(Order order)
     {
@@ -126,7 +132,11 @@ public class Unit : RTSEntity, IOrderable{
             case Const.ORDER_MOVE_TO:
 
                 //GetComponent<Movement>().Stop();
-                GetComponent<Combat>().Stop();
+                if (GetComponent<Combat>())
+                {
+                    GetComponent<Combat>().Stop();
+                }
+
                 if (IsMoveable())
                 {
                     if (IsDeployable())
@@ -156,7 +166,13 @@ public class Unit : RTSEntity, IOrderable{
                     // Attack                    
                     GetComponent<Combat>().Attack(order.Target);
                 }
+                break;
 
+            case Const.ORDER_GATHER:
+                if (GetComponent<ResourceGathering>())
+                {
+                    GetComponent<ResourceGathering>().Gather(order.Mine);
+                }
                 break;
 
         }
@@ -174,6 +190,14 @@ public class Unit : RTSEntity, IOrderable{
             case HoverOver.Submarine:
             case HoverOver.AirUnit:
                 return m_IsAttackable;
+
+            case HoverOver.Mine:
+                if (GetComponent<ResourceGathering>())
+                {
+                    return m_IsGatherable;
+                }
+                else
+                    return false;
                 
             default:
                 Debug.LogError("Switch hoverOver didn't work");

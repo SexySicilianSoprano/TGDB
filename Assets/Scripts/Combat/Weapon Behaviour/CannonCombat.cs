@@ -46,7 +46,7 @@ public class CannonCombat : Combat {
 
         // Initialise DangerZone and set its size
         DangerZone = transform.GetComponent<SphereCollider>();
-        DangerZone.radius = 100;
+        DangerZone.radius = 50;
     }
 
     void FixedUpdate()

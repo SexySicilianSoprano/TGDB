@@ -12,6 +12,7 @@ public static class Const {
 	public const int ORDER_MOVE_TO = 1;
 	public const int ORDER_ATTACK = 2;
 	public const int ORDER_DEPLOY = 3;
+    public const int ORDER_GATHER = 4;
 	
 	public const int BUILDING_FloatingFortress = 0;
     public const int BUILDING_NavalYard = 1;

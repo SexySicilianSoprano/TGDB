@@ -123,8 +123,8 @@ public class UIManager : MonoBehaviour, IUIManager {
     {
         CheckHoverOver();
         SelectionListener();
-        //Debug.Log(hoverOver + " " + interactionState);
-        Debug.Log(m_Identifier + " " + hoverOver);
+        Debug.Log(hoverOver + " " + interactionState);
+        //Debug.Log(m_Identifier + " " + hoverOver);
 
         switch (m_Mode)
         {
@@ -145,7 +145,7 @@ public class UIManager : MonoBehaviour, IUIManager {
     {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(5 << 19)))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(5 << 23)))
         {
             currentObject = hit.collider.gameObject;
 
@@ -179,6 +179,9 @@ public class UIManager : MonoBehaviour, IUIManager {
                     break;
                 case 14:
                     hoverOver = HoverOver.Shroud;
+                    break;
+                case 22:
+                    hoverOver = HoverOver.Mine;
                     break;
             }
 
@@ -218,7 +221,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(5 << 19)) && EventSystem.current.IsPointerOverGameObject() == false)
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(5 << 23)) && EventSystem.current.IsPointerOverGameObject() == false)
         {           
             // Right Mouse Button up, what happens next?
             if (Input.GetMouseButtonUp(1) && hoverOver == HoverOver.Land && m_SelectedManager().ActiveEntityCount() > 0)
@@ -519,6 +522,10 @@ public class UIManager : MonoBehaviour, IUIManager {
         }
         else if (identifier == Identifier.Neutral)
         {
+            if (hoverOver == HoverOver.Mine)
+            {
+                interactionState = InteractionState.Gather;
+            }
             interactionState = InteractionState.Move;
             return;
         }
@@ -537,7 +544,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 
             if (ShouldInterractB)
             {
-                if (hoveringOver == HoverOver.Land || hoveringOver == HoverOver.Ship || hoverOver == HoverOver.Submarine || hoverOver == HoverOver.AirUnit || hoverOver == HoverOver.Building)
+                if (hoveringOver == HoverOver.Mine || hoveringOver == HoverOver.Land || hoveringOver == HoverOver.Ship || hoverOver == HoverOver.Submarine || hoverOver == HoverOver.AirUnit || hoverOver == HoverOver.Building)
                 {
                     CalculateInteraction(obj, hoveringOver, identifier, ref interactionState);
                     return;
@@ -569,7 +576,7 @@ public enum Identifier
 {
     Neutral,
     Friend,
-    Enemy,
+    Enemy
 }
 
 public enum HoverOver
@@ -583,6 +590,7 @@ public enum HoverOver
     Building,
     FogOfWar,
     Shroud,
+    Mine
 }
 
 public enum InteractionState
@@ -600,6 +608,7 @@ public enum InteractionState
     CantFix = 10,
     Disable = 11,
     CantDisable = 12,
+    Gather = 13
 }
 
 public enum Mode

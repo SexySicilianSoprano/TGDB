@@ -42,6 +42,7 @@ public class CursorManager : MonoBehaviour, ICursorManager {
             case InteractionState.Invalid:
             case InteractionState.Interact:
             case InteractionState.Nothing:
+            case InteractionState.Gather:
                 Cursor.SetCursor(normal, Vector2.zero, CursorMode.Auto);
                 break;
         }
