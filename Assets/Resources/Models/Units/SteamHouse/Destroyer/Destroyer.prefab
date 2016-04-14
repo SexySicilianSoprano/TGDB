@@ -197,14 +197,12 @@ GameObject:
   - 65: {fileID: 6525850}
   - 114: {fileID: 11458008}
   - 114: {fileID: 11490794}
-  - 114: {fileID: 11481636}
-  - 114: {fileID: 11461844}
   - 114: {fileID: 11493254}
   - 114: {fileID: 11465552}
   - 114: {fileID: 11473234}
   - 114: {fileID: 11464938}
   - 135: {fileID: 13535264}
-  - 96: {fileID: 9634148}
+  - 114: {fileID: 11415338}
   m_Layer: 9
   m_Name: Destroyer
   m_TagString: Player1
@@ -377,7 +375,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 129830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 286.75522, y: 1.1, z: 44.729424}
+  m_LocalPosition: {x: 255.95462, y: 1.1, z: 40.93669}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 479760}
@@ -924,7 +922,7 @@ TrailRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 123088}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
@@ -965,55 +963,24 @@ TrailRenderer:
       rgba: 16777215
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
---- !u!96 &9634148
-TrailRenderer:
+--- !u!114 &11415338
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 129830}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_Materials:
-  - {fileID: 2100000, guid: 79c686c9d1ed8c84faceb0a233c2e5bd, type: 2}
-  - {fileID: 2100000, guid: 644504db5eb619e4fa2448d0dc5ba946, type: 2}
-  - {fileID: 2100000, guid: aeaa6d64f7260854cb4e7f0a2d95d985, type: 2}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
-  m_ReflectionProbeUsage: 1
-  m_ProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_Time: 3
-  m_StartWidth: 1
-  m_EndWidth: 5
-  m_Colors:
-    m_Color[0]:
-      serializedVersion: 2
-      rgba: 2247287708
-    m_Color[1]:
-      serializedVersion: 2
-      rgba: 1744830394
-    m_Color[2]:
-      serializedVersion: 2
-      rgba: 1157627854
-    m_Color[3]:
-      serializedVersion: 2
-      rgba: 301989830
-    m_Color[4]:
-      serializedVersion: 2
-      rgba: 16777215
-  m_MinVertexDistance: 0.1
-  m_Autodestruct: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12342183d23b27f48b73066183bf0d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 0
+  Range: 0
+  FireRate: 0
+  TurretSpeed: 0
+  isRanged: 0
+  isAntiArmor: 0
+  isAntiStructure: 0
 --- !u!114 &11458008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1026,24 +993,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackingEnemy: {fileID: 0}
+  isInCombat: 0
   m_Health: 0
   m_MaxHealth: 0
---- !u!114 &11461844
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 129830}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5e2100694648c44e93ed97d542181de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 0.5
-  density: 400
-  stickyness: 0.1
-  unit: 2
-  dragCoefficient: 0.3
 --- !u!114 &11464938
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1080,6 +1032,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   projector: {fileID: 0}
+  trail: {fileID: 0}
 --- !u!114 &11473234
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1091,24 +1044,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aed3001cfe8ccb042899e8372dec2858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11481636
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 129830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dceea58bb203a90408fa1239ffece1d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 0
-  Range: 0
-  FireRate: 0
-  TurretSpeed: 0
-  isRanged: 0
-  isAntiArmor: 0
-  isAntiStructure: 0
 --- !u!114 &11490794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1124,6 +1059,7 @@ MonoBehaviour:
   currentWaypoint: 0
   nextWaypointDistance: 3
   AffectedByCurrent: 1
+  stayInPlace: 0
   rb: {fileID: 0}
   RotationalSpeed: 0
   Acceleration: 0

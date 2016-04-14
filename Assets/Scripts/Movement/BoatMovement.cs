@@ -28,9 +28,11 @@ public class BoatMovement : SeaMovement {
     private bool m_PlayMovingSound = false; // True calls for playing the sound, false stops it
     private bool m_SoundIsPlaying = false; // Is the sound currently playing or not?
     public bool AffectedByCurrent = true; // Is this unit affected by ocean currents?
+    public bool stayInPlace = false; // Is this unit supposed to stay in place, not being affected by currents?
 
     // Variable for Seeker-component
     private Seeker seeker;
+    private TrailRenderer trail;
 
     // Variable for rigidbody
 	public Rigidbody rb;
@@ -43,6 +45,7 @@ public class BoatMovement : SeaMovement {
     void Start () 
 	{
         seeker = GetComponent<Seeker>(); // Seeker is a pathfinding component attached to each gameobject that needs to move
+        trail = GetComponentInChildren<TrailRenderer>(); // Trail renderer for water trail effect
 		m_Parent = GetComponent<RTSEntity>(); // This unit
         rb = GetComponent<Rigidbody>(); // This unit's rigidbody
     }
@@ -61,6 +64,11 @@ public class BoatMovement : SeaMovement {
         // We have a path
         if (Path != null /*&& Path.Count > 0*/)
         {
+            if (!trail.enabled)
+            {
+                trail.enabled = true;
+            }
+
             // Pick the direction towards the next waypoint
             Vector3 dir = (Path.vectorPath[currentWaypoint] - transform.position).normalized;
 
@@ -89,7 +97,7 @@ public class BoatMovement : SeaMovement {
                 rb.velocity = Vector3.zero;
                 Path = null;
                 currentWaypoint = 0;
-                AffectedByCurrent = true;
+                trail.enabled = false;
                 return;
             }
             
@@ -103,7 +111,11 @@ public class BoatMovement : SeaMovement {
             if (gameObject.transform.parent)
             {
                 AffectedByCurrent = false;
-                gameObject.transform.localPosition = gameObject.transform.position;
+                gameObject.transform.position = gameObject.transform.localPosition;
+            }
+            else if (stayInPlace)
+            {
+                AffectedByCurrent = false;
             }
             else
             {
@@ -114,14 +126,10 @@ public class BoatMovement : SeaMovement {
         // Play and stop sound when called
         if (m_PlayMovingSound && !m_SoundIsPlaying)
         {
-            //sfx_Manager = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/" + m_Parent.Name + "/movement");
-            //sfx_Manager.start();
             m_SoundIsPlaying = true;
         }
         else if (!m_PlayMovingSound && m_SoundIsPlaying)
         {
-            //sfx_Manager.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-            //sfx_Manager.release();
             m_SoundIsPlaying = false;
         }
     }
@@ -169,6 +177,7 @@ public class BoatMovement : SeaMovement {
         rb.velocity = Vector3.zero;
         Path = null;
         currentWaypoint = 0;
+        trail.enabled = false;
     }
 
     // Go towards the target

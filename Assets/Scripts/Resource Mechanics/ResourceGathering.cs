@@ -30,7 +30,7 @@ public class ResourceGathering : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
     {
         // Behaviour query
         if (targetSet && targetMine == null)
@@ -53,22 +53,30 @@ public class ResourceGathering : MonoBehaviour {
         if (targetMine)
         {
             minePosition = targetMine.transform.position;
-
-            // Are we moving towards it?
-            if (onMyWay)
+            // Are we close enough to gather?
+            if (CloseEnough(minePosition))
             {
-                // Are we close enough to gather?
-                if (CloseEnough(minePosition))
+                // Make sure we stay in place while gathering
+                GetComponent<BoatMovement>().stayInPlace = true;
+
+                if (onMyWay)
                 {
+                    GetComponent<BoatMovement>().Stop();
                     onMyWay = false;
+                }
+
+                if (readyToGather)
+                {
                     // Gather!
                     TakeResources();
                 }
+
                 return;
             }
             else
             {
                 // Give a move order towards the mine
+                if (!onMyWay)
                 GoTowardsTarget(minePosition);
                 return;
             }
@@ -98,6 +106,8 @@ public class ResourceGathering : MonoBehaviour {
     {
         targetMine = null;
         targetSet = false;
+        onMyWay = false;
+        GetComponent<BoatMovement>().stayInPlace = false;
     }
 
     public void SetValues()
@@ -114,7 +124,7 @@ public class ResourceGathering : MonoBehaviour {
 
     private bool CloseEnough(Vector3 target)
     {
-        if (Vector3.Distance(target, transform.position) <= 20)
+        if (Vector3.Distance(target, transform.position) <= 10)
         {
             return true;
         }

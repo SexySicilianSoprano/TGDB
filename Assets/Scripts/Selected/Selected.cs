@@ -5,6 +5,7 @@ public class Selected : MonoBehaviour {
 
 	public Rigidbody rb;
     public Projector projector;
+    public TrailRenderer trail;
 	public bool IsSelected
 	{
 		get;
