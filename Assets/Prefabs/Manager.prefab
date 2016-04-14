@@ -12,10 +12,10 @@ GameObject:
   - 114: {fileID: 11498756}
   - 114: {fileID: 11420514}
   - 114: {fileID: 11436976}
-  - 114: {fileID: 11448276}
   - 114: {fileID: 11487132}
   - 114: {fileID: 11441268}
   - 114: {fileID: 11468062}
+  - 114: {fileID: 11410026}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -35,6 +35,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11410026
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73b76d8eabc9b0b4881c807d65287191, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11420514
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -46,8 +57,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1684a083ef2cc384692e267941f6b148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_GameManager: {fileID: 0}
   m_primaryPlayer: 
   m_enemyPlayer: 
+  earnedExperience: 0
+  DefeatedBuildings: []
+  DefeatedUnits: []
+  LostBuildings: []
+  LostUnits: []
 --- !u!114 &11436976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -80,17 +97,6 @@ MonoBehaviour:
   unitBuildingQueue: []
   navalYard: {fileID: 0}
   spawnPointList: []
---- !u!114 &11448276
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 144522}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73b76d8eabc9b0b4881c807d65287191, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11468062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -144,8 +150,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c52603d9c80d64844bf160e5cc9a2020, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  missionName: 
+  missionNumber: 0
+  missionPlayerHouse: 
+  missionExp: 0
+  missionResources: 0
   victoryPanel: {fileID: 0}
   defeatPanel: {fileID: 0}
+  m_DataManager: {fileID: 0}
+  m_DataStorage: {fileID: 0}
+  m_Manager: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

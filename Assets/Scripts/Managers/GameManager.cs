@@ -48,15 +48,20 @@ public class GameManager : MonoBehaviour, IGameManager {
         // Assign datahandlers
         m_DataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
         m_DataStorage = GameObject.Find("DataManager").GetComponent<DataStorage>();
+        m_Manager = GetComponent<Manager>();
 
         // Assign mission data
-        AssignMissionData(m_DataStorage.m_Mission);
+        //AssignMissionData(m_DataStorage.m_Mission);
+        AssignMissionData(MissionDB.gearsMission1);
+        m_Manager.AddResourceInstant(missionResources);
 
         // Assign player data
         m_Player1.AssignDetails(SetPlayer.Player1);
         m_Player2.AssignDetails(SetPlayer.Player2);
         m_FloatingFortress1 = GameObject.Find("Player1");
         m_FloatingFortress2 = GameObject.Find("Player2");
+        m_Manager.m_primaryPlayer = m_Player1.controlledTag;
+        m_Manager.m_enemyPlayer = m_Player2.controlledTag;
     }
 
     // Update is called once per frame
