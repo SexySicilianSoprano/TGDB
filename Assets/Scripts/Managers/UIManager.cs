@@ -123,7 +123,7 @@ public class UIManager : MonoBehaviour, IUIManager {
     {
         CheckHoverOver();
         SelectionListener();
-        Debug.Log(hoverOver + " " + interactionState);
+        //Debug.Log(hoverOver + " " + interactionState);
         //Debug.Log(m_Identifier + " " + hoverOver);
 
         switch (m_Mode)
