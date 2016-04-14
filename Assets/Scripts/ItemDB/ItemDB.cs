@@ -25,7 +25,7 @@ public static class ItemDB {
 		ItemImage = Resources.Load("Item Images/SteamHouse/ScoutBoat_Icon", typeof(Sprite)) as Sprite,
         SortOrder = 0,
         RequiredBuildings = new int[] { 1 },
-        Cost = 150,
+        Cost = 200,
         BuildTime = 3.0f,
     };
      

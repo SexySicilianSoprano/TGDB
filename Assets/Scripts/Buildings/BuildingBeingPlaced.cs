@@ -11,7 +11,6 @@ public class BuildingBeingPlaced : MonoBehaviour {
     {
         if (other.transform.tag == "BuildingSpot")
         {
-            Debug.Log("Entered BuildingSpot");
             collidingObject = other.gameObject;
         }
         else

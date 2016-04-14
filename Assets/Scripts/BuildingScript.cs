@@ -58,9 +58,8 @@ public class BuildingScript : MonoBehaviour {
 			}
             
 			//Casting ray which only hits the colliders in the layer mask
-	        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask, QueryTriggerInteraction.Collide)) {
-
-                Debug.Log("We see " + hit.transform.gameObject.tag);
+	        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask, QueryTriggerInteraction.Collide))
+            {
 	        	//If the ray hits the Terrain, it will drag the building object on top of it and underneath the mouse cursor
 	        	if (hit.transform.gameObject.tag != "BuildingSpot")
                 {

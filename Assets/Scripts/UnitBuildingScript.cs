@@ -11,10 +11,13 @@ public class UnitBuildingScript : MonoBehaviour {
 	private bool isAlreadyBuilding;
     private bool navalYardIsSet;
     private bool spawnPointFound;
+    private bool unitReady;
     public GameObject navalYard;
     public List<GameObject> spawnPointList = new List<GameObject>();
     private Func<bool> meinDel;
     private GameObject spawnPoint;
+
+    private Manager m_Manager { get { return GetComponent<Manager>(); } }
 
     // Use this for initialization
     void Start ()
@@ -25,8 +28,9 @@ public class UnitBuildingScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		if (unitBuildingQueue.Count > 0){
-			StartBuilding();
+		if (unitBuildingQueue.Count > 0)
+        {
+			StartBuilding();            
 		}
 
         if (!FindSpawnSpot())
@@ -37,8 +41,8 @@ public class UnitBuildingScript : MonoBehaviour {
 
 	public void BuildNewUnit(int unit)
     {
-		CheckNavalYard();
-		CheckFunds();
+        CheckNavalYard();
+
         if (unitBuildingQueue.Count < maxQueuedUnits)
         {
             unitBuildingQueue.Add(unitBuildingList[unit]);
@@ -94,27 +98,40 @@ public class UnitBuildingScript : MonoBehaviour {
         return null;
     }
 
-	public void CheckFunds()
+	public bool CheckFunds(float cost)
     {
-
+        if (m_Manager.Resources >= cost)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
 	}
 
 	public void StartBuilding()
     {
-		if (isAlreadyBuilding == false)
+        GameObject newUnit = unitBuildingList[0];
+        Item unitItem = ItemDB.AllItems.Find(x => x.Name.Equals(newUnit.name));
+        Debug.Log(unitItem.Name);
+        if (isAlreadyBuilding == false)
         {
-			StartCoroutine(WaitAndBuild(2, unitBuildingList[0]));
-			isAlreadyBuilding = true;
-		}
+            if (CheckFunds(unitItem.Cost))
+            {
+                m_Manager.RemoveResource(unitItem.Cost);
+                isAlreadyBuilding = true;
+                StartCoroutine(WaitAndBuild(unitItem.BuildTime, unitItem.Cost, unitBuildingList[0]));
+            }
+        }
 	}
 
-    IEnumerator WaitAndBuild(float seconds, GameObject unit)
+    IEnumerator WaitAndBuild(float seconds, float cost, GameObject unit)
     {
+        //StartCoroutine(SpendResourceAndBuild(seconds, cost));
         yield return new WaitForSeconds(seconds);
-
         spawnPoint = FindSpawnSpot();
 
-        yield return new WaitUntil(() => spawnPointFound == true);
         if (spawnPoint != null)
         {
             // Create a new spawn point
@@ -141,6 +158,25 @@ public class UnitBuildingScript : MonoBehaviour {
             isAlreadyBuilding = false;
             StartBuilding();
         }
-
 	}
+    
+    IEnumerator SpendResourceAndBuild(float seconds, float cost)
+    {
+        float timer = seconds * Time.deltaTime;
+        float timeAfterLastTick = 0;
+        float timeBetweenTicks = 0;
+        float moneySpentThisTick = 0;
+
+        while (timer > 0)
+        {
+            timeAfterLastTick = timer;
+            timeBetweenTicks = timeAfterLastTick - timer;
+            moneySpentThisTick = cost / timeBetweenTicks;
+            m_Manager.RemoveResource(moneySpentThisTick);
+            timer -= Time.deltaTime;
+        }
+
+        yield return new WaitUntil(() => timer <= 0);
+        unitReady = true;
+    }
 }
