@@ -16,7 +16,7 @@ public class BuildingOnDestroy : MonoBehaviour {
         {
             Vector3 newPos = new Vector3(transform.position.x, 1.0f, transform.position.z);
             GameObject newMine = Instantiate(Resources.Load("Other/ResourceMine"), newPos, Quaternion.identity) as GameObject;
-            newMine.GetComponent<ResourceMine>().resource = 5000;
+            newMine.GetComponent<ResourceMine>().resource = 2000;
             newMine.GetComponent<ResourceMine>().maxGatherers = 1;
         }
     }

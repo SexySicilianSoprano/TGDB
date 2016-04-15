@@ -66,6 +66,7 @@ GameObject:
   - 114: {fileID: 11450676}
   - 135: {fileID: 13552118}
   - 114: {fileID: 11420672}
+  - 114: {fileID: 11485022}
   m_Layer: 12
   m_Name: TestTurret
   m_TagString: Player2
@@ -271,7 +272,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 141580}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 436.1, y: 6.2359138, z: 133.58525}
+  m_LocalPosition: {x: 249.27359, y: 6.2359138, z: 152.83891}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 435110}
@@ -576,9 +577,13 @@ MonoBehaviour:
   objectToFollow: {fileID: 0}
   imgPrefab: {fileID: 190398, guid: 284afc42167d6fb4db5ea3ab5d252d99, type: 2}
   newHealthBar: {fileID: 0}
+  selectedHealthBar: {fileID: 0}
   bar: {fileID: 0}
+  selectedBar: {fileID: 0}
   max_health: 0
   cur_health: 0
+  MyCamera: {fileID: 0}
+  SizeDif: 0
 --- !u!114 &11425264
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -619,6 +624,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aed3001cfe8ccb042899e8372dec2858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11485022
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 141580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac9c7828afe9efc4a844f00eed9e22d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MyBuildingSpot: {fileID: 0}
 --- !u!114 &11491748
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -631,6 +648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackingEnemy: {fileID: 0}
+  isInCombat: 0
   m_Health: 0
   m_MaxHealth: 0
 --- !u!119 &11918230

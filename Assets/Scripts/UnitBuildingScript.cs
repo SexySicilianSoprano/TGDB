@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class UnitBuildingScript : MonoBehaviour {
 
@@ -12,32 +13,71 @@ public class UnitBuildingScript : MonoBehaviour {
     private bool navalYardIsSet;
     private bool spawnPointFound;
     private bool unitReady;
+    private bool onHold = false;
     public GameObject navalYard;
     public List<GameObject> spawnPointList = new List<GameObject>();
-    private Func<bool> meinDel;
     private GameObject spawnPoint;
+
+    private GameObject unitInBuilding;
+    private float unitCost;
+    private float unitBuildTime;
+    private float timer;
+    private float moneySpent = 0;
 
     private Manager m_Manager { get { return GetComponent<Manager>(); } }
 
     // Use this for initialization
     void Start ()
     {
-        meinDel = () => spawnPointFound;
+
     }
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
     {
-		if (unitBuildingQueue.Count > 0)
+        if (unitBuildingQueue.Count > 0)
         {
-			StartBuilding();            
+            if (!onHold)
+            {
+                if (isAlreadyBuilding == false)
+                {
+                    StartBuilding();
+                }
+                else
+                {
+                    if (CheckFunds())
+                    {
+                        timer = SpendResourceAndBuild(timer, unitCost);
+
+                        if (timer == 0)
+                        {
+                            StartCoroutine(WaitAndBuild(unitInBuilding));
+                            isAlreadyBuilding = false;
+                        }
+                    }
+                }
+            }
 		}
 
         if (!FindSpawnSpot())
         {
             FindSpawnSpot();
         }
+
+        UpdateQueueText();
 	}
+
+    public void ToggleOnHold()
+    {
+        if (onHold)
+        {
+            onHold = false;
+        }
+        else
+        {
+            onHold = true;
+        }
+    }
 
 	public void BuildNewUnit(int unit)
     {
@@ -98,9 +138,9 @@ public class UnitBuildingScript : MonoBehaviour {
         return null;
     }
 
-	public bool CheckFunds(float cost)
+	public bool CheckFunds()
     {
-        if (m_Manager.Resources >= cost)
+        if (m_Manager.Resources >= 0)
         {
             return true;
         }
@@ -112,28 +152,31 @@ public class UnitBuildingScript : MonoBehaviour {
 
 	public void StartBuilding()
     {
-        GameObject newUnit = unitBuildingList[0];
-        Item unitItem = ItemDB.AllItems.Find(x => x.Name.Equals(newUnit.name));
-        Debug.Log(unitItem.Name);
+        unitInBuilding = unitBuildingList[0];
+        Item unitItem = ItemDB.AllItems.Find(x => x.Name.Equals(unitInBuilding.name));
+
+        unitCost = unitItem.Cost;
+        unitBuildTime = unitItem.BuildTime;
+        timer = unitBuildTime;
+
         if (isAlreadyBuilding == false)
         {
-            if (CheckFunds(unitItem.Cost))
-            {
-                m_Manager.RemoveResource(unitItem.Cost);
+            //if (CheckFunds(unitItem.Cost))
+            //{
+                //m_Manager.RemoveResource(unitItem.Cost);
                 isAlreadyBuilding = true;
-                StartCoroutine(WaitAndBuild(unitItem.BuildTime, unitItem.Cost, unitBuildingList[0]));
-            }
+            //}
         }
 	}
 
-    IEnumerator WaitAndBuild(float seconds, float cost, GameObject unit)
+    IEnumerator WaitAndBuild(GameObject unit)
     {
-        //StartCoroutine(SpendResourceAndBuild(seconds, cost));
-        yield return new WaitForSeconds(seconds);
+        //yield return new WaitForSeconds(seconds);
         spawnPoint = FindSpawnSpot();
-
+        
         if (spawnPoint != null)
         {
+            yield return new WaitForSeconds(0);
             // Create a new spawn point
             Vector3 spawnPos = new Vector3(
                 spawnPoint.transform.position.x,
@@ -152,31 +195,51 @@ public class UnitBuildingScript : MonoBehaviour {
             //Instantiate(unit, navalYard.transform.GetChild(0).gameObject.transform.position, Quaternion.identity);
             unitBuildingQueue.RemoveAt(0);
             isAlreadyBuilding = false;
+            timer = 0;
+            unitCost = 0;
+            unitInBuilding = null;
+            moneySpent = 0;
         }
         else
         {
-            isAlreadyBuilding = false;
-            StartBuilding();
+            Debug.Log("Aint no spot mate");
+            WaitAndBuild(unit);
         }
 	}
     
-    IEnumerator SpendResourceAndBuild(float seconds, float cost)
+    private float SpendResourceAndBuild(float seconds, float cost)
     {
-        float timer = seconds * Time.deltaTime;
-        float timeAfterLastTick = 0;
-        float timeBetweenTicks = 0;
-        float moneySpentThisTick = 0;
+        float newtimer = seconds;
+        float timeBetweenTicks;
+        float moneySpentThisTick;
+        
+        newtimer -= 1f * Time.deltaTime;
 
-        while (timer > 0)
+        if (newtimer <= 0)
         {
-            timeAfterLastTick = timer;
-            timeBetweenTicks = timeAfterLastTick - timer;
-            moneySpentThisTick = cost / timeBetweenTicks;
-            m_Manager.RemoveResource(moneySpentThisTick);
-            timer -= Time.deltaTime;
+            newtimer = 0;
         }
 
-        yield return new WaitUntil(() => timer <= 0);
-        unitReady = true;
+        timeBetweenTicks = (seconds - newtimer);
+        moneySpentThisTick = (cost * timeBetweenTicks) / unitBuildTime;
+
+        m_Manager.RemoveResource(moneySpentThisTick);
+        moneySpent += moneySpentThisTick;
+        Debug.Log("Timer cost: " + moneySpent);
+        return newtimer;
+    }
+
+    private void UpdateQueueText()
+    {
+        if (unitBuildingQueue.Count > 0)
+        {
+            Text text = GameObject.Find("UI").transform.Find("SideMenu").transform.Find("UnitPanel").transform.Find("DestroyerBtn").transform.Find("Text (1)").GetComponent<Text>();
+            text.text = unitBuildingQueue.Count.ToString();
+        }
+        else
+        {
+            Text text = GameObject.Find("UI").transform.Find("SideMenu").transform.Find("UnitPanel").transform.Find("DestroyerBtn").transform.Find("Text (1)").GetComponent<Text>();
+            text.text = "";
+        }
     }
 }

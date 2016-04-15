@@ -76,7 +76,7 @@ public class Manager : MonoBehaviour, IManager {
     private void UpdateResourceText()
     {
         Text text = GameObject.Find("UI").transform.Find("Resources").transform.Find("Text").GetComponent<Text>();
-        text.text = Resources.ToString();
+        text.text = Resources.ToString("0");
     }
 
     // Calculate accumulated experience points by adding up all defeated and lost units with respective multipliers

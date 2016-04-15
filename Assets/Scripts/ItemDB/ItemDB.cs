@@ -45,8 +45,8 @@ public static class ItemDB {
 		ItemImage = Resources.Load("Item Images/SteamHouse/Destroyer_Icon", typeof(Sprite)) as Sprite,
         SortOrder = 1,
         RequiredBuildings = new int[] { 1 },
-        Cost = 300,
-        BuildTime = 5.0f,
+        Cost = 675,
+        BuildTime = 7.0f,
     };
 
     public static Item FishingBoat = new Item
@@ -65,8 +65,8 @@ public static class ItemDB {
         ItemImage = Resources.Load("Item Images/SteamHouse/FishingBoat_Icon", typeof(Sprite)) as Sprite,
         SortOrder = 1,
         RequiredBuildings = new int[] { 1 },
-        Cost = 300,
-        BuildTime = 5.0f,
+        Cost = 675,
+        BuildTime = 7.0f,
     };
 
     public static Item Dreadnought = new Item
