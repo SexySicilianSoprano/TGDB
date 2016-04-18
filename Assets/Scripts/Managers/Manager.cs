@@ -75,6 +75,7 @@ public class Manager : MonoBehaviour, IManager {
     // Update Resource text on GUI
     private void UpdateResourceText()
     {
+        //Resources = Mathf.Round(Resources);
         Text text = GameObject.Find("UI").transform.Find("Resources").transform.Find("Text").GetComponent<Text>();
         text.text = Resources.ToString("0");
     }
@@ -103,7 +104,7 @@ public class Manager : MonoBehaviour, IManager {
     {
         throw new NotImplementedException();
     }
-
+    
     public void UnitRemoved(Unit unit)
     {
         throw new NotImplementedException();

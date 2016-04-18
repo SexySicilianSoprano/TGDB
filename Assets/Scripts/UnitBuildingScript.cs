@@ -23,6 +23,7 @@ public class UnitBuildingScript : MonoBehaviour {
     private float unitBuildTime;
     private float timer;
     private float moneySpent = 0;
+    private float timerDelta;
 
     private Manager m_Manager { get { return GetComponent<Manager>(); } }
 
@@ -33,7 +34,7 @@ public class UnitBuildingScript : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void FixedUpdate ()
+	void Update ()
     {
         if (unitBuildingQueue.Count > 0)
         {
@@ -197,8 +198,8 @@ public class UnitBuildingScript : MonoBehaviour {
             isAlreadyBuilding = false;
             timer = 0;
             unitCost = 0;
-            unitInBuilding = null;
             moneySpent = 0;
+            unitInBuilding = null;
         }
         else
         {
@@ -213,7 +214,7 @@ public class UnitBuildingScript : MonoBehaviour {
         float timeBetweenTicks;
         float moneySpentThisTick;
         
-        newtimer -= 1f * Time.deltaTime;
+        newtimer -= Time.deltaTime;
 
         if (newtimer <= 0)
         {
@@ -223,11 +224,60 @@ public class UnitBuildingScript : MonoBehaviour {
         timeBetweenTicks = (seconds - newtimer);
         moneySpentThisTick = (cost * timeBetweenTicks) / unitBuildTime;
 
-        m_Manager.RemoveResource(moneySpentThisTick);
         moneySpent += moneySpentThisTick;
+        
+        if (newtimer == 0)
+        {
+            if (moneySpent > cost)
+            { 
+                float difference = moneySpent - cost;
+                Debug.Log("Last payment difference 1: " + difference);
+                moneySpentThisTick -= difference;
+                moneySpent -= difference;
+            }
+            else
+            {
+                float difference = cost - moneySpent;
+                Debug.Log("Last payment difference 2: " + difference);
+                moneySpentThisTick += difference;
+                moneySpent += difference;
+            }
+        }
+
         Debug.Log("Timer cost: " + moneySpent);
+
+        m_Manager.RemoveResource(moneySpentThisTick);
         return newtimer;
     }
+
+    /*
+    private float SpendResourceAndBuild(float seconds, float cost)
+    {
+        float newtimer = seconds;
+        float timeBetweenTicks = 1f;
+        float moneyPerTick = cost / unitBuildTime;
+        float timeAfterLastTick;
+
+        newtimer -= Time.deltaTime;
+
+        if (newtimer <= 0)
+        {
+            newtimer = 0;
+        }
+
+        timeAfterLastTick = (seconds - newtimer);
+        timerDelta += timeAfterLastTick;
+
+        if (timerDelta >= timeBetweenTicks || newtimer == 0)
+        {
+            m_Manager.RemoveResource(moneyPerTick);
+            timerDelta = 0;
+        }
+        
+        Debug.Log("Timer cost: " + moneySpent);
+
+        return newtimer;
+    } */
 
     private void UpdateQueueText()
     {
