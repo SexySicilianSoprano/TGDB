@@ -17,13 +17,9 @@ public class InputManager : MonoBehaviour
 	
 	// this must be configured by inspector
 	public KeyCode upArrow;
-	public KeyCode upArrowALT;
 	public KeyCode downArrow;
-	public KeyCode downArrowALT;
 	public KeyCode leftArrow;
-	public KeyCode leftArrowALT;
 	public KeyCode rightArrow;
-	public KeyCode rightArrowALT;
 	public KeyCode rotateAroundLeft;
 	public KeyCode rotateAroundRight;
 	public KeyCode zoomIn;
@@ -47,19 +43,19 @@ public class InputManager : MonoBehaviour
 	{
 		panAxis = Vector2.zero;
 		
-		if (Input.GetKey(upArrow) || Input.GetKey (upArrowALT))
+		if (Input.GetKey(upArrow))
 		{
 			panAxis.y = 1;
 		}
-		else if (Input.GetKey(downArrow) || Input.GetKey (downArrowALT))
+		else if (Input.GetKey(downArrow))
 		{
 			panAxis.y = -1;
 		}		
-		if (Input.GetKey(rightArrow) || Input.GetKey (rightArrowALT))
+		if (Input.GetKey(rightArrow))
 		{
 			panAxis.x = 1;
 		}
-		else if (Input.GetKey(leftArrow) || Input.GetKey (leftArrowALT))
+		else if (Input.GetKey(leftArrow))
 		{
 			panAxis.x = -1;
 		}

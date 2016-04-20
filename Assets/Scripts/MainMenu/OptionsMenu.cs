@@ -6,7 +6,7 @@ public class OptionsMenu : MonoBehaviour {
 
     GameObject soundOptions, graphicsOptions, controlOptions, gameOptions;
 
-
+    static OptionsMenu instance = null;
 
     public bool subMenuClosed = false;
 
@@ -15,6 +15,18 @@ public class OptionsMenu : MonoBehaviour {
     void Awake()
     {
 
+
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            Debug.Log("Duplicate destroyed");
+        }
+        else
+        {
+            instance = this;
+            //Causes UI object not to be destroyed when loading a new scene. If you want it to be destroyed, destroy it manually via script.
+            DontDestroyOnLoad(this.gameObject);
+        }
 
         soundOptions = GameObject.Find("SoundOptions");
         graphicsOptions = GameObject.Find("GraphicOptions");
