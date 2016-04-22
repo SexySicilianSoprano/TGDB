@@ -16,7 +16,7 @@ public class OptionsMenu : MonoBehaviour {
     {
 
 
-        if (instance != null)
+       /* if (instance != null)
         {
             Destroy(gameObject);
             Debug.Log("Duplicate destroyed");
@@ -26,7 +26,7 @@ public class OptionsMenu : MonoBehaviour {
             instance = this;
             //Causes UI object not to be destroyed when loading a new scene. If you want it to be destroyed, destroy it manually via script.
             DontDestroyOnLoad(this.gameObject);
-        }
+        } */
 
         soundOptions = GameObject.Find("SoundOptions");
         graphicsOptions = GameObject.Find("GraphicOptions");

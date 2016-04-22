@@ -29,7 +29,7 @@ public class StartOptions : MonoBehaviour {
 	
 	void Awake()
 	{
-        if (instance != null)
+        /*if (instance != null)
         {
             Destroy(gameObject);
             Debug.Log("Duplicate destroyed");
@@ -39,7 +39,7 @@ public class StartOptions : MonoBehaviour {
             instance = this;
             //Causes UI object not to be destroyed when loading a new scene. If you want it to be destroyed, destroy it manually via script.
             GameObject.DontDestroyOnLoad(gameObject);
-        }
+        }*/
 
         //Get a reference to ShowPanels attached to UI object
         showPanels = GetComponent<ShowPanels> ();
