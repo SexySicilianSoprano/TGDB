@@ -442,10 +442,70 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11489350, guid: 3eaf10ec9771345478b9337eb0cdc1ec, type: 2}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1783412201}
+    - target: {fileID: 11489350, guid: 3eaf10ec9771345478b9337eb0cdc1ec, type: 2}
+      propertyPath: MyCamera
+      value: 
+      objectReference: {fileID: 1783412202}
+    - target: {fileID: 11419786, guid: 3eaf10ec9771345478b9337eb0cdc1ec, type: 2}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1783412201}
+    - target: {fileID: 11419786, guid: 3eaf10ec9771345478b9337eb0cdc1ec, type: 2}
+      propertyPath: MyCamera
+      value: 
+      objectReference: {fileID: 1783412202}
+    - target: {fileID: 11460398, guid: 3eaf10ec9771345478b9337eb0cdc1ec, type: 2}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1783412201}
+    - target: {fileID: 11460398, guid: 3eaf10ec9771345478b9337eb0cdc1ec, type: 2}
+      propertyPath: MyCamera
+      value: 
+      objectReference: {fileID: 1783412202}
+    - target: {fileID: 11477098, guid: 3eaf10ec9771345478b9337eb0cdc1ec, type: 2}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1783412201}
+    - target: {fileID: 11477098, guid: 3eaf10ec9771345478b9337eb0cdc1ec, type: 2}
+      propertyPath: MyCamera
+      value: 
+      objectReference: {fileID: 1783412202}
+    - target: {fileID: 11473504, guid: 3eaf10ec9771345478b9337eb0cdc1ec, type: 2}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1783412201}
+    - target: {fileID: 11473504, guid: 3eaf10ec9771345478b9337eb0cdc1ec, type: 2}
+      propertyPath: MyCamera
+      value: 
+      objectReference: {fileID: 1783412202}
+    - target: {fileID: 11458230, guid: 3eaf10ec9771345478b9337eb0cdc1ec, type: 2}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1783412201}
+    - target: {fileID: 11458230, guid: 3eaf10ec9771345478b9337eb0cdc1ec, type: 2}
+      propertyPath: MyCamera
+      value: 
+      objectReference: {fileID: 1783412202}
+    - target: {fileID: 11442352, guid: 3eaf10ec9771345478b9337eb0cdc1ec, type: 2}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1783412201}
+    - target: {fileID: 11442352, guid: 3eaf10ec9771345478b9337eb0cdc1ec, type: 2}
+      propertyPath: MyCamera
+      value: 
+      objectReference: {fileID: 1783412202}
     - target: {fileID: 11414332, guid: 3eaf10ec9771345478b9337eb0cdc1ec, type: 2}
-      propertyPath: isEdge
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1783412201}
+    - target: {fileID: 11414332, guid: 3eaf10ec9771345478b9337eb0cdc1ec, type: 2}
+      propertyPath: MyCamera
+      value: 
+      objectReference: {fileID: 1783412202}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3eaf10ec9771345478b9337eb0cdc1ec, type: 2}
   m_IsPrefabParent: 0
@@ -3920,6 +3980,16 @@ Projector:
   m_IgnoreLayers:
     serializedVersion: 2
     m_Bits: 4294574079
+--- !u!1 &1783412201 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 197236, guid: 602cbbc66ab2b1b4785ca5c4574635b3, type: 2}
+  m_PrefabInternal: {fileID: 1001920449}
+--- !u!114 &1783412202 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11414996, guid: 602cbbc66ab2b1b4785ca5c4574635b3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1001920449}
+  m_Script: {fileID: 11500000, guid: ef60a5a455717a64bb6f09022c62f055, type: 3}
 --- !u!1 &1783980946 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 198558, guid: 89c8ae52bfe1dfd4ba66254afe7d4a12, type: 2}
