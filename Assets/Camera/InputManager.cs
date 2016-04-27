@@ -14,8 +14,11 @@ using System.Collections;
 /// ######################################################
 public class InputManager : MonoBehaviour
 {
-	
-	// this must be configured by inspector
+
+    // this must be configured by inspector
+
+    static KeyBindScript KeyBindScript;
+
 	public KeyCode upArrow;
 	public KeyCode downArrow;
 	public KeyCode leftArrow;
