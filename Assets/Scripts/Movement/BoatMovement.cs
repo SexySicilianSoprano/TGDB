@@ -76,29 +76,38 @@ public class BoatMovement : SeaMovement {
             m_PlayMovingSound = true;
             AffectedByCurrent = false;
 
-            // Make sure we're pointing at the target  
-            if (!PointingAtTarget(dir))
+            if (m_OnMyWay)
             {
-                RotateTowards(dir);
+                // Make sure we're pointing at the target  
+                if (!PointingAtTarget(dir))
+                {
+                    RotateTowards(dir);
+                }
+
+                // Add velocity
+                MoveForward();
+
+                // If we're close enough to the next waypoint, jump to next one
+                if (Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < nextWaypointDistance && currentWaypoint < Path.vectorPath.Count || Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < 13 && currentWaypoint <= Path.vectorPath.Count)
+                {
+                    currentWaypoint++;
+                }
             }
 
-            // Add velocity
-            MoveForward();
-
-            // If we're close enough to the next waypoint, jump to next one
-            if (Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < nextWaypointDistance || Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < 10 && currentWaypoint <= Path.vectorPath.Count)
+            // If we've reached our destination or close enough, close in before moving
+            if (currentWaypoint == Path.vectorPath.Count - 1 || Vector3.Distance(m_Parent.transform.position, targetPosition) < 15)
             {
-                currentWaypoint++;
-            }
+                m_OnMyWay = false;
+                CloseIn(dir);
 
-            // If we've reached our destination or close enough, stop moving
-            if (currentWaypoint >= Path.vectorPath.Count || Vector3.Distance(m_Parent.transform.position, targetPosition) < 5)
-            {
-                rb.velocity = Vector3.zero;
-                Path = null;
-                currentWaypoint = 0;
-                trail.enabled = false;
-                return;
+                if (Vector3.Distance(m_Parent.transform.position, targetPosition) < 1)
+                {
+                    rb.velocity = Vector3.zero;
+                    Path = null;
+                    currentWaypoint = 0;
+                    trail.enabled = false;
+                    return;
+                }
             }
             
         }
@@ -135,7 +144,7 @@ public class BoatMovement : SeaMovement {
     }
     
     // Turning towards the destination
-    private void RotateTowards(Vector3 location)
+    public override void RotateTowards(Vector3 location)
     {
         m_Direction = location;
 
@@ -145,13 +154,13 @@ public class BoatMovement : SeaMovement {
     }
 
     // Onward!
-    private void MoveForward()
+    public override void MoveForward()
     {
         rb.AddForce(m_Parent.transform.forward * Speed);
     }
 
     // Check if something is in front of you, calculate a new route if we do
-    private bool CheckFront()
+    public override bool CheckFront()
     {
         RaycastHit hit;
         Ray ray = new Ray(m_Parent.transform.position, m_Parent.transform.forward);
@@ -196,7 +205,7 @@ public class BoatMovement : SeaMovement {
     }
 
     // Is the unit facing target direction?
-    private bool PointingAtTarget(Vector3 direction)
+    public override bool PointingAtTarget(Vector3 direction)
     {
         // Set unit's forward vector and the direction we're going towards
         Vector3 forwardVector = transform.forward;
@@ -232,6 +241,19 @@ public class BoatMovement : SeaMovement {
 
         return false;
     }
-    
+
+    private void CloseIn(Vector3 target)
+    {
+        if (!PointingAtTarget(target))
+        {
+            rb.velocity = Vector3.zero;
+            RotateTowards(target);
+        }
+        else
+        {
+            MoveForward();
+        }
+    }
+
 }
  

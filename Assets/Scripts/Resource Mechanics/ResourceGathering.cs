@@ -124,7 +124,7 @@ public class ResourceGathering : MonoBehaviour {
 
     private bool CloseEnough(Vector3 target)
     {
-        if (Vector3.Distance(target, transform.position) <= 10)
+        if (Vector3.Distance(target, transform.position) <= 5)
         {
             return true;
         }
@@ -133,6 +133,7 @@ public class ResourceGathering : MonoBehaviour {
             return false;
         }
     }
+       
 
     // Waits for set amount of seconds to allow gathering again
     IEnumerator WaitAndGather()

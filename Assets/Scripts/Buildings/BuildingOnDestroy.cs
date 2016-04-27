@@ -11,6 +11,7 @@ public class BuildingOnDestroy : MonoBehaviour {
         {
             // Free the reserved building spot for use
             MyBuildingSpot.SetActive(true);
+            MyBuildingSpot.GetComponentInChildren<Projector>().enabled = false;
         }
         else
         {

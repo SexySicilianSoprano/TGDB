@@ -29,6 +29,7 @@ GameObject:
   - 114: {fileID: 11405022}
   - 23: {fileID: 2398970}
   - 114: {fileID: 11451122}
+  - 114: {fileID: 11446410}
   m_Layer: 22
   m_Name: ResourceMine
   m_TagString: Untagged
@@ -145,6 +146,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resource: 0
   maxGatherers: 0
+--- !u!114 &11446410
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c86ef36d25ee9a498c18201746e58a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11451122
 MonoBehaviour:
   m_ObjectHideFlags: 1

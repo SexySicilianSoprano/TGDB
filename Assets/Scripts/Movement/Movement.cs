@@ -18,4 +18,12 @@ public abstract class Movement : MonoBehaviour{
 	public abstract void Stop ();
 	
 	public abstract void AssignDetails(Item item);
+
+    public abstract void MoveForward();
+
+    public abstract void RotateTowards(Vector3 location);
+
+    public abstract bool CheckFront();
+
+    public abstract bool PointingAtTarget(Vector3 direction);
 }
