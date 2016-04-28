@@ -19,7 +19,17 @@ public class cooldownfill : MonoBehaviour {
 		if (coolingDown == true)
 		{
 			//Reduce fill amount over 5 seconds
-			cooldown.fillAmount += 1.0f/waitTime * Time.deltaTime;
+			//cooldown.fillAmount += 1.0f/waitTime * Time.deltaTime;
 		}
 	}
+
+    public void SetCoolDownFill(float max, float current)
+    {
+        cooldown.fillAmount += current / max * Time.deltaTime;
+    }
+
+    public void ClearFill()
+    {
+        cooldown.fillAmount = 0;
+    }
 }
