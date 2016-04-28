@@ -87,7 +87,7 @@ public class BuildingScript : MonoBehaviour {
                             tempBuilding.GetComponent<Renderer>().material.color = Color.gray;
                             //Destroy(tempBuilding.GetComponent<Rigidbody>());
                             //tempBuilding.GetComponent<BoxCollider>().isTrigger = false;
-                            StartCoroutine (WaitAndBuild(2, currentBuildingSpot.transform.position));
+                            StartCoroutine (WaitAndBuild(0, currentBuildingSpot.transform.position));
                             currentBuildingSpot.SetActive(false);
 
                             bsHandler.HideBuildingSpots();

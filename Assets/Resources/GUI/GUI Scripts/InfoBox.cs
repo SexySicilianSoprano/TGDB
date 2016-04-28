@@ -24,7 +24,7 @@ public class InfoBox : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 
 
 	//When cursor enters the object, show infobox
 	public void OnPointerEnter (PointerEventData eventData) {
-		myInfo.SetActive(true);	
+		myInfo.SetActive(true);
 	}
 
 	//when cursor leaves the object, hide infobox

@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class StorageScript : MonoBehaviour
 {
+    static StorageScript instance = null;
+
     public int backgroundMusicPosition;
     public bool invertY = false;
     public bool fps = true;
@@ -24,6 +26,22 @@ public class StorageScript : MonoBehaviour
 
     GameObject storedInteractables;
 
+
+    void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            Debug.Log("Duplicate destroyed");
+        }
+        else
+        {
+            instance = this;
+            //Causes UI object not to be destroyed when loading a new scene. If you want it to be destroyed, destroy it manually via script.
+            DontDestroyOnLoad(this.gameObject);
+        }
+
+    }
 
     void Start()
     {

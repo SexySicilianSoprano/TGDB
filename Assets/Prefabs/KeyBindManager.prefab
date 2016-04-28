@@ -1,42 +1,42 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &191660
+--- !u!1 &154910
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 405728}
-  - 114: {fileID: 11443126}
+  - 4: {fileID: 438078}
+  - 114: {fileID: 11408688}
   m_Layer: 0
-  m_Name: InputManager
+  m_Name: KeyBindManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &405728
+--- !u!4 &438078
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 191660}
+  m_GameObject: {fileID: 154910}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 670, y: 0, z: 0}
+  m_LocalPosition: {x: 887.7205, y: 444.78653, z: -27.011658}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11443126
+--- !u!114 &11408688
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 191660}
+  m_GameObject: {fileID: 154910}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 251e85fe33020f149a86c1fc578da7b5, type: 3}
+  m_Script: {fileID: 11500000, guid: 338d8bbc254005c48bcdbcf4e56caf85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ReservedKeys: []
@@ -47,8 +47,6 @@ MonoBehaviour:
   jump: {fileID: 0}
   camLeft: {fileID: 0}
   camRight: {fileID: 0}
-  zoomIn: {fileID: 0}
-  zoomOut: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -58,5 +56,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 191660}
+  m_RootGameObject: {fileID: 154910}
   m_IsPrefabParent: 1

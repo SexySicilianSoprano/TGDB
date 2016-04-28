@@ -6,9 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class StartOptions : MonoBehaviour {
 
+    static StartOptions instance = null;
 
 
-	public int sceneToStart = 1;										//Index number in build settings of scene to load if changeScenes is true
+    public int sceneToStart = 1;										//Index number in build settings of scene to load if changeScenes is true
 	public bool changeScenes;											//If true, load a new scene when Start is pressed, if false, fade out UI and continue in single scene
 	public bool changeMusicOnStart;										//Choose whether to continue playing menu music or start a new music clip
 	public int musicToChangeTo = 0;										//Array index in array MusicClips to change to if changeMusicOnStart is true.
@@ -28,8 +29,20 @@ public class StartOptions : MonoBehaviour {
 	
 	void Awake()
 	{
-		//Get a reference to ShowPanels attached to UI object
-		showPanels = GetComponent<ShowPanels> ();
+        /*if (instance != null)
+        {
+            Destroy(gameObject);
+            Debug.Log("Duplicate destroyed");
+        }
+        else
+        {
+            instance = this;
+            //Causes UI object not to be destroyed when loading a new scene. If you want it to be destroyed, destroy it manually via script.
+            GameObject.DontDestroyOnLoad(gameObject);
+        }*/
+
+        //Get a reference to ShowPanels attached to UI object
+        showPanels = GetComponent<ShowPanels> ();
 
 		//Get a reference to PlayMusic attached to UI object
 		playMusic = GetComponent<PlayMusic> ();
