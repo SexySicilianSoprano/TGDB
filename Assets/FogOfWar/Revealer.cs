@@ -8,5 +8,10 @@ public class Revealer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         FogOfWarManager.Instance.RegisterRevealer(this);
+
+	}
+
+	void Update(){
+		
 	}
 }
