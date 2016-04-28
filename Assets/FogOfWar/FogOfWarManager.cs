@@ -126,6 +126,7 @@ public class FogOfWarManager : MonoBehaviour {
 
                 CreateCircle(pixelPosX, pixelPosY, revealer.radius);
             }
+
         }
 
         _texture.SetPixels(_pixels);
