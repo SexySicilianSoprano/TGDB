@@ -5,12 +5,14 @@ public class SelectedBuilding : MonoBehaviour {
 
 	private Building m_Building;
     Projector projector;
+    HPBar hpbar;
     
     // Use this for initialization
     void Start () 
 	{
         // Find projector
-        projector = transform.Find("Projector").GetComponent<Projector>();        
+        projector = transform.Find("Projector").GetComponent<Projector>();
+        hpbar = GetComponent<HPBar>();      
 
         //Assign building
         m_Building = GetComponent<Building>();
@@ -22,6 +24,8 @@ public class SelectedBuilding : MonoBehaviour {
         if (projector.enabled == false)
             projector.enabled = true;
 
+        hpbar.ShowHealthBar();
+
         // If building spots, show 'em
         if (GetComponent<BuildingSpotHandler>())
             GetComponent<BuildingSpotHandler>().ShowBuildingSpots();
@@ -32,6 +36,8 @@ public class SelectedBuilding : MonoBehaviour {
         // Stop rendering the projector
         if (projector.enabled == true)
         projector.enabled = false;
+
+        hpbar.HideHealthBar();
 
         // If building spots, don't show 'em
         if (GetComponent<BuildingSpotHandler>())

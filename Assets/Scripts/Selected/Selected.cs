@@ -6,6 +6,8 @@ public class Selected : MonoBehaviour {
 	public Rigidbody rb;
     public Projector projector;
     public TrailRenderer trail;
+    public HPBar hpbar;
+
 	public bool IsSelected
 	{
 		get;
@@ -34,6 +36,7 @@ public class Selected : MonoBehaviour {
     void Start () 
 	{
         projector = GetComponentInChildren<Projector>();
+        hpbar = GetComponent<HPBar>();
 		IsSelected = false;
 		FindMaxWorldSize();
 		
@@ -85,10 +88,11 @@ public class Selected : MonoBehaviour {
             IsSelected = true;
 			m_JustBeenSelected = true;
 			m_JustBeenSelectedTimer = 0;
-            projector.enabled = true;
-            GetComponent<BoatMovement>().AffectedByCurrent = false;
+            GetComponent<BoatMovement>().AffectedByCurrent = false;            
         }
 
+        projector.enabled = true;
+        hpbar.ShowHealthBar();
 	}
 	
 	public void SetDeselected()
@@ -97,6 +101,7 @@ public class Selected : MonoBehaviour {
 		m_JustBeenSelected = false;
         projector.enabled = false;
         GetComponent<BoatMovement>().AffectedByCurrent = true;
+        hpbar.HideHealthBar();
 	}
 	
 	public void AssignGroupNumber(int number)

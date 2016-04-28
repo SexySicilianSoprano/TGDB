@@ -35,8 +35,11 @@ public class TurretCombat : Combat {
     private Vector3 SpawnerPos;
 
     // SphereCollider with trigger to detect enemies
-    private SphereCollider DangerZone;
-    
+    private SphereCollider DangerZone
+    { get { return GetComponent<SphereCollider>(); } }
+    private Projector DangerZoneProjector
+    { get { return transform.Find("Projector").GetComponent<Projector>(); } }
+
     // List of targets and priorities
     private List<RTSEntity> targetList = new List<RTSEntity>(); // Normal priority
     private List<RTSEntity> trueTargetList = new List<RTSEntity>(); // High priority
@@ -50,8 +53,6 @@ public class TurretCombat : Combat {
         Spawner = m_Parent.transform.GetChild(0);
 
         // Initialise DangerZone and set its size
-        DangerZone = transform.GetComponent<SphereCollider>();
-        DangerZone.radius = 100;
     }
 
     void FixedUpdate()
@@ -108,6 +109,8 @@ public class TurretCombat : Combat {
         isAntiArmor = weapon.isAntiArmor;
         isAntiStructure = weapon.isAntiStructure;
         //Projectile = weapon.Projectile;
+        DangerZone.radius = weapon.Range;
+        DangerZoneProjector.orthographicSize = weapon.Range / 1.7f;
     }
        
     // Attack command

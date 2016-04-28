@@ -2,8 +2,6 @@
 using System.Collections;
 
 public class FaceCamera : MonoBehaviour {
-
-
 	public Camera m_Camera;
 
 	void Update()
