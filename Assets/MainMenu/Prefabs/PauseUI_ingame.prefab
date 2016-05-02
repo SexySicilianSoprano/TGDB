@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &108168
 GameObject:
   m_ObjectHideFlags: 0
@@ -1484,7 +1484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1599,6 +1599,7 @@ MonoBehaviour:
   menuPanel: {fileID: 100980}
   factionPanel: {fileID: 100980}
   saveloadPanel: {fileID: 100980}
+  mapselectionPanel: {fileID: 188320}
   backtoMainMenuPanel: {fileID: 159590}
   quitToDesktopPanel: {fileID: 159896}
   pausePanel: {fileID: 100980}
@@ -2491,7 +2492,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -2500,8 +2501,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: f4ba5778e04bb11438233b3e56c09acd,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 451535fb682c9f94cb020c995df6eb74, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -2512,7 +2514,29 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 11475896}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 188320}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 187846}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &11495424
@@ -2530,6 +2554,7 @@ MonoBehaviour:
   changeScenes: 1
   changeMusicOnStart: 0
   musicToChangeTo: 0
+  fadeimage: {fileID: 158260}
   inMainMenu: 1
   animColorFade: {fileID: 9502818}
   animMenuAlpha: {fileID: 0}
@@ -2828,7 +2853,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 4
   m_TargetDisplay: 0
 --- !u!224 &22404096
 RectTransform:
@@ -2884,10 +2909,10 @@ RectTransform:
   - {fileID: 22434894}
   m_Father: {fileID: 22406006}
   m_RootOrder: 3
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 225, y: -269.875}
+  m_SizeDelta: {x: 450, y: 64.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22423682
 RectTransform:
@@ -2954,10 +2979,10 @@ RectTransform:
   - {fileID: 22472648}
   m_Father: {fileID: 22406006}
   m_RootOrder: 4
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 225, y: -349.125}
+  m_SizeDelta: {x: 450, y: 64.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22432212
 RectTransform:
@@ -3042,7 +3067,7 @@ RectTransform:
   - {fileID: 22462012}
   - {fileID: 22452400}
   m_Father: {fileID: 22487970}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -1, y: -13}
@@ -3059,7 +3084,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 22487970}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -3097,10 +3122,10 @@ RectTransform:
   - {fileID: 22456016}
   m_Father: {fileID: 22406006}
   m_RootOrder: 1
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 225, y: -111.375}
+  m_SizeDelta: {x: 450, y: 64.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22455190
 RectTransform:
@@ -3115,7 +3140,7 @@ RectTransform:
   - {fileID: 22479388}
   - {fileID: 22404096}
   m_Father: {fileID: 22487970}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -1.000061, y: -13.000061}
@@ -3273,7 +3298,7 @@ RectTransform:
   - {fileID: 22442628}
   - {fileID: 22483260}
   m_Father: {fileID: 22487970}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -1, y: -13.0000305}
@@ -3379,10 +3404,10 @@ RectTransform:
   m_Children:
   - {fileID: 22423762}
   - {fileID: 22470596}
-  - {fileID: 22451572}
   - {fileID: 22455190}
   - {fileID: 22446068}
   - {fileID: 22470660}
+  - {fileID: 22451572}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
@@ -3403,10 +3428,10 @@ RectTransform:
   - {fileID: 22486738}
   m_Father: {fileID: 22406006}
   m_RootOrder: 2
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 225, y: -190.625}
+  m_SizeDelta: {x: 450, y: 64.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22492828
 RectTransform:
@@ -3438,10 +3463,10 @@ RectTransform:
   - {fileID: 22430424}
   m_Father: {fileID: 22406006}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 225, y: -32.125}
+  m_SizeDelta: {x: 450, y: 64.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22493670
 RectTransform:

@@ -12,8 +12,7 @@ public class StartOptions : MonoBehaviour {
     public int sceneToStart = 1;										//Index number in build settings of scene to load if changeScenes is true
 	public bool changeScenes;											//If true, load a new scene when Start is pressed, if false, fade out UI and continue in single scene
 	public bool changeMusicOnStart;										//Choose whether to continue playing menu music or start a new music clip
-	public int musicToChangeTo = 0;										//Array index in array MusicClips to change to if changeMusicOnStart is true.
-
+	public int musicToChangeTo = 0;                                     //Array index in array MusicClips to change to if changeMusicOnStart is true.
 
 	[HideInInspector] public bool inMainMenu = true;					//If true, pause button disabled in main menu (Cancel in input manager, default escape key)
 	[HideInInspector] public Animator animColorFade; 					//Reference to animator which will fade to and from black when starting game.
@@ -47,8 +46,9 @@ public class StartOptions : MonoBehaviour {
 		//Get a reference to PlayMusic attached to UI object
 		playMusic = GetComponent<PlayMusic> ();
 
-        
-	}
+        animColorFade.SetTrigger("appear");
+
+    }
     void Start()
     {
         GameObject.Find("OptionsMenu").SetActive(false);
@@ -70,7 +70,7 @@ public class StartOptions : MonoBehaviour {
 		{
             Time.timeScale = 1;
 			//Use invoke to delay calling of LoadDelayed by half the length of fadeColorAnimationClip
-			Invoke ("LoadDelayed", fadeColorAnimationClip.length * .5f);
+			Invoke ("LoadDelayed", fadeColorAnimationClip.length /* * .5f*/);
 
 			//Set the trigger of Animator animColorFade to start transition to the FadeToOpaque state.
 			animColorFade.SetTrigger ("fade");
