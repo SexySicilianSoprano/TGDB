@@ -25,8 +25,9 @@ public class CannonCombat : Combat {
     private Transform Spawner;
     private Vector3 SpawnerPos;
 
-    // SphereCollider with trigger to detect enemies
-    private SphereCollider DangerZone;
+    // SphereCollider with trigger to detect enemies private SphereCollider DangerZone
+    private SphereCollider DangerZone
+    { get { return transform.Find("DangerZone").GetComponent<SphereCollider>(); } }
 
     // List of targets and priorities
     private List<RTSEntity> targetList = new List<RTSEntity>(); // Normal priority
@@ -44,10 +45,7 @@ public class CannonCombat : Combat {
         Spawner = m_Parent.transform.GetChild(0);
         m_Movement = GetComponent<Movement>();
 
-        // Initialise DangerZone and set its size
-        DangerZone = transform.GetComponent<SphereCollider>();
-        DangerZone.radius = 50;
-    }
+}
 
     void FixedUpdate()
     {
@@ -60,7 +58,11 @@ public class CannonCombat : Combat {
         RefreshTargetLists(m_Target);
 
         // Behaviour query
-        if (TargetSet && m_Target == null)
+        if (!TargetSet && m_Parent.AttackingEnemy)
+        {
+            Attack(m_Parent.AttackingEnemy);
+        }
+        else if (TargetSet && m_Target == null)
         {
             // Target is set, but can't be found, so let's stop
             Stop();
@@ -119,10 +121,20 @@ public class CannonCombat : Combat {
         isAntiArmor = weapon.isAntiArmor;
         isAntiStructure = weapon.isAntiStructure;
         //Projectile = weapon.Projectile;
+        DangerZone.radius = weapon.Range;
     }
+
+    // Attack with command
+    public override void AttackCommand(RTSEntity obj)
+    {
+        m_FollowEnemy = true;
+        PutTopOfTargetList(obj);
+        Attack(obj);
+    }
+
     
-    // Attack command
-    public override void Attack(RTSEntity obj)
+    // Attack without command
+    public void Attack(RTSEntity obj)
     {
         // Set target
         m_Target = obj;
@@ -237,10 +249,10 @@ public class CannonCombat : Combat {
     // Checks if target is in line of fires
     private bool TargetInLine()
     {
-        // Raycastin' yo
-        RaycastHit hit;
         Ray ray = new Ray(Spawner.transform.position, Spawner.transform.forward);
-        if (Physics.Raycast(ray, out hit))
+        // Raycastin' yo
+        RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Infinity);
+        foreach (RaycastHit hit in hits)
         {
             // Did we hit the target's box collider?
             if (hit.collider == m_Target.GetComponent<BoxCollider>())
@@ -248,26 +260,25 @@ public class CannonCombat : Combat {
                 // Yup, target on sights
                 return true;
             }
-            else
-            {
-                // Apparently not
-                return false;
-            }
         }
-        else
-        {           
-            // We're not hitting anything, so let's try again 
-            return false;
-        }
+
+        // We're not hitting anything, try again
+        return false;
     }
 
     // Checks for enemies within range
-    private void OnTriggerStay(Collider collider)
+    private void OnTriggerEnter(Collider collider)
     {
+        // Ignore danger zones
+        if (collider == GetComponent<SphereCollider>())
+        {
+            Physics.IgnoreCollision(collider, GetComponent<SphereCollider>());
+        }
+
         GameObject target = collider.gameObject;
 
         // Is it a unit or a building?
-        if (target.GetComponent<RTSEntity>() && target.tag != m_Parent.tag)
+        if (!collider.isTrigger && target.GetComponent<RTSEntity>() && target.tag != m_Parent.tag)
         {
             RTSEntity m_ent = target.GetComponent<RTSEntity>();
 
@@ -279,7 +290,7 @@ public class CannonCombat : Combat {
                 {
                     // Yeah, just a building. Put on low prio list
                     targetList.Add(m_ent);
-                    
+
                 }
                 // Is it a unit?
                 if (target.GetComponent<Unit>())
@@ -289,27 +300,37 @@ public class CannonCombat : Combat {
                 }
             }
         }
+        
     }
 
     // What happens when an unit exits the DangerZone
     private void OnTriggerExit(Collider collider)
     {
-        GameObject target = collider.gameObject;
-
-        if (target.GetComponent<RTSEntity>() && target.tag != m_Parent.tag)
+        // Ignore enemy dangerzones
+        if (collider == GetComponent<SphereCollider>())
         {
-            RTSEntity m_ent = target.GetComponent<RTSEntity>();
+            Physics.IgnoreCollision(collider, GetComponent<SphereCollider>());
+        }
 
-            // Is the unit a target or a true target?
-            if (targetList.Contains(m_ent))
+        GameObject target = collider.gameObject;
+        
+        if (collider == GetComponent<BoxCollider>())
+        {
+            if (target.GetComponent<RTSEntity>() && target.tag != m_Parent.tag)
             {
-                // Delete the exiting unit from target list
-                RefreshTargetLists(m_ent);
-            }
-            else if (trueTargetList.Contains(m_ent))
-            {
-                // Delete the exiting unit from true target list
-                RefreshTargetLists(m_ent);
+                RTSEntity m_ent = target.GetComponent<RTSEntity>();
+
+                // Is the unit a target or a true target?
+                if (targetList.Contains(m_ent))
+                {
+                    // Delete the exiting unit from target list
+                    RefreshTargetLists(m_ent);
+                }
+                else if (trueTargetList.Contains(m_ent))
+                {
+                    // Delete the exiting unit from true target list
+                    RefreshTargetLists(m_ent);
+                }
             }
         }
     }
@@ -449,13 +470,17 @@ public class CannonCombat : Combat {
         switch (mode)
         {
             case CombatMode.Passive:
+                m_FollowEnemy = false;
+                m_FireAtEnemy = false;
                 break;
 
             case CombatMode.Aggressive:
+                m_FollowEnemy = true;
+                m_FireAtEnemy = true;
                 break;
 
             case CombatMode.Defensive:
-                m_FollowEnemy = true;
+                m_FollowEnemy = false;
                 m_FireAtEnemy = true;
                 break;
 

@@ -123,7 +123,7 @@ public class UIManager : MonoBehaviour, IUIManager {
     {
         CheckHoverOver();
         SelectionListener();
-        //Debug.Log(hoverOver + " " + interactionState);
+        Debug.Log(hoverOver + " " + interactionState);
         //Debug.Log(m_Identifier + " " + hoverOver);
 
         switch (m_Mode)
@@ -447,7 +447,7 @@ public class UIManager : MonoBehaviour, IUIManager {
     // Calculates interaction state by hoverover and identifier, used when units are selected
     private void CalculateInteraction(IOrderable obj, HoverOver hoveringOver, Identifier identifier, ref InteractionState interactionState)
     { 
-        /*
+        
         if (obj.IsAttackable())
         {
             if (identifier == Identifier.Enemy)
@@ -490,7 +490,16 @@ public class UIManager : MonoBehaviour, IUIManager {
                 interactionState = InteractionState.Move;
                 return;
             }
-        }*/
+        }
+
+        if (obj.IsGatherable())
+        {
+            if (hoverOver == HoverOver.Mine)
+            {
+                interactionState = InteractionState.Gather;
+                return;
+            }
+        }
         /*
         
         if (identifier == Identifier.Friend)
@@ -513,7 +522,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         {
             interactionState = InteractionState.Attack;
         }
-        */
+        
 
         if (identifier == Identifier.Friend)
         {
@@ -537,7 +546,7 @@ public class UIManager : MonoBehaviour, IUIManager {
                 interactionState = InteractionState.Move;
                 return;
             }
-        }
+        } */
 
         //Invalid interaction
         interactionState = InteractionState.Invalid;

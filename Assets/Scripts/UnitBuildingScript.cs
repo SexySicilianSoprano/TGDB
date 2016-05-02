@@ -244,8 +244,6 @@ public class UnitBuildingScript : MonoBehaviour {
             }
         }
 
-        Debug.Log("Timer cost: " + moneySpent);
-
         m_Manager.RemoveResource(moneySpentThisTick);
         return newtimer;
     }

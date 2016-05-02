@@ -21,7 +21,7 @@ public abstract class Combat : MonoBehaviour{
 
     public abstract void AssignDetails(Weapon weapon);
 
-    public abstract void Attack(RTSEntity obj);
+    public abstract void AttackCommand(RTSEntity obj);
 
     public abstract void Stop();
 

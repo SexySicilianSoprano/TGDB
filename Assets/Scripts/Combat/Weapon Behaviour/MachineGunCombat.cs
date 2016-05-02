@@ -152,9 +152,16 @@ public class MachineGunCombat : Combat {
         isAntiStructure = weapon.isAntiStructure;
         //Projectile = weapon.Projectile;
     }
-    
+
+    // Attack with command
+    public override void AttackCommand(RTSEntity obj)
+    {
+        m_FollowEnemy = true;
+        Attack(obj);
+    }
+
     // Attack command
-    public override void Attack(RTSEntity obj)
+    public void Attack(RTSEntity obj)
     {
         // Set target
         m_Target = obj;

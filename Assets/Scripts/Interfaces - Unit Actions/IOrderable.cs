@@ -7,6 +7,7 @@ public interface IOrderable {
 	bool IsAttackable();
 	bool IsMoveable();
 	bool IsInteractable();
+    bool IsGatherable();
 	
 	void GiveOrder(Order order);
 	

@@ -112,7 +112,14 @@ public class LauncherCombat : Combat
         //Projectile = weapon.Projectile;
     }
 
-    public override void Attack(RTSEntity obj)
+    // Attack with command
+    public override void AttackCommand(RTSEntity obj)
+    {
+        m_FollowEnemy = true;
+        Attack(obj);
+    }
+
+    public void Attack(RTSEntity obj)
     {
         m_Target = obj;
         TargetSet = true;
