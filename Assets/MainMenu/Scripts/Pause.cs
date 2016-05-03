@@ -27,7 +27,7 @@ public class Pause : MonoBehaviour {
 			DoPause();
 		} 
 		//If the button is pressed and the game is paused and not in main menu
-		else if (Input.GetButtonDown ("Cancel") /* && isPaused && !startScript.inMainMenu*/) 
+		else if (Input.GetButtonDown ("Cancel") && isPaused /*&& !startScript.inMainMenu*/) 
 		{
 			//Call the UnPause function to unpause the game
 			UnPause ();
