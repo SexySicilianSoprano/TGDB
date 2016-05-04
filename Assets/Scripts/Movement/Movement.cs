@@ -10,6 +10,8 @@ public abstract class Movement : MonoBehaviour{
 
     public float Speed { get; protected set; }
 	public float CurrentSpeed { get; protected set; }
+
+    public abstract bool onTheMove { get; }
     
 	public abstract void MoveTo (Vector3 location);
 

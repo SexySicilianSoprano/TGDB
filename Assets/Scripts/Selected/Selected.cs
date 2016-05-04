@@ -100,8 +100,12 @@ public class Selected : MonoBehaviour {
 		IsSelected = false;
 		m_JustBeenSelected = false;
         projector.enabled = false;
-        GetComponent<BoatMovement>().AffectedByCurrent = true;
         hpbar.HideHealthBar();
+
+        if (GetComponent<Combat>() && !GetComponent<Combat>().isInCombat)
+        {
+            GetComponent<BoatMovement>().AffectedByCurrent = true;
+        }
 	}
 	
 	public void AssignGroupNumber(int number)

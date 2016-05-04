@@ -20,7 +20,16 @@ public class LauncherCombat : Combat
     private bool TargetSet = false;
     private bool canFire = true;
     private bool m_FollowEnemy = true;
-    private bool m_FireAtEnemy = false;
+    private bool m_FireAtEnemy = false; 
+    
+    // Call this outside combat script to see if the unit is currently in combat
+    public override bool isInCombat
+    {
+        get
+        {
+            return TargetSet;
+        }
+    }
 
     // Rate of fire
     private float m_FireRate;

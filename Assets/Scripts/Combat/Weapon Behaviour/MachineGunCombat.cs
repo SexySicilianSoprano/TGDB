@@ -12,7 +12,16 @@ public class MachineGunCombat : Combat {
     private bool canFire = true; // Are we able to fire?
     private bool m_FollowEnemy = false; // Do we follow a fleeing enemy?
     private bool m_FireAtEnemy = false; // Do we fire at an enemy without command?
-    private bool isFollowing = false;
+    private bool isFollowing = false; 
+    
+    // Call this outside combat script to see if the unit is currently in combat
+    public override bool isInCombat
+    {
+        get
+        {
+            return TargetSet;
+        }
+    }
 
     // Rate of fire
     private float m_FireRate;
