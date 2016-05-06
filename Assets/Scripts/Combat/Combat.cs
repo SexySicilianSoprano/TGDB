@@ -14,6 +14,7 @@ public abstract class Combat : MonoBehaviour{
     public bool isRanged;
     public bool isAntiArmor;
     public bool isAntiStructure;
+    public abstract bool isInCombat { get; }
 
     public abstract Vector3 CurrentLocation { get; }
     
@@ -21,7 +22,7 @@ public abstract class Combat : MonoBehaviour{
 
     public abstract void AssignDetails(Weapon weapon);
 
-    public abstract void Attack(RTSEntity obj);
+    public abstract void AttackCommand(RTSEntity obj);
 
     public abstract void Stop();
 

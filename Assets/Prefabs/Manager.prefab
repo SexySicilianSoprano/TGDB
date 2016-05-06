@@ -16,6 +16,7 @@ GameObject:
   - 114: {fileID: 11441268}
   - 114: {fileID: 11468062}
   - 114: {fileID: 11410026}
+  - 114: {fileID: 11485030}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -61,10 +62,10 @@ MonoBehaviour:
   m_primaryPlayer: 
   m_enemyPlayer: 
   earnedExperience: 0
-  DefeatedBuildings: []
-  DefeatedUnits: []
-  LostBuildings: []
-  LostUnits: []
+  defeatedBuildings: []
+  defeatedUnits: []
+  lostBuildings: []
+  lostUnits: []
 --- !u!114 &11436976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -93,6 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitBuildingList:
   - {fileID: 129830, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
+  - {fileID: 140202, guid: dcdc4daf6d8155c46978c2a441cd5587, type: 2}
   maxQueuedUnits: 10
   unitBuildingQueue: []
   navalYard: {fileID: 0}
@@ -106,6 +108,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ddf94857604622428089b7660560fce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11485030
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9df842f5142dfaa4ebb6aa7917b8efea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &11487132
@@ -128,6 +141,7 @@ MonoBehaviour:
     m_Bits: 33024
   textures:
   - {fileID: 0}
+  bsHandler: {fileID: 0}
 --- !u!114 &11493042
 MonoBehaviour:
   m_ObjectHideFlags: 1

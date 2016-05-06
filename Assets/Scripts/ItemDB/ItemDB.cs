@@ -58,8 +58,8 @@ public static class ItemDB {
         Health = 100.0f,
         Armour = 3.0f,
         Speed = 20.0f,
-        RotationSpeed = 1.5f,
-        Acceleration = 1.0f,
+        RotationSpeed = 2.5f,
+        Acceleration = 3.0f,
         Explosion = Resources.Load("Effects/Prefabs/Explosion_3", typeof(GameObject)) as GameObject,
         Prefab = Resources.Load("Models/Units/SteamHouse/FishingBoat/FishingBoat", typeof(GameObject)) as GameObject,
         ItemImage = Resources.Load("Item Images/SteamHouse/FishingBoat_Icon", typeof(Sprite)) as Sprite,
@@ -125,7 +125,7 @@ public static class ItemDB {
 		SortOrder = 0,
 		RequiredBuildings = new int[] { 0 },
 		Cost = 700,
-		BuildTime = 5.0f,
+		BuildTime = 10.0f,
 		ObjectType = typeof(NavalYard),
 	};
 

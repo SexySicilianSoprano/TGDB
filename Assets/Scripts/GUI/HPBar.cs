@@ -45,6 +45,7 @@ public class HPBar : MonoBehaviour {
 
         RectTransform panelRectTransform = newHealthBar.GetComponent<RectTransform>();
 
+        HideHealthBar();
         /*SizeDif = MyCamera.zoomMinLimit / MyCamera.;
 
         panelRectTransform.sizeDelta =  panelRectTransform.sizeDelta.y);*/
@@ -65,14 +66,11 @@ public class HPBar : MonoBehaviour {
         max_health = GetComponent<RTSEntity>().m_MaxHealth;
         cur_health = GetComponent<RTSEntity>().m_Health;
 
-        if (GetComponent<Building>()) 
+        if (GetComponent<Turret>())
         {
-            bar.gameObject.SetActive(false);
-            healthBar.gameObject.SetActive(false);
-            if (GetComponent<RTSEntity>().m_Health < GetComponent<RTSEntity>().m_MaxHealth)
+            if (cur_health < max_health)
             {
-                bar.gameObject.SetActive(true);
-                healthBar.gameObject.SetActive(true);
+                ShowHealthBar();
             }
         }
     }
@@ -85,14 +83,24 @@ public class HPBar : MonoBehaviour {
         Destroy(selectedBar);
     }
 
-	/*void decreaseHealth () {
-        cur_health -= 5f;
-        float calc_health = cur_health / max_health;
-        SetHealth(calc_health);
-	}
-
-    void SetHealth (float myHealth)
+    // Show health bar
+    public void ShowHealthBar()
     {
-        bar.fillAmount = myHealth;
-    }*/
+        if (bar)
+            bar.gameObject.SetActive(true);
+
+        if (healthBar)
+            healthBar.gameObject.SetActive(true);
+    }
+
+    // Hide healt bar
+    public void HideHealthBar()
+    {
+        if (bar)
+            bar.gameObject.SetActive(false);
+
+        if (healthBar)
+            healthBar.gameObject.SetActive(false);
+    }
+    
 }

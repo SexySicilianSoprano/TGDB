@@ -22,6 +22,15 @@ public class TurretCombat : Combat {
     private bool canFire = true; // Are we able to fire?
     private bool m_FollowEnemy = false; // Do we follow a fleeing enemy?
     private bool m_FireAtEnemy = false; // Do we fire at an enemy without command?
+                                        
+    // Call this outside combat script to see if the unit is currently in combat
+    public override bool isInCombat
+    {
+        get
+        {
+            return TargetSet;
+        }
+    }
 
     // Rate of fire
     private float m_FireRate;
@@ -35,8 +44,11 @@ public class TurretCombat : Combat {
     private Vector3 SpawnerPos;
 
     // SphereCollider with trigger to detect enemies
-    private SphereCollider DangerZone;
-    
+    private SphereCollider DangerZone
+    { get { return GetComponent<SphereCollider>(); } }
+    private Projector DangerZoneProjector
+    { get { return transform.Find("Projector").GetComponent<Projector>(); } }
+
     // List of targets and priorities
     private List<RTSEntity> targetList = new List<RTSEntity>(); // Normal priority
     private List<RTSEntity> trueTargetList = new List<RTSEntity>(); // High priority
@@ -50,8 +62,6 @@ public class TurretCombat : Combat {
         Spawner = m_Parent.transform.GetChild(0);
 
         // Initialise DangerZone and set its size
-        DangerZone = transform.GetComponent<SphereCollider>();
-        DangerZone.radius = 100;
     }
 
     void FixedUpdate()
@@ -67,12 +77,12 @@ public class TurretCombat : Combat {
         // Is there a unit listed on top priority list?
         if (trueTargetList.Count > 0)
         {
-            Attack(trueTargetList[0]);
+            AttackCommand(trueTargetList[0]);
         }
         // If not, is there a unit listed on normal priority list?
         else if (targetList.Count > 0)
         {            
-            Attack(targetList[0]);
+            AttackCommand(targetList[0]);
         }
         else
         {
@@ -108,10 +118,12 @@ public class TurretCombat : Combat {
         isAntiArmor = weapon.isAntiArmor;
         isAntiStructure = weapon.isAntiStructure;
         //Projectile = weapon.Projectile;
+        DangerZone.radius = weapon.Range;
+        DangerZoneProjector.orthographicSize = weapon.Range / 1.7f;
     }
        
     // Attack command
-    public override void Attack(RTSEntity obj)
+    public override void AttackCommand(RTSEntity obj)
     {
         // Set target
         m_Target = obj;
@@ -205,40 +217,40 @@ public class TurretCombat : Combat {
     // Checks if target is in line of fires
     private bool TargetInLine()
     {
-        // Let's create a new vector3 from spawner position that is just above the ground, so it may touch the ground units
         Vector3 m_SpawnPos = new Vector3(SpawnerPos.x, 2f, SpawnerPos.z);
-
-        // Then let's raycast
-        RaycastHit hit;
         Ray ray = new Ray(m_SpawnPos, Spawner.transform.forward);
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        // Raycastin' yo
+        RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Infinity);
+        foreach (RaycastHit hit in hits)
         {
-            // Is it the target's box collider?
+            // Did we hit the target's box collider?
             if (hit.collider == m_Target.GetComponent<BoxCollider>())
             {
-                // Yeah, we're facing the target
+                // Yup, target on sights
                 return true;
             }
             else
             {
-                // Nope, still can't do
+                // Apparently not
                 return false;
             }
         }
-        else
-        {
-            // We're not hitting anything, so let's try again
-            return false;
-        }
+
+        // We're not hitting anything, try again
+        return false;
     }
 
     // Checks for enemies within range
     private void OnTriggerStay(Collider collider)
     {
-        GameObject target = collider.gameObject;
+        if (collider == GetComponent<SphereCollider>())
+        {
+            Physics.IgnoreCollision(collider, GetComponent<SphereCollider>());
+        }
 
+        GameObject target = collider.gameObject;
         // Is it a unit or a building?
-        if (target.GetComponent<RTSEntity>() && target.tag == "Player1")
+        if (!collider.isTrigger && target.GetComponent<RTSEntity>() && target.tag != m_Parent.tag)
         {
             RTSEntity m_ent = target.GetComponent<RTSEntity>();
 
@@ -275,10 +287,15 @@ public class TurretCombat : Combat {
 
     // What happens when an unit exits the DangerZone
     private void OnTriggerExit(Collider collider)
-    {
+    {        
+        if (collider == GetComponent<SphereCollider>())
+        {
+            Physics.IgnoreCollision(collider, GetComponent<SphereCollider>());
+        }
+
         GameObject target = collider.gameObject;
 
-        if (target.GetComponent<RTSEntity>() && target.tag == "Player1")
+        if (collider == GetComponent<BoxCollider>() && target.GetComponent<RTSEntity>() && target.tag != m_Parent.tag)
         {
             RTSEntity m_ent = target.GetComponent<RTSEntity>();
 
@@ -293,7 +310,7 @@ public class TurretCombat : Combat {
                 // Delete the exiting unit from true target list
                 RefreshTargetLists(m_ent);
             }
-        }
+        }        
     }
         
     // Updates the top priority list and puts the parameter unit on top

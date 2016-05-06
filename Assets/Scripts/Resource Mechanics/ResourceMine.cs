@@ -39,6 +39,7 @@ public class ResourceMine : MonoBehaviour {
         }
         else
         {
+            Destroy(gameObject);
             return 0;
         }
     }
