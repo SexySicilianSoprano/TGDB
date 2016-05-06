@@ -114,4 +114,8 @@ public class ShowCanvas : MonoBehaviour {
         } */
     }
 
+    public void ToggleCanvas()
+    {
+        gameObject.SetActive(!gameObject.activeSelf);
+    }
 }
