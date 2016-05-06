@@ -54,7 +54,7 @@ public static class ItemDB {
         ID = 2,
         TypeIdentifier = Const.TYPE_Ship,
         TeamIdentifier = Const.TEAM_STEAMHOUSE,
-        Name = "FishingBoat",
+        Name = "Fishing Boat",
         Health = 100.0f,
         Armour = 3.0f,
         Speed = 20.0f,
@@ -125,7 +125,7 @@ public static class ItemDB {
 		SortOrder = 0,
 		RequiredBuildings = new int[] { 0 },
 		Cost = 700,
-		BuildTime = 10.0f,
+		BuildTime = 3.0f,
 		ObjectType = typeof(NavalYard),
 	};
 

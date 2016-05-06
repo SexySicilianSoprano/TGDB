@@ -17,13 +17,7 @@ public class CannonCombat : Combat {
     private bool movementOrderGiven { get { return m_Movement.onTheMove; } } // Is movement order given?
  
     // Call this outside combat script to see if the unit is currently in combat
-    public override bool isInCombat
-    {
-        get
-        {
-            return TargetSet;
-        }
-    }
+    public override bool isInCombat { get { return TargetSet; } }
 
     // Rate of fire
     private float m_FireRate;
@@ -68,6 +62,11 @@ public class CannonCombat : Combat {
         RefreshTargetLists(m_Target);
 
         // Behaviour query
+        if (m_Target && TargetInRange())
+        {            
+            m_Movement.Stop();
+        }
+
         if (!TargetSet && m_Parent.AttackingEnemy)
         {
             Attack(m_Parent.AttackingEnemy);

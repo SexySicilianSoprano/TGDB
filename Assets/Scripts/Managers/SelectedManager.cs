@@ -24,9 +24,23 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
     // Specific selected variables
     private RTSEntity selectedBuilding;
 
+    // Sound Manager accessor
+    private SoundManager m_SoundManager
+    {
+        get
+        {
+            return GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        }
+    }
+
     void Awake()
     {
         main = this;
+    }
+
+    void Update()
+    {
+
     }
 
     // ### Selection functions ###
@@ -187,7 +201,7 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
         {
             //Do nothing
             //...
-            //AHUHUHUHUHU~
+            //Ahuhuhuhu~
         }
     }
 
@@ -381,6 +395,19 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
         foreach (IOrderable orderable in SelectedActiveEntities)
         {
             orderable.GiveOrder(order);
+        }
+
+        switch (order.Name)
+        {
+            case "Stop":
+            case "Move":
+            case "Deploy":
+            case "Gather":
+                m_SoundManager.PlayCommandSound(l_Selected[0], l_Selected[0].transform.position);
+                break;
+            case "Attack":
+                m_SoundManager.PlayAttackSound(l_Selected[0], l_Selected[0].transform.position);
+                break;
         }
     }
 

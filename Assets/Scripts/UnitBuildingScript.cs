@@ -4,20 +4,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
+/// <summary>
+/// 
+/// This script is placed in Manager gameobject and its purpose is to create
+/// new units for the player.
+/// 
+/// Original version written by Armi of The Great Deep Blue and further (a lot actually) edited and developed by yours truly.
+/// 
+/// - Karl Sartorisio
+/// The Great Deep blue
+/// 
+/// </summary>
+
 public class UnitBuildingScript : MonoBehaviour {
 
-	public GameObject[] unitBuildingList;
+	public List<GameObject> unitBuildingList;
 	public int maxQueuedUnits = 10;
 	public List<GameObject> unitBuildingQueue;
 	private bool isAlreadyBuilding;
     private bool navalYardIsSet;
     private bool spawnPointFound;
     private bool unitReady;
-    private bool onHold = false;
+    public bool onHold = false;
     public GameObject navalYard;
     public List<GameObject> spawnPointList = new List<GameObject>();
     private GameObject spawnPoint;
+    public Transform unitPanel;
 
+    // Building variables
+    private cooldownfill buildCounter;
     private GameObject unitInBuilding;
     private float unitCost;
     private float unitBuildTime;
@@ -26,48 +41,84 @@ public class UnitBuildingScript : MonoBehaviour {
     private float timerDelta;
 
     private Manager m_Manager { get { return GetComponent<Manager>(); } }
-
-    // Use this for initialization
-    void Start ()
-    {
-
-    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (unitBuildingQueue.Count > 0)
-        {
-            if (!onHold)
-            {
-                if (isAlreadyBuilding == false)
-                {
-                    StartBuilding();
-                }
-                else
-                {
-                    if (CheckFunds())
-                    {
-                        timer = SpendResourceAndBuild(timer, unitCost);
+        // Check for Naval Yard
+        CheckNavalYard();
 
-                        if (timer == 0)
+        // Do we have one?
+        if (navalYard)
+        {
+            // Activate buttons
+            ToggleButtonsActive();
+
+            // Do we have units in build queue?
+            if (unitBuildingQueue.Count > 0)
+            {
+                // Building is not on hold?
+                if (!onHold)
+                {
+                    // Are we building already?
+                    if (isAlreadyBuilding == false)
+                    {
+                        // Nope, so start building
+                        StartBuilding();
+                    }
+                    else
+                    {
+                        // Check for funds
+                        if (CheckFunds())
                         {
-                            StartCoroutine(WaitAndBuild(unitInBuilding));
-                            isAlreadyBuilding = false;
+                            // Advance timer and spend cash
+                            timer = SpendResourceAndBuild(timer, unitCost);
+
+                            if (timer == 0)
+                            {
+                                // Spawn unit and stop building process
+                                StartCoroutine(WaitAndBuild(unitInBuilding));
+                                isAlreadyBuilding = false;
+                            }
                         }
                     }
                 }
             }
-		}
+            // Can't find a spawn spot
+            if (!FindSpawnSpot())
+            {
+                // Try again then, jesus
+                FindSpawnSpot();
+            }
 
-        if (!FindSpawnSpot())
-        {
-            FindSpawnSpot();
+            // Update queue text numbers on GUI
+            UpdateQueueText();
         }
-
-        UpdateQueueText();
+        else
+        {
+            // Keep buttons disabled until the program finds a naval yard
+            ToggleButtonsDisabled();
+        }
 	}
 
+    // Toggle buttons disabled --- TO BE REWORKED
+    private void ToggleButtonsDisabled()
+    {
+        GameObject buttonMenu = GameObject.Find("UI").transform.Find("SideMenu").transform.Find("UnitPanel").gameObject;
+        buttonMenu.transform.Find("DestroyerBtn").GetComponent<Button>().interactable = false;
+        buttonMenu.transform.Find("FishingBoatBtn").GetComponent<Button>().interactable = false;
+        //buttonMenu.transform.Find("ScoutBtn").GetComponent<Button>().interactable = false;
+    }
+
+    // Toggle buttons active --- TO BE REWORDED
+    private void ToggleButtonsActive()
+    {
+        GameObject buttonMenu = GameObject.Find("UI").transform.Find("SideMenu").transform.Find("UnitPanel").gameObject;
+        buttonMenu.transform.Find("DestroyerBtn").GetComponent<Button>().interactable = true;
+        buttonMenu.transform.Find("FishingBoatBtn").GetComponent<Button>().interactable = true;
+    }
+
+    // Toggle On Hold
     public void ToggleOnHold()
     {
         if (onHold)
@@ -80,6 +131,7 @@ public class UnitBuildingScript : MonoBehaviour {
         }
     }
 
+    // Call this from a button
 	public void BuildNewUnit(int unit)
     {
         CheckNavalYard();
@@ -90,11 +142,12 @@ public class UnitBuildingScript : MonoBehaviour {
         }
 	}
 
+    // Get a Naval Yard to spawn from
     public bool CheckNavalYard()
     {
         if (!navalYardIsSet)
         {
-            navalYard = GameObject.Find("NavalYard");
+            navalYard = GameObject.Find("Naval Yard");
             if (navalYard)
             {
                 Debug.Log("Set naval yardo");
@@ -106,7 +159,7 @@ public class UnitBuildingScript : MonoBehaviour {
                 return false;
             }
         }
-        else if (navalYardIsSet && GameObject.Find("NavalYard"))
+        else if (navalYardIsSet && GameObject.Find("Naval Yard"))
         {
             return true;
         }
@@ -117,6 +170,7 @@ public class UnitBuildingScript : MonoBehaviour {
         }
 	}
 
+    // Set spawning spots
     private void SetSpawnSpots()
     {
         spawnPointList.Add(navalYard.transform.GetChild(0).gameObject);
@@ -125,6 +179,7 @@ public class UnitBuildingScript : MonoBehaviour {
         spawnPointList.Add(navalYard.transform.GetChild(3).gameObject);
     }
 
+    // Find a spawning spot
     private GameObject FindSpawnSpot()
     {
         foreach (GameObject spot in spawnPointList)
@@ -139,6 +194,7 @@ public class UnitBuildingScript : MonoBehaviour {
         return null;
     }
 
+    // Check funds
 	public bool CheckFunds()
     {
         if (m_Manager.Resources >= 0)
@@ -151,8 +207,10 @@ public class UnitBuildingScript : MonoBehaviour {
         }
 	}
 
+    // Start building the first unit in queue
 	public void StartBuilding()
     {
+        // Pick the first one in queue and get its data
         unitInBuilding = unitBuildingQueue[0];
         Item unitItem = ItemDB.AllItems.Find(x => x.Name.Equals(unitInBuilding.name));
 
@@ -160,16 +218,17 @@ public class UnitBuildingScript : MonoBehaviour {
         unitBuildTime = unitItem.BuildTime;
         timer = unitBuildTime;
 
+        // Get the respective button cooldownfill
+        int unitIndex = unitBuildingList.FindIndex(x => x.name.Equals(unitItem.Name));
+        buildCounter = GetCoolDownFill(unitIndex);
+
         if (isAlreadyBuilding == false)
         {
-            //if (CheckFunds(unitItem.Cost))
-            //{
-                //m_Manager.RemoveResource(unitItem.Cost);
-                isAlreadyBuilding = true;
-            //}
+            isAlreadyBuilding = true;
         }
 	}
 
+    // Spawn the unit. No longer actually waits for anything, just didn't bother to change its name or type
     IEnumerator WaitAndBuild(GameObject unit)
     {
         //yield return new WaitForSeconds(seconds);
@@ -193,8 +252,11 @@ public class UnitBuildingScript : MonoBehaviour {
 
             // Instantiate
             Instantiate(unit, spawnPos, spawnRot);
-            //Instantiate(unit, navalYard.transform.GetChild(0).gameObject.transform.position, Quaternion.identity);
+
+            // Clear temporary data
             unitBuildingQueue.RemoveAt(0);
+            buildCounter.ClearFill();
+            buildCounter = null;
             isAlreadyBuilding = false;
             timer = 0;
             unitCost = 0;
@@ -208,6 +270,7 @@ public class UnitBuildingScript : MonoBehaviour {
         }
 	}
     
+    // Calculate a certain amount of resource spent in the time between last and current tick
     private float SpendResourceAndBuild(float seconds, float cost)
     {
         float newtimer = seconds;
@@ -244,6 +307,7 @@ public class UnitBuildingScript : MonoBehaviour {
             }
         }
 
+        buildCounter.SetCoolDownFill(unitBuildTime, timer);
         m_Manager.RemoveResource(moneySpentThisTick);
         return newtimer;
     }
@@ -277,17 +341,144 @@ public class UnitBuildingScript : MonoBehaviour {
         return newtimer;
     } */
 
+    // Updates queue number text
     private void UpdateQueueText()
     {
+        // Unit menu in UI
+        GameObject buttonMenu = GameObject.Find("UI").transform.Find("SideMenu").transform.Find("UnitPanel").gameObject;
+
+        // Counters for respective boats in queue
+        int destroyers = 0;
+        int fishingboats = 0;
+        int scouts = 0;
+        int dreadnoughts = 0;
+
         if (unitBuildingQueue.Count > 0)
         {
-            Text text = GameObject.Find("UI").transform.Find("SideMenu").transform.Find("UnitPanel").transform.Find("DestroyerBtn").transform.Find("Text (1)").GetComponent<Text>();
-            text.text = unitBuildingQueue.Count.ToString();
+            // Add each unit to their respective counters
+            foreach (GameObject unit in unitBuildingQueue)
+            {
+                switch (unit.name)
+                {
+                    case "Destroyer":
+                        destroyers++;
+                        break;
+                    case "Fishing Boat":
+                        fishingboats++;
+                        break;
+                    case "Scout":
+                        scouts++;
+                        break;
+                    case "Dreadnought":
+                        dreadnoughts++;
+                        break;
+                }
+            }
+
+            // Text accessors
+            Text text = unitPanel.Find("DestroyerBtn").transform.Find("Text").GetComponent<Text>();
+            Text text1 = unitPanel.Find("FishingBoatBtn").transform.Find("Text").GetComponent<Text>();
+            Text text2 = unitPanel.Find("ScoutBtn").transform.Find("Text").GetComponent<Text>();
+            Text text3 = unitPanel.Find("DreadnoughtBtn").transform.Find("Text").GetComponent<Text>();
+
+            // Return counters
+            if (destroyers > 0)
+            {
+                text.text = destroyers.ToString("");
+            }
+            else
+            {
+                text.text = "";
+            }
+
+            if (fishingboats > 0)
+            {
+                text1.text = fishingboats.ToString("");
+            }
+            else
+            {
+                text1.text = "";
+            }
+
+            if (scouts > 0)
+            {
+                text2.text = scouts.ToString("");
+            }
+            else
+            {
+                text2.text = "";
+            }
+
+            if (dreadnoughts > 0)
+            {
+                text3.text = dreadnoughts.ToString("");
+            }
+            else
+            {
+                text3.text = "";
+            }
+            
         }
         else
         {
-            Text text = GameObject.Find("UI").transform.Find("SideMenu").transform.Find("UnitPanel").transform.Find("DestroyerBtn").transform.Find("Text (1)").GetComponent<Text>();
+            // Nothing in queue, return blank
+            Text text = unitPanel.Find("DestroyerBtn").transform.Find("Text").GetComponent<Text>();
             text.text = "";
+
+            Text text1 = unitPanel.Find("FishingBoatBtn").transform.Find("Text").GetComponent<Text>();
+            text1.text = "";
+
+            Text text2 = unitPanel.Find("ScoutBtn").transform.Find("Text").GetComponent<Text>();
+            text2.text = "";
+
+            Text text3 = unitPanel.Find("DreadnoughtBtn").transform.Find("Text").GetComponent<Text>();
+            text3.text = "";
+        }
+    }
+
+    // Find the correct button cooldownfill
+    private cooldownfill GetCoolDownFill(int index)
+    {
+        // Cooldownfill for visual build counter
+        cooldownfill fill = new cooldownfill();
+
+        // Unit menu in UI
+        GameObject buttonMenu = GameObject.Find("UI").transform.Find("SideMenu").transform.Find("UnitPanel").gameObject;
+
+        switch (index)
+        {
+            case 0:
+                fill = buttonMenu.transform.Find("DestroyerBtn").transform.Find("Cooldown").GetComponent<cooldownfill>();
+                break;
+            case 1:
+                fill = buttonMenu.transform.Find("FishingBoatBtn").transform.Find("Cooldown").GetComponent<cooldownfill>();
+                break;
+            case 2:
+                fill = buttonMenu.transform.Find("ScoutBtn").transform.Find("Cooldown").GetComponent<cooldownfill>();
+                break;
+            case 3:
+                fill = buttonMenu.transform.Find("DreadnoughtBtn").transform.Find("Cooldown").GetComponent<cooldownfill>();
+                break;
+        }
+
+        return fill;
+    }
+
+    // Deletes last in queue and finally all temp data if queue hits zero
+    public void DeleteLastInQueue()
+    {
+        unitBuildingQueue.RemoveAt(unitBuildingQueue.Count - 1);
+
+        if (unitBuildingQueue.Count == 0)
+        {
+            buildCounter.ClearFill();
+            buildCounter = null;
+            isAlreadyBuilding = false;
+            timer = 0;
+            unitCost = 0;
+            moneySpent = 0;
+            unitInBuilding = null;
+            onHold = false;
         }
     }
 }

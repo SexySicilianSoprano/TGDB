@@ -123,22 +123,24 @@ public class BoatMovement : SeaMovement {
                 }
             }
 
-            // If we've reached our destination or close enough, close in before moving
-            if (currentWaypoint == Path.vectorPath.Count - 1 || Vector3.Distance(m_Parent.transform.position, targetPosition) < 5)
+             // If we've reached our destination or close enough, close in before moving
+            if (currentWaypoint == Path.vectorPath.Count - 1 || Vector3.Distance(m_Parent.transform.position, targetPosition) < 7)
             {
                 m_OnMyWay = false;
                 CloseIn(dir);
 
-                if (Vector3.Distance(m_Parent.transform.position, targetPosition) < 1)
+                if (Vector3.Distance(m_Parent.transform.position, targetPosition) < 2)
                 {
                     rb.velocity = Vector3.zero;
                     Path = null;
                     currentWaypoint = 0;
                     trail.enabled = false;
+                    m_OnMyWay = false;
                     return;
                 }
             }
-            
+
+
         }
         else
         {
@@ -273,15 +275,11 @@ public class BoatMovement : SeaMovement {
 
     private void CloseIn(Vector3 target)
     {
-        if (!PointingAtTarget(target))
-        {
-            rb.velocity = Vector3.zero;
-            RotateTowards(target);
-        }
-        else
+        if (PointingAtTarget(target))
         {
             MoveForward();
         }
+        RotateTowards(target);        
     }
 
 }

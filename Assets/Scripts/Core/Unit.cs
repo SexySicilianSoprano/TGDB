@@ -149,19 +149,18 @@ public class Unit : RTSEntity, IOrderable{
 
             // Deploy Order
             case Const.ORDER_DEPLOY:
-
+                // TODO: actual deployable shit
                 GetComponent<Movement>().Stop();
-
-                ((IDeployable)this).Deploy();
                 break;
 
             // Attack Order
             case Const.ORDER_ATTACK:
-
-                //GetComponent<Movement>().Stop();
-                GetComponent<Combat>().Stop();
+                
                 if (IsAttackable())
                 {
+                    // Stop combat
+                    GetComponent<Combat>().Stop();
+
                     // Attack                    
                     GetComponent<Combat>().AttackCommand(order.Target);
                 }
@@ -170,6 +169,7 @@ public class Unit : RTSEntity, IOrderable{
             case Const.ORDER_GATHER:
                 if (IsGatherable())
                 {
+                    // Stop gathering and give new gathering order
                     GetComponent<ResourceGathering>().Stop();
                     GetComponent<ResourceGathering>().Gather(order.Mine);
                 }
