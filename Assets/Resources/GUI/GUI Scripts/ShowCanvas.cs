@@ -13,9 +13,33 @@ public class ShowCanvas : MonoBehaviour {
     public GameObject unitPanel;
     public Button constBtn;
     public Button unitBtn;
+    public Sprite constActive;
+    public Sprite constClosed;
+    public Sprite unitActive;
+    public Sprite unitClosed;
 
     //public bool animate = false;
 
+    void Update()
+    {
+        if (constPanel.activeSelf)
+        {
+            constBtn.image.sprite = constActive;
+        }
+        else
+        {
+            constBtn.image.sprite = constClosed;
+        }
+
+        if (unitPanel.activeSelf)
+        {
+            unitBtn.image.sprite = unitActive;
+        }
+        else
+        {
+            unitBtn.image.sprite = unitClosed;
+        }
+    }
 
     public void ToggleCanvasConst()
     {
