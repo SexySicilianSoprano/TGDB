@@ -16,7 +16,7 @@ MonoBehaviour:
   EditorEvents:
   - {fileID: 11406106}
   MasterBankRef: {fileID: 11467554}
-  stringsBankWriteTime: 635974623775621427
+  stringsBankWriteTime: 635974543691957149
   cacheVersion: 1
 --- !u!114 &11406106
 MonoBehaviour:
@@ -37,7 +37,7 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 11483160}
+  - {fileID: 11438922}
   MinDistance: 0
   MaxDistance: 0
 --- !u!114 &11420492
@@ -55,22 +55,7 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
---- !u!114 &11456458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: FMODStudioCache
-  m_EditorClassIdentifier: 
-  Name: Battle
-  Min: 0
-  Max: 1
-  Default: 0
---- !u!114 &11462034
+--- !u!114 &11438922
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -97,7 +82,7 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   Path: Assets\FMODProject\Tgdb_01\Build\Desktop\Master Bank.bank
-  lastModified: 635974623775572123
+  lastModified: 635974543691957149
   LoadResult: 0
   FileSizes:
   - Name: Desktop

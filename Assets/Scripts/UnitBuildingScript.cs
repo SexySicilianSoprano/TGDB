@@ -153,7 +153,7 @@ public class UnitBuildingScript : MonoBehaviour {
 
 	public void StartBuilding()
     {
-        unitInBuilding = unitBuildingList[0];
+        unitInBuilding = unitBuildingQueue[0];
         Item unitItem = ItemDB.AllItems.Find(x => x.Name.Equals(unitInBuilding.name));
 
         unitCost = unitItem.Cost;
@@ -243,8 +243,6 @@ public class UnitBuildingScript : MonoBehaviour {
                 moneySpent += difference;
             }
         }
-
-        Debug.Log("Timer cost: " + moneySpent);
 
         m_Manager.RemoveResource(moneySpentThisTick);
         return newtimer;

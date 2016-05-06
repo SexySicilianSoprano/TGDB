@@ -1213,9 +1213,13 @@ MonoBehaviour:
   objectToFollow: {fileID: 0}
   imgPrefab: {fileID: 190398, guid: 284afc42167d6fb4db5ea3ab5d252d99, type: 2}
   newHealthBar: {fileID: 0}
+  selectedHealthBar: {fileID: 0}
   bar: {fileID: 0}
+  selectedBar: {fileID: 0}
   max_health: 0
   cur_health: 0
+  MyCamera: {fileID: 0}
+  SizeDif: 0
 --- !u!114 &11419336
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1263,6 +1267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackingEnemy: {fileID: 0}
+  isInCombat: 0
   m_Health: 0
   m_MaxHealth: 0
 --- !u!114 &11465890

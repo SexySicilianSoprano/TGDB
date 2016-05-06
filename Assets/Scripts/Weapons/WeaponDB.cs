@@ -26,7 +26,7 @@ public class WeaponDB {
         ID = 0,
         Name = "Scout Machinegun",
         Damage = 2,
-        Range = 100,
+        Range = 50,
         FireRate = 160,
         TurretSpeed = 3f,
         isAntiArmor = true,

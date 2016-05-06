@@ -29,6 +29,35 @@ public class BoatMovement : SeaMovement {
     private bool m_SoundIsPlaying = false; // Is the sound currently playing or not?
     public bool AffectedByCurrent = true; // Is this unit affected by ocean currents?
     public bool stayInPlace = false; // Is this unit supposed to stay in place, not being affected by currents?
+    public bool moving = false;
+
+    // Use this outside this script to determine if we're moving or not
+    public override bool onTheMove
+    {
+        get
+        {
+            if (isInCombat)
+            {
+                return m_OnMyWay;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
+    private bool isInCombat
+    {
+        get
+        {
+            if (GetComponent<Combat>())
+            {
+                return GetComponent<Combat>().isInCombat;
+            }
+            else return false;
+        }
+    }
 
     // Variable for Seeker-component
     private Seeker seeker;
@@ -95,7 +124,7 @@ public class BoatMovement : SeaMovement {
             }
 
             // If we've reached our destination or close enough, close in before moving
-            if (currentWaypoint == Path.vectorPath.Count - 1 || Vector3.Distance(m_Parent.transform.position, targetPosition) < 15)
+            if (currentWaypoint == Path.vectorPath.Count - 1 || Vector3.Distance(m_Parent.transform.position, targetPosition) < 5)
             {
                 m_OnMyWay = false;
                 CloseIn(dir);
