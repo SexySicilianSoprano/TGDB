@@ -83,16 +83,24 @@ public class HPBar : MonoBehaviour {
         Destroy(selectedBar);
     }
 
+    // Show health bar
     public void ShowHealthBar()
     {
-        bar.gameObject.SetActive(true);
-        healthBar.gameObject.SetActive(true);
+        if (bar)
+            bar.gameObject.SetActive(true);
+
+        if (healthBar)
+            healthBar.gameObject.SetActive(true);
     }
 
+    // Hide healt bar
     public void HideHealthBar()
     {
-        bar.gameObject.SetActive(false);
-        healthBar.gameObject.SetActive(false);
+        if (bar)
+            bar.gameObject.SetActive(false);
+
+        if (healthBar)
+            healthBar.gameObject.SetActive(false);
     }
     
 }

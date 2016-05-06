@@ -24,7 +24,8 @@ public class SelectedBuilding : MonoBehaviour {
         if (projector.enabled == false)
             projector.enabled = true;
 
-        hpbar.ShowHealthBar();
+        if (hpbar)
+            hpbar.ShowHealthBar();
 
         // If building spots, show 'em
         if (GetComponent<BuildingSpotHandler>())
@@ -35,9 +36,10 @@ public class SelectedBuilding : MonoBehaviour {
 	{
         // Stop rendering the projector
         if (projector.enabled == true)
-        projector.enabled = false;
+            projector.enabled = false;
 
-        hpbar.HideHealthBar();
+        if (hpbar)
+            hpbar.HideHealthBar();
 
         // If building spots, don't show 'em
         if (GetComponent<BuildingSpotHandler>())

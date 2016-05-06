@@ -125,7 +125,7 @@ public static class ItemDB {
 		SortOrder = 0,
 		RequiredBuildings = new int[] { 0 },
 		Cost = 700,
-		BuildTime = 5.0f,
+		BuildTime = 10.0f,
 		ObjectType = typeof(NavalYard),
 	};
 

@@ -22,21 +22,47 @@ public class BuildingScript : MonoBehaviour {
 	public Camera camera; //The main camera being used
 	public LayerMask layerMask; //Layer mask for raycasting
 	public Texture[] textures; //Textures being used for buildings being placed
-    public BuildingSpotHandler bsHandler;
+    public BuildingSpotHandler bsHandler; // Handles building spots
+    private Manager m_Manager { get { return GetComponent<Manager>(); } } // Manager reference
+    private bool onHold = false;
+    private bool buildingInProgress = false;
+
+    // Building variables
+    private GameObject constInBuilding;
+    private float buildCost;
+    private float buildTime;
+    private float timer;
+    private float moneySpent = 0;
+    private float timerDelta;
 
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         camera = Camera.main;
         bsHandler = GameObject.Find("Player1").GetComponent<BuildingSpotHandler>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
-		//If we have a current building being placed
-		if (currentBuilding){
+	void Update ()
+    { 
+        // If we are currently building a structure
+        if (buildingInProgress && !onHold)
+        {
+            // Check funds
+            if (CheckFunds())
+            {
+                // Spend some money this tick and advance timer accordingly
+                timer = SpendResourceAndBuild(timer, buildCost);
+                if (timer == 0)
+                {
+                    // Building is ready, just finish it
+                    StartCoroutine(WaitAndBuild(currentBuildingSpot.transform.position));
+                }
+            }
+        }
+        //If we have a current building being placed
+        else if (currentBuilding){
 
             // Show available building spots
             bsHandler.ShowBuildingSpots();
@@ -87,10 +113,9 @@ public class BuildingScript : MonoBehaviour {
                             tempBuilding.GetComponent<Renderer>().material.color = Color.gray;
                             //Destroy(tempBuilding.GetComponent<Rigidbody>());
                             //tempBuilding.GetComponent<BoxCollider>().isTrigger = false;
-                            StartCoroutine (WaitAndBuild(0, currentBuildingSpot.transform.position));
                             currentBuildingSpot.SetActive(false);
-
                             bsHandler.HideBuildingSpots();
+                            buildingInProgress = true;
                         }
 
                         if (Input.GetMouseButton(1))
@@ -114,13 +139,16 @@ public class BuildingScript : MonoBehaviour {
         Destroy(currentBuilding.GetComponent<RTSEntity>());
         currentBuilding.GetComponent<Collider>().isTrigger = true;        
 		buildingListIndex = buildingIndex;
-	}
+
+        // Get some sweet data
+        GetBuildingData(buildingList[buildingListIndex]);
+    }
 
     //Timer function for when the building is being built
-    IEnumerator WaitAndBuild(float seconds, Vector3 spot)
+    IEnumerator WaitAndBuild(Vector3 spot)
     {
         // Wait for the building to build itself
-        yield return new WaitForSeconds(seconds);
+        yield return new WaitForSeconds(0);
 
         // Pick the temporary building's spot and destroy the temp building
         spot = tempBuilding.transform.position;
@@ -134,5 +162,89 @@ public class BuildingScript : MonoBehaviour {
         // Make sure that when the building is destroyed, it will free the building spot
         realBuilding.AddComponent<BuildingOnDestroy>();
         realBuilding.GetComponent<BuildingOnDestroy>().MyBuildingSpot = currentBuildingSpot;
+
+        // Stop building
+        timer = 0;
+        buildCost = 0;
+        moneySpent = 0;
+        buildingInProgress = false;
+    }
+
+    // Get building's information and assign them to local variables
+    private void GetBuildingData(GameObject building)
+    {
+        constInBuilding = building;
+        Item unitItem = ItemDB.AllItems.Find(x => x.Name.Equals(constInBuilding.name));
+
+        buildCost = unitItem.Cost;
+        buildTime = unitItem.BuildTime;
+        timer = buildTime;
+    }
+
+    // Toggle On Hold
+    public void ToggleOnHold()
+    {
+        if (onHold)
+        {
+            onHold = false;
+        }
+        else
+        {
+            onHold = true;
+        }
+    }
+
+    // Check funds
+    public bool CheckFunds()
+    {
+        if (m_Manager.Resources >= 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    // Spends x amount of money this tick
+    private float SpendResourceAndBuild(float seconds, float cost)
+    {
+        float newtimer = seconds;
+        float timeBetweenTicks;
+        float moneySpentThisTick;
+
+        newtimer -= Time.deltaTime;
+
+        if (newtimer <= 0)
+        {
+            newtimer = 0;
+        }
+
+        timeBetweenTicks = (seconds - newtimer);
+        moneySpentThisTick = (cost * timeBetweenTicks) / buildTime;
+
+        moneySpent += moneySpentThisTick;
+
+        if (newtimer == 0)
+        {
+            if (moneySpent > cost)
+            {
+                float difference = moneySpent - cost;
+                Debug.Log("Last payment difference 1: " + difference);
+                moneySpentThisTick -= difference;
+                moneySpent -= difference;
+            }
+            else
+            {
+                float difference = cost - moneySpent;
+                Debug.Log("Last payment difference 2: " + difference);
+                moneySpentThisTick += difference;
+                moneySpent += difference;
+            }
+        }
+
+        m_Manager.RemoveResource(moneySpentThisTick);
+        return newtimer;
     }
 }
