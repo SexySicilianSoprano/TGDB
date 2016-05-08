@@ -5,6 +5,8 @@ using System.Collections;
 ///  This is the <DataManager>. Its purpose is to handle PlayerPrefs and
 ///  all saved game data we want to manage. It will be started on start-up and closed
 ///  only when the game is turned off.
+/// 
+///  TODO: Switch the names of this and DataStorage, because otherwise it's pretty retarded
 ///  
 /// - Karl Sartorisio
 /// The Great Deep Blue
