@@ -20,7 +20,16 @@ public class LauncherCombat : Combat
     private bool TargetSet = false;
     private bool canFire = true;
     private bool m_FollowEnemy = true;
-    private bool m_FireAtEnemy = false;
+    private bool m_FireAtEnemy = false; 
+    
+    // Call this outside combat script to see if the unit is currently in combat
+    public override bool isInCombat
+    {
+        get
+        {
+            return TargetSet;
+        }
+    }
 
     // Rate of fire
     private float m_FireRate;
@@ -112,7 +121,14 @@ public class LauncherCombat : Combat
         //Projectile = weapon.Projectile;
     }
 
-    public override void Attack(RTSEntity obj)
+    // Attack with command
+    public override void AttackCommand(RTSEntity obj)
+    {
+        m_FollowEnemy = true;
+        Attack(obj);
+    }
+
+    public void Attack(RTSEntity obj)
     {
         m_Target = obj;
         TargetSet = true;

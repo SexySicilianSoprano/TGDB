@@ -39,19 +39,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251e85fe33020f149a86c1fc578da7b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upArrow: 119
-  upArrowALT: 273
-  downArrow: 115
-  downArrowALT: 274
-  leftArrow: 97
-  leftArrowALT: 276
-  rightArrow: 100
-  rightArrowALT: 275
-  rotateAroundLeft: 113
-  rotateAroundRight: 101
-  zoomIn: 114
-  zoomOut: 102
-  jumpBackToPlayer: 32
+  ReservedKeys: []
+  up: {fileID: 0}
+  down: {fileID: 0}
+  left: {fileID: 0}
+  right: {fileID: 0}
+  jump: {fileID: 0}
+  camLeft: {fileID: 0}
+  camRight: {fileID: 0}
+  zoomIn: {fileID: 0}
+  zoomOut: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -42,6 +42,7 @@ public class Manager : MonoBehaviour, IManager {
     // Use this for initialization
     void Start()
     {
+        m_GameManager = GetComponent<GameManager>();
         Initialise();
     }
 	

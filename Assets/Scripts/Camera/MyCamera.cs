@@ -180,11 +180,11 @@ public class MyCamera : MonoBehaviour
             Debug.Log(status);
         }
 
-        else if (status == MyCameraStatusEnum.AT_PLAYER && MinimapScript.minimap.isClicked == true)
-        {
-            status = MyCameraStatusEnum.MANUAL;
-            Debug.Log(status);
-        }
+//        else if (status == MyCameraStatusEnum.AT_PLAYER /*&& MinimapScript.minimap.isClicked == true*/)
+//        {
+//            status = MyCameraStatusEnum.MANUAL;
+//            Debug.Log(status);
+//        }
 
          else if (status == MyCameraStatusEnum.AT_PLAYER && isEdge == true)
         {

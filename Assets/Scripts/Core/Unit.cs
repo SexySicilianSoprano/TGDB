@@ -5,13 +5,6 @@ using System;
 //[RequireComponent(typeof(Selected))]
 public class Unit : RTSEntity, IOrderable{
 
-    //Member Variables
-    protected bool m_IsMoveable = true;
-    protected bool m_IsDeployable = false;
-    protected bool m_IsAttackable = true;
-    protected bool m_IsInteractable = false;
-    protected bool m_IsGatherable = true;
-
     protected SelectedManager m_selectedManager
     {
         get
@@ -35,14 +28,7 @@ public class Unit : RTSEntity, IOrderable{
 
     protected void Start()
     {
-        // m_guiManager = ManagerResolver.Resolve<IGUIManager>();
-        // ManagerResolver.Resolve<IManager>().UnitAdded(this);
-  
-        /*
-		m_IsDeployable = this is IDeployable;
-		m_IsAttackable = this is IAttackable;
-		m_IsInteractable = this is IInteractable;
-        */
+        
     }
 
     protected void Update()
@@ -92,22 +78,22 @@ public class Unit : RTSEntity, IOrderable{
 
     public bool IsAttackable()
     {
-        return m_IsAttackable;
+        return GetComponent<Combat>();
     }
 
     public bool IsMoveable()
     {
-        return m_IsMoveable;
+        return GetComponent<Movement>();
     }
 
     public bool IsInteractable()
     {
-        return m_IsInteractable;
+        return false;
     }
 
     public bool IsGatherable()
     {
-        return m_IsGatherable;
+        return GetComponent<ResourceGathering>();
     }
     
     public void GiveOrder(Order order)
@@ -117,12 +103,12 @@ public class Unit : RTSEntity, IOrderable{
             // Stop Order
             case Const.ORDER_STOP:
 
-                if (GetComponent<Combat>())
+                if (IsAttackable())
                 {
                     GetComponent<Combat>().Stop();
                 }
 
-                if (GetComponent<ResourceGathering>())
+                if (IsGatherable())
                 {
                     GetComponent<ResourceGathering>().Stop();
                 }
@@ -140,12 +126,12 @@ public class Unit : RTSEntity, IOrderable{
             // Move Order
             case Const.ORDER_MOVE_TO:
                 
-                if (GetComponent<Combat>())
+                if (IsAttackable())
                 {
                     GetComponent<Combat>().Stop();
                 }
 
-                if (GetComponent<ResourceGathering>())
+                if (IsGatherable())
                 {
                     GetComponent<ResourceGathering>().Stop();
                 }
@@ -163,27 +149,27 @@ public class Unit : RTSEntity, IOrderable{
 
             // Deploy Order
             case Const.ORDER_DEPLOY:
-
+                // TODO: actual deployable shit
                 GetComponent<Movement>().Stop();
-
-                ((IDeployable)this).Deploy();
                 break;
 
             // Attack Order
             case Const.ORDER_ATTACK:
-
-                //GetComponent<Movement>().Stop();
-                GetComponent<Combat>().Stop();
+                
                 if (IsAttackable())
                 {
+                    // Stop combat
+                    GetComponent<Combat>().Stop();
+
                     // Attack                    
-                    GetComponent<Combat>().Attack(order.Target);
+                    GetComponent<Combat>().AttackCommand(order.Target);
                 }
                 break;
 
             case Const.ORDER_GATHER:
-                if (GetComponent<ResourceGathering>())
+                if (IsGatherable())
                 {
+                    // Stop gathering and give new gathering order
                     GetComponent<ResourceGathering>().Stop();
                     GetComponent<ResourceGathering>().Gather(order.Mine);
                 }
@@ -197,21 +183,16 @@ public class Unit : RTSEntity, IOrderable{
         switch (hoveringOver)
         {
             case HoverOver.Land:
-                return m_IsMoveable;
+                return IsMoveable();
 
             case HoverOver.Building:
             case HoverOver.Ship:
             case HoverOver.Submarine:
             case HoverOver.AirUnit:
-                return m_IsAttackable;
+                return IsAttackable();
 
             case HoverOver.Mine:
-                if (GetComponent<ResourceGathering>())
-                {
-                    return m_IsGatherable;
-                }
-                else
-                    return false;
+                return IsGatherable();
                 
             default:
                 Debug.LogError("Switch hoverOver didn't work");
