@@ -166,10 +166,14 @@ public class UnitBuildingScript : MonoBehaviour {
         }
         else
         {
+            if (buildCounter)
+            {
+                buildCounter.ClearFill();
+                buildCounter = null;
+            }
+
             unitBuildingQueue.Clear();
             spawnPointList.Clear();
-            buildCounter.ClearFill();
-            buildCounter = null;
             isAlreadyBuilding = false;
             timer = 0;
             unitCost = 0;
