@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 426194}
   - 114: {fileID: 11436566}
+  - 114: {fileID: 11474822}
   m_Layer: 0
   m_Name: DataManager
   m_TagString: Untagged
@@ -42,15 +43,33 @@ MonoBehaviour:
   gearsMissions: 0
   scalesMissions: 0
   mechanusMissions: 0
+  gearsMax: 0
+  scalesMax: 0
+  mechanusMax: 0
   p_Rank: 0
   p_Exp: 0
   p_Name: 
+  p_Score: 0
   gearsExp: 0
   scalesExp: 0
   mechanusExp: 0
   gearsRank: 0
   scalesRank: 0
   mechanusRank: 0
+--- !u!114 &11474822
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 198558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d970bd412ecb3384ca885ec158876b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Mission: {fileID: 0}
+  currentHouse: 
+  expMultiplier: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

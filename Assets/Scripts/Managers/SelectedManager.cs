@@ -12,6 +12,7 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
     private List<RTSEntity> l_Selected = new List<RTSEntity>();
     private List<IOrderable> SelectedActiveEntities = new List<IOrderable>();
     private List<GameObject> l_Printed = new List<GameObject>();
+    private List<RTSEntity> l_ToBeSelected = new List<RTSEntity>();
 
     // Grouping variables
     private List<RTSEntity> l_Group1 = new List<RTSEntity>();
@@ -25,24 +26,12 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
     private RTSEntity selectedBuilding;
 
     // Sound Manager accessor
-    private SoundManager m_SoundManager
-    {
-        get
-        {
-            return GameObject.Find("SoundManager").GetComponent<SoundManager>();
-        }
-    }
+    private SoundManager m_SoundManager { get { return GameObject.Find("SoundManager").GetComponent<SoundManager>(); } }
 
     void Awake()
     {
         main = this;
     }
-
-    void Update()
-    {
-
-    }
-
     // ### Selection functions ###
 
     // Adds the unit to selected
@@ -69,6 +58,24 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
             unit.SetSelected();
             selectedBuilding = unit;
         }
+    }
+
+    // Put in "queue" during group selection
+    public void AddToBeSelected(RTSEntity unit)
+    {
+        l_ToBeSelected.Add(unit);
+    }
+
+    // Confirm group selection
+    public void ConfirmToBeSelected()
+    {
+        foreach (RTSEntity unit in l_ToBeSelected)
+        {
+            AddToSelected(unit);
+        }
+
+        l_ToBeSelected.Clear();
+        m_SoundManager.PlaySelectSound(l_Selected[0], l_Selected[0].transform.position);
     }
 
     // Removes the unit from selected

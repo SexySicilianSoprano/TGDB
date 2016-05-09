@@ -15,7 +15,7 @@ public class CannonCombat : Combat {
     private bool isFollowing = false; // Are we currently following the enemy?
     private bool inCombat = false;
     private bool movementOrderGiven { get { return m_Movement.onTheMove; } } // Is movement order given?
- 
+
     // Call this outside combat script to see if the unit is currently in combat
     public override bool isInCombat { get { return TargetSet; } }
 
@@ -40,6 +40,9 @@ public class CannonCombat : Combat {
 
     // This unit's movement script
     private Movement m_Movement;
+
+    // Sound Manager
+    private SoundManager m_SoundManager { get { return GameObject.Find("Manager").GetComponent<SoundManager>();  } }
         
     // Use this for initialization
     void Start()
@@ -59,7 +62,7 @@ public class CannonCombat : Combat {
         CalculateFireRate();
 
         // Check if lists need refreshing aka target is destroyed or off the DangerZone
-        RefreshTargetLists(m_Target);
+        //RefreshTargetLists(m_Target);
 
         // Behaviour query
         if (m_Target && TargetInRange())
@@ -70,17 +73,20 @@ public class CannonCombat : Combat {
         if (!TargetSet && m_Parent.AttackingEnemy)
         {
             Attack(m_Parent.AttackingEnemy);
+            return;
         }
         else if (TargetSet && m_Target == null)
         {
             // Target is set, but can't be found, so let's stop
             Stop();
+            return;
         }
         else if (m_Target && canFire == true)
         {
             // Target is set and found, let's update locations and fire
             TargetPos = TargetLocation;
             Attack(m_Target);
+            return;
         }
         else
         {
@@ -89,15 +95,17 @@ public class CannonCombat : Combat {
             if (trueTargetList.Count > 0)
             {
                 Attack(trueTargetList[0]);
+                return;
             }
             // If not, is there a unit listed on normal priority list?
             else if (targetList.Count > 0)
             {
                 Attack(targetList[0]);
+                return;
             }
             else
             {
-                Stop();
+                return;
             }
         }
     }
@@ -137,6 +145,7 @@ public class CannonCombat : Combat {
     public override void AttackCommand(RTSEntity obj)
     {
         m_FollowEnemy = true;
+        m_Movement.stayInPlace = true;
         //PutTopOfTargetList(obj);
         Attack(obj);
     }
@@ -215,9 +224,12 @@ public class CannonCombat : Combat {
 
     private void Fire()
     {
-        // Start firing
+        // Start firing animation
         gameObject.transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play(true);
-       
+
+        // Play sound
+        m_SoundManager.PlayFiringSound(m_Parent, CurrentLocation);
+
         // Set us in combat
         inCombat = true;
 
@@ -232,6 +244,7 @@ public class CannonCombat : Combat {
     public override void Stop()
     {
         // Set no target and target to null
+        m_Movement.stayInPlace = false;
         inCombat = false;
         TargetSet = false;
         m_Target = null;
@@ -272,7 +285,7 @@ public class CannonCombat : Combat {
         foreach (RaycastHit hit in hits)
         {
             // Did we hit the target's box collider?
-            if (hit.collider == m_Target.GetComponent<BoxCollider>())
+            if (hit.collider == m_Target.GetComponent<BoxCollider>() && hit.collider.isTrigger == false)
             {
                 // Yup, target on sights
                 return true;
@@ -461,6 +474,22 @@ public class CannonCombat : Combat {
     // Checks if the target is within range
     private bool TargetInRange()
     {
+        Ray ray = new Ray(Spawner.transform.position, Spawner.transform.forward);
+        // Raycastin' yo
+        RaycastHit[] hits = Physics.RaycastAll(ray, 20);
+        foreach (RaycastHit hit in hits)
+        {
+            // Did we hit the target's box collider?
+            if (hit.collider == m_Target.GetComponent<BoxCollider>() && hit.collider.isTrigger == false)
+            {
+                // Yup, target on sights
+                return true;
+            }
+        }
+
+        // We're not hitting anything, try again
+        return false;
+        /*
         TargetPos = TargetLocation;
         float dist = Vector3.Distance(CurrentPos, TargetPos);
 
@@ -474,7 +503,7 @@ public class CannonCombat : Combat {
         {
             // Nope, it's too far away
             return false;
-        }
+        }*/
     }
 
     // Switches between combat modes, this activates booleans that control firing behaviour

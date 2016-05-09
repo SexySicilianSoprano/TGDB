@@ -44,14 +44,15 @@ public class TurretCombat : Combat {
     private Vector3 SpawnerPos;
 
     // SphereCollider with trigger to detect enemies
-    private SphereCollider DangerZone
-    { get { return GetComponent<SphereCollider>(); } }
-    private Projector DangerZoneProjector
-    { get { return transform.Find("Projector").GetComponent<Projector>(); } }
+    private SphereCollider DangerZone { get { return GetComponent<SphereCollider>(); } }
+    private Projector DangerZoneProjector { get { return transform.Find("Projector").GetComponent<Projector>(); } }
 
     // List of targets and priorities
     private List<RTSEntity> targetList = new List<RTSEntity>(); // Normal priority
     private List<RTSEntity> trueTargetList = new List<RTSEntity>(); // High priority
+
+    // Sound Manager
+    private SoundManager m_SoundManager { get { return GameObject.Find("Manager").GetComponent<SoundManager>(); } }
 
     // Use this for initialization
     void Start()
@@ -188,10 +189,12 @@ public class TurretCombat : Combat {
     // Fire the weapon
     private void Fire()
     {
-        // Play firing      
+        // Play firing animation
         Spawner.GetChild(0).GetComponent<ParticleSystem>().Play(true);
-        //debug.log("FIRE TURRET, FIRE!");
-        
+
+        // Play sound
+        m_SoundManager.PlayFiringSound("Destroyer", CurrentLocation);
+
         //LaunchProjectile(Projectile); // Launch projectile
         m_Target.TakeDamage(Damage); // Target takes damage
         m_Target.AttackingEnemy = m_Parent; // Let the target know it's being fired so it can shoot back
@@ -224,15 +227,10 @@ public class TurretCombat : Combat {
         foreach (RaycastHit hit in hits)
         {
             // Did we hit the target's box collider?
-            if (hit.collider == m_Target.GetComponent<BoxCollider>())
+            if (hit.collider == m_Target.GetComponent<BoxCollider>() && hit.collider.isTrigger == false)
             {
                 // Yup, target on sights
                 return true;
-            }
-            else
-            {
-                // Apparently not
-                return false;
             }
         }
 

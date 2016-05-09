@@ -63,7 +63,7 @@ public class Unit : RTSEntity, IOrderable{
     {
         switch (team)
         {
-            case Const.TEAM_STEAMHOUSE:
+            case Const.TEAM_gearsHouse:
 
                 break;
 

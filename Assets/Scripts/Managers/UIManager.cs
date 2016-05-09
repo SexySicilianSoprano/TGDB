@@ -250,6 +250,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         {
             // Selecting endes
             isSelecting = false;
+            m_SelectedManager().ConfirmToBeSelected();
         }
 
         // Stippedi stop :D
@@ -375,7 +376,7 @@ public class UIManager : MonoBehaviour, IUIManager {
                     if (!m_SelectedManager().ActiveEntityList().Contains((IOrderable)selectable) && selectable.tag == m_primaryPlayer) //
                     {
                         // Unit is not previously selected and is friendly, so let's select it and turn on the projector
-                        m_SelectedManager().AddToSelected(selectable);
+                        m_SelectedManager().AddToBeSelected(selectable);
                         // TODO: projector for selected unit indication graphics
                     }
                 }

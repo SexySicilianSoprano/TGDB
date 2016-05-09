@@ -41,9 +41,10 @@ public class UnitBuildingScript : MonoBehaviour {
     private float timerDelta;
 
     private Manager m_Manager { get { return GetComponent<Manager>(); } }
-	
-	// Update is called once per frame
-	void Update ()
+    private SoundManager m_SoundManager { get { return GetComponent<SoundManager>(); } }
+
+    // Update is called once per frame
+    void Update ()
     {
         // Check for Naval Yard
         CheckNavalYard();
@@ -165,6 +166,16 @@ public class UnitBuildingScript : MonoBehaviour {
         }
         else
         {
+            unitBuildingQueue.Clear();
+            spawnPointList.Clear();
+            buildCounter.ClearFill();
+            buildCounter = null;
+            isAlreadyBuilding = false;
+            timer = 0;
+            unitCost = 0;
+            moneySpent = 0;
+            unitInBuilding = null;
+            onHold = false;
             navalYardIsSet = false;
             return false;
         }
@@ -252,6 +263,7 @@ public class UnitBuildingScript : MonoBehaviour {
 
             // Instantiate
             Instantiate(unit, spawnPos, spawnRot);
+            m_SoundManager.PlaySpawnSound(unit.name, unit.transform.position);
 
             // Clear temporary data
             unitBuildingQueue.RemoveAt(0);

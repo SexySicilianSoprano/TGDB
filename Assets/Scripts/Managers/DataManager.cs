@@ -19,6 +19,11 @@ public class DataManager : MonoBehaviour {
     public int scalesMissions;
     public int mechanusMissions;
 
+    // Maximum missions
+    public int gearsMax;
+    public int scalesMax;
+    public int mechanusMax;
+
     // Player Data
     public int p_Rank;
     public float p_Exp;
@@ -39,7 +44,8 @@ public class DataManager : MonoBehaviour {
         DontDestroyOnLoad(this);
         // Fetch data from storage
         LoadData();
-	}
+        MissionDB.Initialise();
+    }
 
     // Loads data from PlayerPrefs, if they're not set, set them.
     void LoadData()
@@ -176,6 +182,26 @@ public class DataManager : MonoBehaviour {
     public void SaveString(string key, string value)
     {
         PlayerPrefs.SetString(key, value);
+    }
+
+    public void SetExperience(string house, float exp)
+    {
+        switch (house)
+        {
+            case "gears":
+                gearsExp += exp;
+                break;
+            case "scales":
+                scalesExp += exp;
+                break;
+            case "mechanus":
+                mechanusExp += exp;
+                break;
+        }
+
+        // TODO: check for rank thresholds and apply if necessary
+        // TODO: an actual rank threshold
+        // TODO: an actual rank system
     }
 
     void OnApplicationQuit()

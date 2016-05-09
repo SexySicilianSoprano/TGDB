@@ -27,8 +27,7 @@ public class BoatMovement : SeaMovement {
     // Booleans
     private bool m_PlayMovingSound = false; // True calls for playing the sound, false stops it
     private bool m_SoundIsPlaying = false; // Is the sound currently playing or not?
-    public bool AffectedByCurrent = true; // Is this unit affected by ocean currents?
-    public bool stayInPlace = false; // Is this unit supposed to stay in place, not being affected by currents?
+    public bool AffectedByCurrent = true; // Is this unit affected by ocean currents?    
     public bool moving = false;
 
     // Use this outside this script to determine if we're moving or not

@@ -3,7 +3,7 @@ using System.Collections;
 
 public static class Const {
 
-	public const int TEAM_STEAMHOUSE = 0;
+	public const int TEAM_gearsHouse = 0;
 
     public const int PLAYER_1 = 0;
     public const int PLAYER_2 = 1;

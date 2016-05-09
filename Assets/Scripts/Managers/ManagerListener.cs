@@ -14,9 +14,4 @@ public class ManagerListener : MonoBehaviour {
             dManager.name = "DataManager";
         }
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

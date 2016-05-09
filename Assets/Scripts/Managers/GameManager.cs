@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour, IGameManager {
     public DataManager m_DataManager;
     public DataStorage m_DataStorage;
     public Manager m_Manager;
+    public SoundManager m_SoundManager;
 
     // Refer singleton
     void Awake()
@@ -48,12 +49,14 @@ public class GameManager : MonoBehaviour, IGameManager {
         // Assign datahandlers
         m_DataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
         m_DataStorage = GameObject.Find("DataManager").GetComponent<DataStorage>();
+        m_SoundManager = GetComponent<SoundManager>();
         m_Manager = GetComponent<Manager>();
 
         // Assign mission data
-        //AssignMissionData(m_DataStorage.m_Mission);
-        AssignMissionData(MissionDB.gearsMission1);
+        AssignMissionData(m_DataStorage.GetMission());
+        //AssignMissionData(MissionDB.gearsMission1);
         m_Manager.AddResourceInstant(missionResources);
+        m_SoundManager.PlayMissionMusic(m_DataStorage.GetMission());
 
         // Assign player data
         m_Player1.AssignDetails(SetPlayer.Player1);
@@ -90,6 +93,7 @@ public class GameManager : MonoBehaviour, IGameManager {
         }
     }
 
+    // Saves progress
     private void SaveProgress()
     {
         // If we win
@@ -98,7 +102,8 @@ public class GameManager : MonoBehaviour, IGameManager {
         if (m_Victory)
         {
             float exp = missionExp + m_Manager.ReturnAccumulatedExperience();
-            m_DataStorage.SaveDataRequest(exp, missionPlayerHouse);
+            m_DataStorage.SaveDataRequest(exp);
+            m_DataStorage.SaveVictoryData(missionNumber);
         }
 
         // else
@@ -106,6 +111,7 @@ public class GameManager : MonoBehaviour, IGameManager {
 
     }
 
+    // Get mission data
     private void AssignMissionData(Mission mission)
     {
         // Assign mission data
@@ -114,5 +120,11 @@ public class GameManager : MonoBehaviour, IGameManager {
         missionExp = mission.m_exp;
         missionResources = mission.m_startingResources;
         //smissionPlayerHouse = mission.m_PlayerHouse;
+    }
+
+    // Get the assigned house's arsenal
+    private void LoadHouseArsenal(string house)
+    {
+
     }
 }
