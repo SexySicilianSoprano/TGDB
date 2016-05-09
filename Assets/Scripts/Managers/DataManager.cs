@@ -20,9 +20,9 @@ public class DataManager : MonoBehaviour {
     public int mechanusMissions;
 
     // Maximum missions
-    public int gearsMax;
-    public int scalesMax;
-    public int mechanusMax;
+    public int gearsMax = 10;
+    public int scalesMax = 10;
+    public int mechanusMax = 10;
 
     // Player Data
     public int p_Rank;

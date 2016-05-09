@@ -360,9 +360,6 @@ public class UnitBuildingScript : MonoBehaviour {
     // Updates queue number text
     private void UpdateQueueText()
     {
-        // Unit menu in UI
-        GameObject buttonMenu = GameObject.Find("UI").transform.Find("SideMenu").transform.Find("UnitPanel").gameObject;
-
         // Counters for respective boats in queue
         int destroyers = 0;
         int fishingboats = 0;

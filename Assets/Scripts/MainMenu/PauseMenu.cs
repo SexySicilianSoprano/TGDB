@@ -104,7 +104,7 @@ public class PauseMenu : MonoBehaviour {
 
 		//GameObject.FindWithTag("Player").GetComponent<AudioController>().StoreAndContinue();
 
-		SceneManager.LoadScene ("MainMenu");
+		SceneManager.LoadScene ("MainMenu_Karl");
 		
 	}
     public void OptionsMenu()
