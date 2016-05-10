@@ -8,13 +8,13 @@ public class ScreenEdgeScript : MonoBehaviour, IPointerEnterHandler, IPointerExi
   
     public float screen_x;
     public float screen_y;
-    public GameObject mainCamera;
+    public GameObject mainCamera { get { return GameObject.Find("MyCamera"); } }
 
     public float panSpeed;
 
     public bool isEdge;
 
-    public MyCamera MyCamera;
+    public MyCamera MyCamera { get { return GameObject.Find("MyCamera").GetComponent<MyCamera>(); } }
 
     void Start()
     {

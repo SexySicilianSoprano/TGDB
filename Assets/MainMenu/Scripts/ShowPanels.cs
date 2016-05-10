@@ -10,6 +10,7 @@ public class ShowPanels : MonoBehaviour {
     public GameObject saveloadPanel;                        //Store a reference to the Game Object Save/LoadPanel
     public GameObject mapselectionPanel;                    //Store a reference to the Game Object MapSelectionPanel
     public GameObject backtoMainMenuPanel;                  //Store a reference to the Game Object BacktoMainMenuPanel
+    public GameObject restartScenePanel;                    //Store a reference to the Game Object RestartScene
     public GameObject quitToDesktopPanel;                   //Store a reference to the Game Object QuittoDesktopPanel
 	public GameObject pausePanel;							//Store a reference to the Game Object PausePanel 
 
@@ -58,6 +59,7 @@ public class ShowPanels : MonoBehaviour {
         backtoMainMenuPanel.SetActive(false);
         quitToDesktopPanel.SetActive(false);
 		optionsTint.SetActive(false);
+        restartScenePanel.SetActive(false);
 
 	}
 }

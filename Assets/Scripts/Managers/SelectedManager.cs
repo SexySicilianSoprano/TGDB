@@ -26,7 +26,7 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
     private RTSEntity selectedBuilding;
 
     // Sound Manager accessor
-    private SoundManager m_SoundManager { get { return GameObject.Find("SoundManager").GetComponent<SoundManager>(); } }
+    private SoundManager m_SoundManager { get { return GameObject.Find("Manager").GetComponent<SoundManager>(); } }
 
     void Awake()
     {
@@ -69,13 +69,16 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
     // Confirm group selection
     public void ConfirmToBeSelected()
     {
-        foreach (RTSEntity unit in l_ToBeSelected)
+        if (l_ToBeSelected.Count > 0)
         {
-            AddToSelected(unit);
-        }
+            foreach (RTSEntity unit in l_ToBeSelected)
+            {
+                AddToSelected(unit);
+            }
 
-        l_ToBeSelected.Clear();
-        m_SoundManager.PlaySelectSound(l_Selected[0], l_Selected[0].transform.position);
+            l_ToBeSelected.Clear();
+            m_SoundManager.PlaySelectSound(l_Selected[0], l_Selected[0].transform.position);
+        }
     }
 
     // Removes the unit from selected

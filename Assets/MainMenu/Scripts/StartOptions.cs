@@ -54,9 +54,9 @@ public class StartOptions : MonoBehaviour {
         GameObject.Find("OptionsMenu").SetActive(false);
     }
 
-	public void StartButtonClicked(int scene)
+	public void GameStartButtonClicked()
 	{
-		sceneToStart = scene;
+        sceneToStart = GameObject.Find("DataManager").GetComponent<DataStorage>().GetMission().m_number + 2 ;
 		//If changeMusicOnStart is true, fade out volume of music group of AudioMixer by calling FadeDown function of PlayMusic, using length of fadeColorAnimationClip as time. 
 		//To change fade time, change length of animation "FadeToColor"
 		if (changeMusicOnStart) 
@@ -82,11 +82,40 @@ public class StartOptions : MonoBehaviour {
 			//Call the StartGameInScene function to start game without loading a new scene.
 			StartGameInScene();
 		}
-
 	}
 
+    public void StartButtonClicked(int scene)
+    {
+        sceneToStart = scene;
+        //If changeMusicOnStart is true, fade out volume of music group of AudioMixer by calling FadeDown function of PlayMusic, using length of fadeColorAnimationClip as time. 
+        //To change fade time, change length of animation "FadeToColor"
+        if (changeMusicOnStart)
+        {
+            playMusic.FadeDown(fadeColorAnimationClip.length);
+            Invoke("PlayNewMusic", fadeAlphaAnimationClip.length);
+        }
 
-	public void LoadDelayed()
+        //If changeScenes is true, start fading and change scenes halfway through animation when screen is blocked by FadeImage
+        if (changeScenes)
+        {
+            Time.timeScale = 1;
+            //Use invoke to delay calling of LoadDelayed by half the length of fadeColorAnimationClip
+            Invoke("LoadDelayed", fadeColorAnimationClip.length /* * .5f*/);
+
+            //Set the trigger of Animator animColorFade to start transition to the FadeToOpaque state.
+            animColorFade.SetTrigger("fade");
+        }
+
+        //If changeScenes is false, call StartGameInScene
+        else
+        {
+            //Call the StartGameInScene function to start game without loading a new scene.
+            StartGameInScene();
+        }
+    }
+
+
+    public void LoadDelayed()
 	{
 		//Pause button now works if escape is pressed since we are no longer in Main menu.
 		inMainMenu = false;

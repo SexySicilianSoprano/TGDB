@@ -35,8 +35,11 @@ public class ButtonClickBehaviour : MonoBehaviour, IPointerClickHandler {
                 }
                 else
                 {
-                    // Build this structure
-                    builder.buildingFunction(index);
+                    if (!builder.GetBuildingInProgress())
+                    {
+                        // Build this structure
+                        builder.buildingFunction(index);
+                    }
                 }
             }
             else if (m_Parent.name == "UnitPanel")
