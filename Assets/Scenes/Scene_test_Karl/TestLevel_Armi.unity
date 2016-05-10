@@ -134,7 +134,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 2075110, guid: 5d9fde79cc099194ab7c22c774471fcd, type: 2}
       propertyPath: orthographic size
-      value: 300
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 2075110, guid: 5d9fde79cc099194ab7c22c774471fcd, type: 2}
       propertyPath: m_CullingMask.m_Bits
@@ -491,6 +491,31 @@ Prefab:
 GameObject:
   m_PrefabParentObject: {fileID: 197236, guid: 602cbbc66ab2b1b4785ca5c4574635b3, type: 2}
   m_PrefabInternal: {fileID: 1001920449}
+--- !u!114 &254414158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 254414155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec0af1344bf2204db5c3b78db3954fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapResolution: 512
+  mapSize: 512
+  mapOffset: {x: 225, y: 225}
+  mode: 1
+  filterMode: 1
+  fogColor: {r: 0, g: 0, b: 0, a: 1}
+  clearFog: 0
+  clearFogMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  fieldOfViewPenetration: 1.5
+  fogEdgeRadius: 0.2
+  partialFogAmount: 0.5
+  updateFrequency: 0.1
 --- !u!1001 &317474730
 Prefab:
   m_ObjectHideFlags: 0
@@ -649,11 +674,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11420048, guid: bf3ca6fda60444c4899a0f73e98e4bd5, type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11422152, guid: bf3ca6fda60444c4899a0f73e98e4bd5, type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11420048, guid: bf3ca6fda60444c4899a0f73e98e4bd5, type: 2}
       propertyPath: radius
@@ -1085,7 +1110,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 143880, guid: d17b58f1e3269894f84dec5be79dc965, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11426188, guid: d17b58f1e3269894f84dec5be79dc965, type: 2}
       propertyPath: m_Enabled
@@ -1484,7 +1509,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &752647371
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1493,13 +1518,13 @@ RectTransform:
   m_GameObject: {fileID: 752647370}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 1402641421}
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00012207031, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 512, y: 512}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &752647372
@@ -1544,14 +1569,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Texture: {fileID: 2800000, guid: 7a83ef699e27443c5862018780e9d323, type: 3}
+  m_Texture: {fileID: 8400000, guid: 44c1d5c4a1ce99c478c253857f4da134, type: 2}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -1574,13 +1599,13 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 764522115}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ec0af1344bf2204db5c3b78db3954fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mapResolution: 512
-  mapSize: 1024
+  mapSize: 512
   mapOffset: {x: 225, y: 225}
   mode: 1
   filterMode: 1
@@ -1589,9 +1614,9 @@ MonoBehaviour:
   clearFogMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  fieldOfViewPenetration: 1
+  fieldOfViewPenetration: 1.5
   fogEdgeRadius: 0.2
-  partialFogAmount: 0
+  partialFogAmount: 0.5
   updateFrequency: 0.1
 --- !u!114 &764522124
 MonoBehaviour:
@@ -1607,8 +1632,8 @@ MonoBehaviour:
   cameraObj: {fileID: 254414155}
   minimapCamera: {fileID: 781079371}
   Minimap: {fileID: 1309102848}
-  MapWidth: 250
-  MapHeight: 250
+  MapWidth: 512
+  MapHeight: 512
   fowMinimap: {fileID: 752647370}
   canvas: {fileID: 170881238}
   cameraRotation: {x: 0, y: 0, z: 0}
@@ -1888,7 +1913,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 49
+  m_RootOrder: 50
 --- !u!1 &943706310
 GameObject:
   m_ObjectHideFlags: 0
@@ -2344,6 +2369,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11455084, guid: a0cc482d2da03784692568b56c77c234, type: 2}
       propertyPath: resolution
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400362, guid: a0cc482d2da03784692568b56c77c234, type: 2}
+      propertyPath: fourierSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11487688, guid: a0cc482d2da03784692568b56c77c234, type: 2}
+      propertyPath: underwaterMode
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2855,7 +2888,7 @@ RectTransform:
   m_GameObject: {fileID: 1309102848}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 1402641421}
   m_RootOrder: 0

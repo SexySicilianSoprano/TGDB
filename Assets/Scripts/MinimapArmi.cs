@@ -68,6 +68,7 @@ public class MinimapArmi : MonoBehaviour {
 
 		cameraRotation = cameraObj.transform.rotation.eulerAngles;
 		minimapCamera.transform.eulerAngles = new Vector3 (90, cameraRotation.y, 0);
+		GameObject.Find ("MinimapFocusBox").transform.eulerAngles = cameraRotation;
 
 
 	}

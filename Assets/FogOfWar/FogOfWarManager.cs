@@ -130,6 +130,6 @@ public class FogOfWarManager : MonoBehaviour {
         }
 
         _texture.SetPixels(_pixels);
-        _texture.Apply(false);
+        _texture.Apply(true);
     }
 }
