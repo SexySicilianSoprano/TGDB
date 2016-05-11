@@ -53,7 +53,7 @@ public class MinimapArmi : MonoBehaviour {
 		}
 	}
 
-	void Update() {
+	void FixedUpdate() {
 		//fowMinimap.GetComponent<Image> ().material.SetTexture ("_MainTex", _texture);
 		cameraDistance = Vector3.Distance(cameraObj.transform.position, cameraObj.GetComponent<MyCamera>().focusPoint.transform.position);
 
