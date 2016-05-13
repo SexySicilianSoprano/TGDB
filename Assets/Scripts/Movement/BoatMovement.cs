@@ -81,11 +81,18 @@ public class BoatMovement : SeaMovement {
         trail = GetComponentInChildren<TrailRenderer>(); // Trail renderer for water trail effect
 		m_Parent = GetComponent<RTSEntity>(); // This unit
         rb = GetComponent<Rigidbody>(); // This unit's rigidbody        
+
+        seeker.pathCallback += OnPathComplete;
+
+        StartCoroutine(RepeatRepath());
     }
 
     // Called in every frame at fixed rate to reduce FPS exploitation and performance issues
     private void FixedUpdate()
-    {       
+    {
+        Debug.Log("Total: " + Path.vectorPath.Count + " - Waypoint: " + currentWaypoint);
+        Debug.Log("On my way: " + m_OnMyWay);
+
         // No path
         if (Path == null)
         {
@@ -100,34 +107,17 @@ public class BoatMovement : SeaMovement {
                 trail.enabled = true;
             }
 
-            // Pick the direction towards the next waypoint
-            Vector3 dir = (Path.vectorPath[currentWaypoint] - transform.position).normalized;
-
-            // We have a path, lets move!
-            m_PlayMovingSound = true;
-            AffectedByCurrent = false;
-
-            if (m_OnMyWay)
+            // If we're close enough to the next waypoint, jump to next one
+            if (Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < nextWaypointDistance && currentWaypoint < Path.vectorPath.Count || Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < nextWaypointDistance && currentWaypoint <= Path.vectorPath.Count)
             {
-                StartCoroutine(RepeatRepath());
-
-                MoveForward();
-
-                if (!PointingAtTarget(dir))
+                if (Path.vectorPath.Count > currentWaypoint)
                 {
-                    RotateTowards(dir);
-                }
+                    currentWaypoint++;
 
-                // If we're close enough to the next waypoint, jump to next one
-                if (Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < nextWaypointDistance && currentWaypoint < Path.vectorPath.Count || Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < nextWaypointDistance && currentWaypoint <= Path.vectorPath.Count)
-                {
-                    if (Path.vectorPath.Count > currentWaypoint)
-                    {
-                        currentWaypoint++;
-                    }
-                    else if (Path.vectorPath.Count <= currentWaypoint)
+                    if (Path.vectorPath.Count <= currentWaypoint)
                     {
                         rb.velocity = Vector3.zero;
+                        controller.Move(Vector3.zero);
                         Path = null;
                         currentWaypoint = 0;
                         trail.enabled = false;
@@ -137,18 +127,23 @@ public class BoatMovement : SeaMovement {
                 }
             }
 
-             // If we've reached our destination or close enough, close in before moving
-            if (Vector3.Distance(m_Parent.transform.position, targetPosition) < 7)
+            // Pick the direction towards the next waypoint
+            Vector3 dir = (Path.vectorPath[currentWaypoint] - transform.position).normalized;
+
+            // We have a path, lets move!
+            m_PlayMovingSound = true;
+            AffectedByCurrent = false;
+
+            if (m_OnMyWay)
             {
-                rb.velocity = Vector3.zero;                  
-                Path = null;
-                currentWaypoint = 0;
-                trail.enabled = false;
-                m_OnMyWay = false;
-                return;
+                MoveForward();
+
+                if (!PointingAtTarget(dir))
+                {
+                    RotateTowards(dir);
+                }
+               
             }
-
-
         }
         else
         {
@@ -218,8 +213,7 @@ public class BoatMovement : SeaMovement {
     // Gives the moving command
     public override void MoveTo(Vector3 location)
     {
-        NNInfo node = AstarPath.active.astarData.gridGraph.GetNearest(location);
-        Vector3 newlocation = node.constrainedNode.;
+        Vector3 newlocation = location;
         targetLocation = newlocation;
         seeker.StartPath(transform.position, newlocation, OnPathComplete);
     }
@@ -227,9 +221,10 @@ public class BoatMovement : SeaMovement {
     // Stop moving and set path to null
     public override void Stop()
     {
-        controller.locked = true;
+        controller.Move(Vector3.zero);
         rb.velocity = Vector3.zero;
         Path = null;
+        m_OnMyWay = false;
         currentWaypoint = 0;
         trail.enabled = false;
     }
@@ -326,7 +321,7 @@ public class BoatMovement : SeaMovement {
         
         canSearchAgain = false;
         //We should search from the current position
-        seeker.StartPath(m_Position, targetLocation, OnPathComplete);
+        seeker.StartPath(transform.position, targetLocation, OnPathComplete);
     }
 }
  

@@ -33,7 +33,7 @@ public class Unit : RTSEntity, IOrderable{
 
     protected void Update()
     {
-        AstarPath.active.UpdateGraphs(GetComponent<BoxCollider>().bounds);
+        //AstarPath.active.UpdateGraphs(GetComponent<BoxCollider>().bounds);
     }
 
     public override void SetSelected()
@@ -61,13 +61,7 @@ public class Unit : RTSEntity, IOrderable{
 
     public override void ChangeTeams(int team)
     {
-        switch (team)
-        {
-            case Const.TEAM_gearsHouse:
 
-                break;
-
-        }
     }
 
     public bool IsDeployable()

@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 533427594e96f4344a2564c629ef0383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 3
+  radius: 2
   maxSpeed: 5
   height: 1
   locked: 0
@@ -181,9 +181,9 @@ MonoBehaviour:
   maxNeighbours: 10
   mask:
     serializedVersion: 2
-    m_Bits: 4294967295
-  layer: 1
-  collidesWith: -1
+    m_Bits: 528896
+  layer: 512
+  collidesWith: 528899
   wallAvoidForce: 1
   wallAvoidFalloff: 1
   center: {x: 0, y: 0, z: 0}
@@ -712,7 +712,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 533427594e96f4344a2564c629ef0383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 3
+  radius: 2
   maxSpeed: 5
   height: 1
   locked: 0
@@ -723,9 +723,9 @@ MonoBehaviour:
   maxNeighbours: 10
   mask:
     serializedVersion: 2
-    m_Bits: 4294967295
-  layer: 1
-  collidesWith: -1
+    m_Bits: 528896
+  layer: 512
+  collidesWith: 528899
   wallAvoidForce: 1
   wallAvoidFalloff: 1
   center: {x: 0, y: 0, z: 0}
@@ -880,6 +880,14 @@ Prefab:
     - target: {fileID: 129830, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
       propertyPath: m_Name
       value: Destroyer (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 11493254, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
+      propertyPath: startEndModifier.exactEndPoint
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11493254, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
+      propertyPath: startEndModifier.exactStartPoint
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
@@ -2057,6 +2065,22 @@ Prefab:
       propertyPath: m_Name
       value: Destroyer (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 11493254, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
+      propertyPath: startEndModifier.priority
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11493254, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
+      propertyPath: startEndModifier.exactStartPoint
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11493254, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
+      propertyPath: startEndModifier.exactEndPoint
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11493254, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
+      propertyPath: startEndModifier.useRaycasting
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
   m_IsPrefabParent: 0
@@ -2920,14 +2944,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   astarData:
-    dataString: UEsDBBQAAAgIAAAQIezh1ul2NgIAAE4EAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFdUttu2zAM/ZVBz2lhe7k0eeuSNtvQtUGzYQ9DHxiZjoXIkqHLciny76Vkx0kKAzZMHh6S5/Cdrb3I2eSd/QfpkU1YygvMkuFoeDfup4P+3U3S5ykfDPNRvsqKNEd27DGwNXL3Ck5oNkl7TFhdoTOC36u1JJakx7wShTbVQ77GqbbOskkB0mKPGe1CnQpNdxG6j+8DvYmao3Jo2uTXUZO+SW7TiKDAMXBzCVWN+VIcsIWOBg2UvoRQOscmOSBKLaWwbUu3r8OaU6itp1F7LBdAs4eW1KJEsS4dm2QXVS9FYdHFGQ3sZ8LQ6pGMfdOuJIYK7OZCwkE2HmdhiIbs13U2JAqjq+9tpzQhXlcKvnmFPQfrOqEug7PLIb3agtzASuLfEtWznhvtFZnojKcybzGbdSTdFtMS+eaEaSZrQy3S11eOpK0jx7DfbipFtaLf2/75934nbMRRYCl1kHVMtWhI+x80a3TZRj6KhRn+WPwN6/MptOFHYayjRCQD7/STUJu5EfkZeYrOhHVPohJROLI57LHS3hCSPURBaWXvptooDMFm3RoVSLdfUDd3beinTNfvU/wRuNON+G2mPfRreAx22CS5Tiz09mSgxZ++qhdaKLdEMLw8m4475w3OwEGwg8rJ5rxLW9qVU1/lpaQ7iq1ozX9Jj5432r0EpVCGEHvWKtz35eeN3BSKVgK5aCaLKpB36qSVokMjMYP8X+YG6nDguYHtXBwq3SkqVKGX3CCql1gbxzt+AFBLAwQUAAAIAAAAECHsHn9ddjIAAAAyAAAAEgAkAGdyYXBoMF9lZGl0b3IuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAXsibG9ja2VkIjp0cnVlLCJzaG93RXh0cmEiOmZhbHNlLCJwaXZvdCI6IkNlbnRlciJ9UEsDBBQAAAgIAAAQIexoOknzdQAAAIMAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BHYyxDoMgFAD/5c2WgEVQVwe3pnvjgLyHMhQMYpOm6b9Xut1wdx94Udp9DNDDlWkmoYIlmW3doRcnHh5PeoCwjmqutGo7KRrZXri0wjYKNc61E0gwVZDfG93Mk/7F3eTV+YA+LGxMHsdyLVaISEM8Qi4an74/UEsBAi0AFAAACAgAABAh7OHW6XY2AgAATgQAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAAAABAh7B5/XXYyAAAAMgAAABIAJAAAAAAAAAAAAAAAgwIAAGdyYXBoMF9lZGl0b3IuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAAAQIexoOknzdQAAAIMAAAAJACQAAAAAAAAAAAAAAAkDAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAMAAwAcAQAAyQMAAAAA
+    dataString: UEsDBBQAAAgIAAAQIezLxViNNgIAAE8EAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1Uttu2kAQ/ZVqn53ItoAQ3lJIaKs0QaFVH6o8DOsxXrHetfZSLhH/3tnFNlCpQrLxzJmZc+bMB1t7UbDJB/sD0iObsIyXmKeju9H4fpANB+ObdMAzPhwVd8UqL7MC2TFhYBvk7g2c0GySJUxYXaMzgj+otaQuacK8EqU29WOxxqm2zrJJCdJiwox2oU6FobsI3cfngZ7UmqNyaNpkPhjG9E16m0UEBY6hN5dQN1gsxQFb6DA9daI3IZQu8JSkOq6lFLYd6fZNkDmFxnqimrBCAHEPI/OEVSjWlYt/+6rXsrToIkcD+5kwJD02Y5+1q6hDDXZzscJhPsjH42PX7Pt1NrArja6/tJOywNtVgm/eYM/Bun5Rl8FZTzIL8rcgN7CS+KtC9aLnRntFJjrjqcxbzGd9k17FtEK+6TAnZm2oRfrmypGsdeQY9O2mUtQr+rwdnD8fdsJGHAWWUoe13lMtGtr9V+IaXbZxlxQLHH5a/AHr8ym04SdhrKNEbAbe6WehNnMjijOyi86Edc+iFnFxZHPQsdLeEJI9xoWSZO+m2ig05/IGFUi3X9A4d+3oP5n/VTwBd/q0/TbTXvo1PAZ7bJpeJxZ62zlo8Zuvm4UWyi0RDK/OruPOeYMzcBD8oHLyuejTlsRymqu8lHRIcRTp/J0m9Hsn8RUohTKE2ItW4cAvX+9kp1AkCeTixCxugcxT3W0oujTaZtj/p7mBJlx4YWA7F4da2w4lVKmX3CCq11gb6R3/AlBLAwQUAAAIAAAAECHsHn9ddjIAAAAyAAAAEgAkAGdyYXBoMF9lZGl0b3IuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAXsibG9ja2VkIjp0cnVlLCJzaG93RXh0cmEiOmZhbHNlLCJwaXZvdCI6IkNlbnRlciJ9UEsDBBQAAAgIAAAQIexoOknzdQAAAIMAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BHYyxDoMgFAD/5c2WgEVQVwe3pnvjgLyHMhQMYpOm6b9Xut1wdx94Udp9DNDDlWkmoYIlmW3doRcnHh5PeoCwjmqutGo7KRrZXri0wjYKNc61E0gwVZDfG93Mk/7F3eTV+YA+LGxMHsdyLVaISEM8Qi4an74/UEsBAi0AFAAACAgAABAh7MvFWI02AgAATwQAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAAAABAh7B5/XXYyAAAAMgAAABIAJAAAAAAAAAAAAAAAgwIAAGdyYXBoMF9lZGl0b3IuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAAAQIexoOknzdQAAAIMAAAAJACQAAAAAAAAAAAAAAAkDAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAMAAwAcAQAAyQMAAAAA
     upgradeData: 
     data_backup: 
-    file_cachedStartup: {fileID: 0}
+    file_cachedStartup: {fileID: 4900000, guid: e38329f30f8c01640ba0953159a79a7a,
+      type: 3}
     data_cachedStartup: 
-    cacheStartup: 0
+    cacheStartup: 1
   showNavGraphs: 1
-  showUnwalkableNodes: 1
+  showUnwalkableNodes: 0
   debugMode: 0
   debugFloor: 0
   debugRoof: 1
@@ -4247,6 +4272,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11493254, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
+      propertyPath: startEndModifier.addPoints
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11493254, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
+      propertyPath: startEndModifier.exactStartPoint
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11493254, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
+      propertyPath: startEndModifier.exactEndPoint
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
   m_IsPrefabParent: 0
@@ -4389,7 +4426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 533427594e96f4344a2564c629ef0383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 3
+  radius: 2
   maxSpeed: 5
   height: 2
   locked: 0
@@ -4400,9 +4437,9 @@ MonoBehaviour:
   maxNeighbours: 10
   mask:
     serializedVersion: 2
-    m_Bits: 4294967295
-  layer: 1
-  collidesWith: -1
+    m_Bits: 528896
+  layer: 512
+  collidesWith: 528899
   wallAvoidForce: 1
   wallAvoidFalloff: 1
   center: {x: 0, y: 0, z: 0}
@@ -4666,7 +4703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1764de1de43cc4d19af52679d3eaae06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doubleBuffering: 1
+  doubleBuffering: 0
   interpolation: 1
   desiredSimulationFPS: 30
   workerThreads: 2
@@ -5406,14 +5443,13 @@ GameObject:
   - 135: {fileID: 2018916076}
   - 114: {fileID: 2018916075}
   - 114: {fileID: 2018916074}
-  - 114: {fileID: 2018916073}
   - 114: {fileID: 2018916072}
   - 114: {fileID: 2018916071}
   - 114: {fileID: 2018916070}
   - 114: {fileID: 2018916069}
   - 114: {fileID: 2018916068}
   - 114: {fileID: 2018916078}
-  - 114: {fileID: 2018916081}
+  - 114: {fileID: 2018916073}
   m_Layer: 12
   m_Name: Player1
   m_TagString: Player1
@@ -5501,32 +5537,19 @@ MonoBehaviour:
 --- !u!114 &2018916073
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11444644, guid: bf3ca6fda60444c4899a0f73e98e4bd5,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2018916067}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Script: {fileID: 11500000, guid: 21ffa94b775f54641bd8c73c930db320, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawGizmos: 1
-  detailedGizmos: 0
-  startEndModifier:
-    priority: 1
-    addPoints: 0
-    exactStartPoint: 3
-    exactEndPoint: 3
-    useRaycasting: 0
-    mask:
-      serializedVersion: 2
-      m_Bits: 4294967295
-    useGraphRaycasting: 0
-  traversableTags: -1
-  traversableTagsCompatibility:
-    tagsChange: -1
-    tagsSet: -1
-  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  obstacleMode: 0
+  layer: 4096
+  height: 5
+  size: {x: 35, y: 35}
+  center: {x: 1, y: 1}
 --- !u!114 &2018916074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5632,22 +5655,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!114 &2018916081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2018916067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21ffa94b775f54641bd8c73c930db320, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obstacleMode: 0
-  layer: 2
-  height: 5
-  size: {x: 50, y: 50}
-  center: {x: 1, y: 1}
 --- !u!1001 &2037015084
 Prefab:
   m_ObjectHideFlags: 0

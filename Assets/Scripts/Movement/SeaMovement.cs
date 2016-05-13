@@ -10,9 +10,10 @@ public abstract class SeaMovement : Movement {
     protected Vector3 targetLocation;
 
     // Pathfinding variables
-    protected float repathRate = 2;
+    protected float repathRate = 0.1f;
     protected float lastRepath;
-    protected bool canSearchAgain = false;
+    protected bool canSearchAgain = true;
+    protected bool canSearch = true;
     public bool m_OnMyWay = false;
 
     // Calculated path
@@ -22,7 +23,7 @@ public abstract class SeaMovement : Movement {
     public int currentWaypoint = 0;
 
     //The max distance from the AI to a waypoint for it to continue to the next waypoint
-    public float nextWaypointDistance = 10;
+    public float nextWaypointDistance = 14;
 
     public Action PathChangedEvent { get; internal set; }
 
