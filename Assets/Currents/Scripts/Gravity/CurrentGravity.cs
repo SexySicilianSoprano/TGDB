@@ -33,15 +33,15 @@ public class CurrentGravity : MonoBehaviour {
         if (other.gameObject.GetComponent<Building>() && other.gameObject.GetComponent<Rigidbody>())
         {
             // Just move with the current, baby! Add force into colliding object
-            other.GetComponent<Rigidbody>().AddForce(this.gameObject.transform.forward * (velocity * 5));
-            //other.transform.Translate(this.gameObject.transform.forward * (velocity / divider * Time.deltaTime));
+            //other.GetComponent<Rigidbody>().AddForce(this.gameObject.transform.forward * (velocity * 5));
+            other.transform.Translate(this.gameObject.transform.forward * (velocity / divider * Time.deltaTime));
         } 
         // Is the colliding object an unit that's affected by currents?
         else if (other.gameObject.GetComponent<Unit>() && other.gameObject.GetComponent<BoatMovement>().AffectedByCurrent)
         {
             // Just move with the current, baby! Add force into colliding object
-            other.GetComponent<Rigidbody>().AddForce(this.gameObject.transform.forward * (velocity / divider) * 2);
-            //other.transform.Translate(this.gameObject.transform.forward * (velocity / divider * Time.deltaTime));
+            //other.GetComponent<Rigidbody>().AddForce(this.gameObject.transform.forward * (velocity / divider) * 2);
+            other.transform.Translate(this.gameObject.transform.forward * (velocity / divider * Time.deltaTime));
         }
     }
 }
