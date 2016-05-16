@@ -12,8 +12,8 @@ public abstract class SeaMovement : Movement {
     // Pathfinding variables
     protected float repathRate = 0.1f;
     protected float lastRepath;
-    protected bool canSearchAgain = true;
-    protected bool canSearch = true;
+    protected bool canSearchAgain = false;
+    protected bool canSearch = false;
     public bool m_OnMyWay = false;
 
     // Calculated path

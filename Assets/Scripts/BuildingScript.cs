@@ -93,17 +93,15 @@ public class BuildingScript : MonoBehaviour {
                 //If the ray hits the Terrain, it will drag the building object on top of it and underneath the mouse cursor
                 if (hit.transform.gameObject.tag != "BuildingSpot")
                 {
-<<<<<<< HEAD
+                        /*
                     Vector3 target = new Vector3(hit.point.x, hit.point.y + 1.5f, hit.point.z);
                     currentBuilding.transform.position = target;
                     currentBuilding.GetComponent<Renderer>().material.mainTexture = textures[0];
-                    currentBuilding.GetComponent<Renderer>().material.color = Color.red;
-=======
+                    currentBuilding.GetComponent<Renderer>().material.color = Color.red;*/
 					Vector3 target = new Vector3(hit.point.x, hit.point.y + 1.5f, hit.point.z);
                 	currentBuilding.transform.position = target;
 					currentBuilding.GetComponentInChildren<Renderer>().material.mainTexture = textures[0];
 					currentBuilding.GetComponentInChildren<Renderer>().material.color = Color.red;
->>>>>>> Lavil-Dev
 
                     //If a building spot is hit with the ray, the building will turn green and snap to place *SCRAP THAT*
                     //Actually, check if temporary building's Building Being Placed -component collides with anything called BuildingSpot
@@ -111,7 +109,7 @@ public class BuildingScript : MonoBehaviour {
                     {
                         currentBuildingSpot = currentBuilding.GetComponent<BuildingBeingPlaced>().collidingObject;
                         //currentBuildingSpot = hit.transform.gameObject;
-<<<<<<< HEAD
+/*
                         currentBuilding.GetComponent<Renderer>().material.mainTexture = textures[0];
                         currentBuilding.GetComponent<Renderer>().material.color = Color.green;
                         currentBuilding.transform.position = currentBuildingSpot.transform.position;
@@ -122,8 +120,8 @@ public class BuildingScript : MonoBehaviour {
                             Destroy(currentBuilding);
                             tempBuilding = Instantiate(buildingList[buildingListIndex], currentBuildingSpot.transform.position, Quaternion.identity) as GameObject;
                             tempBuilding.GetComponent<Renderer>().material.mainTexture = textures[0];
-                            tempBuilding.GetComponent<Renderer>().material.color = Color.gray;
-=======
+                            tempBuilding.GetComponent<Renderer>().material.color = Color.gray;*/
+
                 		currentBuilding.GetComponentInChildren<Renderer>().material.mainTexture = textures[0];
 						currentBuilding.GetComponentInChildren<Renderer>().material.color = Color.green;
 						currentBuilding.transform.position = currentBuildingSpot.transform.position;
@@ -135,7 +133,6 @@ public class BuildingScript : MonoBehaviour {
 							tempBuilding = Instantiate(buildingList[buildingListIndex], currentBuildingSpot.transform.position, Quaternion.identity) as GameObject;
                             //tempBuilding.GetComponent<Renderer>().material.mainTexture = textures[0];
                             //tempBuilding.GetComponent<Renderer>().material.color = Color.gray;
->>>>>>> Lavil-Dev
                             //Destroy(tempBuilding.GetComponent<Rigidbody>());
                             //tempBuilding.GetComponent<BoxCollider>().isTrigger = false;
                             currentBuildingSpot.transform.Find("BSpotProjector").GetComponent<Projector>().enabled = false;

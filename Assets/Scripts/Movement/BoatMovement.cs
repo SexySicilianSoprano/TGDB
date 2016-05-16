@@ -90,7 +90,7 @@ public class BoatMovement : SeaMovement {
     // Called in every frame at fixed rate to reduce FPS exploitation and performance issues
     private void FixedUpdate()
     {
-        Debug.Log("Total: " + Path.vectorPath.Count + " - Waypoint: " + currentWaypoint);
+        //Debug.Log("Total: " + Path.vectorPath.Count + " - Waypoint: " + currentWaypoint);
         Debug.Log("On my way: " + m_OnMyWay);
 
         // No path
@@ -122,6 +122,7 @@ public class BoatMovement : SeaMovement {
                         currentWaypoint = 0;
                         trail.enabled = false;
                         m_OnMyWay = false;
+                        canSearchAgain = false;
                         return;
                     }
                 }
@@ -240,7 +241,7 @@ public class BoatMovement : SeaMovement {
     {
         Speed = item.Speed / 3;
         CurrentSpeed = 0;
-        RotationalSpeed = item.RotationSpeed *2;
+        RotationalSpeed = item.RotationSpeed;
         Acceleration = item.Acceleration / 3;
     }
 
@@ -293,10 +294,10 @@ public class BoatMovement : SeaMovement {
 
     IEnumerator RepeatRepath()
     {
-        while (m_OnMyWay)
+        while (true)
         {
             float v = TrySearchPath();
-            yield return new WaitForSeconds(0);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 

@@ -183,6 +183,7 @@ GameObject:
   - 114: {fileID: 11473234}
   - 114: {fileID: 11464938}
   - 114: {fileID: 11405848}
+  - 114: {fileID: 11408224}
   m_Layer: 9
   m_Name: Destroyer
   m_TagString: Player1
@@ -319,7 +320,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 422796}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!4 &407604
 Transform:
   m_ObjectHideFlags: 1
@@ -366,11 +367,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 129830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 265.21, y: 0.022144761, z: 37.35169}
+  m_LocalPosition: {x: 267.72, y: 1.1, z: 37.492924}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 404444}
   - {fileID: 479760}
+  - {fileID: 404444}
   - {fileID: 462054}
   - {fileID: 439252}
   - {fileID: 494378}
@@ -503,7 +504,7 @@ Transform:
   - {fileID: 474890}
   - {fileID: 416964}
   m_Father: {fileID: 422796}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!4 &493634
 Transform:
   m_ObjectHideFlags: 1
@@ -764,8 +765,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.6519637, y: 4.102968, z: 11.159834}
-  m_Center: {x: -0.20477295, y: 1.3794041, z: -0.009571075}
+  m_Size: {x: 3.6519637, y: 4.102968, z: 7.347658}
+  m_Center: {x: -0.20477295, y: 1.379404, z: 0.1015892}
 --- !u!95 &9581146
 Animator:
   serializedVersion: 3
@@ -848,6 +849,37 @@ MonoBehaviour:
   isRanged: 0
   isAntiArmor: 0
   isAntiStructure: 0
+--- !u!114 &11408224
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 129830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 533427594e96f4344a2564c629ef0383, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 2
+  maxSpeed: 5
+  height: 2
+  locked: 0
+  lockWhenNotMoving: 0
+  agentTimeHorizon: 3
+  obstacleTimeHorizon: 2
+  neighbourDist: 5
+  maxNeighbours: 10
+  mask:
+    serializedVersion: 2
+    m_Bits: 528896
+  layer: 512
+  collidesWith: 528899
+  wallAvoidForce: 1
+  wallAvoidFalloff: 1
+  center: {x: 0, y: 0, z: 0}
+  enableRotation: 0
+  rotationSpeed: 30
+  debug: 0
 --- !u!114 &11458008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -924,11 +956,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPosition: {x: 0, y: 0, z: 0}
-  currentWaypoint: 0
+  stayInPlace: 0
   m_OnMyWay: 0
+  currentWaypoint: 0
   nextWaypointDistance: 3
   AffectedByCurrent: 1
-  stayInPlace: 0
   moving: 0
   rb: {fileID: 0}
   RotationalSpeed: 0
@@ -949,9 +981,9 @@ MonoBehaviour:
   startEndModifier:
     priority: 1
     addPoints: 0
-    exactStartPoint: 1
-    exactEndPoint: 1
-    useRaycasting: 1
+    exactStartPoint: 2
+    exactEndPoint: 3
+    useRaycasting: 0
     mask:
       serializedVersion: 2
       m_Bits: 4294967295
