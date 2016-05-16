@@ -1,25 +1,34 @@
 fileFormatVersion: 2
-guid: e443a543e4049dc4d88dfc732fd20a63
-timeCreated: 1462963155
+guid: 8104e794b77e07447abf2e5c067b2d20
+timeCreated: 1463399979
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Bone
-    100004: Bone_end
-    100006: G_Laboratorio_Armature
-    100008: G_Laboratory
-    400000: //RootNode
-    400002: Bone
-    400004: Bone_end
-    400006: G_Laboratorio_Armature
-    400008: G_Laboratory
-    2300000: //RootNode
-    2300002: G_Laboratory
-    3300000: //RootNode
-    3300002: G_Laboratory
-    4300000: G_Laboratory
+    100000: BaseBone
+    100002: //RootNode
+    100004: G_Base
+    100006: G_Base_Armature
+    100008: Gear1
+    100010: Gear1_end
+    100012: Gear3
+    100014: Gear3_end
+    100016: Gera2
+    100018: Gera2_end
+    400000: BaseBone
+    400002: //RootNode
+    400004: G_Base
+    400006: G_Base_Armature
+    400008: Gear1
+    400010: Gear1_end
+    400012: Gear3
+    400014: Gear3_end
+    400016: Gera2
+    400018: Gera2_end
+    4300000: G_Base
+    7400000: GearsRotate
+    9500000: //RootNode
+    13700000: G_Base
   materials:
     importMaterials: 1
     materialName: 0
@@ -78,7 +87,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
