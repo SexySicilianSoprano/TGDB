@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class DataStorage : MonoBehaviour {
 
     // Current Mission Data
-    private Mission m_Mission = MissionDB.gearsMission1;
+    private Mission m_Mission;
 
     // Current House Data, should only store either "gears", "scales" or "mechanus"
     private string currentHouse = "gears";

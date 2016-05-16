@@ -222,7 +222,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(5 << 23)) /* && EventSystem.current.IsPointerOverGameObject() == false*/)
-        {           
+        {            
             // Right Mouse Button up, what happens next?
             if (Input.GetMouseButtonUp(1) && hoverOver == HoverOver.Land && m_SelectedManager().ActiveEntityCount() > 0)
             {

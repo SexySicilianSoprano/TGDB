@@ -38,7 +38,7 @@ public static class ItemDB {
         Health = 100.0f,
         Armour = 3.0f,
         Speed = 30.0f,
-        RotationSpeed = 1.5f,
+        RotationSpeed = 3f,
         Acceleration = 1.0f,
         Explosion = Resources.Load("Effects/Prefabs/Explosion_3", typeof(GameObject)) as GameObject,
         Prefab = Resources.Load("Models/Units/gearsHouse/Destroyer/Destroyer", typeof(GameObject)) as GameObject,
