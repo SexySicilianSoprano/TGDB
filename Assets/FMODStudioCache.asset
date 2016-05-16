@@ -41,7 +41,7 @@ MonoBehaviour:
   - {fileID: 11434708}
   - {fileID: 11468396}
   MasterBankRef: {fileID: 11429222}
-  stringsBankWriteTime: 635990097271310678
+  stringsBankWriteTime: 635990106373628586
   cacheVersion: 1
 --- !u!114 &11401170
 MonoBehaviour:
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\FMODProject\Tgdb_02\Build\Desktop\Master Bank.bank
-  lastModified: 635990097271280598
+  lastModified: 635990106373608588
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -331,7 +331,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: 
+  m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   Path: event:/Scout_attack
   guid: 10540fa620c608499f3959fef7f22216
@@ -373,7 +373,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: 
+  m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   Path: event:/Destroyer_ready
   guid: b4deca7e83a9d94b88152a71b573acfc
@@ -425,7 +425,7 @@ MonoBehaviour:
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 11486214}
+  - {fileID: 11469752}
   MinDistance: 1
   MaxDistance: 20
 --- !u!114 &11462688
@@ -525,9 +525,24 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 11496932}
+  - {fileID: 11487910}
   MinDistance: 0
   MaxDistance: 0
+--- !u!114 &11469752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Engine
+  Min: 0
+  Max: 4
+  Default: 0
 --- !u!114 &11474380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,6 +663,21 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
+--- !u!114 &11487910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  Name: Battle
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &11494556
 MonoBehaviour:
   m_ObjectHideFlags: 0

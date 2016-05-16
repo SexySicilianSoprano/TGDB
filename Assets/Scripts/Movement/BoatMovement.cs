@@ -214,9 +214,8 @@ public class BoatMovement : SeaMovement {
     // Gives the moving command
     public override void MoveTo(Vector3 location)
     {
-        Vector3 newlocation = location;
-        targetLocation = newlocation;
-        seeker.StartPath(transform.position, newlocation, OnPathComplete);
+        targetLocation = location;
+        seeker.StartPath(transform.position, location, OnPathComplete);
     }
 
     // Stop moving and set path to null
@@ -241,7 +240,7 @@ public class BoatMovement : SeaMovement {
     {
         Speed = item.Speed / 3;
         CurrentSpeed = 0;
-        RotationalSpeed = item.RotationSpeed;
+        RotationalSpeed = item.RotationSpeed *2;
         Acceleration = item.Acceleration / 3;
     }
 
@@ -297,7 +296,7 @@ public class BoatMovement : SeaMovement {
         while (true)
         {
             float v = TrySearchPath();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(v);
         }
     }
 
