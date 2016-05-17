@@ -11,6 +11,7 @@ public class MinimapArmi : MonoBehaviour {
 
 	public GameObject cameraObj;
 	public Camera minimapCamera;
+	public Camera minimapBoxCamera;
 	public GameObject Minimap;
 	public float MapWidth;
 	public float MapHeight;
@@ -32,6 +33,7 @@ public class MinimapArmi : MonoBehaviour {
 	public Texture2D minimapRevealTexture;
 
 	public GameObject minimapMask;
+
 
 	FogOfWar _fog;
 	Texture2D _texture;
@@ -68,6 +70,8 @@ public class MinimapArmi : MonoBehaviour {
 
 		cameraRotation = cameraObj.transform.rotation.eulerAngles;
 		minimapCamera.transform.eulerAngles = new Vector3 (90, cameraRotation.y, 0);
+		minimapBoxCamera.transform.eulerAngles = new Vector3 (90, cameraRotation.y, 0);
+		fowMinimap.transform.eulerAngles = new Vector3 (0, 0, cameraRotation.y);
 		GameObject.Find ("MinimapFocusBox").transform.eulerAngles = cameraRotation;
 
 
@@ -77,9 +81,7 @@ public class MinimapArmi : MonoBehaviour {
 	{
 
 		Vector3 mousePos = (Input.mousePosition);
-//		Debug.Log ("Hiiri: " + mousePos);
 		Vector2 minimapPos = Minimap.transform.position;
-//		Debug.Log ("Minimap: " + minimapPos);
 
 		//Get the 4 corners (in world space) of the raw image gameobject's rect transform on the GUI
 		corners = new Vector3[4];
@@ -97,23 +99,9 @@ public class MinimapArmi : MonoBehaviour {
 		cameraObj.transform.position = new Vector3(minmapcampos.x + 20f, cameraObj.transform.position.y, minmapcampos.z  - 40f);
 
 	}
-//	void DrawOnMap(string text, Vector3 position, int panelwidth)
-//	{
-//		Vector2i mappos = new Vector2i(_fog.WorldPositionToFogPositionNormalized(position) * (panelwidth - 20));
-//		GUI.Label(new Rect(10 + mappos.x - 10, Screen.height - mappos.y - 10, 20, 20), text);
-//	}
+
 	void OnGUI()
 	{
-
-
-//		if (_panelStyle == null)
-//		{
-//			Texture2D panelTex = new Texture2D(1, 1);
-//			panelTex.SetPixels32(new Color32[] { new Color32(255, 255, 255, 64) });
-//			panelTex.Apply();
-//			_panelStyle = new GUIStyle();
-//			_panelStyle.normal.background = panelTex;
-//		}
 
 		byte[] original = _fog.texture.GetRawTextureData();
 		Color32[] pixels = new Color32[original.Length];
@@ -122,8 +110,6 @@ public class MinimapArmi : MonoBehaviour {
 		minimapRevealTexture.SetPixels32(pixels);
 		minimapRevealTexture.Apply();
 
-		// draw map
-		//GUI.DrawTexture(new Rect(350, 50, 150, 150), _texture);
 
 
 	}
