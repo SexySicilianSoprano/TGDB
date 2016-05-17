@@ -91,15 +91,23 @@ public class Selected : MonoBehaviour {
             GetComponent<BoatMovement>().AffectedByCurrent = false;            
         }
 
+        if (projector)
         projector.enabled = true;
+
+        if(hpbar)
         hpbar.ShowHealthBar();
+        
 	}
 	
 	public void SetDeselected()
 	{
 		IsSelected = false;
 		m_JustBeenSelected = false;
+
+        if (projector)
         projector.enabled = false;
+
+        if (hpbar)
         hpbar.HideHealthBar();
 
         if (GetComponent<Combat>() && !GetComponent<Combat>().isInCombat)
