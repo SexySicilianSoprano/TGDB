@@ -41,7 +41,7 @@ MonoBehaviour:
   - {fileID: 11434708}
   - {fileID: 11468396}
   MasterBankRef: {fileID: 11429222}
-  stringsBankWriteTime: 635990106373628586
+  stringsBankWriteTime: 635984480419362314
   cacheVersion: 1
 --- !u!114 &11401170
 MonoBehaviour:
@@ -190,6 +190,21 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
+--- !u!114 &11417944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  Name: Battle
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &11422530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,15 +256,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: 
+  m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   Path: Assets\FMODProject\Tgdb_02\Build\Desktop\Master Bank.bank
-  lastModified: 635990106373608588
+  lastModified: 635984480419322311
   LoadResult: 0
   FileSizes:
   - Name: Desktop
     Value: 15327808
   Exists: 1
+--- !u!114 &11431152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  Name: Engine
+  Min: 0
+  Max: 4
+  Default: 0
 --- !u!114 &11434708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,7 +310,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: 
+  m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   Name: Engine
   Min: 0
@@ -415,7 +445,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: 
+  m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   Path: event:/Boat_engine
   guid: 4c1a02de89a67549b442076d69cb5c70
@@ -425,7 +455,7 @@ MonoBehaviour:
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 11469752}
+  - {fileID: 11431152}
   MinDistance: 1
   MaxDistance: 20
 --- !u!114 &11462688
@@ -525,7 +555,7 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 11487910}
+  - {fileID: 11417944}
   MinDistance: 0
   MaxDistance: 0
 --- !u!114 &11469752
