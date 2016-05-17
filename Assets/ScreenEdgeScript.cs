@@ -29,7 +29,7 @@ public class ScreenEdgeScript : MonoBehaviour, IPointerEnterHandler, IPointerExi
             movement.x += screen_x;
             movement.z += screen_y;
 
-            mainCamera.transform.Translate(movement * Time.deltaTime * panSpeed, Space.World); // move based on local space.
+            mainCamera.transform.Translate(movement * Time.deltaTime * panSpeed, Space.Self); // move based on local space.
         }
     }
 
