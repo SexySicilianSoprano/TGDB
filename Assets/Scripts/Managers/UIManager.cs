@@ -266,7 +266,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         if (Input.GetKeyDown("1"))
         {
             // Are we holding down left control?
-            if (Input.GetKey(KeyCode.V))
+            if (Input.GetKey(KeyCode.LeftControl))
             {
                 // Create group 1
                 m_SelectedManager().CreateGroup(1);
