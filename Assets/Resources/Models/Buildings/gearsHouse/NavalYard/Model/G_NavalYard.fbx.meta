@@ -37,6 +37,7 @@ ModelImporter:
     4300002: G_Navalyard.001
     7400000: Doors Open
     7400002: GearsRotate
+    7400004: GearsRotate0
     9500000: //RootNode
     13700000: G_Navalyard.001
   materials:
@@ -59,7 +60,111 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: GearsRotate0
+      takeName: GearsRotate
+      firstFrame: 0
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: G_Navalyard.001
+        weight: 1
+      - path: G_NavalYard_Armature
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Door1
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Door1/G_NY_Door1_end
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Door2
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Door2/G_NY_Door2_end
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Gear1
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Gear1/G_NY_Gear1_end
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Gear2
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Gear2/G_NY_Gear2_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: GearsRotate
+      takeName: GearsRotate
+      firstFrame: 0
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: G_Navalyard.001
+        weight: 1
+      - path: G_NavalYard_Armature
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Door1
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Door1/G_NY_Door1_end
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Door2
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Door2/G_NY_Door2_end
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Gear1
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Gear1/G_NY_Gear1_end
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Gear2
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Gear2/G_NY_Gear2_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
