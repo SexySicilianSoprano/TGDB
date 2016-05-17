@@ -91,7 +91,7 @@ public class BoatMovement : SeaMovement {
     private void FixedUpdate()
     {
         //Debug.Log("Total: " + Path.vectorPath.Count + " - Waypoint: " + currentWaypoint);
-        Debug.Log("On my way: " + m_OnMyWay);
+        //Debug.Log("On my way: " + m_OnMyWay);
 
         // No path
         if (Path == null)
@@ -101,12 +101,7 @@ public class BoatMovement : SeaMovement {
 
         // We have a path
         if (Path != null /*&& Path.Count > 0*/)
-        {
-            if (!trail.enabled)
-            {
-                trail.enabled = true;
-            }
-
+        {  
             // If we're close enough to the next waypoint, jump to next one
             if (Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < nextWaypointDistance && currentWaypoint < Path.vectorPath.Count || Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < nextWaypointDistance && currentWaypoint <= Path.vectorPath.Count)
             {
@@ -193,7 +188,11 @@ public class BoatMovement : SeaMovement {
     public override void MoveForward()
     {
         controller.Move(m_Parent.transform.forward * Speed);
-        //rb.AddForce(m_Parent.transform.forward * Speed);
+
+        if (!trail.enabled)
+        {
+            trail.enabled = true;
+        }
     }
 
     // Check if something is in front of you, calculate a new route
@@ -224,6 +223,8 @@ public class BoatMovement : SeaMovement {
         controller.Move(Vector3.zero);
         rb.velocity = Vector3.zero;
         Path = null;
+        canSearch = false;
+        canSearchAgain = false;
         m_OnMyWay = false;
         currentWaypoint = 0;
         trail.enabled = false;

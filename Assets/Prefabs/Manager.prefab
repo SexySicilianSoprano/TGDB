@@ -97,8 +97,10 @@ MonoBehaviour:
   - {fileID: 140202, guid: dcdc4daf6d8155c46978c2a441cd5587, type: 2}
   maxQueuedUnits: 10
   unitBuildingQueue: []
+  onHold: 0
   navalYard: {fileID: 0}
   spawnPointList: []
+  unitPanel: {fileID: 0}
 --- !u!114 &11468062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -133,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingList:
-  - {fileID: 170034, guid: 22418d71c50ff8b40be11d2176131790, type: 2}
+  - {fileID: 170034, guid: ccaadf0ce1c949b4ba3e63a79558ca88, type: 2}
   currentBuildingSpot: {fileID: 0}
   camera: {fileID: 0}
   layerMask:
@@ -142,6 +144,7 @@ MonoBehaviour:
   textures:
   - {fileID: 0}
   bsHandler: {fileID: 0}
+  onHold: 0
 --- !u!114 &11493042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -174,6 +177,7 @@ MonoBehaviour:
   m_DataManager: {fileID: 0}
   m_DataStorage: {fileID: 0}
   m_Manager: {fileID: 0}
+  m_SoundManager: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -12,10 +12,10 @@ public class FloatingFortress : Building {
 		//Tell the base class to start as well, must be done after AssignDetails
 		base.Start();
 	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
 
-	}
+    new void Update()
+    {
+        base.Update();
+        AstarPath.active.UpdateGraphs(GetComponent<BoxCollider>().bounds);
+    }
 }

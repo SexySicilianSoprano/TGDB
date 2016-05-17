@@ -46,10 +46,10 @@ public class BuildingScript : MonoBehaviour {
         camera = Camera.main;
         bsHandler = GameObject.Find("Player1").GetComponent<BuildingSpotHandler>();
 	}
-	
-	// Update is called once per frame
-	void Update ()
-    { 
+
+    // Update is called once per frame
+    void Update()
+    {
         // If we are currently building a structure
         if (buildingInProgress && !onHold)
         {
@@ -66,52 +66,57 @@ public class BuildingScript : MonoBehaviour {
             }
         }
         //If we have a current building being placed
-        else if (currentBuilding){
+        else if (currentBuilding)
+        {
 
             // Show available building spots
             bsHandler.ShowBuildingSpots();
 
             // Raycast info
-			RaycastHit hit;
-	        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 
             // Set mouse position information
-			Vector3 mousePos = Input.mousePosition;
-			mousePos = new Vector3(mousePos.x,mousePos.y,camera.transform.position.y);
-			Vector3 objectPos = camera.ScreenToWorldPoint(mousePos);
+            Vector3 mousePos = Input.mousePosition;
+            mousePos = new Vector3(mousePos.x, mousePos.y, camera.transform.position.y);
+            Vector3 objectPos = camera.ScreenToWorldPoint(mousePos);
 
-			//When mouse button is pushed outside the building area, the current building will be destroyed
-			if (Input.GetMouseButton(1))
+            //When mouse button is pushed outside the building area, the current building will be destroyed
+            if (Input.GetMouseButton(1))
             {
-				Destroy (currentBuilding);
+                Destroy(currentBuilding);
                 bsHandler.HideBuildingSpots();
-			}
-            
-			//Casting ray which only hits the colliders in the layer mask
-	        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask, QueryTriggerInteraction.Collide))
+            }
+
+            //Casting ray which only hits the colliders in the layer mask
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask, QueryTriggerInteraction.Collide))
             {
                 //If the ray hits the Terrain, it will drag the building object on top of it and underneath the mouse cursor
                 if (hit.transform.gameObject.tag != "BuildingSpot")
                 {
-                        /*
                     Vector3 target = new Vector3(hit.point.x, hit.point.y + 1.5f, hit.point.z);
                     currentBuilding.transform.position = target;
-                    currentBuilding.GetComponent<Renderer>().material.mainTexture = textures[0];
-                    currentBuilding.GetComponent<Renderer>().material.color = Color.red;*/
-					Vector3 target = new Vector3(hit.point.x, hit.point.y + 1.5f, hit.point.z);
-                	currentBuilding.transform.position = target;
-					currentBuilding.GetComponentInChildren<Renderer>().material.mainTexture = textures[0];
-					currentBuilding.GetComponentInChildren<Renderer>().material.color = Color.red;
+                    currentBuilding.GetComponentInChildren<Renderer>().material.mainTexture = textures[0];
+                    currentBuilding.GetComponentInChildren<Renderer>().material.color = Color.red;
 
                     //If a building spot is hit with the ray, the building will turn green and snap to place *SCRAP THAT*
                     //Actually, check if temporary building's Building Being Placed -component collides with anything called BuildingSpot
                     if (hit.transform.IsChildOf(GameObject.Find("Player1").transform) /*currentBuilding.GetComponent<BuildingBeingPlaced>().collidingObject && currentBuilding.GetComponent<BuildingBeingPlaced>().collidingObject.tag == "BuildingSpot"*/)
                     {
                         currentBuildingSpot = currentBuilding.GetComponent<BuildingBeingPlaced>().collidingObject;
+                        currentBuilding.transform.position = currentBuildingSpot.transform.position;
                         //currentBuildingSpot = hit.transform.gameObject;
-/*
+                        /*
                         currentBuilding.GetComponent<Renderer>().material.mainTexture = textures[0];
                         currentBuilding.GetComponent<Renderer>().material.color = Color.green;
+                        */
+
+                        /*
+                        tempBuilding.GetComponent<Renderer>().material.mainTexture = textures[0];
+                        tempBuilding.GetComponent<Renderer>().material.color = Color.gray;
+                        */
+                        currentBuilding.GetComponentInChildren<Renderer>().material.mainTexture = textures[0];
+                        currentBuilding.GetComponentInChildren<Renderer>().material.color = Color.green;
                         currentBuilding.transform.position = currentBuildingSpot.transform.position;
 
                         //If mouse button is pressed on top of a building spot, the object is destroyed and instantiated as a temporary one and turned gray, then calling the timer coroutine
@@ -119,18 +124,6 @@ public class BuildingScript : MonoBehaviour {
                         {
                             Destroy(currentBuilding);
                             tempBuilding = Instantiate(buildingList[buildingListIndex], currentBuildingSpot.transform.position, Quaternion.identity) as GameObject;
-                            tempBuilding.GetComponent<Renderer>().material.mainTexture = textures[0];
-                            tempBuilding.GetComponent<Renderer>().material.color = Color.gray;*/
-
-                		currentBuilding.GetComponentInChildren<Renderer>().material.mainTexture = textures[0];
-						currentBuilding.GetComponentInChildren<Renderer>().material.color = Color.green;
-						currentBuilding.transform.position = currentBuildingSpot.transform.position;
-                        
-						//If mouse button is pressed on top of a building spot, the object is destroyed and instantiated as a temporary one and turned gray, then calling the timer coroutine
-						if (Input.GetMouseButton(0))
-                        {
-							Destroy (currentBuilding);
-							tempBuilding = Instantiate(buildingList[buildingListIndex], currentBuildingSpot.transform.position, Quaternion.identity) as GameObject;
                             //tempBuilding.GetComponent<Renderer>().material.mainTexture = textures[0];
                             //tempBuilding.GetComponent<Renderer>().material.color = Color.gray;
                             //Destroy(tempBuilding.GetComponent<Rigidbody>());
@@ -147,10 +140,11 @@ public class BuildingScript : MonoBehaviour {
                             bsHandler.HideBuildingSpots();
                         }
                     }
+                    
                 }
-	        } 
-		}
-	}
+            }
+        }
+    }
 
     // Returns buildingInProgress
     public bool GetBuildingInProgress()

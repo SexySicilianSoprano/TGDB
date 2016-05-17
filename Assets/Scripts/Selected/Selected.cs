@@ -35,7 +35,7 @@ public class Selected : MonoBehaviour {
     // Use this for initialization
     void Start () 
 	{
-        projector = GetComponentInChildren<Projector>();
+        projector = transform.Find("SelectedProjector").GetComponent<Projector>();
         hpbar = GetComponent<HPBar>();
 		IsSelected = false;
 		FindMaxWorldSize();

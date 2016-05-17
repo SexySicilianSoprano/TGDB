@@ -112,19 +112,20 @@ public class ResourceGathering : MonoBehaviour {
 
     public void SetValues()
     {
-        gatheringRate = 5;
-        maxAmount = 100;
+        gatheringRate = 0.5f;
+        maxAmount = 10;
     }
 
     private void GoTowardsTarget(Vector3 target)
     {
         onMyWay = true;
-        GetComponent<Movement>().MoveTo(target);
+        Vector3 newTarget = new Vector3(target.x, 0, target.z);
+        GetComponent<Movement>().MoveTo(newTarget);
     }
 
     private bool CloseEnough(Vector3 target)
     {
-        if (Vector3.Distance(target, transform.position) <= 5)
+        if (Vector3.Distance(target, transform.position) <= 10)
         {
             return true;
         }
