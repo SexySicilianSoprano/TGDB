@@ -2102,6 +2102,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11481384, guid: f17b78858b43aaf4b833ca638278b444, type: 2}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1857952853}
+    - target: {fileID: 11481384, guid: f17b78858b43aaf4b833ca638278b444, type: 2}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleCanvasConst
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f17b78858b43aaf4b833ca638278b444, type: 2}
   m_IsPrefabParent: 0
@@ -4046,6 +4054,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
+--- !u!114 &1857952853 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11408210, guid: 5535322ac0913b14992afc5f1fc2a375,
+    type: 2}
+  m_PrefabInternal: {fileID: 1680272494}
+  m_Script: {fileID: 11500000, guid: 18d27cf1e1c196d448e81ff10df82554, type: 3}
 --- !u!1001 &1872130648
 Prefab:
   m_ObjectHideFlags: 0
