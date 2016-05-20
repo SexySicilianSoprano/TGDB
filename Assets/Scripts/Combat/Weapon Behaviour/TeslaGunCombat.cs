@@ -24,7 +24,7 @@ public class TeslaGunCombat : Combat{
     private float m_FireRate;
 
     // How many times the projectile jumps?
-    public float m_Jumps = 2;
+    public int m_Jumps = 2;
 
     // Jump origin
     private RTSEntity m_Origin;
@@ -41,15 +41,19 @@ public class TeslaGunCombat : Combat{
     private SphereCollider DangerZone
     { get { return transform.Find("DangerZone").GetComponent<SphereCollider>(); } }
 
-    // List of targets and priorities
+    // Lists for target prioritising and projectile jump points
     private List<RTSEntity> targetList = new List<RTSEntity>(); // Normal priority
     private List<RTSEntity> trueTargetList = new List<RTSEntity>(); // High priority
+    private List<Vector3> jumpPoints = new List<Vector3>();
 
     // This unit's movement script
     private Movement m_Movement;
 
     // Sound Manager
     private SoundManager m_SoundManager { get { return GameObject.Find("Manager").GetComponent<SoundManager>(); } }
+
+    // Projectile renderer
+    private LineRenderer m_Line { get { return GetComponent<LineRenderer>(); } }
 
     // Use this for initialization
     void Start()
@@ -59,6 +63,7 @@ public class TeslaGunCombat : Combat{
         m_Parent = GetComponent<RTSEntity>();
         Spawner = m_Parent.transform.GetChild(0);
         m_Movement = GetComponent<Movement>();
+        m_Line.enabled = false;
     }
 
     void FixedUpdate()
@@ -240,7 +245,9 @@ public class TeslaGunCombat : Combat{
         // Set us in combat
         inCombat = true;
 
-        //LaunchProjectile(Projectile);
+        m_Line.SetVertexCount(2);
+        m_Line.enabled = true;
+        LaunchProjectile(CurrentPos, TargetPos);
         m_Target.TakeDamage(Damage);
 
         if (m_Target)
@@ -285,13 +292,7 @@ public class TeslaGunCombat : Combat{
             }
         }
     }
-
-    // Launches projectile
-    private void LaunchProjectile()
-    {
-
-    }
-
+    
     // Checks if target is in line of fires
     private bool TargetInLine()
     {
@@ -522,20 +523,41 @@ public class TeslaGunCombat : Combat{
         }*/
     }
 
+    // Launches projectile
+    private void LaunchProjectile(Vector3 origin, Vector3 target)
+    {
+        //GameObject projectile = new GameObject();
+        //projectile.AddComponent<LineRenderer>();
+
+        
+        //render.material = Resources.Load("Projectiles/Materials/TeslaMaterial", typeof (Material)) as Material;
+
+        if (!jumpPoints.Contains(origin))
+        {
+            jumpPoints.Add(origin);
+        }        
+
+        jumpPoints.Add(target);        
+        m_Line.SetPositions(jumpPoints.ToArray());
+    }
+
     // While number of jumps is lower than maximum number of jumps, get a new target for each jump
     private void DamageJumpTargets(RTSEntity origin)
     {
         RTSEntity target = origin;
+        RTSEntity lastTarget;
         int jumps = 0;
 
         while (jumps < m_Jumps)
         {
+            lastTarget = target;
             target = DetectEnemiesInJumpDistance(target);
             if (target != null)
             {
-                target.TakeDamage(Damage * 0.5f);
                 jumps++;
-
+                m_Line.SetVertexCount(2 + jumps);
+                LaunchProjectile(lastTarget.transform.position, target.transform.position);
+                target.TakeDamage(Damage * 0.5f);
                 if (jumps == m_Jumps)
                 {
                     break;
@@ -546,6 +568,8 @@ public class TeslaGunCombat : Combat{
                 break;
             }
         }
+        StartCoroutine(WaitForRender());
+        jumpPoints.Clear();
     }
 
     // Compares floats, used in list sorting in the method below
@@ -578,7 +602,7 @@ public class TeslaGunCombat : Combat{
         RaycastHit[] hits = Physics.SphereCastAll(ray, Range * 0.5f);
         foreach (RaycastHit hit in hits)
         {
-            if (hit.transform.GetComponent<RTSEntity>() && hit.transform.GetComponent<RTSEntity>() != origin && hit.transform.tag != gameObject.tag)
+            if (!hit.collider.isTrigger && hit.transform.GetComponent<RTSEntity>() && hit.transform.GetComponent<RTSEntity>() != origin && hit.transform.tag != gameObject.tag)
             {
                 targets.Add(hit.transform.GetComponent<RTSEntity>());
             }
@@ -655,6 +679,12 @@ public class TeslaGunCombat : Combat{
     {
         yield return new WaitForSeconds(m_FireRate);
         canFire = true;
+    }
+
+    IEnumerator WaitForRender()
+    {
+        yield return new WaitForSeconds(0.5f);
+        m_Line.enabled = false;
     }
 
     // Combat mode

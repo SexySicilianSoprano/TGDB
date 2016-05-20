@@ -101,30 +101,27 @@ public class BoatMovement : SeaMovement {
 
         // We have a path
         if (Path != null /*&& Path.Count > 0*/)
-        {  
+        {   
             // If we're close enough to the next waypoint, jump to next one
-            if (Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < nextWaypointDistance && currentWaypoint < Path.vectorPath.Count || Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < nextWaypointDistance && currentWaypoint <= Path.vectorPath.Count)
+            if (Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < nextWaypointDistance * 4 && currentWaypoint < Path.vectorPath.Count || Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < nextWaypointDistance && currentWaypoint <= Path.vectorPath.Count)
             {
-                if (Path.vectorPath.Count > currentWaypoint)
+                currentWaypoint++;
+                if (Path.vectorPath.Count <= currentWaypoint)
                 {
-                    currentWaypoint++;
-
-                    if (Path.vectorPath.Count <= currentWaypoint)
-                    {
-                        rb.velocity = Vector3.zero;
-                        controller.Move(Vector3.zero);
-                        Path = null;
-                        currentWaypoint = 0;
-                        trail.enabled = false;
-                        m_OnMyWay = false;
-                        canSearchAgain = false;
-                        return;
-                    }
+                    rb.velocity = Vector3.zero;
+                    //controller.Move(Vector3.zero);
+                    Path = null;
+                    currentWaypoint = 0;
+                    trail.enabled = false;
+                    m_OnMyWay = false;
+                    canSearchAgain = false;
+                    return;
                 }
+                
             }
 
             // Pick the direction towards the next waypoint
-            Vector3 dir = (Path.vectorPath[currentWaypoint] - transform.position).normalized;
+            Vector3 dir = CheckBestRoute();            
 
             // We have a path, lets move!
             m_PlayMovingSound = true;
@@ -181,13 +178,41 @@ public class BoatMovement : SeaMovement {
         m_LookRotation = Quaternion.LookRotation(new Vector3(m_Direction.x, m_Direction.y * 0, m_Direction.z));
 
         transform.rotation = Quaternion.Slerp(transform.rotation, m_LookRotation, Time.deltaTime * RotationalSpeed);
+        
                 
+    }
+
+    private Vector3 CheckBestRoute()
+    {
+        LayerMask mask = 8 << 23;
+        List<Vector3> vPath = Path.vectorPath;
+        int index = vPath.Count-1;
+
+        while (true)
+        {
+            float distance = Vector3.Distance(transform.position, vPath[index]);
+            RaycastHit hit;
+            Vector3 castPos = new Vector3(transform.position.x, 2f, transform.position.z);
+            Vector3 castTarg = new Vector3(vPath[index].x, 2f, vPath[index].z);
+            Ray ray = new Ray(castPos, (vPath[index] - transform.position).normalized);
+
+            if (Physics.Raycast(ray, out hit, distance, ~mask))
+            {
+                index--;                
+            }
+            else
+            {
+                currentWaypoint = index;
+                return (vPath[index] - transform.position).normalized;
+            }
+        }
     }
 
     // Onward!
     public override void MoveForward()
     {
-        controller.Move(m_Parent.transform.forward * Speed);
+        //controller.Move(m_Parent.transform.forward * Speed);
+        rb.AddForce(transform.forward * Speed);
 
         if (!trail.enabled)
         {
@@ -220,7 +245,7 @@ public class BoatMovement : SeaMovement {
     // Stop moving and set path to null
     public override void Stop()
     {
-        controller.Move(Vector3.zero);
+        //controller.Move(Vector3.zero);
         rb.velocity = Vector3.zero;
         Path = null;
         canSearch = false;
@@ -239,9 +264,9 @@ public class BoatMovement : SeaMovement {
     // Assigne details
     public override void AssignDetails(Item item)
     {
-        Speed = item.Speed / 3;
+        Speed = item.Speed / 6;
         CurrentSpeed = 0;
-        RotationalSpeed = item.RotationSpeed *2;
+        RotationalSpeed = item.RotationSpeed / 3;
         Acceleration = item.Acceleration / 3;
     }
 
@@ -281,15 +306,6 @@ public class BoatMovement : SeaMovement {
         }
 
         return false;
-    }
-
-    private void CloseIn(Vector3 target)
-    {
-        if (PointingAtTarget(target))
-        {
-            MoveForward();
-        }
-        RotateTowards(target);        
     }
 
     IEnumerator RepeatRepath()
