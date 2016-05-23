@@ -68,6 +68,7 @@ GameObject:
   - 135: {fileID: 13552118}
   - 114: {fileID: 11420672}
   - 114: {fileID: 11485022}
+  - 114: {fileID: 11497568}
   m_Layer: 12
   m_Name: TestTurret
   m_TagString: Player2
@@ -273,8 +274,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 141580}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 436.1, y: 6.2359138, z: 133.58525}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 249.27359, y: 6.2359138, z: 152.83891}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 435110}
   - {fileID: 408856}
@@ -329,7 +330,7 @@ Transform:
   m_GameObject: {fileID: 175802}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 422424}
   m_RootOrder: 3
@@ -364,8 +365,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 187880}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: 0, y: 44.3, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalPosition: {x: 0, y: 37.7, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 422424}
   m_RootOrder: 4
@@ -666,6 +667,18 @@ MonoBehaviour:
   isInCombat: 0
   m_Health: 0
   m_MaxHealth: 0
+--- !u!114 &11497568
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 141580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac9c7828afe9efc4a844f00eed9e22d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MyBuildingSpot: {fileID: 0}
 --- !u!119 &11918230
 Projector:
   m_ObjectHideFlags: 1

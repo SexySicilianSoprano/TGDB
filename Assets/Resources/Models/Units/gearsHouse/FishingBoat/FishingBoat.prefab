@@ -126,6 +126,7 @@ GameObject:
   - 114: {fileID: 11433168}
   - 65: {fileID: 6535280}
   - 95: {fileID: 9526826}
+  - 114: {fileID: 11446060}
   m_Layer: 9
   m_Name: FishingBoat
   m_TagString: Player1
@@ -186,7 +187,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 496756}
-  - 95: {fileID: 9502650}
   m_Layer: 0
   m_Name: G_FishingBoat
   m_TagString: Untagged
@@ -404,7 +404,7 @@ Transform:
   m_GameObject: {fileID: 138594}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 44, z: 0}
-  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 461688}
   m_RootOrder: 1
@@ -462,23 +462,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.375101, y: 2, z: 4.020204}
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!95 &9502650
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 159796}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 7fb9ca66fdfa2314e98946662ea7a781, type: 3}
-  m_Controller: {fileID: 9100000, guid: 93bff5149edc11d409f5195089f9c94b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9526826
 Animator:
   serializedVersion: 3
@@ -588,6 +571,21 @@ MonoBehaviour:
   cur_health: 0
   MyCamera: {fileID: 0}
   SizeDif: 0
+--- !u!114 &11446060
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b130f358dcb26548b2ff0923d496dc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 30
+  lineOfSightMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &11463232
 MonoBehaviour:
   m_ObjectHideFlags: 1
