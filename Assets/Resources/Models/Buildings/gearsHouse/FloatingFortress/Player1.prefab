@@ -99,7 +99,6 @@ GameObject:
   - 114: {fileID: 11427104}
   - 114: {fileID: 11475744}
   - 114: {fileID: 11420048}
-  - 114: {fileID: 11422152}
   - 114: {fileID: 11473950}
   - 95: {fileID: 9571284}
   - 114: {fileID: 11408474}
@@ -716,7 +715,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 155930}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.8, y: 1, z: 14.77}
+  m_LocalPosition: {x: 0.34, y: 1, z: 17.18}
   m_LocalScale: {x: 0.3022822, y: 0.7500001, z: 0.3869751}
   m_Children:
   - {fileID: 409938}
@@ -816,7 +815,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 190702}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.72, y: 1, z: -16.01}
+  m_LocalPosition: {x: -11.18, y: 1, z: -13.6}
   m_LocalScale: {x: 0.3022822, y: 0.7500001, z: 0.3869751}
   m_Children:
   - {fileID: 471950}
@@ -859,7 +858,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 151550}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.8, y: 1, z: -16.01}
+  m_LocalPosition: {x: 0.34, y: 1, z: -13.6}
   m_LocalScale: {x: 0.3022822, y: 0.7500001, z: 0.3869751}
   m_Children:
   - {fileID: 427810}
@@ -884,7 +883,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 130514}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.72, y: 1, z: 14.77}
+  m_LocalPosition: {x: -11.18, y: 1, z: 17.18}
   m_LocalScale: {x: 0.3022822, y: 0.7500001, z: 0.3869751}
   m_Children:
   - {fileID: 416998}
@@ -897,7 +896,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 126690}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.71, y: 1, z: -16.01}
+  m_LocalPosition: {x: 12.25, y: 1, z: -13.6}
   m_LocalScale: {x: 0.3022822, y: 0.7500001, z: 0.3869751}
   m_Children:
   - {fileID: 408618}
@@ -925,7 +924,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109138}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.72, y: 1, z: -0.8}
+  m_LocalPosition: {x: -11.18, y: 1, z: 1.61}
   m_LocalScale: {x: 0.3022822, y: 0.7500001, z: 0.3869751}
   m_Children:
   - {fileID: 415146}
@@ -962,7 +961,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 157000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.34, y: 1, z: -0.8}
+  m_LocalPosition: {x: 11.88, y: 1, z: 1.61}
   m_LocalScale: {x: 0.3022822, y: 0.7500001, z: 0.3869751}
   m_Children:
   - {fileID: 415856}
@@ -987,7 +986,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 107376}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.06, y: 1, z: 14.77}
+  m_LocalPosition: {x: 11.6, y: 1, z: 17.18}
   m_LocalScale: {x: 0.3022822, y: 0.7500001, z: 0.3869751}
   m_Children:
   - {fileID: 424362}
@@ -1335,8 +1334,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 14.178344, y: 13.130808, z: 31.071024}
-  m_Center: {x: 0, y: 3, z: 0}
+  m_Size: {x: 14.172662, y: 13.130808, z: 21.96764}
+  m_Center: {x: 0.37496948, y: 3, z: 2.1040497}
 --- !u!65 &6559514
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1438,12 +1437,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 120848}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b130f358dcb26548b2ff0923d496dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 100
+  radius: 50
   lineOfSightMask:
     serializedVersion: 2
     m_Bits: 0
@@ -1463,18 +1462,6 @@ MonoBehaviour:
   stickyness: 14.9
   unit: 2
   dragCoefficient: 0.3
---- !u!114 &11422152
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 120848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a65cc6b5511b9340a025184c96662f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 30
 --- !u!114 &11427104
 MonoBehaviour:
   m_ObjectHideFlags: 1
