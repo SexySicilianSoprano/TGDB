@@ -35,6 +35,8 @@ public class NewMinimapScript : MonoBehaviour
 
     public GameObject minimapMask;
 
+    public GameObject arrow;
+
     
     FogOfWar _fog;
     Texture2D _texture;
@@ -75,6 +77,7 @@ public class NewMinimapScript : MonoBehaviour
         minimapCamera.transform.eulerAngles = new Vector3(90, cameraRotation.y, 0);
         minimapBoxCamera.transform.eulerAngles = new Vector3(90, cameraRotation.y, 0);
         fowMinimap.transform.eulerAngles = new Vector3(0, 0, cameraRotation.y);
+        arrow.transform.eulerAngles = new Vector3(0, 0, cameraRotation.y);
         GameObject.Find("MinimapFocusBox").transform.eulerAngles = cameraRotation;
 
 
