@@ -4,7 +4,8 @@ using System;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(RTSEntity))]
-public class CannonCombat : Combat {
+
+public class TeslaGunCombat : Combat{
 
     // ##### Private variables #####
     // Private booleans
@@ -22,6 +23,12 @@ public class CannonCombat : Combat {
     // Rate of fire
     private float m_FireRate;
 
+    // How many times the projectile jumps?
+    public int m_Jumps = 2;
+
+    // Jump origin
+    private RTSEntity m_Origin;
+
     // Position variables
     private Vector3 CurrentPos;
     private Vector3 TargetPos;
@@ -34,16 +41,20 @@ public class CannonCombat : Combat {
     private SphereCollider DangerZone
     { get { return transform.Find("DangerZone").GetComponent<SphereCollider>(); } }
 
-    // List of targets and priorities
+    // Lists for target prioritising and projectile jump points
     private List<RTSEntity> targetList = new List<RTSEntity>(); // Normal priority
     private List<RTSEntity> trueTargetList = new List<RTSEntity>(); // High priority
+    private List<Vector3> jumpPoints = new List<Vector3>();
 
     // This unit's movement script
     private Movement m_Movement;
 
     // Sound Manager
-    private SoundManager m_SoundManager { get { return GameObject.Find("Manager").GetComponent<SoundManager>();  } }
-        
+    private SoundManager m_SoundManager { get { return GameObject.Find("Manager").GetComponent<SoundManager>(); } }
+
+    // Projectile renderer
+    private LineRenderer m_Line { get { return GetComponent<LineRenderer>(); } }
+
     // Use this for initialization
     void Start()
     {
@@ -52,7 +63,8 @@ public class CannonCombat : Combat {
         m_Parent = GetComponent<RTSEntity>();
         Spawner = m_Parent.transform.GetChild(0);
         m_Movement = GetComponent<Movement>();
-}
+        m_Line.enabled = false;
+    }
 
     void FixedUpdate()
     {
@@ -66,7 +78,7 @@ public class CannonCombat : Combat {
 
         // Behaviour query
         if (m_Target && TargetInRange())
-        {            
+        {
             m_Movement.Stop();
         }
 
@@ -150,7 +162,7 @@ public class CannonCombat : Combat {
         Attack(obj);
     }
 
-    
+
     // Attack without command
     public void Attack(RTSEntity obj)
     {
@@ -212,7 +224,7 @@ public class CannonCombat : Combat {
             {
                 // Rotate the turret
                 RotateTowards(TargetPos);
-            }            
+            }
         }
         else
         {
@@ -233,11 +245,21 @@ public class CannonCombat : Combat {
         // Set us in combat
         inCombat = true;
 
-        //LaunchProjectile(Projectile);
+        m_Line.SetVertexCount(2);
+        m_Line.enabled = true;
+        LaunchProjectile(CurrentPos, TargetPos);
         m_Target.TakeDamage(Damage);
-        m_Target.AttackingEnemy = m_Parent;
+
+        if (m_Target)
+        {
+            m_Target.AttackingEnemy = m_Parent;
+        }
+
         canFire = false;
         StartCoroutine(WaitAndFire());
+
+        DamageJumpTargets(m_Target);
+
     }
 
     // Stops just whatever is being done
@@ -253,7 +275,8 @@ public class CannonCombat : Combat {
     }
 
     // Follow the target
-    public void Follow() {
+    public void Follow()
+    {
         // Follow target until in range
         if (m_FollowEnemy)
         {
@@ -269,13 +292,7 @@ public class CannonCombat : Combat {
             }
         }
     }
-
-    // Launches projectile
-    private void LaunchProjectile()
-    {
-           
-    }
-
+    
     // Checks if target is in line of fires
     private bool TargetInLine()
     {
@@ -330,12 +347,12 @@ public class CannonCombat : Combat {
                 }
             }
         }
-        
+
     }
 
     // What happens when an unit exits the DangerZone
     private void OnTriggerExit(Collider collider)
-    { 
+    {
         // Ignore danger zones
         if (collider == GetComponent<SphereCollider>())
         {
@@ -343,7 +360,7 @@ public class CannonCombat : Combat {
         }
 
         GameObject target = collider.gameObject;
-        
+
         if (collider == GetComponent<BoxCollider>() && target.GetComponent<RTSEntity>())
         {
             if (target.GetComponent<RTSEntity>() && target.tag != m_Parent.tag)
@@ -506,6 +523,130 @@ public class CannonCombat : Combat {
         }*/
     }
 
+    // Launches projectile
+    private void LaunchProjectile(Vector3 origin, Vector3 target)
+    {
+        //GameObject projectile = new GameObject();
+        //projectile.AddComponent<LineRenderer>();
+
+        
+        //render.material = Resources.Load("Projectiles/Materials/TeslaMaterial", typeof (Material)) as Material;
+
+        if (!jumpPoints.Contains(origin))
+        {
+            jumpPoints.Add(origin);
+        }        
+
+        jumpPoints.Add(target);        
+        m_Line.SetPositions(jumpPoints.ToArray());
+    }
+
+    // While number of jumps is lower than maximum number of jumps, get a new target for each jump
+    private void DamageJumpTargets(RTSEntity origin)
+    {
+        RTSEntity target = origin;
+        RTSEntity lastTarget;
+        int jumps = 0;
+
+        while (jumps < m_Jumps)
+        {
+            lastTarget = target;
+            target = DetectEnemiesInJumpDistance(target);
+            if (target != null)
+            {
+                jumps++;
+                m_Line.SetVertexCount(2 + jumps);
+                LaunchProjectile(lastTarget.transform.position, target.transform.position);
+                target.TakeDamage(Damage * 0.5f);
+                if (jumps == m_Jumps)
+                {
+                    break;
+                }
+            }
+            else
+            {
+                break;
+            }
+        }
+        StartCoroutine(WaitForRender());
+        jumpPoints.Clear();
+    }
+
+    // Compares floats, used in list sorting in the method below
+    private int CompareByValue(float first, float second)
+    {
+        return first.CompareTo(second);
+    }
+
+    // Compares distance floats, used in list sorting in the method below
+    private int CompareByDistance(RTSEntity first, RTSEntity second)
+    {
+        float x = Vector3.Distance(first.transform.position, m_Origin.transform.position);
+        float y = Vector3.Distance(second.transform.position, m_Origin.transform.position);
+
+        return x.CompareTo(y);
+    }
+
+
+    // Detect an enemy within projectile jump range
+    private RTSEntity DetectEnemiesInJumpDistance(RTSEntity origin)
+    {
+        // Set local variable m_Origin to match origin for comparing purposes
+        m_Origin = origin;
+
+        // Lists for targets SphereCast finds and for distances between said targets and origin
+        List<RTSEntity> targets = new List<RTSEntity>();
+
+        Ray ray = new Ray(origin.transform.position, origin.transform.forward);
+        // SphereCast for targets and list them
+        RaycastHit[] hits = Physics.SphereCastAll(ray, Range * 0.5f);
+        foreach (RaycastHit hit in hits)
+        {
+            if (!hit.collider.isTrigger && hit.transform.GetComponent<RTSEntity>() && hit.transform.GetComponent<RTSEntity>() != origin && hit.transform.tag != gameObject.tag)
+            {
+                targets.Add(hit.transform.GetComponent<RTSEntity>());
+            }
+        }
+
+        Debug.Log("Enemies in jump distance: " + targets.Count);
+
+        if (targets.Count >= 2)
+        {
+            targets.Sort(CompareByDistance);
+            return targets[0];
+        }
+        else if (targets.Count == 1)
+        {
+            // No targets in range, return null.
+            return targets[0];
+        }
+        else
+        {
+            return null;
+        }
+        
+         /*
+        // If not empty, sort 'em
+        if (distances.Count > 0)
+        {
+            distances.Sort(CompareByValue);
+            float shortestDistance = distances[0];
+
+            // If not empty, compare distances and return the target with least distance
+            if (targets.Count > 0)
+            {
+                foreach (RTSEntity target in targets)
+                {
+                    if (Vector3.Distance(target.transform.position, origin.transform.position) == shortestDistance)
+                    {
+                        return target;
+                    }
+                }
+            }
+        }*/
+
+    }
+
     // Switches between combat modes, this activates booleans that control firing behaviour
     // Combat mode
     // - Passive doesn't fire back at all
@@ -531,13 +672,19 @@ public class CannonCombat : Combat {
                 break;
 
         }
-    }
+    }    
 
     // A coroutine that calculates when we can fire again
     IEnumerator WaitAndFire()
     {
         yield return new WaitForSeconds(m_FireRate);
         canFire = true;
+    }
+
+    IEnumerator WaitForRender()
+    {
+        yield return new WaitForSeconds(0.5f);
+        m_Line.enabled = false;
     }
 
     // Combat mode
@@ -550,5 +697,4 @@ public class CannonCombat : Combat {
         Aggressive,
         Defensive
     }
-
 }
