@@ -182,6 +182,7 @@ GameObject:
   - 114: {fileID: 11464938}
   - 114: {fileID: 11405848}
   - 114: {fileID: 11408224}
+  - 114: {fileID: 11401456}
   m_Layer: 9
   m_Name: Destroyer
   m_TagString: Player1
@@ -431,7 +432,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 129830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 270.96692, y: 1.1, z: 35.45197}
+  m_LocalPosition: {x: 345.3, y: 1.1, z: 136.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 479760}
@@ -474,7 +475,7 @@ Transform:
   m_GameObject: {fileID: 100294}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 44, z: 0}
-  m_LocalScale: {x: 5.132063, y: 4.561022, z: 10}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 422796}
   m_RootOrder: 2
@@ -538,7 +539,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113460}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: 0, y: 3.4, z: 0}
+  m_LocalPosition: {x: 0, y: 0.62, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 422796}
@@ -738,8 +739,8 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 129830}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 251fd733efc23e246845f044c0adab79, type: 3}
-  m_Controller: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 696d40c833d2cbb4f863ab8a7fd8bfde, type: 3}
+  m_Controller: {fileID: 9100000, guid: e87612bf0d5da934090954960abae336, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -794,6 +795,21 @@ TrailRenderer:
       rgba: 16777215
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
+--- !u!114 &11401456
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 129830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b130f358dcb26548b2ff0923d496dc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 30
+  lineOfSightMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &11405848
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -969,7 +985,7 @@ Projector:
   m_FieldOfView: 60
   m_AspectRatio: 1
   m_Orthographic: 1
-  m_OrthographicSize: 3
+  m_OrthographicSize: 4
   m_Material: {fileID: 2100000, guid: 4cf39474407a6f4438a8a97c827ce1cd, type: 2}
   m_IgnoreLayers:
     serializedVersion: 2

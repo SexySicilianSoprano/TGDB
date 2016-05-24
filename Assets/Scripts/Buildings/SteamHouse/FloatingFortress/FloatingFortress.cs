@@ -1,7 +1,10 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class FloatingFortress : Building {
+
+    ShowCanvas showCanvasScript = GameObject.Find("UI").GetComponentInChildren<ShowCanvas>();
 
 	// Use this for initialization
 	new void Start () 
@@ -17,5 +20,11 @@ public class FloatingFortress : Building {
     {
         base.Update();
         AstarPath.active.UpdateGraphs(GetComponent<BoxCollider>().bounds);
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        showCanvasScript.ToggleCanvasConst();
+        //doesn't work, need to get this work to get the thing optimized
     }
 }

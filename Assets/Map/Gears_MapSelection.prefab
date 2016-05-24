@@ -184,6 +184,7 @@ GameObject:
   - 222: {fileID: 22276868}
   - 114: {fileID: 11499452}
   - 114: {fileID: 11478726}
+  - 114: {fileID: 11447204}
   m_Layer: 5
   m_Name: level (10)
   m_TagString: Untagged
@@ -321,6 +322,7 @@ GameObject:
   - 222: {fileID: 22252844}
   - 114: {fileID: 11441510}
   - 114: {fileID: 11408792}
+  - 114: {fileID: 11443516}
   m_Layer: 5
   m_Name: level (6)
   m_TagString: Untagged
@@ -1000,6 +1002,7 @@ GameObject:
   - 222: {fileID: 22253786}
   - 114: {fileID: 11494448}
   - 114: {fileID: 11476478}
+  - 114: {fileID: 11497266}
   m_Layer: 5
   m_Name: level (4)
   m_TagString: Untagged
@@ -1263,6 +1266,7 @@ GameObject:
   - 222: {fileID: 22260880}
   - 114: {fileID: 11445430}
   - 114: {fileID: 11466924}
+  - 114: {fileID: 11421526}
   m_Layer: 5
   m_Name: level (8)
   m_TagString: Untagged
@@ -1365,6 +1369,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 22444462}
   - 222: {fileID: 22268192}
+  - 114: {fileID: 11482192}
   m_Layer: 5
   m_Name: MissionPanel
   m_TagString: Untagged
@@ -1417,6 +1422,7 @@ GameObject:
   - 222: {fileID: 22299080}
   - 114: {fileID: 11403792}
   - 114: {fileID: 11442420}
+  - 114: {fileID: 11405794}
   m_Layer: 5
   m_Name: level (7)
   m_TagString: Untagged
@@ -1522,6 +1528,7 @@ GameObject:
   - 222: {fileID: 22206458}
   - 114: {fileID: 11464690}
   - 114: {fileID: 11466120}
+  - 114: {fileID: 11459568}
   m_Layer: 5
   m_Name: level (9)
   m_TagString: Untagged
@@ -1732,6 +1739,7 @@ GameObject:
   - 222: {fileID: 22291778}
   - 114: {fileID: 11410154}
   - 114: {fileID: 11494166}
+  - 114: {fileID: 11423972}
   m_Layer: 5
   m_Name: level (5)
   m_TagString: Untagged
@@ -2326,6 +2334,7 @@ GameObject:
   - 222: {fileID: 22270620}
   - 114: {fileID: 11465810}
   - 114: {fileID: 11451868}
+  - 114: {fileID: 11441810}
   m_Layer: 5
   m_Name: level (2)
   m_TagString: Untagged
@@ -2835,6 +2844,7 @@ GameObject:
   - 222: {fileID: 22262310}
   - 114: {fileID: 11433300}
   - 114: {fileID: 11470706}
+  - 114: {fileID: 11439362}
   m_Layer: 5
   m_Name: level (1)
   m_TagString: Untagged
@@ -2924,6 +2934,7 @@ GameObject:
   - 222: {fileID: 22269602}
   - 114: {fileID: 11458926}
   - 114: {fileID: 11481720}
+  - 114: {fileID: 11482860}
   m_Layer: 5
   m_Name: level (3)
   m_TagString: Untagged
@@ -3772,6 +3783,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11405794
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 147502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb768429d2bcaf34e9b772635f87c559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missionNumber: 0
 --- !u!114 &11405798
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5187,6 +5210,18 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &11421526
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 142440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb768429d2bcaf34e9b772635f87c559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missionNumber: 0
 --- !u!114 &11422022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5464,6 +5499,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11423972
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 158890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb768429d2bcaf34e9b772635f87c559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missionNumber: 0
 --- !u!114 &11424172
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6982,6 +7029,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11439362
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 190812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb768429d2bcaf34e9b772635f87c559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missionNumber: 0
 --- !u!114 &11439508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7169,6 +7228,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11441810
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb768429d2bcaf34e9b772635f87c559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missionNumber: 1
 --- !u!114 &11442002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7366,6 +7437,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11443516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 108356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb768429d2bcaf34e9b772635f87c559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missionNumber: 0
 --- !u!114 &11444452
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7505,16 +7588,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11404228}
-        m_MethodName: ToggleCanvas
-        m_Mode: 1
+      - m_Target: {fileID: 129990}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -7663,6 +7746,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11447204
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 103274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb768429d2bcaf34e9b772635f87c559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missionNumber: 0
 --- !u!114 &11447350
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8297,6 +8392,28 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 11441810}
+        m_MethodName: SetMissionDetails
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 195680}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
       - m_Target: {fileID: 144248}
         m_MethodName: SetActive
         m_Mode: 6
@@ -8308,9 +8425,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 195680}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 11482192}
+        m_MethodName: ShowMissionDetails
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8768,6 +8885,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11459568
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 152172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb768429d2bcaf34e9b772635f87c559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missionNumber: 0
 --- !u!114 &11460216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9532,8 +9661,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: StartButtonClicked
-        m_Mode: 3
+        m_MethodName: GameStartButtonClicked
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9734,16 +9863,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 144248}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 11439362}
+        m_MethodName: SetMissionDetails
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 195680}
         m_MethodName: SetActive
@@ -9757,8 +9886,19 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 144248}
-        m_MethodName: 
+        m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 11482192}
+        m_MethodName: ShowMissionDetails
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11126,7 +11266,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 11458926}
   m_OnClick:
     m_PersistentCalls:
@@ -11182,6 +11322,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11482192
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f574ff8e8526f6345b1ebb083e460c70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11482338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11209,6 +11360,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11482860
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 194086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb768429d2bcaf34e9b772635f87c559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missionNumber: 0
 --- !u!114 &11483354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12518,7 +12681,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Mission 1
+  m_Text: 'Mission '
 --- !u!114 &11497260
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12572,6 +12735,18 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &11497266
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb768429d2bcaf34e9b772635f87c559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missionNumber: 0
 --- !u!114 &11497504
 MonoBehaviour:
   m_ObjectHideFlags: 1
