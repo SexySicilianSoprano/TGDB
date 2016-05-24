@@ -4,6 +4,7 @@ using System.Collections;
 public class SelectedBuilding : MonoBehaviour {
 
 	private Building m_Building;
+    public bool isSelected = false;
     Projector projector;
     HPBar hpbar;
     
@@ -20,6 +21,7 @@ public class SelectedBuilding : MonoBehaviour {
 	
 	public void SetSelected()
 	{
+        isSelected = true;
         //Render projection
         if (projector.enabled == false)
             projector.enabled = true;
@@ -34,6 +36,7 @@ public class SelectedBuilding : MonoBehaviour {
 	
 	public void SetDeselected()
 	{
+        isSelected = false;
         // Stop rendering the projector
         if (projector.enabled == true)
             projector.enabled = false;

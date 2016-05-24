@@ -93,25 +93,25 @@ public class InputManager : MonoBehaviour
         if (Input.GetKey(keys["Up"]))
         {
             //Do a move action
-            Debug.Log("Up");
+            //Debug.Log("Up");
             panAxis.y = 1;
         }
 		else if (Input.GetKey(keys["Down"]))
         {
             //Do a move action
-            Debug.Log("Down");
+            //Debug.Log("Down");
             panAxis.y = -1;
 		}
         if (Input.GetKey(keys["Right"]))
         {
             //Do a move action
-            Debug.Log("Right");
+            //Debug.Log("Right");
             panAxis.x = 1;
         }
         else if (Input.GetKey(keys["Left"]))
         {
             //Do a move action
-            Debug.Log("Left");
+            //Debug.Log("Left");
             panAxis.x = -1;
         }
 	}
@@ -123,13 +123,13 @@ public class InputManager : MonoBehaviour
 	
 	public bool GetRotateAroundLeft()
 	{
-        Debug.Log("CamLeft");
+        //Debug.Log("CamLeft");
 		return Input.GetKey(keys["camLeft"]);
 	}
 	
 	public bool GetRotateAroundRight()
 	{
-        Debug.Log("CamRight");
+        //Debug.Log("CamRight");
 		return Input.GetKey(keys["camRight"]);
 	}
 	

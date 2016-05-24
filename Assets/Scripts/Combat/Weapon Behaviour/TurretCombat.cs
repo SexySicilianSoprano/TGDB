@@ -120,7 +120,7 @@ public class TurretCombat : Combat {
         isAntiStructure = weapon.isAntiStructure;
         //Projectile = weapon.Projectile;
         DangerZone.radius = weapon.Range;
-        DangerZoneProjector.orthographicSize = weapon.Range / 1.7f;
+        DangerZoneProjector.orthographicSize = weapon.Range;
     }
        
     // Attack command

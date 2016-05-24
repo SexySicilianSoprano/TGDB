@@ -13,7 +13,7 @@ public class BuildingSpotScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.GetComponent<Unit>())
+        if (collider.gameObject.GetComponent<Unit>() && collider.gameObject.GetComponentInChildren<SphereCollider>())
         {
             Physics.IgnoreCollision(GetComponent<Collider>(), collider.GetComponentInChildren<SphereCollider>());
         }

@@ -26,7 +26,5 @@ public abstract class Movement : MonoBehaviour{
 
     public abstract void RotateTowards(Vector3 location);
 
-    public abstract bool CheckFront();
-
     public abstract bool PointingAtTarget(Vector3 direction);
 }

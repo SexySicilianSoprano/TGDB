@@ -125,7 +125,7 @@ public class ResourceGathering : MonoBehaviour {
 
     private bool CloseEnough(Vector3 target)
     {
-        if (Vector3.Distance(target, transform.position) <= 10)
+        if (Vector3.Distance(target, transform.position) <= 7)
         {
             return true;
         }

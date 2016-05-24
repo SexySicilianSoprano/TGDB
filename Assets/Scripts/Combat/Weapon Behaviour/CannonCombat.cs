@@ -91,6 +91,9 @@ public class CannonCombat : Combat {
         else
         {
             // Target is not set, we're idle, so let's see if target lists have anything to shoot at
+
+            m_FollowEnemy = false;
+
             // Is there a unit listed on top priority list?
             if (trueTargetList.Count > 0)
             {
@@ -243,7 +246,7 @@ public class CannonCombat : Combat {
     // Stops just whatever is being done
     public override void Stop()
     {
-        // Set no target and target to null
+        // Set no target and target to null, among other things
         m_Movement.stayInPlace = false;
         inCombat = false;
         TargetSet = false;
