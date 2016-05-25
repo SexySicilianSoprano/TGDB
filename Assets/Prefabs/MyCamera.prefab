@@ -58,7 +58,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 197236}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 619.2489, y: 90.7, z: -4.375}
+  m_LocalPosition: {x: 318.38562, y: 94.64348, z: -148.69699}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 408282}
@@ -172,31 +172,37 @@ MonoBehaviour:
   followSmoothSpeed: 10
   isEdge: 0
   status: 0
---- !u!114 &11420416
+--- !u!114 &11458770
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 156072}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec0af1344bf2204db5c3b78db3954fe, type: 3}
+  m_Script: {fileID: 11500000, guid: 213ef47ac45624aa68d2087e0785386c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapResolution: 512
-  mapSize: 512
-  mapOffset: {x: 225, y: 225}
-  mode: 1
-  filterMode: 1
-  fogColor: {r: 0, g: 0, b: 0, a: 0}
-  clearFog: 0
-  clearFogMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  fieldOfViewPenetration: 1
-  fogEdgeRadius: 0.2
-  partialFogAmount: 0.5
-  updateFrequency: 0.1
+  cameraObj: {fileID: 197236}
+  minimapCamera: {fileID: 0}
+  minimapBoxCamera: {fileID: 0}
+  Minimap: {fileID: 0}
+  MapWidth: 0
+  MapHeight: 0
+  fowMinimap: {fileID: 0}
+  canvas: {fileID: 0}
+  cameraRotation: {x: 0, y: 0, z: 0}
+  cameraDistance: 0
+  minmapcampos: {x: 0, y: 0, z: 0}
+  NWcornerDot: {fileID: 0}
+  NEcornerDot: {fileID: 0}
+  SWcornerDot: {fileID: 0}
+  SEcornerDot: {fileID: 0}
+  corners: []
+  minimapRevealTexture: {fileID: 2800000, guid: e8ae42d9b2dbbec47a729d7d8c8c7772,
+    type: 3}
+  minimapMask: {fileID: 0}
+  arrow: {fileID: 0}
 --- !u!114 &11459298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -229,6 +235,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   on: 0
   toggleKey: 283
+--- !u!114 &11488612
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 156072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec0af1344bf2204db5c3b78db3954fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapResolution: 512
+  mapSize: 512
+  mapOffset: {x: 225, y: 225}
+  mode: 1
+  filterMode: 1
+  fogColor: {r: 0, g: 0, b: 0, a: 0}
+  clearFog: 0
+  clearFogMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  fieldOfViewPenetration: 1
+  fogEdgeRadius: 0.2
+  partialFogAmount: 0.5
+  updateFrequency: 0.1
 --- !u!124 &12452580
 Behaviour:
   m_ObjectHideFlags: 1
