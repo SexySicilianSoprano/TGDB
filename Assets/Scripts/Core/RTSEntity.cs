@@ -61,7 +61,16 @@ public abstract class RTSEntity : MonoBehaviour {
         private set;
     }
 
+    private SoundManager m_SoundManager
+    {
+        get
+        {
+            return GameObject.Find("Manager").GetComponent<SoundManager>();
+        }
+    }
+
     public RTSEntity AttackingEnemy;
+    public bool isInCombat;
 
     // Health details
     public float m_Health;
@@ -97,17 +106,33 @@ public abstract class RTSEntity : MonoBehaviour {
 
    	public void TakeDamage(float damage)
 	{
+        isInCombat = true;
         m_Health -= damage;
+
         if (m_Health <= 0)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
+
+        StartCoroutine(StillInCombat(m_Health));
         
 	}
-     
-    protected void OnDestroy()
+
+    IEnumerator StillInCombat(float health)
     {
-        
+        m_SoundManager.CallForBattleTrue(this);
+
+        yield return new WaitForSeconds(5);
+
+        if (health > m_Health)
+        {
+            StillInCombat(health);
+        }
+        else
+        {
+            isInCombat = false;
+            m_SoundManager.CallForBattleFalse(this);
+        }
     }
     
 }

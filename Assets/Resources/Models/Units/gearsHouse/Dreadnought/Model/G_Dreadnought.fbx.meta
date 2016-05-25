@@ -1,0 +1,214 @@
+fileFormatVersion: 2
+guid: dc4cb72644b663f46839ed0ce1c5eafa
+timeCreated: 1462962799
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: CannonBone1
+    100004: CannonBone1_end
+    100006: CannonBone2
+    100008: CannonBone2_end
+    100010: CannonBone3
+    100012: CannonBone3_end
+    100014: G_Dreadnought
+    100016: G_Dreadnought_Armature
+    100018: G_Dreadnought_Armature 1
+    100020: G_Dreadnought_Armature_end
+    100022: Padle_Bone
+    100024: Padle_Bone_end
+    400000: //RootNode
+    400002: CannonBone1
+    400004: CannonBone1_end
+    400006: CannonBone2
+    400008: CannonBone2_end
+    400010: CannonBone3
+    400012: CannonBone3_end
+    400014: G_Dreadnought
+    400016: G_Dreadnought_Armature
+    400018: G_Dreadnought_Armature 1
+    400020: G_Dreadnought_Armature_end
+    400022: Padle_Bone
+    400024: Padle_Bone_end
+    2300000: //RootNode
+    2300002: G_Dreadnought
+    3300000: //RootNode
+    3300002: G_Dreadnought
+    4300000: G_Dreadnought
+    7400000: PadleRotation
+    7400002: Cannon.001
+    9500000: //RootNode
+    13700000: G_Dreadnought
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: PadleRotation
+      takeName: PadleRotation
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: G_Dreadnought
+        weight: 1
+      - path: G_Dreadnought_Armature
+        weight: 1
+      - path: G_Dreadnought_Armature/CannonBone1
+        weight: 1
+      - path: G_Dreadnought_Armature/CannonBone1/CannonBone1_end
+        weight: 1
+      - path: G_Dreadnought_Armature/CannonBone2
+        weight: 1
+      - path: G_Dreadnought_Armature/CannonBone2/CannonBone2_end
+        weight: 1
+      - path: G_Dreadnought_Armature/CannonBone3
+        weight: 1
+      - path: G_Dreadnought_Armature/CannonBone3/CannonBone3_end
+        weight: 1
+      - path: G_Dreadnought_Armature/G_Dreadnought_Armature 1
+        weight: 1
+      - path: G_Dreadnought_Armature/G_Dreadnought_Armature 1/G_Dreadnought_Armature_end
+        weight: 1
+      - path: G_Dreadnought_Armature/Padle_Bone
+        weight: 1
+      - path: G_Dreadnought_Armature/Padle_Bone/Padle_Bone_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Cannon.001
+      takeName: Cannon.001
+      firstFrame: 0
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: G_Dreadnought
+        weight: 1
+      - path: G_Dreadnought_Armature
+        weight: 1
+      - path: G_Dreadnought_Armature/CannonBone1
+        weight: 1
+      - path: G_Dreadnought_Armature/CannonBone1/CannonBone1_end
+        weight: 1
+      - path: G_Dreadnought_Armature/CannonBone2
+        weight: 1
+      - path: G_Dreadnought_Armature/CannonBone2/CannonBone2_end
+        weight: 1
+      - path: G_Dreadnought_Armature/CannonBone3
+        weight: 1
+      - path: G_Dreadnought_Armature/CannonBone3/CannonBone3_end
+        weight: 1
+      - path: G_Dreadnought_Armature/G_Dreadnought_Armature 1
+        weight: 1
+      - path: G_Dreadnought_Armature/G_Dreadnought_Armature 1/G_Dreadnought_Armature_end
+        weight: 1
+      - path: G_Dreadnought_Armature/Padle_Bone
+        weight: 1
+      - path: G_Dreadnought_Armature/Padle_Bone/Padle_Bone_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.3
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

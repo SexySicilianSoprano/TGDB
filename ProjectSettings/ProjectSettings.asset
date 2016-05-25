@@ -11,8 +11,8 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: DefaultCompany
   productName: TGDB KeelHauled
-  defaultCursor: {fileID: 2800000, guid: f3d97ec79d7eeaf419039f2971ff98a2, type: 3}
-  cursorHotspot: {x: 6, y: 7}
+  defaultCursor: {fileID: 2800000, guid: 37ced9d67f020f5458dcbc03ae408a7b, type: 3}
+  cursorHotspot: {x: 0, y: 0}
   m_ShowUnitySplashScreen: 1
   m_VirtualRealitySplashScreen: {fileID: 0}
   defaultScreenWidth: 1024
@@ -173,7 +173,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 564f06f230d98034d8c70c35c37ebab7, type: 3}
+      m_Icon: {fileID: 2800000, guid: d09c24a0cf024b94bb99da5264c22afb, type: 3}
       m_Width: 128
       m_Height: 128
   m_BuildTargetBatching: []
@@ -330,7 +330,27 @@ PlayerSettings:
   psp2InfoBarColor: 0
   psmSplashimage: {fileID: 0}
   spritePackerPolicy: 
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    1: 
+    2: 
+    4: 
+    5: 
+    6: 
+    7: 
+    9: 
+    13: 
+    14: 
+    15: 
+    16: 
+    17: 
+    18: 
+    19: 
+    20: 
+    21: 
+    22: 
+    23: 
+    24: 
+    25: 
   metroPackageName: TGDB KeelHauled
   metroPackageVersion: 
   metroCertificatePath: 
@@ -416,18 +436,32 @@ PlayerSettings:
   XboxOneAllowedProductIds: []
   XboxOnePersistentLocalStorageSize: 0
   intPropertyNames:
+  - Android::ScriptingBackend
   - Standalone::ScriptingBackend
   - WebGL::ScriptingBackend
   - WebGL::audioCompressionFormat
   - WebGL::exceptionSupport
   - WebGL::memorySize
   - WebPlayer::ScriptingBackend
+  - iOS::Architecture
+  - iOS::EnableIncrementalBuildSupportForIl2cpp
+  - iOS::ScriptingBackend
+  - tvOS::Architecture
+  - tvOS::EnableIncrementalBuildSupportForIl2cpp
+  - tvOS::ScriptingBackend
+  Android::ScriptingBackend: 0
   Standalone::ScriptingBackend: 0
   WebGL::ScriptingBackend: 1
   WebGL::audioCompressionFormat: 4
   WebGL::exceptionSupport: 1
   WebGL::memorySize: 256
   WebPlayer::ScriptingBackend: 0
+  iOS::Architecture: 2
+  iOS::EnableIncrementalBuildSupportForIl2cpp: 1
+  iOS::ScriptingBackend: 1
+  tvOS::Architecture: 1
+  tvOS::EnableIncrementalBuildSupportForIl2cpp: 0
+  tvOS::ScriptingBackend: 1
   boolPropertyNames:
   - WebGL::analyzeBuildSize
   - WebGL::dataCaching

@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
 using System;
 
 public class Manager : MonoBehaviour, IManager {
@@ -8,29 +10,29 @@ public class Manager : MonoBehaviour, IManager {
     public static Manager main;
 
     // Components Manager needs to deal with
-    public IGameManager m_GameManager;
+    public GameManager m_GameManager;
 
     // Player variables
-    public Player primaryPlayer()
-    {
-        return GetComponent<GameManager>().primaryPlayer();
-    }
-
-    public Player enemyPlayer()
-    {
-        return GetComponent<GameManager>().enemyPlayer();
-    }
-
+    public Player primaryPlayer() { return GetComponent<GameManager>().primaryPlayer(); }
+    public Player enemyPlayer() { return GetComponent<GameManager>().enemyPlayer(); }
     public string m_primaryPlayer;
     public string m_enemyPlayer;
 
-    public int Money
+    // Resource
+    public float Resources
     {
-        get
-        {
-            throw new NotImplementedException();
-        }
+        get;
+        set;
     }
+
+    // Earned experience points
+    public float earnedExperience;
+
+    // Lists of defeated and lost units and buildings
+    public List<RTSEntity> defeatedBuildings = new List<RTSEntity>();
+    public List<RTSEntity> defeatedUnits = new List<RTSEntity>();
+    public List<RTSEntity> lostBuildings = new List<RTSEntity>();
+    public List<RTSEntity> lostUnits = new List<RTSEntity>();
 
     void Awake()
     {
@@ -39,26 +41,54 @@ public class Manager : MonoBehaviour, IManager {
 
     // Use this for initialization
     void Start()
-    {        
+    {
+        m_GameManager = GetComponent<GameManager>();
         Initialise();
     }
 	
 	// Update is called once per frame
 	void Update()
     {
-
+        UpdateResourceText();
 	}
 
+    // Initialise data
     private void Initialise()
     {
         ItemDB.Initialise();
         AssignPlayerInfo();
     }
 
+    // Assign player details
     private void AssignPlayerInfo()
     {
-        m_primaryPlayer = primaryPlayer().controlledTag;
-        m_enemyPlayer = enemyPlayer().controlledTag;
+
+    }
+
+    // Returns total amount of experience
+    public float ReturnAccumulatedExperience()
+    {
+        float accExp = 0;
+        accExp += earnedExperience;
+        return accExp;
+    }
+
+    // Update Resource text on GUI
+    private void UpdateResourceText()
+    {
+        //Resources = Mathf.Round(Resources);
+        Text text = GameObject.Find("UI").transform.Find("Resources").transform.Find("Text").GetComponent<Text>();
+        text.text = Resources.ToString("0");
+    }
+
+    // Calculate accumulated experience points by adding up all defeated and lost units with respective multipliers
+    public void CalculateAccumulatedExperience()
+    {
+        earnedExperience =
+            (defeatedBuildings.Count * 100f)
+            + (defeatedUnits.Count * 10f)
+            - (lostBuildings.Count * 50f)
+            - (lostUnits.Count * 5f);
     }
 
     public void BuildingAdded(Building building)
@@ -75,7 +105,7 @@ public class Manager : MonoBehaviour, IManager {
     {
         throw new NotImplementedException();
     }
-
+    
     public void UnitRemoved(Unit unit)
     {
         throw new NotImplementedException();
@@ -86,23 +116,36 @@ public class Manager : MonoBehaviour, IManager {
         throw new NotImplementedException();
     }
 
-    public void AddMoney(float money)
+    // Functions for handling in-game resources
+    public void AddResource(float amount)
     {
-        throw new NotImplementedException();
+        Resources += amount;
     }
 
-    public void AddMoneyInstant(float money)
+    public void RemoveResource(float amount)
     {
-        throw new NotImplementedException();
+        Resources -= amount;
     }
 
-    public void RemoveMoneyInstant(float money)
+    public void AddResourceInstant(float amount)
     {
-        throw new NotImplementedException();
+        Resources += amount;
+    }
+
+    public void RemoveResourceInstant(float amount)
+    {
+        Resources -= amount;
     }
 
     public bool CostAcceptable(float cost)
     {
-        throw new NotImplementedException();
+        if (cost <= Resources)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

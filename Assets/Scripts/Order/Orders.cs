@@ -22,4 +22,9 @@ public static class Orders {
 	{
 		return new Order("Deploy", 3);
 	}
+
+    public static Order CreateGatherOrder(ResourceMine mine)
+    {
+        return new Order("Gather", 4, mine);
+    }
 }

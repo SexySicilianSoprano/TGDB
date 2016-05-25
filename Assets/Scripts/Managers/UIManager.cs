@@ -12,7 +12,9 @@ using System.Collections.Generic;
 /// This component borrows its base from an old RTS Engine made by Brett Hewitt,
 /// but is heavily modified and altered to suit TGDB's needs.
 /// 
-/// Also to get rid of the old style script-drawn GUI bullshit.
+/// Also to get rid of the old script-drawn GUI bullshit.
+/// 
+/// - Karl Sartorisio
 /// The Great Deep Blue
 /// 
 /// </summary>
@@ -113,11 +115,7 @@ public class UIManager : MonoBehaviour, IUIManager {
     // Use this for initialization
     void Start()
     {
-        //Resolve interface variables
-        //m_SelectedManager() = ManagerResolver.Resolve<ISelectedManager>();
-        //m_CursorManager() = ManagerResolver.Resolve<ICursorManager>();
-        //m_GameManager() = ManagerResolver.Resolve<IGameManager>();
-        //m_Manager = ManagerResolver.Resolve<IManager>(); 
+
     }
 
     // Update is called once per frame
@@ -125,8 +123,8 @@ public class UIManager : MonoBehaviour, IUIManager {
     {
         CheckHoverOver();
         SelectionListener();
-        //Debug.Log(hoverOver + " " + interactionState);
-        Debug.Log(m_Identifier + " " + hoverOver);
+        Debug.Log(hoverOver + " " + interactionState);
+        //Debug.Log(m_Identifier + " " + hoverOver);
 
         switch (m_Mode)
         {
@@ -147,14 +145,17 @@ public class UIManager : MonoBehaviour, IUIManager {
     {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(8 << 18)))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(5 << 23)))
         {
             currentObject = hit.collider.gameObject;
 
             // What sort of an object are we pointing at?
             switch (currentObject.layer)
             {
+                case 5:
+                case 20:
+                    hoverOver = HoverOver.GUI;
+                    break;
                 case 8:
                 case 16:
                 case 15:
@@ -179,6 +180,9 @@ public class UIManager : MonoBehaviour, IUIManager {
                 case 14:
                     hoverOver = HoverOver.Shroud;
                     break;
+                case 22:
+                    hoverOver = HoverOver.Mine;
+                    break;
             }
 
             // Let's identify the unit's owner
@@ -194,9 +198,12 @@ public class UIManager : MonoBehaviour, IUIManager {
                 case "Terrain":
                 case "Water":
                 case "BuildingSpot":
+                case "GUI":
+                case "HitSurface":
+                case "mmCamera":
                     m_Identifier = Identifier.Neutral;
                     break;
-            }        
+            }
         }
         else
         {
@@ -205,6 +212,7 @@ public class UIManager : MonoBehaviour, IUIManager {
             hoverOver = HoverOver.GUI;
             m_Identifier = Identifier.Neutral;
         }
+        
     }
 
     // Listens to mouse input actions and does shit whenever we click the mouse buttons
@@ -213,32 +221,39 @@ public class UIManager : MonoBehaviour, IUIManager {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(8 << 18)))
-        {
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(5 << 23)) /* && EventSystem.current.IsPointerOverGameObject() == false*/)
+        {            
             // Right Mouse Button up, what happens next?
             if (Input.GetMouseButtonUp(1) && hoverOver == HoverOver.Land && m_SelectedManager().ActiveEntityCount() > 0)
             {
                 // Create move order
                 m_SelectedManager().GiveOrder(Orders.CreateMoveOrder(hit.point));
             }
+            else if (Input.GetMouseButtonUp(1) && interactionState == InteractionState.Gather)
+            {
+                m_SelectedManager().GiveOrder(Orders.CreateGatherOrder(hit.transform.gameObject.GetComponent<ResourceMine>()));
+            }
 
             // Left Mouse Button down, what happens?
-            if (Input.GetMouseButtonDown(0) && hoverOver == HoverOver.Land)
+            if (Input.GetMouseButtonDown(0))
             {
                 // Deselect selected units and start selecting new units
                 m_SelectedManager().ClearSelected();
                 isSelecting = true;
                 v_mousePosition = Input.mousePosition;
-            }
-
-            // Left Mouse Button up, what happens?
-            if (Input.GetMouseButtonUp(0))
-            {
-                // Selecting endes
-                isSelecting = false;
+                    
             }
         }
 
+        // Left Mouse Button up, what happens?
+        if (Input.GetMouseButtonUp(0))
+        {
+            // Selecting endes
+            isSelecting = false;
+            m_SelectedManager().ConfirmToBeSelected();
+        }
+
+        // Stippedi stop :D
         if (Input.GetKeyDown(KeyCode.X))
         {
             if (m_SelectedManager().ActiveEntityCount() > 0)
@@ -251,7 +266,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         if (Input.GetKeyDown("1"))
         {
             // Are we holding down left control?
-            if (Input.GetKey(KeyCode.V))
+            if (Input.GetKey(KeyCode.LeftControl))
             {
                 // Create group 1
                 m_SelectedManager().CreateGroup(1);
@@ -361,7 +376,7 @@ public class UIManager : MonoBehaviour, IUIManager {
                     if (!m_SelectedManager().ActiveEntityList().Contains((IOrderable)selectable) && selectable.tag == m_primaryPlayer) //
                     {
                         // Unit is not previously selected and is friendly, so let's select it and turn on the projector
-                        m_SelectedManager().AddToSelected(selectable);
+                        m_SelectedManager().AddToBeSelected(selectable);
                         // TODO: projector for selected unit indication graphics
                     }
                 }
@@ -414,15 +429,14 @@ public class UIManager : MonoBehaviour, IUIManager {
     {
         switch (hoveringOver)
         {
+            case HoverOver.Mine:
+            case HoverOver.GUI:
             case HoverOver.Menu:
             case HoverOver.Land:
                 interactionState = InteractionState.Nothing;
                 break;
 
             case HoverOver.Building:
-                interactionState = InteractionState.Select;
-                break;
-
             case HoverOver.Ship:
             case HoverOver.Submarine:
             case HoverOver.AirUnit:
@@ -433,7 +447,8 @@ public class UIManager : MonoBehaviour, IUIManager {
 
     // Calculates interaction state by hoverover and identifier, used when units are selected
     private void CalculateInteraction(IOrderable obj, HoverOver hoveringOver, Identifier identifier, ref InteractionState interactionState)
-    {
+    { 
+        
         if (obj.IsAttackable())
         {
             if (identifier == Identifier.Enemy)
@@ -477,7 +492,17 @@ public class UIManager : MonoBehaviour, IUIManager {
                 return;
             }
         }
+
+        if (obj.IsGatherable())
+        {
+            if (hoverOver == HoverOver.Mine)
+            {
+                interactionState = InteractionState.Gather;
+                return;
+            }
+        }
         /*
+        
         if (identifier == Identifier.Friend)
         {
             //Check if building can interact with object (repair building for example)
@@ -498,18 +523,31 @@ public class UIManager : MonoBehaviour, IUIManager {
         {
             interactionState = InteractionState.Attack;
         }
-        */
+        
 
         if (identifier == Identifier.Friend)
         {
             interactionState = InteractionState.Select;
             return;
         }
-        else if(identifier == Identifier.Enemy)
+        else if (identifier == Identifier.Enemy)
         {
             interactionState = InteractionState.Attack;
             return;
         }
+        else if (identifier == Identifier.Neutral)
+        {
+            if (hoverOver == HoverOver.Mine)
+            {
+                interactionState = InteractionState.Gather;
+                return;
+            }
+            else
+            {
+                interactionState = InteractionState.Move;
+                return;
+            }
+        } */
 
         //Invalid interaction
         interactionState = InteractionState.Invalid;
@@ -525,7 +563,7 @@ public class UIManager : MonoBehaviour, IUIManager {
 
             if (ShouldInterractB)
             {
-                if (hoveringOver == HoverOver.Ship || hoverOver == HoverOver.Submarine || hoverOver == HoverOver.AirUnit || hoverOver == HoverOver.Building)
+                if (hoveringOver == HoverOver.Mine || hoveringOver == HoverOver.Land || hoveringOver == HoverOver.Ship || hoverOver == HoverOver.Submarine || hoverOver == HoverOver.AirUnit || hoverOver == HoverOver.Building)
                 {
                     CalculateInteraction(obj, hoveringOver, identifier, ref interactionState);
                     return;
@@ -546,91 +584,6 @@ public class UIManager : MonoBehaviour, IUIManager {
         }
     }
 
-
-    
-    //-----------------------------------UP FOR DELETION / REVISION---------------------------------
-    /*
-    // UP FOR REVISIONING
-    private void ModePlaceBuildingBehaviour()
-    {
-        //Get current location and place building on that location
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 11))
-        {
-            m_ObjectBeingPlaced.transform.position = hit.point;
-        }
-
-        if (m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().BuildValid == true)
-        {
-            m_PositionValid = true;
-        }
-        else
-        {
-            m_PositionValid = false;
-        }
-
-        if (m_PositionValid)
-        {
-            m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().SetToValid();
-        }
-        else
-        {
-            m_ObjectBeingPlaced.GetComponent<BuildingBeingPlaced>().SetToInvalid();
-        }
-
-    }
-
-    private void KeyBoardPressedHandler()
-    {
-        //e.Command();
-    }
-
-        // UP FOR DELETION ????
-    private void ScrollWheelHandler(object sender)
-    {
-        //Zoom In/Out
-        //m_MiniMapController.ReCalculateViewRect();
-    }
-
-    // UP FOR DELETION ????
-    private void MouseAtScreenEdgeHandler(object sender)
-    {
-        //Pan
-        //m_MiniMapController.ReCalculateViewRect();
-    }
-
-
-    public void UserPlacingBuilding(Item item, Action callbackFunction)
-    {
-        SwitchToModePlacingBuilding(item, callbackFunction);
-    }
-
-    // Determine what to do with this
-    private void SwitchToModeNormal()
-    {
-        if (m_ObjectBeingPlaced)
-        {
-            Destroy(m_ObjectBeingPlaced);
-        }
-        m_CallBackFunction = null;
-        m_ItemBeingPlaced = null;
-        m_Mode = Mode.Normal;
-    }
-
-    // REVISION
-    private void SwitchToModePlacingBuilding(Item item, Action callBackFunction)
-    {
-        m_Mode = Mode.PlaceBuilding;
-        m_CallBackFunction = callBackFunction;
-        m_ItemBeingPlaced = item;
-        m_ObjectBeingPlaced = (GameObject)Instantiate(m_ItemBeingPlaced.Prefab);
-        m_ObjectBeingPlaced.AddComponent<BuildingBeingPlaced>();
-    }
-    */
-    //-------------------------------------------------------------------------------------
-
     public bool IsCurrentUnit(RTSEntity obj)
     {
         return currentObject == obj.gameObject;
@@ -642,7 +595,7 @@ public enum Identifier
 {
     Neutral,
     Friend,
-    Enemy,
+    Enemy
 }
 
 public enum HoverOver
@@ -656,6 +609,7 @@ public enum HoverOver
     Building,
     FogOfWar,
     Shroud,
+    Mine
 }
 
 public enum InteractionState
@@ -673,6 +627,7 @@ public enum InteractionState
     CantFix = 10,
     Disable = 11,
     CantDisable = 12,
+    Gather = 13
 }
 
 public enum Mode

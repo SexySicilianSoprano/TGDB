@@ -3,7 +3,7 @@ using System.Collections;
 
 public static class Const {
 
-	public const int TEAM_STEAMHOUSE = 0;
+	public const int TEAM_gearsHouse = 0;
 
     public const int PLAYER_1 = 0;
     public const int PLAYER_2 = 1;
@@ -12,6 +12,7 @@ public static class Const {
 	public const int ORDER_MOVE_TO = 1;
 	public const int ORDER_ATTACK = 2;
 	public const int ORDER_DEPLOY = 3;
+    public const int ORDER_GATHER = 4;
 	
 	public const int BUILDING_FloatingFortress = 0;
     public const int BUILDING_NavalYard = 1;

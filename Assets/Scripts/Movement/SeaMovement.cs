@@ -7,7 +7,14 @@ using System;
 public abstract class SeaMovement : Movement {
 
     // Target location
-    public Vector3 targetPosition;
+    protected Vector3 targetLocation;
+
+    // Pathfinding variables
+    protected float repathRate = 0.1f;
+    protected float lastRepath;
+    protected bool canSearchAgain = false;
+    protected bool canSearch = false;
+    public bool m_OnMyWay = false;
 
     // Calculated path
     public Path Path;
@@ -16,21 +23,35 @@ public abstract class SeaMovement : Movement {
     public int currentWaypoint = 0;
 
     //The max distance from the AI to a waypoint for it to continue to the next waypoint
-    public float nextWaypointDistance = 10;
+    public float nextWaypointDistance = 14;
 
     public Action PathChangedEvent { get; internal set; }
 
     // Path complete callback
-    public void OnPathComplete(Path p)
+    public void OnPathComplete(Path _p)
     {
-        Debug.Log("Yay, we got a path back. Did it have an error? " + p.error);
-        if (!p.error)
+        //Debug.Log("Yay, we got a path back. Did it have an error? " + p.error);
+        if (!_p.error)
         {
-            Path = p;
+            if (Path != null)
+            {
+                Path.Release(this);
+            }
+
+            Path = _p;
+            canSearchAgain = true;
+
+            // Claim a new path
+            Path.Claim(this);
+
             //Reset the waypoint counter
             currentWaypoint = 0;
+            m_OnMyWay = true;
         }
-    }
-
-    protected void Update() { }
+        else
+        {
+            Path.Release(this);
+            Path = null;
+        }
+    }    
 }

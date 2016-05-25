@@ -1,0 +1,143 @@
+fileFormatVersion: 2
+guid: 8104e794b77e07447abf2e5c067b2d20
+timeCreated: 1463399979
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: BaseBone
+    100002: //RootNode
+    100004: G_Base
+    100006: G_Base_Armature
+    100008: Gear1
+    100010: Gear1_end
+    100012: Gear3
+    100014: Gear3_end
+    100016: Gera2
+    100018: Gera2_end
+    400000: BaseBone
+    400002: //RootNode
+    400004: G_Base
+    400006: G_Base_Armature
+    400008: Gear1
+    400010: Gear1_end
+    400012: Gear3
+    400014: Gear3_end
+    400016: Gera2
+    400018: Gera2_end
+    4300000: G_Base
+    7400000: GearsRotate
+    9500000: //RootNode
+    13700000: G_Base
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: GearsRotate
+      takeName: GearsRotate
+      firstFrame: 0
+      lastFrame: 59
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: G_Base
+        weight: 1
+      - path: G_Base_Armature
+        weight: 1
+      - path: G_Base_Armature/BaseBone
+        weight: 1
+      - path: G_Base_Armature/BaseBone/Gear1
+        weight: 1
+      - path: G_Base_Armature/BaseBone/Gear1/Gear1_end
+        weight: 1
+      - path: G_Base_Armature/BaseBone/Gear3
+        weight: 1
+      - path: G_Base_Armature/BaseBone/Gear3/Gear3_end
+        weight: 1
+      - path: G_Base_Armature/BaseBone/Gera2
+        weight: 1
+      - path: G_Base_Armature/BaseBone/Gera2/Gera2_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.3
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

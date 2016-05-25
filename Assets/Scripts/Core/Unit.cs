@@ -5,46 +5,35 @@ using System;
 //[RequireComponent(typeof(Selected))]
 public class Unit : RTSEntity, IOrderable{
 
-    //Member Variables
-    protected bool m_IsMoveable = true;
-    protected bool m_IsDeployable = false;
-    protected bool m_IsAttackable = true;
-    protected bool m_IsInteractable = false;    
-
-    protected ISelectedManager m_selectedManager
+    protected SelectedManager m_selectedManager
     {
-        get;
-        private set;
+        get
+        {
+            return GameObject.Find("Manager").GetComponent<SelectedManager>();
+        }
     }
 
-    protected IUIManager m_UIManager
+    protected UIManager m_UIManager
     {
-        get;
-        private set;
+        get
+        {
+            return GameObject.Find("Manager").GetComponent<UIManager>();
+        }
     }
 
     private Player primaryPlayer()
     {
-            return m_UIManager.primaryPlayer();
+        return m_UIManager.primaryPlayer();
     }
 
     protected void Start()
     {
-        // m_guiManager = ManagerResolver.Resolve<IGUIManager>();
-        m_selectedManager = ManagerResolver.Resolve<ISelectedManager>();
-        m_UIManager = ManagerResolver.Resolve<IUIManager>();
-        // ManagerResolver.Resolve<IManager>().UnitAdded(this);
-  
-        /*
-		m_IsDeployable = this is IDeployable;
-		m_IsAttackable = this is IAttackable;
-		m_IsInteractable = this is IInteractable;
-        */
+        
     }
 
     protected void Update()
     {
-        AstarPath.active.UpdateGraphs(GetComponent<BoxCollider>().bounds);
+        //AstarPath.active.UpdateGraphs(GetComponent<BoxCollider>().bounds);
     }
 
     public override void SetSelected()
@@ -72,13 +61,7 @@ public class Unit : RTSEntity, IOrderable{
 
     public override void ChangeTeams(int team)
     {
-        switch (team)
-        {
-            case Const.TEAM_STEAMHOUSE:
 
-                break;
-
-        }
     }
 
     public bool IsDeployable()
@@ -89,17 +72,22 @@ public class Unit : RTSEntity, IOrderable{
 
     public bool IsAttackable()
     {
-        return m_IsAttackable;
+        return GetComponent<Combat>();
     }
 
     public bool IsMoveable()
     {
-        return m_IsMoveable;
+        return GetComponent<Movement>();
     }
 
     public bool IsInteractable()
     {
-        return m_IsInteractable;
+        return false;
+    }
+
+    public bool IsGatherable()
+    {
+        return GetComponent<ResourceGathering>();
     }
     
     public void GiveOrder(Order order)
@@ -108,8 +96,17 @@ public class Unit : RTSEntity, IOrderable{
         {
             // Stop Order
             case Const.ORDER_STOP:
-                                
-                GetComponent<Combat>().Stop();
+
+                if (IsAttackable())
+                {
+                    GetComponent<Combat>().Stop();
+                }
+
+                if (IsGatherable())
+                {
+                    GetComponent<ResourceGathering>().Stop();
+                }
+
                 if (IsMoveable())
                 {
                     if (IsDeployable())
@@ -122,9 +119,17 @@ public class Unit : RTSEntity, IOrderable{
 
             // Move Order
             case Const.ORDER_MOVE_TO:
+                
+                if (IsAttackable())
+                {
+                    GetComponent<Combat>().Stop();
+                }
 
-                GetComponent<Movement>().Stop();
-                GetComponent<Combat>().Stop();
+                if (IsGatherable())
+                {
+                    GetComponent<ResourceGathering>().Stop();
+                }
+
                 if (IsMoveable())
                 {
                     if (IsDeployable())
@@ -138,23 +143,30 @@ public class Unit : RTSEntity, IOrderable{
 
             // Deploy Order
             case Const.ORDER_DEPLOY:
-
+                // TODO: actual deployable shit
                 GetComponent<Movement>().Stop();
-
-                ((IDeployable)this).Deploy();
                 break;
 
             // Attack Order
             case Const.ORDER_ATTACK:
-
-                GetComponent<Movement>().Stop();
-                GetComponent<Combat>().Stop();
+                
                 if (IsAttackable())
                 {
-                    // Attack                    
-                    GetComponent<Combat>().Attack(order.Target);
-                }
+                    // Stop combat
+                    GetComponent<Combat>().Stop();
 
+                    // Attack                    
+                    GetComponent<Combat>().AttackCommand(order.Target);
+                }
+                break;
+
+            case Const.ORDER_GATHER:
+                if (IsGatherable())
+                {
+                    // Stop gathering and give new gathering order
+                    GetComponent<ResourceGathering>().Stop();
+                    GetComponent<ResourceGathering>().Gather(order.Mine);
+                }
                 break;
 
         }
@@ -165,13 +177,16 @@ public class Unit : RTSEntity, IOrderable{
         switch (hoveringOver)
         {
             case HoverOver.Land:
-                return m_IsMoveable;
+                return IsMoveable();
 
             case HoverOver.Building:
             case HoverOver.Ship:
             case HoverOver.Submarine:
             case HoverOver.AirUnit:
-                return m_IsAttackable;
+                return IsAttackable();
+
+            case HoverOver.Mine:
+                return IsGatherable();
                 
             default:
                 Debug.LogError("Switch hoverOver didn't work");

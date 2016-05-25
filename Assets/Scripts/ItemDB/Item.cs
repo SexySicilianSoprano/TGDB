@@ -28,20 +28,8 @@ public class Item {
 	private GameObject m_Button;
 	public GameObject Button;
 
-	private Texture2D m_ItemImage;
-	public Texture2D ItemImage
-	{
-		get
-		{
-			return m_ItemImage;
-		}
-		set
-		{
-			//Whenever the Item image is set, create the hover image
-			m_ItemImage = value;
-			//CreateHoverImage ();
-		}
-	}
+	private Sprite m_ItemImage;
+    public Sprite ItemImage;
 	
 	public Texture2D ItemImageHover
 	{

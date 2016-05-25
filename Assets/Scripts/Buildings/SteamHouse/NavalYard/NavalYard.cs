@@ -10,10 +10,11 @@ public class NavalYard : Building {
         //Spawner = gameObject.GetComponent<UnitSpawner>();
 		base.Start ();
 	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
 
-	}
+    // Update is called once per frame
+    new void Update()
+    {
+        base.Update();
+        AstarPath.active.UpdateGraphs(GetComponent<BoxCollider>().bounds);
+    }
 }

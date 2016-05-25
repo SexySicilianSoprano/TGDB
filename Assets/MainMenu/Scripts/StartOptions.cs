@@ -2,17 +2,17 @@
 using System.Collections;
 using UnityEngine.Audio;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 
 public class StartOptions : MonoBehaviour {
 
+    static StartOptions instance = null;
 
 
-	public int sceneToStart = 1;										//Index number in build settings of scene to load if changeScenes is true
+    public int sceneToStart = 1;										//Index number in build settings of scene to load if changeScenes is true
 	public bool changeScenes;											//If true, load a new scene when Start is pressed, if false, fade out UI and continue in single scene
 	public bool changeMusicOnStart;										//Choose whether to continue playing menu music or start a new music clip
-	public int musicToChangeTo = 0;										//Array index in array MusicClips to change to if changeMusicOnStart is true.
-
+	public int musicToChangeTo = 0;                                     //Array index in array MusicClips to change to if changeMusicOnStart is true.
 
 	[HideInInspector] public bool inMainMenu = true;					//If true, pause button disabled in main menu (Cancel in input manager, default escape key)
 	[HideInInspector] public Animator animColorFade; 					//Reference to animator which will fade to and from black when starting game.
@@ -28,22 +28,35 @@ public class StartOptions : MonoBehaviour {
 	
 	void Awake()
 	{
-		//Get a reference to ShowPanels attached to UI object
-		showPanels = GetComponent<ShowPanels> ();
+        /*if (instance != null)
+        {
+            Destroy(gameObject);
+            Debug.Log("Duplicate destroyed");
+        }
+        else
+        {
+            instance = this;
+            //Causes UI object not to be destroyed when loading a new scene. If you want it to be destroyed, destroy it manually via script.
+            GameObject.DontDestroyOnLoad(gameObject);
+        }*/
+
+        //Get a reference to ShowPanels attached to UI object
+        showPanels = GetComponent<ShowPanels> ();
 
 		//Get a reference to PlayMusic attached to UI object
 		playMusic = GetComponent<PlayMusic> ();
 
-        
-	}
+        animColorFade.SetTrigger("appear");
+
+    }
     void Start()
     {
         GameObject.Find("OptionsMenu").SetActive(false);
     }
 
-	public void StartButtonClicked(int scene)
+	public void GameStartButtonClicked()
 	{
-		sceneToStart = scene;
+        sceneToStart = GameObject.Find("DataManager").GetComponent<DataStorage>().GetMission().m_number + 2 ;
 		//If changeMusicOnStart is true, fade out volume of music group of AudioMixer by calling FadeDown function of PlayMusic, using length of fadeColorAnimationClip as time. 
 		//To change fade time, change length of animation "FadeToColor"
 		if (changeMusicOnStart) 
@@ -57,7 +70,7 @@ public class StartOptions : MonoBehaviour {
 		{
             Time.timeScale = 1;
 			//Use invoke to delay calling of LoadDelayed by half the length of fadeColorAnimationClip
-			Invoke ("LoadDelayed", fadeColorAnimationClip.length * .5f);
+			Invoke ("LoadDelayed", fadeColorAnimationClip.length /* * .5f*/);
 
 			//Set the trigger of Animator animColorFade to start transition to the FadeToOpaque state.
 			animColorFade.SetTrigger ("fade");
@@ -69,11 +82,40 @@ public class StartOptions : MonoBehaviour {
 			//Call the StartGameInScene function to start game without loading a new scene.
 			StartGameInScene();
 		}
-
 	}
 
+    public void StartButtonClicked(int scene)
+    {
+        sceneToStart = scene;
+        //If changeMusicOnStart is true, fade out volume of music group of AudioMixer by calling FadeDown function of PlayMusic, using length of fadeColorAnimationClip as time. 
+        //To change fade time, change length of animation "FadeToColor"
+        if (changeMusicOnStart)
+        {
+            playMusic.FadeDown(fadeColorAnimationClip.length);
+            Invoke("PlayNewMusic", fadeAlphaAnimationClip.length);
+        }
 
-	public void LoadDelayed()
+        //If changeScenes is true, start fading and change scenes halfway through animation when screen is blocked by FadeImage
+        if (changeScenes)
+        {
+            Time.timeScale = 1;
+            //Use invoke to delay calling of LoadDelayed by half the length of fadeColorAnimationClip
+            Invoke("LoadDelayed", fadeColorAnimationClip.length /* * .5f*/);
+
+            //Set the trigger of Animator animColorFade to start transition to the FadeToOpaque state.
+            animColorFade.SetTrigger("fade");
+        }
+
+        //If changeScenes is false, call StartGameInScene
+        else
+        {
+            //Call the StartGameInScene function to start game without loading a new scene.
+            StartGameInScene();
+        }
+    }
+
+
+    public void LoadDelayed()
 	{
 		//Pause button now works if escape is pressed since we are no longer in Main menu.
 		inMainMenu = false;
@@ -82,7 +124,7 @@ public class StartOptions : MonoBehaviour {
 		showPanels.HideMenu ();
 
 		//Load the selected scene, by scene index number in build settings
-		Application.LoadLevel (sceneToStart);
+		SceneManager.LoadScene (sceneToStart);
 	}
 
 

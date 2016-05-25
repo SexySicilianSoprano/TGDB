@@ -1,0 +1,211 @@
+fileFormatVersion: 2
+guid: 49928683134b681418841bd23cb800c6
+timeCreated: 1462959351
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Bone.004
+    100004: G_Navalyard.001
+    100006: G_NavalYard_Armature
+    100008: G_NY_Door1
+    100010: G_NY_Door1_end
+    100012: G_NY_Door2
+    100014: G_NY_Door2_end
+    100016: G_NY_Gear1
+    100018: G_NY_Gear1_end
+    100020: G_NY_Gear2
+    100022: G_NY_Gear2_end
+    400000: //RootNode
+    400002: Bone.004
+    400004: G_Navalyard.001
+    400006: G_NavalYard_Armature
+    400008: G_NY_Door1
+    400010: G_NY_Door1_end
+    400012: G_NY_Door2
+    400014: G_NY_Door2_end
+    400016: G_NY_Gear1
+    400018: G_NY_Gear1_end
+    400020: G_NY_Gear2
+    400022: G_NY_Gear2_end
+    2300000: //RootNode
+    2300002: G_Navalyard.001
+    3300000: //RootNode
+    3300002: G_Navalyard.001
+    4300000: G_Navalyard
+    4300002: G_Navalyard.001
+    7400000: Doors Open
+    7400002: GearsRotate
+    7400004: GearsRotate0
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: G_Navalyard.001
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Doors Open
+      takeName: Doors Open
+      firstFrame: 0
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: G_Navalyard.001
+        weight: 1
+      - path: G_NavalYard_Armature
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Door1
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Door1/G_NY_Door1_end
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Door2
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Door2/G_NY_Door2_end
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Gear1
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Gear1/G_NY_Gear1_end
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Gear2
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Gear2/G_NY_Gear2_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: GearsRotate
+      takeName: GearsRotate
+      firstFrame: 0
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: G_Navalyard.001
+        weight: 1
+      - path: G_NavalYard_Armature
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Door1
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Door1/G_NY_Door1_end
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Door2
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Door2/G_NY_Door2_end
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Gear1
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Gear1/G_NY_Gear1_end
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Gear2
+        weight: 1
+      - path: G_NavalYard_Armature/Bone.004/G_NY_Gear2/G_NY_Gear2_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.3
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

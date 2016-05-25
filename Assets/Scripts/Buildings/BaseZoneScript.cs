@@ -13,11 +13,11 @@ public class BaseZoneScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<Unit>() && other.gameObject.tag == "Player1")
+        /*if (other.gameObject.GetComponent<Unit>() && other.gameObject.tag == "Player1")
         {
             other.gameObject.transform.SetParent(gameObject.transform);
             other.gameObject.GetComponent<BoatMovement>().AffectedByCurrent = true;
-        }
+        }*/
 
         if (other.gameObject.GetComponent<Building>() && other.gameObject.tag == "Player1")
         {

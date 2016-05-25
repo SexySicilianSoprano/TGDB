@@ -5,6 +5,9 @@ public class Selected : MonoBehaviour {
 
 	public Rigidbody rb;
     public Projector projector;
+    public TrailRenderer trail;
+    public HPBar hpbar;
+
 	public bool IsSelected
 	{
 		get;
@@ -32,7 +35,8 @@ public class Selected : MonoBehaviour {
     // Use this for initialization
     void Start () 
 	{
-        projector = GetComponentInChildren<Projector>();
+        projector = transform.Find("SelectedProjector").GetComponent<Projector>();
+        hpbar = GetComponent<HPBar>();
 		IsSelected = false;
 		FindMaxWorldSize();
 		
@@ -84,10 +88,11 @@ public class Selected : MonoBehaviour {
             IsSelected = true;
 			m_JustBeenSelected = true;
 			m_JustBeenSelectedTimer = 0;
-            projector.enabled = true;
-            GetComponent<BoatMovement>().AffectedByCurrent = false;
+            GetComponent<BoatMovement>().AffectedByCurrent = false;            
         }
 
+        projector.enabled = true;
+        hpbar.ShowHealthBar();
 	}
 	
 	public void SetDeselected()
@@ -95,7 +100,12 @@ public class Selected : MonoBehaviour {
 		IsSelected = false;
 		m_JustBeenSelected = false;
         projector.enabled = false;
-        GetComponent<BoatMovement>().AffectedByCurrent = true;
+        hpbar.HideHealthBar();
+
+        if (GetComponent<Combat>() && !GetComponent<Combat>().isInCombat)
+        {
+            GetComponent<BoatMovement>().AffectedByCurrent = true;
+        }
 	}
 	
 	public void AssignGroupNumber(int number)
@@ -111,7 +121,7 @@ public class Selected : MonoBehaviour {
 	private void GLExecuteFunction()
 	{
 		//Need to get target location
-		Vector3 target = GetComponent<Movement>().TargetLocation;
+		Vector3 target = GetComponent<Movement>().targetPosition;
 		
 		if (IsSelected && target != Vector3.zero)
 		{

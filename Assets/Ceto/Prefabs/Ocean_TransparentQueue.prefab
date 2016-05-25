@@ -13,9 +13,9 @@ GameObject:
   - 114: {fileID: 11400362}
   - 114: {fileID: 11475164}
   - 114: {fileID: 11487688}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Ocean_TransparentQueue
-  m_TagString: Untagged
+  m_TagString: Water
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,7 +27,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -244, y: 0, z: -251}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -85,26 +85,14 @@ MonoBehaviour:
   normalOverlaySize: 2
   foamOverlaySize: 2
   clipOverlaySize: 3
-  defaultSkyColor:
-    r: 0.3764706
-    g: 0.5764706
-    b: 0.8235294
-    a: 1
-  defaultOceanColor:
-    r: 0
-    g: 0.07450981
-    b: 0.11764706
-    a: 1
+  defaultSkyColor: {r: 0.3764706, g: 0.5764706, b: 0.8235294, a: 1}
+  defaultOceanColor: {r: 0, g: 0.07450981, b: 0.11764706, a: 1}
   windDir: 0
   specularRoughness: 0.2
   specularIntensity: 0.2
   fresnelPower: 5
   minFresnel: 0.02
-  foamTint:
-    r: 1
-    g: 1
-    b: 1
-    a: 1
+  foamTint: {r: 1, g: 1, b: 1, a: 1}
   foamIntensity: 1
   foamTexture0:
     tex: {fileID: 2800000, guid: 9f8e98f61008bd9429a9c5fba1f0f3f1, type: 3}
@@ -126,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ac848a9d87de654aa4cf7fd7767edc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolution: 2
+  resolution: 0
   receiveShadows: 0
   oceanTopSideMat: {fileID: 2100000, guid: 77fcc3ae33d5521489feedd7ccc48bc4, type: 2}
   oceanUnderSideMat: {fileID: 2100000, guid: c2873b68f07420a4c947ebca75f60a3c, type: 2}
@@ -141,18 +129,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efd04cf49f7624444ae26e4559baf1ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reflectionMask: {}
+  reflectionMask:
+    serializedVersion: 2
+    m_Bits: 0
   reflectionResolution: 1
   pixelLightsInReflection: 0
   fogInReflection: 0
   skyboxInReflection: 1
   blurMode: 2
   blurIterations: 2
-  reflectionTint:
-    r: 1
-    g: 1
-    b: 1
-    a: 1
+  reflectionTint: {r: 1, g: 1, b: 1, a: 1}
   reflectionIntensity: 1
   reflectionDistortion: 0.5
   ansio: 2
@@ -170,53 +156,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   underwaterMode: 1
   depthMode: 1
-  oceanDepthsMask: {}
+  oceanDepthsMask:
+    serializedVersion: 2
+    m_Bits: 0
   depthBlend: 0.2
+  edgeFade: 0.2
   absorptionR: 0.45
   absorptionG: 0.029
   absorptionB: 0.018
   aboveAbsorptionModifier:
     scale: 2
     intensity: 1
-    tint:
-      r: 1
-      g: 1
-      b: 1
-      a: 1
+    tint: {r: 1, g: 1, b: 1, a: 1}
   belowAbsorptionModifier:
     scale: 0.1
     intensity: 1
-    tint:
-      r: 1
-      g: 1
-      b: 1
-      a: 1
+    tint: {r: 1, g: 1, b: 1, a: 1}
   subSurfaceScatterModifier:
     scale: 10
     intensity: 1.5
-    tint:
-      r: 0.8627451
-      g: 0.98039216
-      b: 0.7058824
-      a: 1
+    tint: {r: 0.8627451, g: 0.98039216, b: 0.7058824, a: 1}
   aboveInscatterModifier:
     scale: 300
     intensity: 1
     mode: 2
-    color:
-      r: 0.009083046
-      g: 0.09803922
-      b: 0.16862746
-      a: 1
+    color: {r: 0.009083046, g: 0.09803922, b: 0.16862746, a: 1}
   belowInscatterModifier:
     scale: 60
     intensity: 1
     mode: 1
-    color:
-      r: 0.02745098
-      g: 0.2
-      b: 0.3019608
-      a: 1
+    color: {r: 0.02745098, g: 0.2, b: 0.3019608, a: 1}
   refractionIntensity: 0.5
   refractionDistortion: 0.5
   oceanBottomSdr: {fileID: 4800000, guid: 025ba020bb8d8c34b8cf93e89481e9c2, type: 3}

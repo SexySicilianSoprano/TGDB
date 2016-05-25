@@ -7,7 +7,11 @@ public class ShowPanels : MonoBehaviour {
 	public GameObject optionsTint;							//Store a reference to the Game Object OptionsTint 
 	public GameObject menuPanel;							//Store a reference to the Game Object MenuPanel 
     public GameObject factionPanel;                         //Store a reference to the Game Object FactionPanel
-    public GameObject mapPanel;                             //Store a reference to the Game Object MapPanel
+    public GameObject saveloadPanel;                        //Store a reference to the Game Object Save/LoadPanel
+    public GameObject mapselectionPanel;                    //Store a reference to the Game Object MapSelectionPanel
+    public GameObject backtoMainMenuPanel;                  //Store a reference to the Game Object BacktoMainMenuPanel
+    public GameObject restartScenePanel;                    //Store a reference to the Game Object RestartScene
+    public GameObject quitToDesktopPanel;                   //Store a reference to the Game Object QuittoDesktopPanel
 	public GameObject pausePanel;							//Store a reference to the Game Object PausePanel 
 
 
@@ -37,7 +41,7 @@ public class ShowPanels : MonoBehaviour {
 	{
 		menuPanel.SetActive (false);
         factionPanel.SetActive(false);
-        //mapPanel.SetActive(false);
+        saveloadPanel.SetActive(false);
 	}
 	
 	//Call this function to activate and display the Pause panel during game play
@@ -51,7 +55,11 @@ public class ShowPanels : MonoBehaviour {
 	public void HidePausePanel()
 	{
 		pausePanel.SetActive (false);
+        mapselectionPanel.SetActive(false);
+        backtoMainMenuPanel.SetActive(false);
+        quitToDesktopPanel.SetActive(false);
 		optionsTint.SetActive(false);
+        restartScenePanel.SetActive(false);
 
 	}
 }

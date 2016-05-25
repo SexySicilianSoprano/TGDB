@@ -12,10 +12,12 @@ GameObject:
   - 114: {fileID: 11498756}
   - 114: {fileID: 11420514}
   - 114: {fileID: 11436976}
-  - 114: {fileID: 11448276}
   - 114: {fileID: 11487132}
   - 114: {fileID: 11441268}
   - 114: {fileID: 11468062}
+  - 114: {fileID: 11410026}
+  - 114: {fileID: 11485030}
+  - 114: {fileID: 11478876}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -30,11 +32,22 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 144522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 222.4759, y: 52.979134, z: 117.3498}
+  m_LocalPosition: {x: -78.387375, y: 57.62261, z: -26.97219}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11410026
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73b76d8eabc9b0b4881c807d65287191, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11420514
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -46,8 +59,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1684a083ef2cc384692e267941f6b148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_GameManager: {fileID: 0}
   m_primaryPlayer: 
   m_enemyPlayer: 
+  earnedExperience: 0
+  defeatedBuildings: []
+  defeatedUnits: []
+  lostBuildings: []
+  lostUnits: []
 --- !u!114 &11436976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -59,10 +78,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f20563f9b6fdd48ade93abc8466253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: {fileID: 10900, guid: 0000000000000000f000000000000000, type: 0}
-  select: {fileID: 10914, guid: 0000000000000000f000000000000000, type: 0}
-  move: {fileID: 2800000, guid: f3d97ec79d7eeaf419039f2971ff98a2, type: 3}
-  normal: {fileID: 2800000, guid: f3d97ec79d7eeaf419039f2971ff98a2, type: 3}
+  attack: {fileID: 2800000, guid: 938685ae23c53c543917c3bb5d3469fe, type: 3}
+  select: {fileID: 2800000, guid: 830a8ea0bc571e14a9f328fa5d439d9f, type: 3}
+  move: {fileID: 2800000, guid: 39b83fe5722645e4e8df2f1c4980d62e, type: 3}
+  normal: {fileID: 2800000, guid: 37ced9d67f020f5458dcbc03ae408a7b, type: 3}
 --- !u!114 &11441268
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -76,20 +95,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitBuildingList:
   - {fileID: 129830, guid: c2cc95431b5472f4d806a9406bcfc564, type: 2}
+  - {fileID: 140202, guid: dcdc4daf6d8155c46978c2a441cd5587, type: 2}
   maxQueuedUnits: 10
   unitBuildingQueue: []
+  onHold: 0
   navalYard: {fileID: 0}
---- !u!114 &11448276
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 144522}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73b76d8eabc9b0b4881c807d65287191, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  spawnPointList: []
+  unitPanel: {fileID: 0}
 --- !u!114 &11468062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,6 +111,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ddf94857604622428089b7660560fce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11478876
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9df842f5142dfaa4ebb6aa7917b8efea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11485030
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9df842f5142dfaa4ebb6aa7917b8efea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &11487132
@@ -113,13 +147,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingList:
-  - {fileID: 170034, guid: 22418d71c50ff8b40be11d2176131790, type: 2}
+  - {fileID: 170034, guid: ccaadf0ce1c949b4ba3e63a79558ca88, type: 2}
   currentBuildingSpot: {fileID: 0}
   camera: {fileID: 0}
   layerMask:
     serializedVersion: 2
-    m_Bits: 256
-  textures: []
+    m_Bits: 33024
+  textures:
+  - {fileID: 0}
+  bsHandler: {fileID: 0}
+  onHold: 0
 --- !u!114 &11493042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -142,7 +179,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c52603d9c80d64844bf160e5cc9a2020, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  missionName: 
+  missionNumber: 0
+  missionPlayerHouse: 
+  missionExp: 0
+  missionResources: 0
   victoryPanel: {fileID: 0}
+  defeatPanel: {fileID: 0}
+  m_DataManager: {fileID: 0}
+  m_DataStorage: {fileID: 0}
+  m_Manager: {fileID: 0}
+  m_SoundManager: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

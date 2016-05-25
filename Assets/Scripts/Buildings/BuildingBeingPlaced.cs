@@ -11,14 +11,12 @@ public class BuildingBeingPlaced : MonoBehaviour {
     {
         if (other.transform.tag == "BuildingSpot")
         {
-            Debug.Log("Entered BuildingSpot");
             collidingObject = other.gameObject;
         }
         else
         {
-            Physics.IgnoreCollision(GetComponent<Collider>(), other.gameObject.GetComponent<Collider>());
+            Physics.IgnoreCollision(GetComponent<Collider>(), other.gameObject.GetComponent<Collider>(), true);
         }
-
     }
 
     void OnTriggernExit(Collider other)

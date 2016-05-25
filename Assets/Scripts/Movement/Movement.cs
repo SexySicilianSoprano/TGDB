@@ -5,11 +5,14 @@ public abstract class Movement : MonoBehaviour{
 	
 	protected RTSEntity m_Parent;
 	protected Vector3 m_Position = new Vector3();
-	
-	public abstract Vector3 TargetLocation { get; }
-	
-	public float Speed { get; protected set; }
+
+    public Vector3 targetPosition;
+
+    public float Speed { get; protected set; }
 	public float CurrentSpeed { get; protected set; }
+    public bool stayInPlace = false;
+
+    public abstract bool onTheMove { get; }
     
 	public abstract void MoveTo (Vector3 location);
 
@@ -18,4 +21,12 @@ public abstract class Movement : MonoBehaviour{
 	public abstract void Stop ();
 	
 	public abstract void AssignDetails(Item item);
+
+    public abstract void MoveForward();
+
+    public abstract void RotateTowards(Vector3 location);
+
+    public abstract bool CheckFront();
+
+    public abstract bool PointingAtTarget(Vector3 direction);
 }

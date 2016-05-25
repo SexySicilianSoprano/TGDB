@@ -40,7 +40,7 @@ public class Building : RTSEntity{
 
     public void Update()
     {
-        AstarPath.active.UpdateGraphs(GetComponent<BoxCollider>().bounds);
+        
     }
 
     public int BuildingIdentifier
@@ -83,8 +83,5 @@ public class Building : RTSEntity{
 
 	}
 
-    new void OnDestroy()
-    {
-        
-    }
+    
 }
