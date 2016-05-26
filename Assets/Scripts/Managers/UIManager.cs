@@ -266,7 +266,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         if (Input.GetKeyDown("1"))
         {
             // Are we holding down left control?
-            if (Input.GetKey(KeyCode.LeftControl))
+            if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.V))
             {
                 // Create group 1
                 m_SelectedManager().CreateGroup(1);
@@ -282,7 +282,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         if (Input.GetKeyDown("2"))
         {
             // Are we holding down left control? (Placeholder button is V because of retarded Unity Editor)
-            if (Input.GetKey(KeyCode.V))
+            if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.V))
             {
                 // Create group 2
                 m_SelectedManager().CreateGroup(2);
@@ -298,7 +298,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         if (Input.GetKeyDown("3"))
         {
             // Are we holding down left control? (Placeholder button is V because of retarded Unity Editor)
-            if (Input.GetKey(KeyCode.V))
+            if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.V))
             {
                 // Create group 3
                 m_SelectedManager().CreateGroup(3);
@@ -314,7 +314,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         if (Input.GetKeyDown("4"))
         {
             // Are we holding down left control? (Placeholder button is V because of retarded Unity Editor)
-            if (Input.GetKey(KeyCode.V))
+            if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.V))
             {
                 // Create group 4
                 m_SelectedManager().CreateGroup(4);
@@ -330,7 +330,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         if (Input.GetKeyDown("5"))
         {
             // Are we holding down left control? (Placeholder button is V because of retarded Unity Editor)
-            if (Input.GetKey(KeyCode.V))
+            if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.V))
             {
                 // Create group 5
                 m_SelectedManager().CreateGroup(5);
@@ -346,7 +346,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         if (Input.GetKeyDown("6"))
         {
             // Are we holding down left control? (Placeholder button is V because of retarded Unity Editor)
-            if (Input.GetKey(KeyCode.V))
+            if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.V))
             {
                 // Create group 6
                 m_SelectedManager().CreateGroup(6);

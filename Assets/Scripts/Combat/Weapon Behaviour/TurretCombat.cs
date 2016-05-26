@@ -260,7 +260,7 @@ public class TurretCombat : Combat {
                 {
                     //debug.log("It's a building! " + m_ent);
                     // Is it a Naval Yard?
-                    if (target.GetComponent<NavalYard>())
+                    if (target.GetComponent<NavalYard>() && target.name != "Naval Yard(Clone)")
                     {
                         // Naval Yard in range, fire at Naval Yard
                         // Add to top priority list
