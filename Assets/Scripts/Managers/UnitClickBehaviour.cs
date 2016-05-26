@@ -17,7 +17,7 @@ using System;
 ///  The Great Deep Blue
 /// </summary>
 
-public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
+public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     // What is the pointer pointing at?
     private HoverOver hoverOver
@@ -206,5 +206,21 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler
     private void GetAllSimilarUnits()
     {
         //TODO
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (GetComponent<HPBar>())
+        {
+            GetComponent<HPBar>().ShowHealthBar();
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (!GetComponent<Building>() && GetComponent<HPBar>() && GetComponent<Selected>().IsSelected == false || GetComponent<Building>() && GetComponent<HPBar>() && GetComponent<SelectedBuilding>().isSelected == false)
+        {
+            GetComponent<HPBar>().HideHealthBar();
+        }
     }
 }

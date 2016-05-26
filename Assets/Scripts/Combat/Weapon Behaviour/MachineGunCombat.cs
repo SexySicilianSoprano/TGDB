@@ -12,16 +12,13 @@ public class MachineGunCombat : Combat {
     private bool canFire = true; // Are we able to fire?
     private bool m_FollowEnemy = false; // Do we follow a fleeing enemy?
     private bool m_FireAtEnemy = false; // Do we fire at an enemy without command?
-    private bool isFollowing = false; 
-    
+    private bool isFollowing = false;  // Are we currently following the enemy
+    private bool inCombat = false; // Is this unit currently engaged in combat
+
+    private bool movementOrderGiven { get { return m_Movement.onTheMove; } } // Is movement order given?
+
     // Call this outside combat script to see if the unit is currently in combat
-    public override bool isInCombat
-    {
-        get
-        {
-            return TargetSet;
-        }
-    }
+    public override bool isInCombat { get { return TargetSet; } }
 
     // Rate of fire
     private float m_FireRate;
@@ -39,7 +36,8 @@ public class MachineGunCombat : Combat {
     private Vector3 SpawnerPos;
 
     // SphereCollider with trigger to detect enemies
-    private SphereCollider DangerZone;
+    private SphereCollider DangerZone {
+        get { return GetComponentInChildren<SphereCollider>(); } }
 
     // List of targets and priorities
     private List<RTSEntity> targetList = new List<RTSEntity>(); // Normal priority
@@ -47,19 +45,18 @@ public class MachineGunCombat : Combat {
 
     // This unit's movement script
     private Movement m_Movement;
-        
+
+    // Sound Manager
+    private SoundManager m_SoundManager { get { return GameObject.Find("Manager").GetComponent<SoundManager>(); } }
+
     // Use this for initialization
     void Start()
     {
         // Let's set the combat mode and assign components to their respective variables
         SwitchMode(CombatMode.Defensive);
         m_Parent = GetComponent<RTSEntity>();
-        Spawner = m_Parent.transform.GetChild(0);
+        Spawner = m_Parent.transform.GetChild(0).transform.GetChild(2);
         m_Movement = GetComponent<Movement>();
-
-        // Initialise DangerZone and set its size
-        DangerZone = transform.GetComponent<SphereCollider>();
-        DangerZone.radius = 100;
     }
 
     void FixedUpdate()
@@ -70,66 +67,55 @@ public class MachineGunCombat : Combat {
         CalculateFireRate();
 
         // Check if lists need refreshing aka target is destroyed or off the DangerZone
-        RefreshTargetLists(m_Target);
+        //RefreshTargetLists(m_Target);
 
         // Behaviour query
-        if (TargetSet && m_Target == null)
+        if (m_Target && TargetInRange())
+        {
+            m_Movement.Stop();
+        }
+
+        if (!TargetSet && m_Parent.AttackingEnemy)
+        {
+            Attack(m_Parent.AttackingEnemy);
+            return;
+        }
+        else if (TargetSet && m_Target == null)
         {
             // Target is set, but can't be found, so let's stop
             Stop();
+            return;
         }
-        else if (TargetSet && canFire == true)
+        else if (m_Target && canFire == true)
         {
             // Target is set and found, let's update locations and fire
             TargetPos = TargetLocation;
             Attack(m_Target);
+            return;
         }
         else
         {
             // Target is not set, we're idle, so let's see if target lists have anything to shoot at
+
+            m_FollowEnemy = false;
+
             // Is there a unit listed on top priority list?
             if (trueTargetList.Count > 0)
             {
                 Attack(trueTargetList[0]);
+                return;
             }
             // If not, is there a unit listed on normal priority list?
             else if (targetList.Count > 0)
             {
                 Attack(targetList[0]);
+                return;
             }
             else
             {
-                Stop();
+                return;
             }
         }
-
-        /*
-        if (TargetSet && m_Target == null)
-        {
-            Stop();
-        }
-        else if (TargetSet && canFire == true)
-        {
-            TargetPos = TargetLocation;            
-            Attack(m_Target);
-        } 
-
-        if (m_Parent.AttackingEnemy)
-        {
-            m_Target = m_Parent.AttackingEnemy;
-            if (m_FireAtEnemy == true)
-            {
-                Attack(m_Target);
-            }
-            else if (m_FireAtEnemy == false)
-            {
-
-            }
-            else
-            {
-                Debug.LogError("Something went wrong with stances");
-            }
-        }*/
     }
 
     // Host unit location
@@ -160,16 +146,19 @@ public class MachineGunCombat : Combat {
         isAntiArmor = weapon.isAntiArmor;
         isAntiStructure = weapon.isAntiStructure;
         //Projectile = weapon.Projectile;
+        DangerZone.radius = Range;
     }
 
     // Attack with command
     public override void AttackCommand(RTSEntity obj)
     {
         m_FollowEnemy = true;
+        m_Movement.stayInPlace = true;
+        PutTopOfTargetList(obj);
         Attack(obj);
     }
 
-    // Attack command
+    // Attack without command
     public void Attack(RTSEntity obj)
     {
         // Set target
@@ -196,7 +185,13 @@ public class MachineGunCombat : Combat {
                     {
                         // Stop movement and fire the guns
                         isFollowing = false;
-                        m_Movement.Stop();
+
+                        // If we didn't give a move order while in combat
+                        if (!movementOrderGiven && !inCombat)
+                        {
+                            m_Movement.Stop();
+                        }
+
                         Fire();
 
                         // Check if target is destroyed after the shot
@@ -224,7 +219,7 @@ public class MachineGunCombat : Combat {
             {
                 // Rotate the turret
                 RotateTowards(TargetPos);
-            }            
+            }
         }
         else
         {
@@ -237,12 +232,15 @@ public class MachineGunCombat : Combat {
     private void Fire()
     {
         // Start firing
-        gameObject.transform.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play(true);
+        gameObject.transform.GetChild(0).transform.Find("ProjectileSpawner").GetChild(0).GetComponent<ParticleSystem>().Play(true);
         Debug.DrawLine(SpawnerPos, TargetPos);
 
         //LaunchProjectile(Projectile);
         m_Target.TakeDamage(Damage);
         m_Target.AttackingEnemy = m_Parent;
+
+        // Set unit in combat
+        inCombat = true;
 
         if (m_shotsFired == m_magazineSize)
         {
@@ -261,12 +259,13 @@ public class MachineGunCombat : Combat {
     // Stops just whatever is being done
     public override void Stop()
     {
-        // Set no target and target to null
+        // Set no target and target to null, among other things
+        m_Movement.stayInPlace = false;
+        inCombat = false;
         TargetSet = false;
         m_Target = null;
         m_Parent.AttackingEnemy = null;
         isFollowing = false;
-        //GetComponent<Movement>().Stop();
     }
 
     // Follow the target
@@ -296,32 +295,25 @@ public class MachineGunCombat : Combat {
     // Checks if target is in line of fires
     private bool TargetInLine()
     {
-        // Raycastin' yo
-        RaycastHit hit;
         Ray ray = new Ray(Spawner.transform.position, Spawner.transform.forward);
-        if (Physics.Raycast(ray, out hit))
+        // Raycastin' yo
+        RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Infinity);
+        foreach (RaycastHit hit in hits)
         {
             // Did we hit the target's box collider?
-            if (hit.collider == m_Target.GetComponent<BoxCollider>())
+            if (hit.collider == m_Target.GetComponent<BoxCollider>() && hit.collider.isTrigger == false)
             {
                 // Yup, target on sights
                 return true;
             }
-            else
-            {
-                // Apparently not
-                return false;
-            }
         }
-        else
-        {           
-            // We're not hitting anything, so let's try again 
-            return false;
-        }
+
+        // We're not hitting anything, try again
+        return false;
     }
 
     // Checks for enemies within range
-    private void OnTriggerStay(Collider collider)
+    private void OnTriggerEnter(Collider collider)
     {
         GameObject target = collider.gameObject;
 
@@ -482,20 +474,21 @@ public class MachineGunCombat : Combat {
     // Checks if the target is within range
     private bool TargetInRange()
     {
-        TargetPos = TargetLocation;
-        float dist = Vector3.Distance(CurrentPos, TargetPos);
+        Ray ray = new Ray(Spawner.transform.position, Spawner.transform.forward);
+        // Raycastin' yo
+        RaycastHit[] hits = Physics.RaycastAll(ray, 20);
+        foreach (RaycastHit hit in hits)
+        {
+            // Did we hit the target's box collider?
+            if (hit.collider == m_Target.GetComponent<BoxCollider>() && hit.collider.isTrigger == false)
+            {
+                // Yup, target on sights
+                return true;
+            }
+        }
 
-        // Is the distance between target and parent smaller than maximum range?
-        if (dist <= Range)
-        {
-            // Yup, we're good to go
-            return true;
-        }
-        else
-        {
-            // Nope, it's too far away
-            return false;
-        }
+        // We're not hitting anything, try again
+        return false;
     }
 
     // Switches between combat modes, this activates booleans that control firing behaviour

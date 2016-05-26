@@ -36,6 +36,7 @@ public class HPBar : MonoBehaviour {
         newHealthBar = Instantiate(imgPrefab, gameObject.transform.position, Quaternion.identity) as GameObject;
         newHealthBar.transform.SetParent(canvasRectT);
         newHealthBar.transform.position = new Vector3 (0, 0, 0);
+        newHealthBar.name = "HPBar("+ name +")";
 
         healthBar = (RectTransform)newHealthBar.transform;
         bar = newHealthBar.transform.Find("HPBG").transform.Find("HPGreen").GetComponent<Image>();

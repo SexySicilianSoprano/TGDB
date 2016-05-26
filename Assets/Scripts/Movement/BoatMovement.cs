@@ -28,7 +28,8 @@ public class BoatMovement : SeaMovement {
     // Booleans
     private bool m_PlayMovingSound = false; // True calls for playing the sound, false stops it
     private bool m_SoundIsPlaying = false; // Is the sound currently playing or not?
-    private bool isRotating = false;
+    private bool m_Waiting = false; // Is this unit waiting?
+    private bool isRotating = false; // Is this unit rotating? (not sure if in use)
     public bool AffectedByCurrent = true; // Is this unit affected by ocean currents?    
     public bool moving = false;
 
@@ -76,7 +77,6 @@ public class BoatMovement : SeaMovement {
     // Use this for initialization
     void Start () 
 	{
-        controller = GetComponent<RVOController>();
         seeker = GetComponent<Seeker>(); // Seeker is a pathfinding component attached to each gameobject that needs to move
         trail = GetComponentInChildren<TrailRenderer>(); // Trail renderer for water trail effect
 		m_Parent = GetComponent<RTSEntity>(); // This unit
@@ -101,30 +101,30 @@ public class BoatMovement : SeaMovement {
 
         // We have a path
         if (Path != null /*&& Path.Count > 0*/)
-        {  
-            // If we're close enough to the next waypoint, jump to next one
-            if (Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < nextWaypointDistance && currentWaypoint < Path.vectorPath.Count || Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < nextWaypointDistance && currentWaypoint <= Path.vectorPath.Count)
+        {
+            // Pick the direction towards the next waypoint
+            Vector3 dir = CheckBestRoute();
+            
+            if (m_Waiting)
             {
-                if (Path.vectorPath.Count > currentWaypoint)
-                {
-                    currentWaypoint++;
-
-                    if (Path.vectorPath.Count <= currentWaypoint)
-                    {
-                        rb.velocity = Vector3.zero;
-                        controller.Move(Vector3.zero);
-                        Path = null;
-                        currentWaypoint = 0;
-                        trail.enabled = false;
-                        m_OnMyWay = false;
-                        canSearchAgain = false;
-                        return;
-                    }
-                }
+                rb.velocity = Vector3.zero;
+                return;
             }
 
-            // Pick the direction towards the next waypoint
-            Vector3 dir = (Path.vectorPath[currentWaypoint] - transform.position).normalized;
+            // If we're close enough to the next waypoint, jump to next one
+            if (Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < nextWaypointDistance * 3 && currentWaypoint < Path.vectorPath.Count || Vector3.Distance(transform.position, Path.vectorPath[currentWaypoint]) < nextWaypointDistance && currentWaypoint <= Path.vectorPath.Count)
+            {
+                if (currentWaypoint <= Path.vectorPath.Count)
+                {
+                    currentWaypoint++;
+                }
+
+                if (Path.vectorPath.Count <= currentWaypoint)
+                {
+                    Stop();
+                    return;
+                }  
+            }
 
             // We have a path, lets move!
             m_PlayMovingSound = true;
@@ -184,35 +184,61 @@ public class BoatMovement : SeaMovement {
                 
     }
 
+    // Checks best route from last point downwards, I call it "the countdown pathsearch".
+    // Basically what it does is raycast towards each waypoint from last to first, detecting if anything is in between,
+    // either returning a path as Vector3 direction or lowering the index to search a closer waypoint to pick
+    // Far from best, but somewhat effective and fast. So far no idea how it works on slower PCs or when stressed.
+    private Vector3 CheckBestRoute()
+    {
+        LayerMask mask = 8 << 23;
+        List<Vector3> vPath = Path.vectorPath;
+        int index = vPath.Count-1;
+
+        while (true)
+        {
+            float distance = Vector3.Distance(transform.position, vPath[index]);
+            RaycastHit hit;
+            Vector3 castPos = new Vector3(transform.position.x, 2f, transform.position.z);
+            Vector3 castTarg = new Vector3(vPath[index].x, 2f, vPath[index].z);
+            Ray ray = new Ray(castPos, (vPath[index] - transform.position).normalized);
+
+            if (Physics.Raycast(ray, out hit, distance, ~mask))
+            {
+                index--;
+
+                if (hit.transform.gameObject.layer == 9 && hit.distance < 8 && hit.transform.GetComponent<Movement>().onTheMove)
+                {
+                    m_Waiting = true;
+                }
+                else
+                {
+                    m_Waiting = false;
+                }
+            }
+            else
+            {
+                currentWaypoint = index;
+                return (vPath[index] - transform.position).normalized;
+            }
+        }
+    }
+
     // Onward!
     public override void MoveForward()
     {
-        controller.Move(m_Parent.transform.forward * Speed);
+        //controller.Move(m_Parent.transform.forward * Speed);
+        rb.AddForce(transform.forward * Speed);
 
         if (!trail.enabled)
         {
             trail.enabled = true;
         }
     }
-
-    // Check if something is in front of you, calculate a new route
-    public override bool CheckFront()
-    { 
-        RaycastHit hit;
-        Ray ray = new Ray(m_Parent.transform.position, m_Parent.transform.forward);
-        if (Physics.Raycast(ray, out hit, 10))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    
+         
     // Gives the moving command
     public override void MoveTo(Vector3 location)
     {
+        m_Waiting = false;
         targetLocation = location;
         seeker.StartPath(transform.position, location, OnPathComplete);
     }
@@ -220,7 +246,7 @@ public class BoatMovement : SeaMovement {
     // Stop moving and set path to null
     public override void Stop()
     {
-        controller.Move(Vector3.zero);
+        //controller.Move(Vector3.zero);
         rb.velocity = Vector3.zero;
         Path = null;
         canSearch = false;
@@ -228,6 +254,7 @@ public class BoatMovement : SeaMovement {
         m_OnMyWay = false;
         currentWaypoint = 0;
         trail.enabled = false;
+        m_Waiting = false;
     }
 
     // Go towards the target
@@ -239,9 +266,9 @@ public class BoatMovement : SeaMovement {
     // Assigne details
     public override void AssignDetails(Item item)
     {
-        Speed = item.Speed / 3;
+        Speed = item.Speed / 6;
         CurrentSpeed = 0;
-        RotationalSpeed = item.RotationSpeed *2;
+        RotationalSpeed = item.RotationSpeed / 3;
         Acceleration = item.Acceleration / 3;
     }
 
@@ -283,15 +310,6 @@ public class BoatMovement : SeaMovement {
         return false;
     }
 
-    private void CloseIn(Vector3 target)
-    {
-        if (PointingAtTarget(target))
-        {
-            MoveForward();
-        }
-        RotateTowards(target);        
-    }
-
     IEnumerator RepeatRepath()
     {
         while (true)
@@ -303,7 +321,7 @@ public class BoatMovement : SeaMovement {
 
     public float TrySearchPath()
     {
-        if (Time.time - lastRepath >= repathRate && canSearchAgain)
+        if (Time.time - lastRepath >= repathRate && canSearch && canSearchAgain)
         {
             SearchPath();
             return repathRate;

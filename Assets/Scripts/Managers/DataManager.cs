@@ -41,6 +41,12 @@ public class DataManager : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        GameObject dm = GameObject.Find("DataManager");
+        if (dm && dm != gameObject)
+        {
+            Destroy(gameObject);
+            return;
+        }
         DontDestroyOnLoad(this);
         // Fetch data from storage
         LoadData();

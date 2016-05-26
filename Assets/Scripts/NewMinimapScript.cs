@@ -49,15 +49,15 @@ public class NewMinimapScript : MonoBehaviour
 
     void Start()
     { 
-        _fog = GetComponent<FogOfWar>();
-        _camera = GetComponent<Camera>();
-        _cameraTransform = transform;
+        //_fog = GetComponent<FogOfWar>();
+        //_camera = GetComponent<Camera>();
+        //_cameraTransform = transform;
 
-        if (_texture == null)
-        {
-            _texture = new Texture2D(_fog.texture.width, _fog.texture.height);
-            _texture.wrapMode = TextureWrapMode.Clamp;
-        }
+        //if (_texture == null)
+        //{
+        //    _texture = new Texture2D(_fog.texture.width, _fog.texture.height);
+        //    _texture.wrapMode = TextureWrapMode.Clamp;
+        //}
     }
 
     void FixedUpdate()
@@ -76,7 +76,7 @@ public class NewMinimapScript : MonoBehaviour
         cameraRotation = cameraObj.transform.rotation.eulerAngles;
         minimapCamera.transform.eulerAngles = new Vector3(90, cameraRotation.y, 0);
         minimapBoxCamera.transform.eulerAngles = new Vector3(90, cameraRotation.y, 0);
-        fowMinimap.transform.eulerAngles = new Vector3(0, 0, cameraRotation.y);
+        //fowMinimap.transform.eulerAngles = new Vector3(0, 0, cameraRotation.y);
         arrow.transform.eulerAngles = new Vector3(0, 0, cameraRotation.y);
         GameObject.Find("MinimapFocusBox").transform.eulerAngles = cameraRotation;
 
@@ -106,10 +106,11 @@ public class NewMinimapScript : MonoBehaviour
 
     }
 
+    /*
     void OnGUI()
     {
 
-        byte[] original = _fog.texture.GetRawTextureData();
+        //byte[] original = _fog.texture.GetRawTextureData();
         Color32[] pixels = new Color32[original.Length];
         for (int i = 0; i < pixels.Length; ++i)
             pixels[i] = original[i] < 255 ? new Color32(20, 20, 20, 0) : new Color32(0, 0, 0, 255);
@@ -119,7 +120,7 @@ public class NewMinimapScript : MonoBehaviour
 
 
     }
-
+    */
 
 }
 

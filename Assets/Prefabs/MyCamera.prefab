@@ -11,10 +11,10 @@ GameObject:
   - 20: {fileID: 2026752}
   - 92: {fileID: 9201462}
   - 124: {fileID: 12452580}
-  - 81: {fileID: 8145042}
   - 114: {fileID: 11465662}
   - 114: {fileID: 11459298}
   - 114: {fileID: 11412518}
+  - 114: {fileID: 11409414}
   - 114: {fileID: 11458770}
   - 114: {fileID: 11488612}
   m_Layer: 0
@@ -89,7 +89,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294639359
+    m_Bits: 4277862143
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -99,13 +99,6 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
---- !u!81 &8145042
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 156072}
-  m_Enabled: 1
 --- !u!92 &9201462
 Behaviour:
   m_ObjectHideFlags: 1
@@ -113,6 +106,37 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 156072}
   m_Enabled: 1
+--- !u!114 &11409414
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 156072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 213ef47ac45624aa68d2087e0785386c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraObj: {fileID: 197236}
+  minimapCamera: {fileID: 0}
+  minimapBoxCamera: {fileID: 0}
+  Minimap: {fileID: 0}
+  MapWidth: 0
+  MapHeight: 0
+  fowMinimap: {fileID: 0}
+  canvas: {fileID: 0}
+  cameraRotation: {x: 0, y: 0, z: 0}
+  cameraDistance: 0
+  minmapcampos: {x: 0, y: 0, z: 0}
+  NWcornerDot: {fileID: 0}
+  NEcornerDot: {fileID: 0}
+  SWcornerDot: {fileID: 0}
+  SEcornerDot: {fileID: 0}
+  corners: []
+  minimapRevealTexture: {fileID: 2800000, guid: e8ae42d9b2dbbec47a729d7d8c8c7772,
+    type: 3}
+  minimapMask: {fileID: 0}
+  arrow: {fileID: 0}
 --- !u!114 &11412518
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -151,7 +175,7 @@ MonoBehaviour:
   status: 0
 --- !u!114 &11458770
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 156072}
@@ -214,7 +238,7 @@ MonoBehaviour:
   toggleKey: 283
 --- !u!114 &11488612
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 156072}

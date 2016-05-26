@@ -47,43 +47,58 @@ public class SoundManager : MonoBehaviour {
 
     public void PlaySpawnSound(string name, Vector3 position)
     {
-        try
+        if (name != "Fishing Boat")
         {
-            Vector3 newPos = new Vector3(position.x, mainCameraPos.y, position.z);
-            string path = "event:/" + name + "_ready";
-            FMODUnity.RuntimeManager.PlayOneShot(path);
-        }
-        catch
-        {
+            try
+            {
+                Vector3 newPos = new Vector3(position.x, mainCameraPos.y, position.z);
+                string path = "event:/" + name + "_ready";
+                FMODUnity.RuntimeManager.PlayOneShot(path);
+            }
+            catch
+            {
 
+            }
         }
         
     }
 
     public void PlayAttackSound(RTSEntity unit, Vector3 position)
     {
-        Vector3 newPos = new Vector3(position.x, mainCameraPos.y, position.z);
-        string path = "event:/" + unit.Name.Replace(" ", "") + "_attack";
-        FMODUnity.RuntimeManager.PlayOneShot(path);
+        if (unit.Name != "Fishing Boat")
+        {
+            Vector3 newPos = new Vector3(position.x, mainCameraPos.y, position.z);
+            string path = "event:/" + unit.Name.Replace(" ", "") + "_attack";
+            FMODUnity.RuntimeManager.PlayOneShot(path);
+        }
     }
 
     public void PlaySelectSound(RTSEntity unit, Vector3 position)
     {
-        string path = "event:/" + unit.Name.Replace(" ", "") + "_aknowledge";
-        FMODUnity.RuntimeManager.PlayOneShot(path);
+        if (unit.Name != "Fishing Boat")
+        {
+            string path = "event:/" + unit.Name.Replace(" ", "") + "_aknowledge";
+            FMODUnity.RuntimeManager.PlayOneShot(path);
+        }
     }
 
     public void PlayCommandSound(RTSEntity unit, Vector3 position)
     {
-        Vector3 newPos = new Vector3(position.x, mainCameraPos.y, position.z);
-        string path = "event:/" + unit.Name.Replace(" ", "") + "_confirm";
-        FMODUnity.RuntimeManager.PlayOneShot(path);
+        if (unit.Name != "Fishing Boat")
+        {
+            Vector3 newPos = new Vector3(position.x, mainCameraPos.y, position.z);
+            string path = "event:/" + unit.Name.Replace(" ", "") + "_confirm";
+            FMODUnity.RuntimeManager.PlayOneShot(path);
+        }
     }
 
     public void PlayFiringSound(RTSEntity unit, Vector3 position)
     {
-        string path = "event:/" + unit.Name.Replace(" ", "") + "_shot";
-        FMODUnity.RuntimeManager.PlayOneShot(path);
+        if (unit.Name != "Fishing Boat")
+        {
+            string path = "event:/" + unit.Name.Replace(" ", "") + "_shot";
+            FMODUnity.RuntimeManager.PlayOneShot(path);
+        }
     }
 
     public void PlayFiringSound(string name, Vector3 position)

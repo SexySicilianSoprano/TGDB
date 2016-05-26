@@ -242,9 +242,9 @@ GameObject:
   - 114: {fileID: 11465552}
   - 114: {fileID: 11473234}
   - 114: {fileID: 11464938}
-  - 114: {fileID: 11405848}
   - 114: {fileID: 11408224}
   - 114: {fileID: 11401456}
+  - 114: {fileID: 11473718}
   m_Layer: 9
   m_Name: Destroyer
   m_TagString: Player1
@@ -713,7 +713,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 129830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 326.7, y: 1.1, z: 154.8}
+  m_LocalPosition: {x: 294.7, y: 0, z: 47.832924}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 479760}
@@ -1309,7 +1309,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 129830}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b130f358dcb26548b2ff0923d496dc6, type: 3}
   m_Name: 
@@ -1318,24 +1318,6 @@ MonoBehaviour:
   lineOfSightMask:
     serializedVersion: 2
     m_Bits: 0
---- !u!114 &11405848
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 129830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dceea58bb203a90408fa1239ffece1d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 0
-  Range: 0
-  FireRate: 0
-  TurretSpeed: 0
-  isRanged: 0
-  isAntiArmor: 0
-  isAntiStructure: 0
 --- !u!114 &11408224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1431,6 +1413,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aed3001cfe8ccb042899e8372dec2858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11473718
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 129830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dceea58bb203a90408fa1239ffece1d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 0
+  Range: 0
+  FireRate: 0
+  TurretSpeed: 0
+  isRanged: 0
+  isAntiArmor: 0
+  isAntiStructure: 0
 --- !u!114 &11490794
 MonoBehaviour:
   m_ObjectHideFlags: 1
