@@ -124,7 +124,7 @@ public class UIManager : MonoBehaviour, IUIManager {
         CheckHoverOver();
         SelectionListener();
         //Debug.Log(hoverOver + " " + interactionState);
-        //Debug.Log(m_Identifier + " " + hoverOver);
+        Debug.Log(m_Identifier + " " + hoverOver);
 
         switch (m_Mode)
         {
@@ -237,11 +237,13 @@ public class UIManager : MonoBehaviour, IUIManager {
             // Left Mouse Button down, what happens?
             if (Input.GetMouseButtonDown(0))
             {
-                // Deselect selected units and start selecting new units
-                m_SelectedManager().ClearSelected();
-                isSelecting = true;
-                v_mousePosition = Input.mousePosition;
-                    
+                if (hoverOver != HoverOver.GUI)
+                {
+                    // Deselect selected units and start selecting new units
+                    m_SelectedManager().ClearSelected();
+                    isSelecting = true;
+                    v_mousePosition = Input.mousePosition;
+                }                
             }
         }
 

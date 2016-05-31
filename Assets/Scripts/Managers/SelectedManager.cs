@@ -69,8 +69,11 @@ public class SelectedManager : MonoBehaviour, ISelectedManager {
     // Confirm group selection
     public void ConfirmToBeSelected()
     {
+        l_Selected.Clear();
+
         if (l_ToBeSelected.Count > 0)
         {
+
             foreach (RTSEntity unit in l_ToBeSelected)
             {
                 AddToSelected(unit);

@@ -96,16 +96,28 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
                     if (m_State != InteractionState.Invalid)
                     {
                         // Clear the active selected group
-                        if (m_SelectedManager().ActiveEntityList() != null)
+                        if (m_SelectedManager().ActiveEntityCount() > 0)
                         {
-                            EmptySelected();
+                            if (m_SelectedManager().FirstActiveEntity() != (IOrderable)currentUnit && m_SelectedManager().ActiveEntityCount() > 1)
+                            {
+                                EmptySelected();
+
+                                // Is the unit friendly?
+                                if (currentUnit.tag == "Player1")
+                                {
+                                    Debug.Log("Selected" + currentUnit);
+                                    SetSelected();
+                                }
+                                break;
+                            }
                         }
                         // Is the unit friendly?
                         if (currentUnit.tag == "Player1")
                         {
                             Debug.Log("Selected" + currentUnit);
                             SetSelected();
-                        }                    
+                            break;
+                        }
                     }                    
                     break;
             }
