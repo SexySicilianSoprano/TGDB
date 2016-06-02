@@ -145,9 +145,9 @@ public class UIManager : MonoBehaviour, IUIManager {
     {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(5 << 23)))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            currentObject = hit.collider.gameObject;
+            currentObject = hit.transform.gameObject;
 
             // What sort of an object are we pointing at?
             switch (currentObject.layer)
@@ -220,9 +220,9 @@ public class UIManager : MonoBehaviour, IUIManager {
     {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~(5 << 23)) /* && EventSystem.current.IsPointerOverGameObject() == false*/)
-        {            
+        
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity)/* ~(5 << 23)  && EventSystem.current.IsPointerOverGameObject() == false */)
+        {       
             // Right Mouse Button up, what happens next?
             if (Input.GetMouseButtonUp(1) && hoverOver == HoverOver.Land && m_SelectedManager().ActiveEntityCount() > 0)
             {
@@ -235,24 +235,25 @@ public class UIManager : MonoBehaviour, IUIManager {
             }
 
             // Left Mouse Button down, what happens?
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && hoverOver != HoverOver.GUI)
             {
-                if (hoverOver != HoverOver.GUI)
-                {
-                    // Deselect selected units and start selecting new units
-                    m_SelectedManager().ClearSelected();
-                    isSelecting = true;
-                    v_mousePosition = Input.mousePosition;
-                }                
+                // Deselect selected units and start selecting new units
+                m_SelectedManager().ClearSelected();
+                isSelecting = true;
+                v_mousePosition = Input.mousePosition;
             }
+
         }
 
         // Left Mouse Button up, what happens?
         if (Input.GetMouseButtonUp(0))
         {
-            // Selecting endes
-            isSelecting = false;
-            m_SelectedManager().ConfirmToBeSelected();
+            if (isSelecting)
+            {
+                // Selecting endes
+                isSelecting = false;
+                m_SelectedManager().ConfirmToBeSelected();
+            }
         }
 
         // Stippedi stop :D

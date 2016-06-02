@@ -89,6 +89,8 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
             // Single clicked or drag selected, what happens next?
             Debug.Log("Clickan");
 
+            // As it is now, m_Mode only has Normal mode so nothing else can happen. However you may add more things into this switch case
+            // in case (heh) you add more modes
             switch (m_Mode)
             {
                 case Mode.Normal:
@@ -116,8 +118,8 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
                         {
                             Debug.Log("Selected" + currentUnit);
                             SetSelected();
-                            break;
                         }
+                        break;
                     }                    
                     break;
             }
@@ -139,7 +141,7 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
                     break;
 
                 case HoverOver.Building:
-                    // Unit is oh so evil, nothing happens
+                    // Unit is oh so building, nothing happens
                     break;
 
             }

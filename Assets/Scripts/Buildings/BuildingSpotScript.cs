@@ -22,8 +22,6 @@ public class BuildingSpotScript : MonoBehaviour {
         {
             isOccupied = true;
             projector.enabled = false;
-            Debug.Log("Get Occupied, bitch!");
-
         }
     }
 
@@ -33,7 +31,6 @@ public class BuildingSpotScript : MonoBehaviour {
         {
             isOccupied = false;
             projector.enabled = true;
-            Debug.Log("Release occupation");
         }
     }
 }

@@ -68,7 +68,7 @@ public class SelectedBuilding : MonoBehaviour {
         /*
         if (GetComponent<BuildingSpotHandler>())
             GetComponent<BuildingSpotHandler>().HideBuildingSpots();
-        */
+        
         if (GetComponent<FloatingFortress>())
         {
             if (sideMenu.constPanel.activeSelf == true)
@@ -83,7 +83,7 @@ public class SelectedBuilding : MonoBehaviour {
             {
                 sideMenu.ToggleCanvasUnits();
             }
-        }
+        }*/
     }
 	
 	void OnDestroy()
