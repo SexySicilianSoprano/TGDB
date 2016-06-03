@@ -213,13 +213,8 @@ public class Unit : RTSEntity, IOrderable{
         ((IDeployable)this).StopDeploy();
     }
 
-    new void OnDestroy()
+    void OnDestroy()
     {
-        if (gameObject.layer == primaryPlayer().controlledLayer)
-        {
-            
-        }
-
         //Remove object from selected manager
        m_selectedManager.RemoveFromSelected(this);
        m_selectedManager.RemoveFromGroup(this);
