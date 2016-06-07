@@ -4,8 +4,6 @@ using UnityEngine.EventSystems;
 
 public class FloatingFortress : Building {
 
-    //ShowCanvas showCanvasScript { get { return GameObject.Find("UI").GetComponentInChildren<ShowCanvas>(); } }
-
 	// Use this for initialization
 	new void Start () 
 	{

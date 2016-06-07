@@ -2,6 +2,10 @@
 using System.Collections;
 using UnityEngine.UI;
 
+/// <summary>
+/// This script is done by Armi, and it has all the main functions on the minimap. Needs more commenting, although it's not hard to figure out the meaning of this code.
+/// </summary>
+
 public class NewMinimapScript : MonoBehaviour
 {
 
