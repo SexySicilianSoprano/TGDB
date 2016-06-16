@@ -11,7 +11,6 @@ using UnityEngine.EventSystems;
 /// Original version written by Armi of The Great Deep Blue and further (a lot actually) edited and developed by yours truly.
 /// 
 /// - Karl Sartorisio
-/// The Great Deep blue
 /// 
 /// </summary>
 
