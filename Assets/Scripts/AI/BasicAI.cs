@@ -1,10 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 ///  
 /// Basic AI behaviour script
 /// 
+/// Inherits the AI Core, it is tasked to defend against the player and destroy their base.
+/// As the name states, this AI isn't very sophisticated at all, it will just do the basic shit. 
+/// Maybe if we had more time to develop and if the developer (yours truly) wasn't so lazy at times,
+/// maybe, just maybe, it could've become something fancier.
+/// 
+/// Oh well.
+/// 
+/// - Karl Sartorisio
 /// 
 /// </summary>
 
@@ -17,7 +26,8 @@ public class BasicAI : AICore {
     // Use this for initialization
 	void Start ()
     {
-            
+        FindExistingBuildings();
+        FindExistingUnits();
 	}
 	
 	// Update is called once per frame
@@ -98,6 +108,86 @@ public class BasicAI : AICore {
     public void BuildingDestroyed()
     {
 
+    }
+
+    // Find all the existing
+    private void FindExistingUnits()
+    {
+        Unit[] unitarray;
+        unitarray = FindObjectsOfType<Unit>();
+
+        foreach (Unit unit in unitarray)
+        {
+            if (unit.tag == "Player2")
+            {
+                AssignUnitToList(unit);
+                AssignUnitToSquad(unit);
+            }
+        }        
+    }
+
+    // Assign unit to lists accordingly
+    private void AssignUnitToList(Unit unit)
+    {
+        totalUnits.Add(unit);
+
+        if (unit.GetComponent<Scout>())
+        {
+            lightUnits.Add(unit);
+        }
+        else if (unit.GetComponent<Destroyer>())
+        {
+            mediumUnits.Add(unit);
+        }
+        /*else if (unit.GetComponent<Dreadnought>())
+        {
+            heavyUnits.Add(unit);
+        }*/
+    }
+
+    private void AssignUnitToSquad(Unit unit)
+    {
+
+    }
+    
+    // Find all existing buildings at start and list all the buildings AI owns
+    private void FindExistingBuildings()
+    {
+        Building[] buildarray;
+        buildarray = FindObjectsOfType<Building>();
+
+        foreach (Building building in buildarray)
+        {
+            if (building.tag == "Player2")
+            {
+                AssignBuildingToList(building);
+            }
+        }
+    }
+
+    // Assign building to lists accordingly
+    private void AssignBuildingToList(Building building)
+    {
+        totalBuildings.Add(building);
+
+        if (building.GetComponent<Turret>())
+        {
+            turrets.Add(building);
+        }
+        else if (building.GetComponent<NavalYard>())
+        {
+            navalYards.Add(building);
+        }
+    }
+
+    IEnumerator BuildUnit(Item unit, GameObject building, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+    }
+
+    IEnumerator BuildBuilding(Item building, GameObject spot, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);    
     }
 
     // Advance behavior timer

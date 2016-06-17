@@ -29,6 +29,9 @@ public class AICore : MonoBehaviour {
     // Unit lists
     protected List<Unit> totalUnits = new List<Unit>(); // Total count of units deployed
     protected List<Unit> availableUnits = new List<Unit>(); // Units that are not in squads
+    protected List<Unit> lightUnits = new List<Unit>(); // Count of light units
+    protected List<Unit> mediumUnits = new List<Unit>(); // Count of medium units
+    protected List<Unit> heavyUnits = new List<Unit>(); // Count of heavy units
 
     // Squad lists
     protected List<Squad> totalSquads = new List<Squad>(); // Total count of squads
@@ -36,10 +39,20 @@ public class AICore : MonoBehaviour {
     protected List<Squad> defendSquads = new List<Squad>(); // Count of defensive squads
     protected List<Squad> patrolSquads = new List<Squad>(); // Count of patrol squads
 
+    // Economy variables
+    public int maxResources;
+    public int maxLowUnitsInSquad;
+    public int maxHighUnitsInSquad;
+    public int maxDefendSquads;
+    public int maxKillSquads;
+    public int maxPatrolSquads;
+    protected int resourcesInUse;
+
     // Threat thresholds
     protected Threshold currentThreshold = Threshold.StandBy;
     public int lowThresholdLimit;
     public int highThresholdLimit;
+
     
 	// Use this for initialization
 	void Start ()

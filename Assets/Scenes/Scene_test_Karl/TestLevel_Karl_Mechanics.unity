@@ -5199,8 +5199,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b6c8084d96bd3d4b9f9b33ca1cd20e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxResources: 2500
+  maxLowUnitsInSquad: 5
+  maxHighUnitsInSquad: 2
+  maxDefendSquads: 2
+  maxKillSquads: 1
+  maxPatrolSquads: 0
   lowThresholdLimit: 50
   highThresholdLimit: 200
+  taskTimerInterval: 2
 --- !u!4 &1853382658
 Transform:
   m_ObjectHideFlags: 0

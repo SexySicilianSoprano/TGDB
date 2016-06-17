@@ -6,9 +6,10 @@ public class Squad {
 
     // List of units in this squad
     private string type;
-    private List<Unit> units = new List<Unit>();
+    public List<Unit> units = new List<Unit>();
     private bool hasTask = false;
     private string task;
+    private int maxNumberOfUnits;
 
     public void AddUnit(Unit unit)
     {
@@ -25,7 +26,13 @@ public class Squad {
         return hasTask;
     }
 
-    // Set task. If it is false, AI m
+    // Set the maximum amount of units this squad can have
+    public void SetMaxNumberOfUnits(int value)
+    {
+
+    }
+
+    // Set task. If it is false, AI may set a new task
     public void SetTask(bool set, string newTask)
     {
         hasTask = set;
