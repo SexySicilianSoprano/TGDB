@@ -24,6 +24,7 @@ public class Item {
 	public int TeamIdentifier;
     public int BuildingIdentifier;
     public int PlayerIdentifier;
+    public int UnitType;
 
 	private GameObject m_Button;
 	public GameObject Button;

@@ -23,6 +23,11 @@ public static class Const {
     public const int TYPE_Building = 0;
 	public const int TYPE_Ship = 1;
 	public const int TYPE_Science = 2;
+
+    public const int UNIT_Light = 0;
+    public const int UNIT_Medium = 1;
+    public const int UNIT_Heavy = 2;
+    public const int UNIT_Building = 3;
 	
 	public const int MAINTENANCE_Nothing = 0;
 	public const int MAINTENANCE_Sell = 1;

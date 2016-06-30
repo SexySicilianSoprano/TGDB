@@ -19,6 +19,9 @@ using System.Collections.Generic;
 
 public class BasicAI : AICore {
 
+    // Squad priority, should either be "Kill", "Defend" or "Patrol" as of now
+    public string squadPriority = "Defend";
+
     // Behavior timer variables
     public float taskTimerInterval;
     private float timer = 0;
@@ -30,7 +33,7 @@ public class BasicAI : AICore {
         FindExistingUnits();
 	}
 	
-	// Update is called once per frame
+	// Update is called once per frame 
 	void Update ()
     { 
         // Advance timer
@@ -71,14 +74,26 @@ public class BasicAI : AICore {
     // Highest threat behaviour, furiously defends the base building with everything they've got. 100% resources in use.
     private void BaseUABehaviour() { }
 
-    // Offensive move
-    private void AttackMove(Squad squad, Vector3 target)
+    // Specific attack order
+    private void AttackOrder(RTSEntity target)
     {
 
     }
 
-    // Defensive move
-    private void DefensiveMove(Squad squad, Vector3 target)
+    // Aggressive move order
+    private void AttackMoveOrder(Vector3 location)
+    {
+
+    }
+
+    // Plain move order
+    private void MoveOrder(Vector3 location)
+    {
+
+    }
+
+    // Defensive move order
+    private void DefensiveMove(Vector3 location)
     {
 
     }
@@ -144,10 +159,46 @@ public class BasicAI : AICore {
             heavyUnits.Add(unit);
         }*/
     }
-
+    
     private void AssignUnitToSquad(Unit unit)
     {
+        foreach (Squad squad in totalSquads)
+        {
+            if (squad.GetSquadType() == squadPriority)
+            {
 
+
+            }
+
+            if (squad.GetCountOfUnits() < squad.maxNumberOfUnits)
+            {
+                int unitType = unit.UnitType;
+                switch (unitType)
+                {
+                    case Const.UNIT_Light:
+                        if (squad.GetCountOfLightUnits() < squad.maxNumberOfLightUnits)
+                        {
+                            squad.AddUnit(unit);
+                            return;
+                        }
+                        break;
+                    case Const.UNIT_Medium:
+                        if (squad.GetCountOfMediumUnits() < squad.maxNumberOfMediumUnits)
+                        {
+                            squad.AddUnit(unit);
+                            return;
+                        }
+                        break;
+                    case Const.UNIT_Heavy:
+                        if (squad.GetCountOfHeavyUnits() < squad.maxNumberOfHeavyUnits)
+                        {
+                            squad.AddUnit(unit);
+                            return;
+                        }
+                        break;
+                }
+            }
+        }
     }
     
     // Find all existing buildings at start and list all the buildings AI owns

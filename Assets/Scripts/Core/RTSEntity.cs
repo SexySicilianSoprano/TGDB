@@ -28,6 +28,12 @@ public abstract class RTSEntity : MonoBehaviour {
         get;
         private set;
 	}
+
+    public int UnitType
+    {
+        get;
+        private set;
+    }
     
     public int playerLayer
     {
@@ -99,6 +105,7 @@ public abstract class RTSEntity : MonoBehaviour {
 		Name = item.Name;
 		ID = item.ID;
 		TeamIdentifier = item.TeamIdentifier;
+        UnitType = item.UnitType;
 		m_MaxHealth = item.Health;
 		m_Health = m_MaxHealth;
         Explosion = item.Explosion;
