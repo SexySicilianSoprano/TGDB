@@ -36,6 +36,7 @@ public class Squad {
         type = newtype;
     }
 
+    // Call this to return this squad's type
     public string GetSquadType()
     {
         return type;

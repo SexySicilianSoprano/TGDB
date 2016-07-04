@@ -20,7 +20,7 @@ using System.Collections.Generic;
 public class BasicAI : AICore {
 
     // Squad priority, should either be "Kill", "Defend" or "Patrol" as of now
-    public string squadPriority = "Defend";
+    public SquadPriority squadPriority = SquadPriority.Defend;
 
     // Behavior timer variables
     public float taskTimerInterval;
@@ -120,12 +120,18 @@ public class BasicAI : AICore {
     }
 
     // Building gets destroyed, what do we do?
-    public void BuildingDestroyed()
+    public void BuildingDestroyed(Building building)
     {
 
     }
 
-    // Find all the existing
+    // A unit gets destroyed. Find out the lists it is in and update them.
+    public void UnitDestroyed(Unit unit)
+    {
+
+    }
+
+    // Find all the existing units
     private void FindExistingUnits()
     {
         Unit[] unitarray;
@@ -146,25 +152,26 @@ public class BasicAI : AICore {
     {
         totalUnits.Add(unit);
 
-        if (unit.GetComponent<Scout>())
+        if (unit.UnitType == Const.UNIT_Light)
         {
             lightUnits.Add(unit);
         }
-        else if (unit.GetComponent<Destroyer>())
+        else if (unit.UnitType == Const.UNIT_Medium)
         {
             mediumUnits.Add(unit);
         }
-        /*else if (unit.GetComponent<Dreadnought>())
+        else if (unit.UnitType == Const.UNIT_Heavy)
         {
             heavyUnits.Add(unit);
-        }*/
+        }
     }
-    
+
+    // First search for a squad which has an empty slot for the type of unit queried then add it into the list
     private void AssignUnitToSquad(Unit unit)
     {
         foreach (Squad squad in totalSquads)
         {
-            if (squad.GetSquadType() == squadPriority)
+            if (squad.GetSquadType() == squadPriority.ToString())
             {
 
 
@@ -248,4 +255,11 @@ public class BasicAI : AICore {
         newTime += Time.deltaTime;
         return newTime;
     }
+}
+
+public enum SquadPriority
+{
+    Defend,
+    Kill,
+    Patrol
 }
