@@ -19,6 +19,15 @@ using System.Collections.Generic;
 
 public class BasicAI : AICore {
 
+    // List for possible spawn points
+    private List<GameObject> spawnPointList = new List<GameObject>(); // For units
+    private List<GameObject> buildSpotList = new List<GameObject>(); // For buildings
+
+    // Public lists for buildings and units
+    public List<GameObject> buildableUnits = new List<GameObject>();
+    public List<GameObject> buildableBuildings = new List<GameObject>();
+    
+
     // Squad priority, should either be "Kill", "Defend" or "Patrol" as of now
     public SquadPriority squadPriority = SquadPriority.Defend;
 
@@ -27,14 +36,36 @@ public class BasicAI : AICore {
     private float timer = 0;
 
     // Use this for initialization
-	void Start ()
+	private void Start ()
     {
+        if (!baseBuilding)
+        {
+            baseBuilding = GameObject.Find("Player2").GetComponent<RTSEntity>();
+            /*
+            RTSEntity[] getBases = FindObjectsOfType<FloatingFortress>();
+
+            foreach (RTSEntity basebuild in getBases)
+            {
+                if (basebuild.tag == "Player2")
+                {
+                    baseBuilding = basebuild;
+                    break;
+                }
+            }*/
+        }
+
+        // if enemy base is not set, find one
+        if (!enemyBase)
+        {
+            enemyBase = GameObject.Find("Player1").GetComponent<RTSEntity>();
+        }
+
         FindExistingBuildings();
         FindExistingUnits();
 	}
 	
 	// Update is called once per frame 
-	void Update ()
+	private void Update ()
     { 
         // Advance timer
         timer = AdvanceTimer(timer);
@@ -44,6 +75,20 @@ public class BasicAI : AICore {
         {
             // Restart timer
             timer = 0;
+
+            // If there are no Naval Yards, build one by fetching the corresponding Item and by finding a building spot
+            if (navalYards.Count < maxNavalYards)
+            {
+                Item newNavalYard = GetItem(buildableBuildings[0]);
+                GameObject buildingSpot = GetBuildingSpot();
+
+                if (buildingSpot)
+                {
+                    BuildBuilding(newNavalYard, 0, buildingSpot, newNavalYard.BuildTime);
+                }
+            }
+
+            // Select behaviour based on threshold level.
             switch (currentThreshold)
             {
                 case Threshold.StandBy:
@@ -63,37 +108,55 @@ public class BasicAI : AICore {
     }
 
     // StandBy behaviour, doesn't do moves and only builds if necessary. 25% resources in use.
-    private void StandByBehavior() { }
+    private void StandByBehavior()
+    {
+        float usableResources = maxResources * 0.25f;
+
+    }
 
     // Low threat behaviour, only does defensive moves and builds if necessary, 50% resources in use.
-    private void LowThreatBehaviour() { }
+    private void LowThreatBehaviour()
+    {
+        float usableResources = maxResources * 0.50f;
+    }
 
     // High threat behaviour, does both defensive and attack moves, builds if necessary. 75% resources in use.
-    private void HighThreatBehaviour() { }
+    private void HighThreatBehaviour()
+    {
+        float usableResources = maxResources * 0.75f;
+
+    }
 
     // Highest threat behaviour, furiously defends the base building with everything they've got. 100% resources in use.
-    private void BaseUABehaviour() { }
+    private void BaseUABehaviour()
+    {
+        float usableResources = maxResources * 1;
+
+    }
 
     // Specific attack order
-    private void AttackOrder(RTSEntity target)
+    private void AttackOrder(RTSEntity target, Squad squad)
     {
 
     }
 
     // Aggressive move order
-    private void AttackMoveOrder(Vector3 location)
+    private void AttackMoveOrder(Vector3 location, Squad squad)
     {
 
     }
 
     // Plain move order
-    private void MoveOrder(Vector3 location)
+    private void MoveOrder(Vector3 location, Squad squad)
     {
+        foreach (Unit unit in squad.units)
+        {
 
+        }
     }
 
     // Defensive move order
-    private void DefensiveMove(Vector3 location)
+    private void DefensiveMoveOrder(Vector3 location, Squad squad)
     {
 
     }
@@ -142,7 +205,7 @@ public class BasicAI : AICore {
             if (unit.tag == "Player2")
             {
                 AssignUnitToList(unit);
-                AssignUnitToSquad(unit);
+                AssignUnitToSquadByTotal(unit);
             }
         }        
     }
@@ -167,16 +230,10 @@ public class BasicAI : AICore {
     }
 
     // First search for a squad which has an empty slot for the type of unit queried then add it into the list
-    private void AssignUnitToSquad(Unit unit)
+    private void AssignUnitToSquadByTotal(Unit unit)
     {
         foreach (Squad squad in totalSquads)
         {
-            if (squad.GetSquadType() == squadPriority.ToString())
-            {
-
-
-            }
-
             if (squad.GetCountOfUnits() < squad.maxNumberOfUnits)
             {
                 int unitType = unit.UnitType;
@@ -207,6 +264,12 @@ public class BasicAI : AICore {
             }
         }
     }
+
+    // Adds unit into specific squad
+    private void AssingUnitToSquadBySquad(Unit unit, Squad squad)
+    {
+        squad.AddUnit(unit);
+    }
     
     // Find all existing buildings at start and list all the buildings AI owns
     private void FindExistingBuildings()
@@ -219,6 +282,11 @@ public class BasicAI : AICore {
             if (building.tag == "Player2")
             {
                 AssignBuildingToList(building);
+
+                if (building.name == "Naval Yard")
+                {
+                    SetSpawnSpotsByNavalYard(building.GetComponent<NavalYard>());
+                }
             }
         }
     }
@@ -238,14 +306,65 @@ public class BasicAI : AICore {
         }
     }
 
-    IEnumerator BuildUnit(Item unit, GameObject building, float seconds)
+    // Set spawning spots via Naval Yard
+    private void SetSpawnSpotsByNavalYard(NavalYard navalYard)
     {
-        yield return new WaitForSeconds(seconds);
+        spawnPointList.Add(navalYard.transform.GetChild(0).gameObject);
+        spawnPointList.Add(navalYard.transform.GetChild(1).gameObject);
+        spawnPointList.Add(navalYard.transform.GetChild(2).gameObject);
+        spawnPointList.Add(navalYard.transform.GetChild(3).gameObject);
     }
 
-    IEnumerator BuildBuilding(Item building, GameObject spot, float seconds)
+    // Set spawning spot via different object than Naval Yard
+    private void SetSpawnSpotsByZoneObject(GameObject zone)
     {
-        yield return new WaitForSeconds(seconds);    
+        spawnPointList.Add(zone);
+    }
+
+    // Find Item from ItemDB by GameObject name
+    private Item GetItem(GameObject obj)
+    {
+        Item item = ItemDB.AllItems.Find(x => x.Name.Equals(obj.name));
+        return item;
+    }
+
+    // Find a building spot from list
+    private GameObject GetBuildingSpot()
+    {
+        GameObject newSpot;
+        foreach (GameObject spot in buildSpotList)
+        {
+            if (spot.activeSelf)
+            {
+                newSpot = spot;
+                return newSpot;
+            }
+        }
+        return null;
+    }
+
+    // Build a unit
+    IEnumerator BuildUnit(Item unit, GameObject spot, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);  
+    }
+
+    // Build a building
+    IEnumerator BuildBuilding(Item building, int index, GameObject spot, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);  
+          
+        // Instantiate the building in the desired spot
+        GameObject realBuilding = Instantiate(buildableBuildings[index], new Vector3(spot.transform.position.x, 1f, spot.transform.position.z), Quaternion.identity) as GameObject;
+        realBuilding.name = building.Name;
+        realBuilding.GetComponent<BoxCollider>().isTrigger = false;
+
+        // Make sure that when the building is destroyed, it will free the building spot
+        realBuilding.AddComponent<BuildingOnDestroy>();
+        realBuilding.GetComponent<BuildingOnDestroy>().MyBuildingSpot = spot;
+
+        // Add cost to resources in use
+        resourcesInUse += building.Cost;
     }
 
     // Advance behavior timer

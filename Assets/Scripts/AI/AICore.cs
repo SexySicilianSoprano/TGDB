@@ -18,7 +18,7 @@ public class AICore : MonoBehaviour {
     protected int internalThreat;
 
     // The base building, AI must have one known to protect it
-    protected RTSEntity baseBuilding;
+    public RTSEntity baseBuilding;
     protected RTSEntity enemyBase;
 
     // Building lists
@@ -46,6 +46,7 @@ public class AICore : MonoBehaviour {
     public int maxDefendSquads;
     public int maxKillSquads;
     public int maxPatrolSquads;
+    public int maxNavalYards;
     protected int resourcesInUse;
 
     // Threat thresholds
@@ -55,41 +56,13 @@ public class AICore : MonoBehaviour {
 
     
 	// Use this for initialization
-	void Start ()
+	private void Start ()
     {
-        // If base building is not set, find one
-        if (!baseBuilding)
-        {
-            RTSEntity[] getBases = FindObjectsOfType<FloatingFortress>();
-
-            foreach (RTSEntity basebuild in getBases)
-            {
-                if (basebuild.tag == "Player2")
-                {
-                    baseBuilding = basebuild;
-                    break;
-                }
-            }
-        }
-
-        // if enemy base is not set, find one
-        if (!enemyBase)
-        {
-            RTSEntity[] getEnemyBase = FindObjectsOfType<FloatingFortress>();
-
-            foreach (RTSEntity basebuild in getEnemyBase)
-            {
-                if (basebuild.tag == "Player1")
-                {
-                    enemyBase = basebuild;
-                    break;
-                }
-            }
-        }
+        
     }
 	
 	// Update is called once per frame
-	void Update () {
+	private void Update () {
 	
 	}
 

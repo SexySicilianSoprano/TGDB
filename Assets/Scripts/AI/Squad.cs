@@ -10,6 +10,8 @@ using System.Collections.Generic;
 /// Currently it can hold a type, a task and number of specific units and a total count of units.
 /// AI can also send squads various commands, such as attack, move and patrol commands.
 /// 
+/// - Karl Sartorisio
+/// 
 /// </summary>
 
 public class Squad {
