@@ -26,7 +26,18 @@ public class BasicAI : AICore {
     // Public lists for buildings and units
     public List<GameObject> buildableUnits = new List<GameObject>();
     public List<GameObject> buildableBuildings = new List<GameObject>();
-    
+
+    // Unit cost variables
+    public int lightUnitCost;
+    public int mediumUnitCost;
+    public int heavyUnitCost;
+
+    // Booleans for building
+    private bool buildingBuilding = false;
+    private bool buildingUnit = false;
+
+    // Squad variables
+    private Squad selectedSquad;
 
     // Squad priority, should either be "Kill", "Defend" or "Patrol" as of now
     public SquadPriority squadPriority = SquadPriority.Defend;
@@ -82,9 +93,10 @@ public class BasicAI : AICore {
                 Item newNavalYard = GetItem(buildableBuildings[0]);
                 GameObject buildingSpot = GetBuildingSpot();
 
-                if (buildingSpot)
+                if (buildingSpot && !buildingBuilding)
                 {
-                    BuildBuilding(newNavalYard, 0, buildingSpot, newNavalYard.BuildTime);
+                    buildingBuilding = true;
+                    StartCoroutine(BuildBuilding(newNavalYard, 0, buildingSpot, newNavalYard.BuildTime));
                 }
             }
 
@@ -111,6 +123,166 @@ public class BasicAI : AICore {
     private void StandByBehavior()
     {
         float usableResources = maxResources * 0.25f;
+        Debug.Log("Behaviour mode: StandBy");
+
+        // Building actions
+
+        // Constructions
+
+        // Units
+        // Only build if not all resources in use
+        if (resourcesInUse < usableResources)
+        {
+            Debug.Log("We can use resources");
+
+            // Create variables the AI needs to use within this loop
+            string unitToBuild = "None"; // AI uses this to determine if it needs to build a specific type of unit. If not, squads are filled and maybe a new one is needed
+            
+            if (totalSquads.Count > 0)
+            {
+                Debug.Log("We have " + totalSquads.Count + " squads");
+
+                foreach (Squad squad in totalSquads)
+                {
+                    if (squad.IsFull() == false)
+                    {
+                        if (squad.HasEnoughHeavyUnits() == false && (usableResources - resourcesInUse) > heavyUnitCost)
+                        {
+                            // Choose heavy unit to build
+                            Debug.Log("Building Heavy Unit");
+                            selectedSquad = squad;
+                            unitToBuild = "Heavy";
+                            break;
+                        }
+
+                        if (squad.HasEnoughMediumUnits() == false && (usableResources - resourcesInUse) > mediumUnitCost)
+                        {
+                            // Choose medium unit to build
+                            Debug.Log("Building Medium Unit");
+                            selectedSquad = squad;
+                            unitToBuild = "Medium";
+                            break;
+                        }
+                        if (squad.HasEnoughLightUnits() == false && (usableResources - resourcesInUse) > lightUnitCost)
+                        {
+                            // Choose medium unit to build
+                            Debug.Log("Building Light Unit");
+                            selectedSquad = squad;
+                            unitToBuild = "Light";
+                            break;
+                        }
+                    }
+                }               
+            }
+            // If previous loop hasn't determined a unit to build, check squads and form a new squad is possible     
+            if (unitToBuild == "None")
+            {
+                Debug.Log("No squads are free");
+
+                // Do a loop to figure out a squad to create
+                while (true)
+                {
+                    if (totalSquads.Count < (maxKillSquads + maxDefendSquads))
+                    {
+                        // Priority is Defend
+                        if (squadPriority == SquadPriority.Defend)
+                        {
+                            if (defendSquads.Count < maxDefendSquads)
+                            {
+                                CreateSquad(SquadPriority.Defend);
+                                break;
+                            }
+
+                            if (killSquads.Count < maxKillSquads)
+                            {
+                                CreateSquad(SquadPriority.Kill);
+                                break;
+                            }
+
+                            if (patrolSquads.Count < maxPatrolSquads)
+                            {
+                                CreateSquad(SquadPriority.Patrol);
+                                break;
+                            }
+                        } // Priority is Kill
+                        else if (squadPriority == SquadPriority.Kill)
+                        {
+                            if (killSquads.Count < maxKillSquads)
+                            {
+                                CreateSquad(SquadPriority.Kill);
+                                break;
+
+                            }
+
+                            if (defendSquads.Count < maxDefendSquads)
+                            {
+                                CreateSquad(SquadPriority.Defend);
+                                break;
+                            }
+
+                            if (patrolSquads.Count < maxPatrolSquads)
+                            {
+                                CreateSquad(SquadPriority.Patrol);
+                                break;
+                            }
+                        }  // Priority is Patrol
+                        else if (squadPriority == SquadPriority.Kill)
+                        {
+                            if (patrolSquads.Count < maxPatrolSquads)
+                            {
+                                CreateSquad(SquadPriority.Patrol);
+                                break;
+                            }
+
+                            if (defendSquads.Count < maxDefendSquads)
+                            {
+                                CreateSquad(SquadPriority.Defend);
+                                break;
+                            }
+
+                            if (killSquads.Count < maxKillSquads)
+                            {
+                                CreateSquad(SquadPriority.Kill);
+                                break;
+
+                            }
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            else 
+            // We have a squad slot, build a unit
+            {
+                if (FindSpawnSpot() != null)
+                {
+                    if (!buildingUnit)
+                    {
+                        switch (unitToBuild)
+                        {
+                            case "Light":
+                                Debug.Log("Build Light Unit");
+                                StartCoroutine(BuildUnit(buildableUnits[0], FindSpawnSpot(), selectedSquad, GetItem(buildableUnits[0]).BuildTime));
+                                break;
+                            case "Medium":
+                                Debug.Log("Build Medium Unit");
+                                StartCoroutine(BuildUnit(buildableUnits[0], FindSpawnSpot(), selectedSquad, GetItem(buildableUnits[0]).BuildTime));
+                                break;
+                            case "Heavy":
+                                StartCoroutine(BuildUnit(buildableUnits[0], FindSpawnSpot(), selectedSquad, GetItem(buildableUnits[0]).BuildTime));
+                                Debug.Log("Build Heavy Unit");
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Command actions  
+        // None     
 
     }
 
@@ -118,12 +290,14 @@ public class BasicAI : AICore {
     private void LowThreatBehaviour()
     {
         float usableResources = maxResources * 0.50f;
+        Debug.Log("Behaviour mode: Low");
     }
 
     // High threat behaviour, does both defensive and attack moves, builds if necessary. 75% resources in use.
     private void HighThreatBehaviour()
     {
         float usableResources = maxResources * 0.75f;
+        Debug.Log("Behaviour mode: High");
 
     }
 
@@ -131,7 +305,12 @@ public class BasicAI : AICore {
     private void BaseUABehaviour()
     {
         float usableResources = maxResources * 1;
+        Debug.Log("Behaviour mode: BaseUnderAttack");
+    }
 
+    private void CalculatePriority()
+    {
+        
     }
 
     // Specific attack order
@@ -208,6 +387,46 @@ public class BasicAI : AICore {
                 AssignUnitToSquadByTotal(unit);
             }
         }        
+    }
+
+    // Create squad and set some details
+    private void CreateSquad(SquadPriority priority)
+    {
+        if (priority == SquadPriority.Defend)
+        {
+            Squad newSquad = new Squad();
+            totalSquads.Add(newSquad);
+            defendSquads.Add(newSquad);
+            newSquad.SetSquadType(priority.ToString());
+            newSquad.SetMaxNumberOfUnits(maxUnitsInSquad, maxLightUnitsInSquad, maxMediumUnitsInSquad, maxHeavyUnitsInSquad);
+
+            Debug.Log("Create " + priority.ToString() + " Squad");
+            return;
+        }
+
+        if (priority == SquadPriority.Kill)
+        {
+            Squad newSquad = new Squad();
+            totalSquads.Add(newSquad);
+            killSquads.Add(newSquad);
+            newSquad.SetSquadType(priority.ToString());
+            newSquad.SetMaxNumberOfUnits(maxUnitsInSquad, maxLightUnitsInSquad, maxMediumUnitsInSquad, maxHeavyUnitsInSquad);
+
+            Debug.Log("Create " + priority.ToString() + " Squad");
+            return;
+        }
+
+        if (priority == SquadPriority.Patrol)
+        {
+            Squad newSquad = new Squad();
+            totalSquads.Add(newSquad);
+            patrolSquads.Add(newSquad);
+            newSquad.SetSquadType(priority.ToString());
+            newSquad.SetMaxNumberOfUnits(maxUnitsInSquad, maxLightUnitsInSquad, maxMediumUnitsInSquad, maxHeavyUnitsInSquad);
+
+            Debug.Log("Create " + priority.ToString() + " Squad");
+            return;
+        }
     }
 
     // Assign unit to lists accordingly
@@ -321,6 +540,19 @@ public class BasicAI : AICore {
         spawnPointList.Add(zone);
     }
 
+    // Find a spawning spot
+    private GameObject FindSpawnSpot()
+    {
+        foreach (GameObject spot in spawnPointList)
+        {
+            if (!spot.GetComponent<BuildingSpotScript>().isOccupied)
+            {
+                return spot;
+            }
+        }
+        return null;
+    }
+
     // Find Item from ItemDB by GameObject name
     private Item GetItem(GameObject obj)
     {
@@ -344,9 +576,50 @@ public class BasicAI : AICore {
     }
 
     // Build a unit
-    IEnumerator BuildUnit(Item unit, GameObject spot, float seconds)
+    IEnumerator BuildUnit(GameObject unit, GameObject spot, Squad squad, float seconds)
     {
-        yield return new WaitForSeconds(seconds);  
+        yield return new WaitForSeconds(seconds);
+
+        //Fetch item
+        Item item = GetItem(unit);
+
+        resourcesInUse += item.Cost;
+
+        // Create a new spawn point from assigned spawn spot
+        Vector3 newPos = new Vector3(
+            spot.transform.position.x,
+            1.1f, 
+            spot.transform.position.y);
+
+        // Also a new rotation position
+        Quaternion spawnRot = new Quaternion(
+            Quaternion.identity.x,
+            90f,
+            Quaternion.identity.z,
+            Quaternion.identity.w);
+
+        // Instantiate new unit
+        GameObject newUnit = Instantiate(unit, newPos, spawnRot) as GameObject;
+        newUnit.tag = "Player2";
+
+        // Add unit to squad
+        squad.AddUnit(newUnit.GetComponent<Unit>());
+
+        // List this unit appropriately
+        totalUnits.Add(newUnit.GetComponent<Unit>());
+
+        switch (item.UnitType)
+        {
+            case Const.UNIT_Light:
+                lightUnits.Add(newUnit.GetComponent<Unit>());
+                break;
+            case Const.UNIT_Medium:
+                mediumUnits.Add(newUnit.GetComponent<Unit>());
+                break;
+            case Const.UNIT_Heavy:
+                heavyUnits.Add(newUnit.GetComponent<Unit>());
+                break;
+        }
     }
 
     // Build a building

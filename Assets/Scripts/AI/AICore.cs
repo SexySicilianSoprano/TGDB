@@ -41,8 +41,10 @@ public class AICore : MonoBehaviour {
 
     // Economy variables
     public int maxResources;
-    public int maxLowUnitsInSquad;
-    public int maxHighUnitsInSquad;
+    public int maxUnitsInSquad;
+    public int maxLightUnitsInSquad;
+    public int maxMediumUnitsInSquad;
+    public int maxHeavyUnitsInSquad;
     public int maxDefendSquads;
     public int maxKillSquads;
     public int maxPatrolSquads;

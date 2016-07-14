@@ -149,7 +149,7 @@ public class UnitBuildingScript : MonoBehaviour {
         if (!navalYardIsSet)
         {
             navalYard = GameObject.Find("Naval Yard");
-            if (navalYard)
+            if (navalYard && navalYard.tag == "Player1")
             {
                 Debug.Log("Set naval yardo");
                 SetSpawnSpots();

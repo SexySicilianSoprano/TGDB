@@ -134,6 +134,88 @@ public class Squad {
         }
     }
 
+    // Check if squad is full
+    public bool IsFull()
+    {
+        if (units.Count < maxNumberOfUnits)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    // Check if squad has enough light units
+    public bool HasEnoughLightUnits()
+    {
+        int number = 0;
+
+        foreach (Unit unit in units)
+        {
+            if (unit.UnitType == Const.UNIT_Light)
+            {
+                number++;
+            }
+        }
+
+        if (number < maxNumberOfLightUnits)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    // Check if squad has enough light units
+    public bool HasEnoughMediumUnits()
+    {
+        int number = 0;
+
+        foreach (Unit unit in units)
+        {
+            if (unit.UnitType == Const.UNIT_Medium)
+            {
+                number++;
+            }
+        }
+
+        if (number < maxNumberOfMediumUnits)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    // Check if squad has enough light units
+    public bool HasEnoughHeavyUnits()
+    {
+        int number = 0;
+
+        foreach (Unit unit in units)
+        {
+            if (unit.UnitType == Const.UNIT_Heavy)
+            {
+                number++;
+            }
+        }
+
+        if (number < maxNumberOfHeavyUnits)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     // Tell the squad to move to a specific location
     public void GiveSquadMoveOrder(Vector3 location)
     {
