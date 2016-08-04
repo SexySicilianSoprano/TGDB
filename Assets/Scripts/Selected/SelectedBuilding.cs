@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class SelectedBuilding : MonoBehaviour {
@@ -7,13 +8,15 @@ public class SelectedBuilding : MonoBehaviour {
     public bool isSelected = false;
     Projector projector;
     HPBar hpbar;
+    ShowCanvas sideMenu;
     
     // Use this for initialization
     void Start () 
 	{
         // Find projector
         projector = transform.Find("Projector").GetComponent<Projector>();
-        hpbar = GetComponent<HPBar>();      
+        hpbar = GetComponent<HPBar>();
+        sideMenu = GameObject.Find("UI").transform.Find("SideMenu").GetComponent<ShowCanvas>();    
 
         //Assign building
         m_Building = GetComponent<Building>();
@@ -30,8 +33,25 @@ public class SelectedBuilding : MonoBehaviour {
             hpbar.ShowHealthBar();
 
         // If building spots, show 'em
+        /*
         if (GetComponent<BuildingSpotHandler>())
             GetComponent<BuildingSpotHandler>().ShowBuildingSpots();
+        */
+        if (GetComponent<FloatingFortress>())
+        {
+            if (sideMenu.constPanel.activeSelf == false)
+            {
+                sideMenu.ToggleCanvasConst();
+            }
+        }
+
+        if (GetComponent<NavalYard>())
+        {
+            if (sideMenu.unitPanel.activeSelf == false)
+            {
+                sideMenu.ToggleCanvasUnits();
+            }
+        }
 	}
 	
 	public void SetDeselected()
@@ -45,8 +65,25 @@ public class SelectedBuilding : MonoBehaviour {
             hpbar.HideHealthBar();
 
         // If building spots, don't show 'em
+        /*
         if (GetComponent<BuildingSpotHandler>())
             GetComponent<BuildingSpotHandler>().HideBuildingSpots();
+        
+        if (GetComponent<FloatingFortress>())
+        {
+            if (sideMenu.constPanel.activeSelf == true)
+            {
+                sideMenu.ToggleCanvasConst();
+            }
+        }
+
+        if (GetComponent<NavalYard>())
+        {
+            if (sideMenu.unitPanel.activeSelf == true)
+            {
+                sideMenu.ToggleCanvasUnits();
+            }
+        }*/
     }
 	
 	void OnDestroy()

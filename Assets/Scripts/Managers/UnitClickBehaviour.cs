@@ -89,6 +89,8 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
             // Single clicked or drag selected, what happens next?
             Debug.Log("Clickan");
 
+            // As it is now, m_Mode only has Normal mode so nothing else can happen. However you may add more things into this switch case
+            // in case (heh) you add more modes
             switch (m_Mode)
             {
                 case Mode.Normal:
@@ -96,16 +98,28 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
                     if (m_State != InteractionState.Invalid)
                     {
                         // Clear the active selected group
-                        if (m_SelectedManager().ActiveEntityList() != null)
+                        if (m_SelectedManager().ActiveEntityCount() > 0)
                         {
-                            EmptySelected();
+                            if (m_SelectedManager().FirstActiveEntity() != (IOrderable)currentUnit && m_SelectedManager().ActiveEntityCount() > 1)
+                            {
+                                EmptySelected();
+
+                                // Is the unit friendly?
+                                if (currentUnit.tag == "Player1")
+                                {
+                                    Debug.Log("Selected" + currentUnit);
+                                    SetSelected();
+                                }
+                                break;
+                            }
                         }
                         // Is the unit friendly?
                         if (currentUnit.tag == "Player1")
                         {
                             Debug.Log("Selected" + currentUnit);
                             SetSelected();
-                        }                    
+                        }
+                        break;
                     }                    
                     break;
             }
@@ -127,7 +141,7 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
                     break;
 
                 case HoverOver.Building:
-                    // Unit is oh so evil, nothing happens
+                    // Unit is oh so building, nothing happens
                     break;
 
             }

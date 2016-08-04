@@ -232,7 +232,7 @@ public class MachineGunCombat : Combat {
     private void Fire()
     {
         // Start firing
-        gameObject.transform.GetChild(0).transform.Find("ProjectileSpawner").GetChild(0).GetComponent<ParticleSystem>().Play(true);
+        //gameObject.transform.GetChild(0).transform.Find("ProjectileSpawner").GetChild(0).GetComponent<ParticleSystem>().Play(true);
         Debug.DrawLine(SpawnerPos, TargetPos);
 
         //LaunchProjectile(Projectile);
