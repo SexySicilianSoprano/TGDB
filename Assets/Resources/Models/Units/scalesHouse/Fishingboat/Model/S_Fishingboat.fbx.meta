@@ -1,15 +1,61 @@
 fileFormatVersion: 2
-guid: 19b805e2d2d98e349a2ceb2775929ccf
-timeCreated: 1462537076
+guid: 037d92cd6d9daae43a83b187e25735ce
+timeCreated: 1465301586
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
+    100000: Back_Bone 3
+    100002: Back_Bone 4
+    100004: Back_Bone 5
+    100006: Back_Bone 6
+    100008: Flipper.Bone.l 1
+    100010: Flipper.Bone.l 2
+    100012: Flipper.Bone.l 2_end
+    100014: Flipper.Bone.r 1
+    100016: Flipper.Bone.r 2
+    100018: Flipper.Bone.r 2_end
+    100020: Front_Bone. 1
+    100022: Front_Bone. 2
+    100024: Front_Bone. 2_end
+    100026: Root_Bone
+    100028: //RootNode
+    100030: S_Fishingboat Armature
+    100032: ScalesFifhingBoat
+    100034: Tail_Bone.l 1
+    100036: Tail_Bone.l 2
+    100038: Tail_Bone.l 2_end
+    100040: Tail_Bone.r 1
+    100042: Tail_Bone.r 2
+    100044: Tail_Bone.r 2_end
+    400000: Back_Bone 3
+    400002: Back_Bone 4
+    400004: Back_Bone 5
+    400006: Back_Bone 6
+    400008: Flipper.Bone.l 1
+    400010: Flipper.Bone.l 2
+    400012: Flipper.Bone.l 2_end
+    400014: Flipper.Bone.r 1
+    400016: Flipper.Bone.r 2
+    400018: Flipper.Bone.r 2_end
+    400020: Front_Bone. 1
+    400022: Front_Bone. 2
+    400024: Front_Bone. 2_end
+    400026: Root_Bone
+    400028: //RootNode
+    400030: S_Fishingboat Armature
+    400032: ScalesFifhingBoat
+    400034: Tail_Bone.l 1
+    400036: Tail_Bone.l 2
+    400038: Tail_Bone.l 2_end
+    400040: Tail_Bone.r 1
+    400042: Tail_Bone.r 2
+    400044: Tail_Bone.r 2_end
     4300000: ScalesFifhingBoat
+    7400000: S_Fishingboat_Idle
+    7400002: S_Fishingboat_Forward
+    9500000: //RootNode
+    13700000: ScalesFifhingBoat
   materials:
     importMaterials: 1
     materialName: 0
@@ -30,11 +76,183 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: S_Fishingboat_Idle
+      takeName: S_Fishingboat_Idle
+      firstFrame: 0
+      lastFrame: 81
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: S_Fishingboat Armature
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Back_Bone 3
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Back_Bone 3/Back_Bone 4
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Back_Bone 3/Back_Bone 4/Back_Bone 5
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Back_Bone 3/Back_Bone 4/Back_Bone 5/Back_Bone
+          6
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Back_Bone 3/Back_Bone 4/Back_Bone 5/Back_Bone
+          6/Tail_Bone.l 1
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Back_Bone 3/Back_Bone 4/Back_Bone 5/Back_Bone
+          6/Tail_Bone.l 1/Tail_Bone.l 2
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Back_Bone 3/Back_Bone 4/Back_Bone 5/Back_Bone
+          6/Tail_Bone.l 1/Tail_Bone.l 2/Tail_Bone.l 2_end
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Back_Bone 3/Back_Bone 4/Back_Bone 5/Back_Bone
+          6/Tail_Bone.r 1
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Back_Bone 3/Back_Bone 4/Back_Bone 5/Back_Bone
+          6/Tail_Bone.r 1/Tail_Bone.r 2
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Back_Bone 3/Back_Bone 4/Back_Bone 5/Back_Bone
+          6/Tail_Bone.r 1/Tail_Bone.r 2/Tail_Bone.r 2_end
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Front_Bone. 1
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Front_Bone. 1/Flipper.Bone.l 1
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Front_Bone. 1/Flipper.Bone.l 1/Flipper.Bone.l
+          2
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Front_Bone. 1/Flipper.Bone.l 1/Flipper.Bone.l
+          2/Flipper.Bone.l 2_end
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Front_Bone. 1/Flipper.Bone.r 1
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Front_Bone. 1/Flipper.Bone.r 1/Flipper.Bone.r
+          2
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Front_Bone. 1/Flipper.Bone.r 1/Flipper.Bone.r
+          2/Flipper.Bone.r 2_end
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Front_Bone. 1/Front_Bone. 2
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Front_Bone. 1/Front_Bone. 2/Front_Bone.
+          2_end
+        weight: 1
+      - path: ScalesFifhingBoat
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: S_Fishingboat_Forward
+      takeName: S_Fishingboat_Forward
+      firstFrame: 0
+      lastFrame: 85
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: S_Fishingboat Armature
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Back_Bone 3
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Back_Bone 3/Back_Bone 4
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Back_Bone 3/Back_Bone 4/Back_Bone 5
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Back_Bone 3/Back_Bone 4/Back_Bone 5/Back_Bone
+          6
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Back_Bone 3/Back_Bone 4/Back_Bone 5/Back_Bone
+          6/Tail_Bone.l 1
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Back_Bone 3/Back_Bone 4/Back_Bone 5/Back_Bone
+          6/Tail_Bone.l 1/Tail_Bone.l 2
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Back_Bone 3/Back_Bone 4/Back_Bone 5/Back_Bone
+          6/Tail_Bone.l 1/Tail_Bone.l 2/Tail_Bone.l 2_end
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Back_Bone 3/Back_Bone 4/Back_Bone 5/Back_Bone
+          6/Tail_Bone.r 1
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Back_Bone 3/Back_Bone 4/Back_Bone 5/Back_Bone
+          6/Tail_Bone.r 1/Tail_Bone.r 2
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Back_Bone 3/Back_Bone 4/Back_Bone 5/Back_Bone
+          6/Tail_Bone.r 1/Tail_Bone.r 2/Tail_Bone.r 2_end
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Front_Bone. 1
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Front_Bone. 1/Flipper.Bone.l 1
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Front_Bone. 1/Flipper.Bone.l 1/Flipper.Bone.l
+          2
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Front_Bone. 1/Flipper.Bone.l 1/Flipper.Bone.l
+          2/Flipper.Bone.l 2_end
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Front_Bone. 1/Flipper.Bone.r 1
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Front_Bone. 1/Flipper.Bone.r 1/Flipper.Bone.r
+          2
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Front_Bone. 1/Flipper.Bone.r 1/Flipper.Bone.r
+          2/Flipper.Bone.r 2_end
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Front_Bone. 1/Front_Bone. 2
+        weight: 1
+      - path: S_Fishingboat Armature/Root_Bone/Front_Bone. 1/Front_Bone. 2/Front_Bone.
+          2_end
+        weight: 1
+      - path: ScalesFifhingBoat
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.5
+    globalScale: 0.3
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -68,7 +286,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

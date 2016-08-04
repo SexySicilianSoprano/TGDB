@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 
 /// <summary>
+/// 
+/// ORIGINAL NOTES ----
 /// Class that handle Inputs.
 /// This class use custom inputs configured at Unity inspector.
 /// </summary>
@@ -14,7 +16,12 @@ using UnityEngine.UI;
 /// - Github:  https://github.com/garcialuigi
 /// - Facebook: https://www.facebook.com/mr.garcialuigi
 /// ######################################################
-/// As a side note, I've taken liberty to edit this code heavily, by removing inspector keybinds and merging keybindscript into this script. Much better :)
+/// ---- END OF ORIGINAL NOTES
+/// 
+/// 
+/// 
+/// As a side note, I've taken liberty to edit this code heavily, by removing inspector keybinds and merging keybindscript into this script. Much better :) All this code needs is pref implementing.
+/// - Laura V.
 public class InputManager : MonoBehaviour
 {
     private Dictionary<string, KeyCode> keys = new Dictionary<string, KeyCode>();

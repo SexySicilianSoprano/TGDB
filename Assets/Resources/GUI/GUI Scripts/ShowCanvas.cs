@@ -17,7 +17,6 @@ public class ShowCanvas : MonoBehaviour {
     public Sprite constClosed;
     public Sprite unitActive;
     public Sprite unitClosed;
-    public GameObject tint;
 
     //public bool animate = false;
 
@@ -118,7 +117,6 @@ public class ShowCanvas : MonoBehaviour {
     public void ToggleCanvas()
     {
         gameObject.SetActive(!gameObject.activeSelf);
-        tint.SetActive(!tint.activeSelf);
        
     }
 }
