@@ -26,7 +26,7 @@ public class SoundManager : MonoBehaviour {
     {
         string path = "event:/Background Music";
         background = FMODUnity.RuntimeManager.CreateInstance(path);
-        background.start();
+        // background.start();
     }
 
     public void PauseMusic()

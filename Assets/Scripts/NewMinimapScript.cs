@@ -80,8 +80,8 @@ public class NewMinimapScript : MonoBehaviour
         cameraRotation = cameraObj.transform.rotation.eulerAngles;
         minimapCamera.transform.eulerAngles = new Vector3(90, cameraRotation.y, 0);
         minimapBoxCamera.transform.eulerAngles = new Vector3(90, cameraRotation.y, 0);
-        fowMinimap.transform.eulerAngles = new Vector3(0, 0, cameraRotation.y);
-        arrow.transform.eulerAngles = new Vector3(0, 0, cameraRotation.y);
+        //fowMinimap.transform.eulerAngles = new Vector3(0, 0, cameraRotation.y);
+        //arrow.transform.eulerAngles = new Vector3(0, 0, cameraRotation.y);
         GameObject.Find("MinimapFocusBox").transform.eulerAngles = cameraRotation;
 
 

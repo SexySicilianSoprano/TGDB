@@ -253,7 +253,7 @@ namespace Ceto
                 m_refractionCommand = new RefractionCommand(copyDepthSdr);
 
                 Mesh mesh = CreateBottomMesh(32, 512);
-				mesh.Optimize();
+				;
 
 				//The bottom used to render the masks.
 				m_bottomMask = new GameObject(Ocean.InstanceName + " Bottom Mask Gameobject");

@@ -1,4 +1,6 @@
-﻿Shader "Ceto/OceanDepth" 
+﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+
+Shader "Ceto/OceanDepth" 
 {
 	SubShader 
 	{
@@ -27,7 +29,7 @@
 			    v2f o;
 			    o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
 			    
-				float3 worldPos = mul(_Object2World, v.vertex);
+				float3 worldPos = mul(unity_ObjectToWorld, v.vertex);
 				
 				COMPUTE_OCEAN_DEPTH_PARAMETERS
 
@@ -74,7 +76,7 @@
 			    v2f o;
 			    o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
 			    
-				float3 worldPos = mul(_Object2World, v.vertex);
+				float3 worldPos = mul(unity_ObjectToWorld, v.vertex);
 				
 				COMPUTE_OCEAN_DEPTH_PARAMETERS
 				
@@ -123,7 +125,7 @@
 			    
 			    o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
 			    
-				float3 worldPos = mul(_Object2World, v.vertex);
+				float3 worldPos = mul(unity_ObjectToWorld, v.vertex);
 				
 				COMPUTE_OCEAN_DEPTH_PARAMETERS
 
@@ -173,7 +175,7 @@
 			    
 			    o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
 			    
-				float3 worldPos = mul(_Object2World, v.vertex);
+				float3 worldPos = mul(unity_ObjectToWorld, v.vertex);
 				
 				COMPUTE_OCEAN_DEPTH_PARAMETERS
 
@@ -229,7 +231,7 @@
 			    
 			    o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
 			    
-				float3 worldPos = mul(_Object2World, v.vertex);
+				float3 worldPos = mul(unity_ObjectToWorld, v.vertex);
 				
 				COMPUTE_OCEAN_DEPTH_PARAMETERS
 
@@ -286,7 +288,7 @@
 			    
 			    o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
 			    
-				float3 worldPos = mul(_Object2World, v.vertex);
+				float3 worldPos = mul(unity_ObjectToWorld, v.vertex);
 				
 				COMPUTE_OCEAN_DEPTH_PARAMETERS
 				
@@ -340,7 +342,7 @@
 			    
 			    o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
 			    
-				float3 worldPos = mul(_Object2World, v.vertex);
+				float3 worldPos = mul(unity_ObjectToWorld, v.vertex);
 				
 				COMPUTE_OCEAN_DEPTH_PARAMETERS
 				
@@ -398,7 +400,7 @@
 			    
 			    o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
 			    
-				float3 worldPos = mul(_Object2World, v.vertex);
+				float3 worldPos = mul(unity_ObjectToWorld, v.vertex);
 				
 				COMPUTE_OCEAN_DEPTH_PARAMETERS
 				
@@ -455,7 +457,7 @@
 			    
 			    o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
 			    
-				float3 worldPos = mul(_Object2World, v.vertex);
+				float3 worldPos = mul(unity_ObjectToWorld, v.vertex);
 				
 				COMPUTE_OCEAN_DEPTH_PARAMETERS
 				

@@ -10,7 +10,7 @@ public class ManagerListener : MonoBehaviour {
     {
         if (!GameObject.Find("DataManager"))
         {
-            GameObject dManager = Instantiate(dataManager, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+            GameObject dManager = Instantiate(dataManager.GetComponent<GameObject>(), new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
             dManager.name = "DataManager";
         }
 	}

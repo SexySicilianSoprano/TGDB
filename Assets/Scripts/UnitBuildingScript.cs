@@ -456,8 +456,8 @@ public class UnitBuildingScript : MonoBehaviour {
         cooldownfill fill = new cooldownfill();
 
         // Unit menu in UI
-        GameObject buttonMenu = GameObject.Find("UI").transform.Find("SideMenu").transform.Find("UnitPanel").gameObject;
-
+        //GameObject buttonMenu = GameObject.Find("UI").transform.Find("SideMenu").transform.Find("UnitPanel").gameObject;
+        GameObject buttonMenu = unitPanel.GetComponent<GameObject>();
         switch (index)
         {
             case 0:
