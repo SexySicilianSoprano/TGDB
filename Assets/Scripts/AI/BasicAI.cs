@@ -123,7 +123,7 @@ public class BasicAI : AICore {
     private void StandByBehavior()
     {
         float usableResources = maxResources * 0.25f;
-        Debug.Log("Behaviour mode: StandBy");
+        Debug.Log("BasicAI: Behaviour mode: StandBy");
 
         // Building actions
 
@@ -133,14 +133,14 @@ public class BasicAI : AICore {
         // Only build if not all resources in use
         if (resourcesInUse < usableResources)
         {
-            Debug.Log("We can use resources");
+            Debug.Log("BasicAI: We can use resources");
 
             // Create variables the AI needs to use within this loop
             string unitToBuild = "None"; // AI uses this to determine if it needs to build a specific type of unit. If not, squads are filled and maybe a new one is needed
             
             if (totalSquads.Count > 0)
             {
-                Debug.Log("We have " + totalSquads.Count + " squads");
+                Debug.Log("BasicAI: We have " + totalSquads.Count + " squads");
 
                 foreach (Squad squad in totalSquads)
                 {
@@ -149,7 +149,7 @@ public class BasicAI : AICore {
                         if (squad.HasEnoughHeavyUnits() == false && (usableResources - resourcesInUse) > heavyUnitCost)
                         {
                             // Choose heavy unit to build
-                            Debug.Log("Building Heavy Unit");
+                            Debug.Log("BasicAI: Building Heavy Unit");
                             selectedSquad = squad;
                             unitToBuild = "Heavy";
                             break;
@@ -158,7 +158,7 @@ public class BasicAI : AICore {
                         if (squad.HasEnoughMediumUnits() == false && (usableResources - resourcesInUse) > mediumUnitCost)
                         {
                             // Choose medium unit to build
-                            Debug.Log("Building Medium Unit");
+                            Debug.Log("BasicAI: Building Medium Unit");
                             selectedSquad = squad;
                             unitToBuild = "Medium";
                             break;
@@ -166,7 +166,7 @@ public class BasicAI : AICore {
                         if (squad.HasEnoughLightUnits() == false && (usableResources - resourcesInUse) > lightUnitCost)
                         {
                             // Choose medium unit to build
-                            Debug.Log("Building Light Unit");
+                            Debug.Log("BasicAI: Building Light Unit");
                             selectedSquad = squad;
                             unitToBuild = "Light";
                             break;
@@ -177,11 +177,12 @@ public class BasicAI : AICore {
             // If previous loop hasn't determined a unit to build, check squads and form a new squad is possible     
             if (unitToBuild == "None")
             {
-                Debug.Log("No squads are free");
+                Debug.Log("BasicAI: No squads are free");
 
+                bool looping = true;
                 // Do a loop to figure out a squad to create
-                while (true)
-                {
+                //while (looping)
+                //{
                     if (totalSquads.Count < (maxKillSquads + maxDefendSquads))
                     {
                         // Priority is Defend
@@ -190,19 +191,19 @@ public class BasicAI : AICore {
                             if (defendSquads.Count < maxDefendSquads)
                             {
                                 CreateSquad(SquadPriority.Defend);
-                                break;
+                                looping = false;
                             }
 
                             if (killSquads.Count < maxKillSquads)
                             {
                                 CreateSquad(SquadPriority.Kill);
-                                break;
+                                looping = false;
                             }
 
                             if (patrolSquads.Count < maxPatrolSquads)
                             {
                                 CreateSquad(SquadPriority.Patrol);
-                                break;
+                                looping = false;
                             }
                         } // Priority is Kill
                         else if (squadPriority == SquadPriority.Kill)
@@ -210,48 +211,47 @@ public class BasicAI : AICore {
                             if (killSquads.Count < maxKillSquads)
                             {
                                 CreateSquad(SquadPriority.Kill);
-                                break;
+                                looping = false;
 
                             }
 
                             if (defendSquads.Count < maxDefendSquads)
                             {
                                 CreateSquad(SquadPriority.Defend);
-                                break;
+                                looping = false;
                             }
 
                             if (patrolSquads.Count < maxPatrolSquads)
                             {
                                 CreateSquad(SquadPriority.Patrol);
-                                break;
+                                looping = false;
                             }
                         }  // Priority is Patrol
-                        else if (squadPriority == SquadPriority.Kill)
+                        else if (squadPriority == SquadPriority.Patrol)
                         {
                             if (patrolSquads.Count < maxPatrolSquads)
                             {
                                 CreateSquad(SquadPriority.Patrol);
-                                break;
+                                looping = false; ;
                             }
 
                             if (defendSquads.Count < maxDefendSquads)
                             {
                                 CreateSquad(SquadPriority.Defend);
-                                break;
+                                looping = false;
                             }
 
                             if (killSquads.Count < maxKillSquads)
                             {
                                 CreateSquad(SquadPriority.Kill);
-                                break;
-
+                                looping = false;
                             }
                         }
                         else
                         {
-                            break;
+                            looping = false;
                         }
-                    }
+                    //}
                 }
             }
             else 
@@ -264,16 +264,16 @@ public class BasicAI : AICore {
                         switch (unitToBuild)
                         {
                             case "Light":
-                                Debug.Log("Build Light Unit");
+                                Debug.Log("BasicAI: Build Light Unit");
                                 StartCoroutine(BuildUnit(buildableUnits[0], FindSpawnSpot(), selectedSquad, GetItem(buildableUnits[0]).BuildTime));
                                 break;
                             case "Medium":
-                                Debug.Log("Build Medium Unit");
+                                Debug.Log("BasicAI: Build Medium Unit");
                                 StartCoroutine(BuildUnit(buildableUnits[0], FindSpawnSpot(), selectedSquad, GetItem(buildableUnits[0]).BuildTime));
                                 break;
                             case "Heavy":
                                 StartCoroutine(BuildUnit(buildableUnits[0], FindSpawnSpot(), selectedSquad, GetItem(buildableUnits[0]).BuildTime));
-                                Debug.Log("Build Heavy Unit");
+                                Debug.Log("BasicAI: Build Heavy Unit");
                                 break;
                         }
                     }
@@ -290,14 +290,14 @@ public class BasicAI : AICore {
     private void LowThreatBehaviour()
     {
         float usableResources = maxResources * 0.50f;
-        Debug.Log("Behaviour mode: Low");
+        Debug.Log("BasicAI: Behaviour mode: Low");
     }
 
     // High threat behaviour, does both defensive and attack moves, builds if necessary. 75% resources in use.
     private void HighThreatBehaviour()
     {
         float usableResources = maxResources * 0.75f;
-        Debug.Log("Behaviour mode: High");
+        Debug.Log("BasicAI: Behaviour mode: High");
 
     }
 
@@ -305,7 +305,7 @@ public class BasicAI : AICore {
     private void BaseUABehaviour()
     {
         float usableResources = maxResources * 1;
-        Debug.Log("Behaviour mode: BaseUnderAttack");
+        Debug.Log("BasicAI: Behaviour mode: BaseUnderAttack");
     }
 
     private void CalculatePriority()
@@ -400,7 +400,7 @@ public class BasicAI : AICore {
             newSquad.SetSquadType(priority.ToString());
             newSquad.SetMaxNumberOfUnits(maxUnitsInSquad, maxLightUnitsInSquad, maxMediumUnitsInSquad, maxHeavyUnitsInSquad);
 
-            Debug.Log("Create " + priority.ToString() + " Squad");
+            Debug.Log("BasicAI: Create " + priority.ToString() + " Squad");
             return;
         }
 
@@ -412,7 +412,7 @@ public class BasicAI : AICore {
             newSquad.SetSquadType(priority.ToString());
             newSquad.SetMaxNumberOfUnits(maxUnitsInSquad, maxLightUnitsInSquad, maxMediumUnitsInSquad, maxHeavyUnitsInSquad);
 
-            Debug.Log("Create " + priority.ToString() + " Squad");
+            Debug.Log("BasicAI: Create " + priority.ToString() + " Squad");
             return;
         }
 
@@ -424,7 +424,7 @@ public class BasicAI : AICore {
             newSquad.SetSquadType(priority.ToString());
             newSquad.SetMaxNumberOfUnits(maxUnitsInSquad, maxLightUnitsInSquad, maxMediumUnitsInSquad, maxHeavyUnitsInSquad);
 
-            Debug.Log("Create " + priority.ToString() + " Squad");
+            Debug.Log("BasicAI: Create " + priority.ToString() + " Squad");
             return;
         }
     }

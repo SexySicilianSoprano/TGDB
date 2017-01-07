@@ -116,7 +116,7 @@ public class UnitClickBehaviour : MonoBehaviour, IPointerClickHandler, IPointerE
                         // Is the unit friendly?
                         if (currentUnit.tag == "Player1")
                         {
-                            Debug.Log("Selected" + currentUnit);
+                            Debug.Log("Selected " + currentUnit);
                             SetSelected();
                         }
                         break;

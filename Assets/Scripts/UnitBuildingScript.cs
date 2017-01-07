@@ -108,7 +108,8 @@ public class UnitBuildingScript : MonoBehaviour {
         GameObject buttonMenu = GameObject.Find("UI").transform.Find("SideMenu").transform.Find("UnitPanel").gameObject;
         buttonMenu.transform.Find("DestroyerBtn").GetComponent<Button>().interactable = false;
         buttonMenu.transform.Find("FishingBoatBtn").GetComponent<Button>().interactable = false;
-        //buttonMenu.transform.Find("ScoutBtn").GetComponent<Button>().interactable = false;
+        buttonMenu.transform.Find("ScoutBtn").GetComponent<Button>().interactable = false;
+        buttonMenu.transform.Find("DreadnoughtBtn").GetComponent<Button>().interactable = false;
     }
 
     // Toggle buttons active --- TO BE REWORDED
@@ -145,12 +146,12 @@ public class UnitBuildingScript : MonoBehaviour {
 
     // Get a Naval Yard to spawn from
     public bool CheckNavalYard()
-    {
+    {        
         if (!navalYardIsSet)
         {
-            navalYard = GameObject.Find("Naval Yard");
-            if (navalYard && navalYard.tag == "Player1")
-            {
+            navalYard = FindFriendlyNavalYard();
+            if (navalYard != null && navalYard.tag == "Player1")
+            {                
                 Debug.Log("Set naval yardo");
                 SetSpawnSpots();
                 navalYardIsSet = true;
@@ -160,7 +161,7 @@ public class UnitBuildingScript : MonoBehaviour {
                 return false;
             }
         }
-        else if (navalYardIsSet && GameObject.Find("Naval Yard"))
+        else if (navalYardIsSet && navalYard != null)
         {
             return true;
         }
@@ -184,6 +185,22 @@ public class UnitBuildingScript : MonoBehaviour {
             return false;
         }
 	}
+
+    private GameObject FindFriendlyNavalYard()
+    {
+        GameObject nyard = null;
+        GameObject[] nyardos = FindObjectsOfType<GameObject>();
+
+        foreach (GameObject go in nyardos)
+        {
+            if (go.GetComponent<NavalYard>() && go.tag == "Player1")
+            {
+                nyard = go;
+            }
+        }
+
+        return nyard;
+    }
 
     // Set spawning spots
     private void SetSpawnSpots()
@@ -456,8 +473,8 @@ public class UnitBuildingScript : MonoBehaviour {
         cooldownfill fill = new cooldownfill();
 
         // Unit menu in UI
-        //GameObject buttonMenu = GameObject.Find("UI").transform.Find("SideMenu").transform.Find("UnitPanel").gameObject;
-        GameObject buttonMenu = unitPanel.GetComponent<GameObject>();
+        Transform buttonMenu = GameObject.Find("UI").transform.Find("SideMenu").transform.Find("UnitPanel");
+        //GameObject buttonMenu = unitPanel.gameObject;
         switch (index)
         {
             case 0:
